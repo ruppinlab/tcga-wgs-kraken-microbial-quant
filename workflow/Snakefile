@@ -1,0 +1,77 @@
+from os import getcwd, walk
+from os.path import dirname, exists, join
+from tempfile import gettempdir
+from shutil import rmtree
+
+import pandas as pd
+from snakemake.utils import validate
+
+CONFIG_DIR = "config"
+RESOURCES_DIR = "resources"
+RESULTS_DIR = "results"
+LOG_DIR = "logs"
+RULES_DIR = "rules"
+REPORT_DIR = "report"
+
+
+configfile: join(CONFIG_DIR, "config.yaml")
+
+
+TEMP_DIR = config["tmp_dir"] if config["tmp_dir"] else gettempdir()
+
+INPUT_FILE_TYPE = config["input"]["type"]
+PUBLIC_WRAPPERS_VERSION = config["wrappers"]["public_version"]
+
+
+if INPUT_TYPE == "unmapped bam":
+    UNMAPPED_BAM_DIR = config["input"]["bam_dir"]
+    UNMAPPED_BAM_FILE = join(UNMAPPED_BAM_DIR, "{umb_basename}.bam")
+    UNMAPPED_FASTQ_FILE = join(RESULTS_DIR, "unmapped_fastq", "{umb_basename}.fastq")
+    UNMAPPED_FASTQ_LOG_DIR = join(LOG_DIR, "unmapped_fastq")
+    UNMAPPED_FASTQ_LOG = join(
+        UNMAPPED_FASTQ_LOG_DIR, "{umb_basename}_unmapped_fastq.log"
+    )
+
+
+SAMTOOLS_UNMAPPED_THREADS = (
+    workflow.cores
+    if config["samtools"]["unmapped"]["threads"] == "all"
+    else config["samtools"]["unmapped"]["threads"]
+)
+
+
+SAMTOOLS_FASTQ_WRAPPER = join(
+    PUBLIC_WRAPPERS_VERSION, "/bio/samtools/fastq/interleaved"
+)
+BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "/bio/bowtie2/align")
+
+
+wildcard_constraints:
+    **{w: "|".join(set([re.escape(v) for v in l])) for w, l in EXPAND_PARAMS.items()},
+
+
+rule all:
+    input:
+        "",
+
+
+def clean(*dirs):
+    for clean_dir in dirs:
+        if exists(clean_dir):
+            rmtree(clean_dir)
+        for dirpath, dirnames, filenames in sorted(walk(getcwd())):
+            for name in dirnames:
+                if name == "__pycache__":
+                    pycache_dir = join(dirpath, name)
+                    if exists(pycache_dir):
+                        rmtree(pycache_dir)
+
+
+rule clean:
+    run:
+        clean(RESULTS_DIR, LOG_DIR)
+
+
+rule clean_all:
+    run:
+        clean(RESOURCES_DIR, RESULTS_DIR, LOG_DIR)

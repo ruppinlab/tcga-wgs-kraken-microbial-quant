@@ -1,0 +1,7 @@
+name: salzberg-microbial-quant
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - pandas
+  - snakemake

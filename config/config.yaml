@@ -1,0 +1,45 @@
+---
+wrapper:
+  public_version: "v3.13.6"
+  personal_base_url: https://github.com/hermidalc/snakemake-wrappers/raw/main/
+
+tmp_dir: /tmp
+
+random_seed: 777
+
+download:
+  retries: 5
+
+samples: config/samples.tsv
+units: config/units.tsv
+
+fastq:
+  data_dir: data/fastq
+  pairs:
+    - R1_001
+    - R2_001
+  ext: fastq.gz
+
+studies:
+  - tcga_wgs
+
+input:
+  file_type: "unmapped bam"
+  bam_dir: ''
+
+
+
+host_filter:
+  mode: bowtie2
+  bowtie2:
+    index:
+      threads: all
+    align:
+      threads: all
+
+samtools:
+  unmapped:
+    # exclude secondary alignments
+    # output compressed fastq.gz
+    extra: "-F 256 -c 6"
+  threads: all
