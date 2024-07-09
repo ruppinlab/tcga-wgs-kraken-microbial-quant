@@ -1,0 +1,6 @@
+name: httr
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - r-httr

@@ -1,6 +1,6 @@
-rule bowtie2_chm13_index:
+rule bowtie2_index:
     input:
-        ref=CHM13_FASTA_FILE,
+        ref=REF_FASTA_FILE,
     output:
         idx=multiext(
             BOWTIE2_INDEX_DIR,
@@ -18,9 +18,9 @@ rule bowtie2_chm13_index:
         BOWTIE2_BUILD_WRAPPER
 
 
-rule bowtie2_chm13_align:
+rule bowtie2_align:
     input:
-        sample=INPUT_FASTQ_FILE,
+        sample=GDC_FASTQ_FILE,
         idx=multiext(
             BOWTIE2_INDEX_DIR,
             ".1.bt2",
@@ -31,9 +31,10 @@ rule bowtie2_chm13_align:
             ".rev.2.bt2",
         ),
     output:
+        temp(BOWTIE2_SAM_FILE),
         unaligned=BOWTIE2_UNMAPPED_SAM_FILE,
     log:
-        BOWTIE2_SAM_LOG,
+        BOWTIE2_ALIGN_LOG,
     threads: BOWTIE2_ALIGN_THREADS
     wrapper:
         BOWTIE2_ALIGN_WRAPPER

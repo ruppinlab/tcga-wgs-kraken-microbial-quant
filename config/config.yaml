@@ -9,39 +9,29 @@ tmp_dir: /tmp
 
 random_seed: 777
 
-samples: config/samples.tsv
-units: config/units.tsv
-
-fastq:
-  data_dir: data/fastq
-  pairs:
-    - R1_001
-    - R2_001
-  ext: fastq.gz
+download:
+  retries: 5
 
 resources:
-  chm13:
+  ref:
     url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/
     filename: GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
     dir: resources/chm13
 
-studies:
-  - tcga_wgs
+study: tcga_wgs
 
 input:
-  # fastq, bam
-  mode: bam
-  bam:
-    data_dir: data/bam
-
-gdc:
-    query: true
+  mode: gdc
+  gdc:
     token: ''
+    program_names: ['TCGA']
     sample_types: [
       'Primary Tumor',
       'Primary Blood Derived Cancer - Peripheral Blood',
       'Additional - New Primary'
     ]
+    exp_strategy: WGS
+    workflow_types: ['BWA with Mark Duplicates and BQSR']
 
 host_filter:
   mode: bowtie2

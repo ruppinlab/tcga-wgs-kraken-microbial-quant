@@ -11,10 +11,10 @@ sink(log, type = "message")
 file_query <-
     files() %>%
     GenomicDataCommons::filter(
-        cases.project.program.name == "TCGA" &
+        cases.project.program.name %in% snakemake@params[["program_names"]] &
             cases.samples.sample_type %in% snakemake@params[["sample_types"]] &
-            experimental_strategy == "WGS" &
-            analysis.workflow_type == "BWA with Mark Duplicates and BQSR"
+            experimental_strategy == snakemake@params[["exp_strategy"]] &
+            analysis.workflow_type %in% snakemake@params[["workflow_types"]]
     ) %>%
     GenomicDataCommons::select(c(
         "file_name",
@@ -74,7 +74,11 @@ file_meta <- data.frame(
     stringsAsFactors = FALSE
 )
 
-saveRDS(file_meta, file = snakemake@output[[1]])
+write.table(
+    file_meta,
+    file = snakemake@output[[1]],
+    quote = FALSE, sep = "\t", row.names = FALSE
+)
 
 # Proper syntax to close the connection for the log file but could be optional
 # for Snakemake wrapper

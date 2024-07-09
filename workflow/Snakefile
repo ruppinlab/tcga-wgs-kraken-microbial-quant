@@ -18,29 +18,45 @@ REPORT_DIR = "report"
 configfile: join(CONFIG_DIR, "config.yaml")
 
 
+STUDY_NAME = config["study"]
+
 TEMP_DIR = config["tmp_dir"] if config["tmp_dir"] else gettempdir()
 
 EXPAND_PARAMS = {}
 
 SNAKEMAKE_WRAPPERS_VERSION = config["wrapper"]["public"]["version"]
-
-CHM13_URL = config["resources"]["chm13"]["url"]
-CHM13_FASTA_FILENAME = config["resources"]["chm13"]["filename"]
-CHM13_DIR = config["resources"]["chm13"]["dir"]
-
 INPUT_MODE = config["input"]["mode"]
-INPUT_BAM_DIR = config["input"]["bam"]["data_dir"]
+
+REF_URL = config["resources"]["ref"]["url"]
+REF_FASTA_FILENAME = config["resources"]["ref"]["filename"]
+REF_DIR = config["resources"]["ref"]["dir"]
+
+FASTQ_DATA_DIR = join(DATA_DIR, "fastq")
+BAM_DATA_DIR = join(DATA_DIR, "bam")
+
+REF_FASTA_URL = join(REF_URL, REF_FASTA_FILENAME)
+REF_FASTA_FILE = join(REF_DIR, REF_FASTA_FILENAME)
 
 TARGET_FILES = []
-if INPUT_MODE == "bam":
-    INPUT_BAM_FILE = join(INPUT_BAM_DIR, "{umb_basename}.bam")
-    INPUT_FASTQ_FILE = join(DATA_DIR, "fastq", "{umb_basename}.fastq")
-    INPUT_FASTQ_LOG = join(LOG_DIR, "fastq", "{umb_basename}_fastq.log")
+if INPUT_MODE == "gdc":
+    GDC_LOG_DIR = join(LOG_DIR, "gdc")
+    GDC_BAM_META_FILE = join(RESULTS_DIR, "gdc", "gdc_bam_meta.tsv")
+    GDC_BAM_META_LOG = join(GDC_LOG_DIR, "gdc_bam_meta.log")
+    GDC_BAM_TOUCH_DIR = join(TEMP_DIR, "gdc")
+    GDC_BAM_TOUCH_FILE = join(GDC_BAM_TOUCH_DIR, "{bam_id}.bam")
+    GDC_BAM_TOUCH_LOG = join(GDC_LOG_DIR, "gdc_bam_touch.log")
+    GDC_BAM_FILE = join(BAM_DATA_DIR, "{bam_id}.bam")
+    GDC_BAM_LOG = join(GDC_LOG_DIR, "{bam_id}_bam.log")
+    GDC_FASTQ_FILE = join(FASTQ_DATA_DIR, "{bam_id}.fastq.gz")
+    GDC_FASTQ_LOG = join(LOG_DIR, "fastq", "{bam_id}_fastq.log")
 
-CHM13_FASTA_URL = join(CHM13_URL, CHM13_FASTA_FILENAME)
-CHM13_FASTA_FILE = join(CHM13_DIR, CHM13_FASTA_FILENAME)
-
+BOWTIE2_RESULTS_DIR = join(RESULTS_DIR, "bowtie2")
+BOWTIE2_LOG_DIR = join(LOG_DIR, "bowtie2")
 BOWTIE2_INDEX_DIR = join(RESOURCES_DIR, "bowtie2", "index")
+BOWTIE2_INDEX_LOG = join(BOWTIE2_LOG_DIR, "genome_index.log")
+BOWTIE2_SAM_FILE = join(BOWTIE2_RESULTS_DIR, "{bam_id}.sam")
+BOWTIE2_UNMAPPED_SAM_FILE = join(BOWTIE2_RESULTS_DIR, "{bam_id}_unmapped.sam")
+BOWTIE2_ALIGN_LOG = join(BOWTIE2_LOG_DIR, "{bam_id}.log")
 
 SAMTOOLS_FASTQ_THREADS = (
     workflow.cores
@@ -58,12 +74,15 @@ BOWTIE2_ALIGN_THREADS = (
     else config["bowtie2"]["align"]["threads"]
 )
 
-
 SAMTOOLS_FASTQ_WRAPPER = join(
     SNAKEMAKE_WRAPPERS_VERSION, "/bio/samtools/fastq/interleaved"
 )
 BOWTIE2_BUILD_WRAPPER = join(SNAKEMAKE_WRAPPERS_VERSION, "/bio/bowtie2/build")
 BOWTIE2_ALIGN_WRAPPER = join(SNAKEMAKE_WRAPPERS_VERSION, "/bio/bowtie2/align")
+
+
+include: join(RULES_DIR, "gdc_file.smk")
+include: join(RULES_DIR, "host_filter.smk")
 
 
 wildcard_constraints:
