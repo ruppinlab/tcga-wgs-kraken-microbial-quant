@@ -9,9 +9,6 @@ tmp_dir: /tmp
 
 random_seed: 777
 
-download:
-  retries: 5
-
 samples: config/samples.tsv
 units: config/units.tsv
 
@@ -22,20 +19,29 @@ fastq:
     - R2_001
   ext: fastq.gz
 
-studies:
-  - tcga_wgs
-
 resources:
   chm13:
     url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/
     filename: GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
     dir: resources/chm13
 
+studies:
+  - tcga_wgs
+
 input:
   # fastq, bam
   mode: bam
   bam:
     data_dir: data/bam
+
+gdc:
+    query: true
+    token: ''
+    sample_types: [
+      'Primary Tumor',
+      'Primary Blood Derived Cancer - Peripheral Blood',
+      'Additional - New Primary'
+    ]
 
 host_filter:
   mode: bowtie2
@@ -50,5 +56,5 @@ samtools:
   fastq:
     # exclude secondary alignments
     # output compressed fastq.gz
-    extra: "-F 256 -c 6"
+    extra: '-F 256 -c 6'
     threads: all
