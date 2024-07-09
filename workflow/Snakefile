@@ -7,9 +7,10 @@ import pandas as pd
 from snakemake.utils import validate
 
 CONFIG_DIR = "config"
+DATA_DIR = "data"
+LOG_DIR = "logs"
 RESOURCES_DIR = "resources"
 RESULTS_DIR = "results"
-LOG_DIR = "logs"
 RULES_DIR = "rules"
 REPORT_DIR = "report"
 
@@ -21,28 +22,48 @@ TEMP_DIR = config["tmp_dir"] if config["tmp_dir"] else gettempdir()
 
 EXPAND_PARAMS = {}
 
+SNAKEMAKE_WRAPPERS_VERSION = config["wrapper"]["public"]["version"]
+
+CHM13_URL = config["resources"]["chm13"]["url"]
+CHM13_FASTA_FILENAME = config["resources"]["chm13"]["filename"]
+CHM13_DIR = config["resources"]["chm13"]["dir"]
+
 INPUT_MODE = config["input"]["mode"]
-PUBLIC_WRAPPERS_VERSION = config["wrapper"]["public_version"]
+INPUT_BAM_DIR = config["input"]["bam"]["data_dir"]
 
 TARGET_FILES = []
 if INPUT_MODE == "bam":
-    INPUT_BAM_DIR = config["input"]["bam"]["data_dir"]
     INPUT_BAM_FILE = join(INPUT_BAM_DIR, "{umb_basename}.bam")
-    BAM_FASTQ_FILE = join(DATA_DIR, "fastq", "{umb_basename}.fastq")
-    BAM_FASTQ_LOG = join(LOG_DIR, "fastq", "{umb_basename}_fastq.log")
+    INPUT_FASTQ_FILE = join(DATA_DIR, "fastq", "{umb_basename}.fastq")
+    INPUT_FASTQ_LOG = join(LOG_DIR, "fastq", "{umb_basename}_fastq.log")
 
+CHM13_FASTA_URL = join(CHM13_URL, CHM13_FASTA_FILENAME)
+CHM13_FASTA_FILE = join(CHM13_DIR, CHM13_FASTA_FILENAME)
 
-SAMTOOLS_THREADS = (
+BOWTIE2_INDEX_DIR = join(RESOURCES_DIR, "bowtie2", "index")
+
+SAMTOOLS_FASTQ_THREADS = (
     workflow.cores
-    if config["samtools"]["threads"] == "all"
-    else config["samtools"]["threads"]
+    if config["samtools"]["fastq"]["threads"] == "all"
+    else config["samtools"]["fastq"]["threads"]
+)
+BOWTIE2_BUILD_THREADS = (
+    workflow.cores
+    if config["bowtie2"]["build"]["threads"] == "all"
+    else config["bowtie2"]["build"]["threads"]
+)
+BOWTIE2_ALIGN_THREADS = (
+    workflow.cores
+    if config["bowtie2"]["align"]["threads"] == "all"
+    else config["bowtie2"]["align"]["threads"]
 )
 
 
 SAMTOOLS_FASTQ_WRAPPER = join(
-    PUBLIC_WRAPPERS_VERSION, "/bio/samtools/fastq/interleaved"
+    SNAKEMAKE_WRAPPERS_VERSION, "/bio/samtools/fastq/interleaved"
 )
-BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "/bio/bowtie2/align")
+BOWTIE2_BUILD_WRAPPER = join(SNAKEMAKE_WRAPPERS_VERSION, "/bio/bowtie2/build")
+BOWTIE2_ALIGN_WRAPPER = join(SNAKEMAKE_WRAPPERS_VERSION, "/bio/bowtie2/align")
 
 
 wildcard_constraints:

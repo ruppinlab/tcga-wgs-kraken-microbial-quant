@@ -1,7 +1,9 @@
 ---
 wrapper:
-  public_version: "v3.13.6"
-  personal_base_url: https://github.com/hermidalc/snakemake-wrappers/raw/main/
+  public:
+    version: v3.13.6
+  personal:
+    base_url: https://github.com/hermidalc/snakemake-wrappers/raw/main/
 
 tmp_dir: /tmp
 
@@ -23,6 +25,12 @@ fastq:
 studies:
   - tcga_wgs
 
+resources:
+  chm13:
+    url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/
+    filename: GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
+    dir: resources/chm13
+
 input:
   # fastq, bam
   mode: bam
@@ -31,8 +39,9 @@ input:
 
 host_filter:
   mode: bowtie2
-  bowtie2:
-    index:
+
+bowtie2:
+    build:
       threads: all
     align:
       threads: all
@@ -42,4 +51,4 @@ samtools:
     # exclude secondary alignments
     # output compressed fastq.gz
     extra: "-F 256 -c 6"
-  threads: all
+    threads: all

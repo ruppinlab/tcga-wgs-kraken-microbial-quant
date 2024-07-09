@@ -4,9 +4,9 @@ rule samtools_fastq:
     params:
         extra=config["samtools"]["fastq"]["extra"],
     output:
-        BAM_FASTQ_FILE,
+        INPUT_FASTQ_FILE,
     log:
-        BAM_FASTQ_LOG,
-    threads: SAMTOOLS_THREADS
+        INPUT_FASTQ_LOG,
+    threads: SAMTOOLS_FASTQ_THREADS
     wrapper:
-        SAMTOOLS_WRAPPER
+        SAMTOOLS_FASTQ_WRAPPER
