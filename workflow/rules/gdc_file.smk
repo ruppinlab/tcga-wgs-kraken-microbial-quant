@@ -41,9 +41,23 @@ rule gdc_unmapped_bam_file:
         "../scripts/gdc_unmapped_bam.R"
 
 
-rule gdc_fastq:
+rule gdc_sorted_bam:
     input:
         GDC_BAM_FILE,
+    params:
+        extra=config["samtools"]["sort"]["extra"],
+    output:
+        GDC_SORTED_BAM_FILE,
+    log:
+        GDC_SORTED_BAM_LOG,
+    threads: SAMTOOLS_SORT_THREADS
+    wrapper:
+        SAMTOOLS_SORT_WRAPPER
+
+
+rule gdc_fastq:
+    input:
+        GDC_SORTED_BAM_FILE,
     params:
         extra=config["samtools"]["fastq"]["extra"],
     output:
