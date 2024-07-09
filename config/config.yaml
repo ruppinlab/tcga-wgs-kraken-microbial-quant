@@ -24,10 +24,10 @@ studies:
   - tcga_wgs
 
 input:
-  file_type: "unmapped bam"
-  bam_dir: ''
-
-
+  # fastq, bam
+  mode: bam
+  bam:
+    data_dir: data/bam
 
 host_filter:
   mode: bowtie2
@@ -38,7 +38,7 @@ host_filter:
       threads: all
 
 samtools:
-  unmapped:
+  fastq:
     # exclude secondary alignments
     # output compressed fastq.gz
     extra: "-F 256 -c 6"

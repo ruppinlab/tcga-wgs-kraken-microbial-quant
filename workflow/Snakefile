@@ -19,24 +19,23 @@ configfile: join(CONFIG_DIR, "config.yaml")
 
 TEMP_DIR = config["tmp_dir"] if config["tmp_dir"] else gettempdir()
 
-INPUT_FILE_TYPE = config["input"]["type"]
-PUBLIC_WRAPPERS_VERSION = config["wrappers"]["public_version"]
+EXPAND_PARAMS = {}
+
+INPUT_MODE = config["input"]["mode"]
+PUBLIC_WRAPPERS_VERSION = config["wrapper"]["public_version"]
+
+TARGET_FILES = []
+if INPUT_MODE == "bam":
+    INPUT_BAM_DIR = config["input"]["bam"]["data_dir"]
+    INPUT_BAM_FILE = join(INPUT_BAM_DIR, "{umb_basename}.bam")
+    BAM_FASTQ_FILE = join(DATA_DIR, "fastq", "{umb_basename}.fastq")
+    BAM_FASTQ_LOG = join(LOG_DIR, "fastq", "{umb_basename}_fastq.log")
 
 
-if INPUT_TYPE == "unmapped bam":
-    UNMAPPED_BAM_DIR = config["input"]["bam_dir"]
-    UNMAPPED_BAM_FILE = join(UNMAPPED_BAM_DIR, "{umb_basename}.bam")
-    UNMAPPED_FASTQ_FILE = join(RESULTS_DIR, "unmapped_fastq", "{umb_basename}.fastq")
-    UNMAPPED_FASTQ_LOG_DIR = join(LOG_DIR, "unmapped_fastq")
-    UNMAPPED_FASTQ_LOG = join(
-        UNMAPPED_FASTQ_LOG_DIR, "{umb_basename}_unmapped_fastq.log"
-    )
-
-
-SAMTOOLS_UNMAPPED_THREADS = (
+SAMTOOLS_THREADS = (
     workflow.cores
-    if config["samtools"]["unmapped"]["threads"] == "all"
-    else config["samtools"]["unmapped"]["threads"]
+    if config["samtools"]["threads"] == "all"
+    else config["samtools"]["threads"]
 )
 
 
@@ -52,7 +51,7 @@ wildcard_constraints:
 
 rule all:
     input:
-        "",
+        TARGET_FILES,
 
 
 def clean(*dirs):

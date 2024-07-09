@@ -1,6 +1,6 @@
 rule bowtie2_chm13_index:
     input:
-        ref=CHM13_FASTQ_FILE,
+        ref=CHM13_REF_FASTQ_FILE,
     output:
         idx=multiext(
             BOWTIE2_CHM13_INDEX,
@@ -12,15 +12,15 @@ rule bowtie2_chm13_index:
             ".rev.2.bt2",
         ),
     log:
-        UNMAPPED_FASTQ_LOG,
+        BOWTIE2_CHM13_INDEX_LOG,
     threads: BOWTIE2_BUILD_THREADS
     wrapper:
         BOWTIE2_BUILD_WRAPPER
 
 
-rule bowtie2_unmapped_sam:
+rule bowtie2_align:
     input:
-        sample=UNMAPPED_FASTQ_FILE,
+        sample=BAM_FASTQ_FILE,
         idx=multiext(
             BOWTIE2_CHM13_INDEX,
             ".1.bt2",
@@ -31,9 +31,9 @@ rule bowtie2_unmapped_sam:
             ".rev.2.bt2",
         ),
     output:
-        unaligned=BOWTIE2_UNMAPPED_SAM_FILE,
+        unaligned=BOWTIE2_SAM_FILE,
     log:
-        BOWTIE2_UNMAPPED_SAM_LOG,
+        BOWTIE2_SAM_LOG,
     threads: BOWTIE2_ALIGN_THREADS
     wrapper:
         BOWTIE2_ALIGN_WRAPPER
