@@ -3,7 +3,7 @@ wrappers:
   public:
     version: v3.13.6
   personal:
-    base_url: https://github.com/hermidalc/snakemake-wrappers/raw/main/
+    base_url: file:wrappers
 
 tmp_dir: /tmp
 
@@ -16,6 +16,9 @@ resources:
   ref:
     url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/
     filename: GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
+  krakenuniq:
+    microbialdb:
+      dir: /mnt/hgfs/VMData/salzberg/resources/MicrobialDB
 
 study: tcga_wgs
 
@@ -48,10 +51,21 @@ bowtie2:
 
 samtools:
   sort:
-    extra: '-m 4G'
+    # important sort by read name
+    extra: '-n'
     threads: all
   fastq:
     # exclude secondary alignments
     # output compressed fastq.gz
     extra: '-F 256 -c 6'
     threads: all
+
+krakenuniq:
+  extra: '--preload-size 16G --check-names'
+  threads: all
+
+bracken:
+  level: S
+  threshold: 0
+  extra: ''
+  threads: all

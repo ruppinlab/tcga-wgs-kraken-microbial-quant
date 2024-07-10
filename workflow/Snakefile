@@ -36,7 +36,9 @@ TEMP_DIR = config["tmp_dir"] if config["tmp_dir"] else gettempdir()
 
 EXPAND_PARAMS = {}
 
-SNAKEMAKE_WRAPPERS_VERSION = config["wrappers"]["public"]["version"]
+PUBLIC_WRAPPERS_VERSION = config["wrappers"]["public"]["version"]
+PERSONAL_WRAPPERS_BASE_URL = config["wrappers"]["personal"]["base_url"]
+
 INPUT_MODE = config["input"]["mode"]
 
 REF_URL = config["resources"]["ref"]["url"]
@@ -80,6 +82,19 @@ BOWTIE2_FILTERED_FASTQ1_FILE = join(BOWTIE2_RESULTS_DIR, "{bam_id}_filtered_1.fa
 BOWTIE2_FILTERED_FASTQ2_FILE = join(BOWTIE2_RESULTS_DIR, "{bam_id}_filtered_2.fastq.gz")
 BOWTIE2_FILTERED_FASTQ_LOG = join(BOWTIE2_LOG_DIR, "{bam_id}_filtered_fastq.log")
 
+KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
+KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
+KRAKENUNIQ_MICROBIALDB_CLASSIF_FILE = join(
+    KRAKENUNIQ_RESULTS_DIR, "{bam_id}_classif.tsv"
+)
+KRAKENUNIQ_MICROBIALDB_REPORT_FILE = join(KRAKENUNIQ_RESULTS_DIR, "{bam_id}_report.txt")
+KRAKENUNIQ_MICROBIALDB_CLASSIF_LOG = join(KRAKENUNIQ_LOG_DIR, "{bam_id}_classif.log")
+
+BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
+BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
+BRACKEN_MICROBIALDB_QUANT_FILE = join(BRACKEN_RESULTS_DIR, "{bam_id}_quant.tsv")
+BRACKEN_MICROBIALDB_QUANT_LOG = join(BRACKEN_LOG_DIR, "{bam_id}_classif.log")
+
 SAMTOOLS_SORT_THREADS = (
     workflow.cores
     if config["samtools"]["sort"]["threads"] == "all"
@@ -100,17 +115,30 @@ BOWTIE2_ALIGN_THREADS = (
     if config["bowtie2"]["align"]["threads"] == "all"
     else config["bowtie2"]["align"]["threads"]
 )
-
-SAMTOOLS_SORT_WRAPPER = join(SNAKEMAKE_WRAPPERS_VERSION, "/bio/samtools/sort")
-SAMTOOLS_FASTQ_SEPARATE_WRAPPER = join(
-    SNAKEMAKE_WRAPPERS_VERSION, "/bio/samtools/fastq/separate"
+KRAKENUNIQ_THREADS = (
+    workflow.cores
+    if config["krakenuniq"]["threads"] == "all"
+    else config["krakenuniq"]["threads"]
 )
-BOWTIE2_BUILD_WRAPPER = join(SNAKEMAKE_WRAPPERS_VERSION, "/bio/bowtie2/build")
-BOWTIE2_ALIGN_WRAPPER = join(SNAKEMAKE_WRAPPERS_VERSION, "/bio/bowtie2/align")
+BRACKEN_THREADS = (
+    workflow.cores
+    if config["bracken"]["threads"] == "all"
+    else config["bracken"]["threads"]
+)
+
+SAMTOOLS_SORT_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/samtools/sort")
+SAMTOOLS_FASTQ_SEPARATE_WRAPPER = join(
+    PUBLIC_WRAPPERS_VERSION, "bio/samtools/fastq/separate"
+)
+BOWTIE2_BUILD_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/build")
+BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
+KRAKENUNIQ_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/krakenuniq")
+BRACKEN_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/bracken")
 
 
 include: join(RULES_DIR, "gdc_file.smk")
 include: join(RULES_DIR, "host_filter.smk")
+include: join(RULES_DIR, "microbe.smk")
 include: join(RULES_DIR, "ref.smk")
 
 
