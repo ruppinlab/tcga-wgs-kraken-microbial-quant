@@ -3,5 +3,7 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
+  - bioconductor-genomicdatacommons
   - pandas
   - snakemake
+  - r-yaml

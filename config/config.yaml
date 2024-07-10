@@ -23,14 +23,19 @@ input:
   mode: gdc
   gdc:
     token: ''
-    program_names: ['TCGA']
+    program_names: [
+      'TCGA'
+    ]
     sample_types: [
       'Primary Tumor',
       'Primary Blood Derived Cancer - Peripheral Blood',
       'Additional - New Primary'
     ]
     exp_strategy: WGS
-    workflow_types: ['BWA with Mark Duplicates and BQSR']
+    workflow_types: [
+      'BWA with Mark Duplicates and BQSR'
+    ]
+    meta_file: data/gdc/gdc_bam_meta.tsv
 
 host_filter:
   mode: bowtie2

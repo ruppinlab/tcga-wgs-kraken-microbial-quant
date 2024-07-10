@@ -12,7 +12,7 @@ add_headers("X-Auth-Token" = snakemake@params[["token"]])
 GET(
     paste0(
         "https://api.gdc.cancer.gov/slicing/view/",
-        snakemake@params[["file_uuid"]],
+        snakemake@params[["bam_id"]],
         "?region=unmapped"
     ),
     write_disk(snakemake@output[[1]], overwrite = TRUE)
