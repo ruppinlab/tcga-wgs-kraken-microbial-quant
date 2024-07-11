@@ -18,18 +18,6 @@ REPORT_DIR = "report"
 configfile: join(CONFIG_DIR, "config.yaml")
 
 
-onstart:
-    if config["input"]["mode"] == "gdc":
-        if not exists(config["input"]["gdc"]["meta_file"]):
-            print("Getting GDC file metadata...")
-            makedirs(
-                dirname(config["input"]["gdc"]["meta_file"]), mode=0o755, exist_ok=True
-            )
-            shell("Rscript ./scripts/gdc_file_meta.R")
-        else:
-            print("Using existing GDC file metadata")
-
-
 STUDY_NAME = config["study"]
 
 TEMP_DIR = config["tmp_dir"] if config["tmp_dir"] else gettempdir()
@@ -49,6 +37,12 @@ REF_FASTA_FILE = join(RESOURCES_DIR, "ref", REF_FASTA_FILENAME)
 
 if INPUT_MODE == "gdc":
     GDC_BAM_META_FILE = config["input"]["gdc"]["meta_file"]
+    if not exists(GDC_BAM_META_FILE):
+        print("Getting GDC file metadata...")
+        makedirs(dirname(GDC_BAM_META_FILE), mode=0o755, exist_ok=True)
+        shell("Rscript ./workflow/scripts/gdc_file_meta.R")
+    else:
+        print("Using existing GDC file metadata")
     GDC_BAM_META_DF = pd.read_csv(
         GDC_BAM_META_FILE,
         sep="\t",

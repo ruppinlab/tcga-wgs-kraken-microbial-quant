@@ -7,8 +7,6 @@
 !envs/*
 !LICENSE
 !README.md
-!scripts
-!scripts/*
 !workflow
 !workflow/**
 !wrappers

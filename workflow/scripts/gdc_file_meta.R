@@ -3,7 +3,7 @@ suppressPackageStartupMessages({
     library(yaml)
 })
 
-config <- yaml.load_file("config/config.yaml")
+config <- yaml.load_file("./config/config.yaml")
 
 file_query <-
     files() %>%
@@ -68,9 +68,9 @@ file_meta <- data.frame(
             ), `[[`, "aliquots"
         ), `[[`, "submitter_id"
     ),
-    read_length = sapply(
-        file_results$analysis$metadata$read_groups, `[[`, "read_length"
-    ),
+    # read_length = sapply(
+    #     file_results$analysis$metadata$read_groups, `[[`, "read_length"
+    # ),
     row.names = file_results$file_id,
     stringsAsFactors = FALSE
 )
