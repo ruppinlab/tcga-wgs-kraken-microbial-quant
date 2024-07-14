@@ -4,6 +4,8 @@ channels:
   - bioconda
 dependencies:
   - bioconductor-genomicdatacommons
+  - numpy
   - pandas
   - snakemake
+  - r-dplyr
   - r-yaml

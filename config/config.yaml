@@ -14,8 +14,7 @@ download:
 
 resources:
   ref:
-    url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/
-    filename: GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
+    fasta_url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
   krakenuniq:
     microbialdb:
       dir: /mnt/hgfs/VMData/salzberg/resources/MicrobialDB
@@ -38,7 +37,10 @@ input:
     workflow_types: [
       'BWA with Mark Duplicates and BQSR'
     ]
-    meta_file: data/gdc/gdc_bam_meta.tsv
+    metadata:
+      dir: data/gdc
+      file_meta_filename: gdc_file_meta.tsv
+      readgrp_meta_filename: gdc_readgrp_meta.tsv
 
 host_filter:
   mode: bowtie2
@@ -51,21 +53,38 @@ bowtie2:
 
 samtools:
   sort:
-    # important sort by read name
+    # sort by read name for subsequent conversion to fastq
     extra: '-n'
     threads: all
   fastq:
-    # exclude secondary alignments
-    # output compressed fastq.gz
-    extra: '-F 256 -c 6'
+    # -F 2816 exclude:
+    #   not primary alignment (0x100)
+    #   read fails platform/vendor quality checks (0x200)
+    #   supplementary alignment (0x800)
+    # -c 6 output fastq.gz with default compression
+    extra: '-F 2816 -c 6'
     threads: all
 
+biobambam2:
+  bamtofastq:
+    extra: >-
+      collate=1
+      exclude=QCFAIL,SECONDARY,SUPPLEMENTARY
+      gz=1
+      inputformat=bam
+      level=5
+      outputperreadgroup=1
+      outputperreadgroupsuffixF=_unmapped_1.fastq.gz
+      outputperreadgroupsuffixF2=_unmapped_2.fastq.gz
+      outputperreadgroupsuffixO=_unmapped_o1.fastq.gz
+      outputperreadgroupsuffixO2=_unmapped_o2.fastq.gz
+      outputperreadgroupsuffixS=_unmapped_s.fastq.gz
+      tryoq=1
+
 krakenuniq:
-  extra: '--preload-size 16G --check-names'
+  extra: '--preload-size 16G'
   threads: all
 
 bracken:
-  level: S
-  threshold: 0
-  extra: ''
-  threads: all
+  # species level min threshold 0 counts
+  extra: '-l S -t 0'

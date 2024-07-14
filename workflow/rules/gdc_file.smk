@@ -13,30 +13,30 @@ rule gdc_unmapped_bam_file:
         "../scripts/gdc_unmapped_bam.R"
 
 
-rule gdc_sorted_unmapped_bam:
+rule gdc_unmapped_fastq_pe:
     input:
-        GDC_UNMAPPED_BAM_FILE,
+        lambda wc: f"{GDC_READGRP_META_DF.loc[wc.rg_id].file_id}_unmapped.bam",
     params:
-        extra=config["samtools"]["sort"]["extra"],
+        outdir=GDC_RESULTS_DIR,
+        extra=config["biobambam2"]["bamtofastq"]["extra"],
     output:
-        GDC_SORTED_UNMAPPED_BAM_FILE,
-    log:
-        GDC_SORTED_UNMAPPED_BAM_LOG,
-    threads: SAMTOOLS_SORT_THREADS
-    wrapper:
-        SAMTOOLS_SORT_WRAPPER
-
-
-rule gdc_unmapped_fastq:
-    input:
-        GDC_SORTED_UNMAPPED_BAM_FILE,
-    params:
-        extra=config["samtools"]["fastq"]["extra"],
-    output:
-        GDC_UNMAPPED_FASTQ1_FILE,
-        GDC_UNMAPPED_FASTQ2_FILE,
+        GDC_UNMAPPED_FASTQ_1_FILE,
+        GDC_UNMAPPED_FASTQ_2_FILE,
     log:
         GDC_UNMAPPED_FASTQ_LOG,
-    threads: SAMTOOLS_FASTQ_THREADS
     wrapper:
-        SAMTOOLS_FASTQ_SEPARATE_WRAPPER
+        BIOBAMBAM_BAMTOFASTQ_WRAPPER
+
+
+rule gdc_unmapped_fastq_se:
+    input:
+        lambda wc: f"{GDC_READGRP_META_DF.loc[wc.rg_id].file_id}_unmapped.bam",
+    params:
+        outdir=GDC_RESULTS_DIR,
+        extra=config["biobambam2"]["bamtofastq"]["extra"],
+    output:
+        GDC_UNMAPPED_FASTQ_S_FILE,
+    log:
+        GDC_UNMAPPED_FASTQ_LOG,
+    wrapper:
+        BIOBAMBAM_BAMTOFASTQ_WRAPPER

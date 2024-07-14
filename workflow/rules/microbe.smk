@@ -1,10 +1,12 @@
 rule krakenuniq_classify_microbialdb:
     input:
-        fq1=BOWTIE2_FILTERED_FASTQ1_FILE,
-        fq2=BOWTIE2_FILTERED_FASTQ2_FILE,
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
     params:
-        extra=config["krakenuniq"]["extra"],
+        extra=lambda wc: (
+            f"--paired --check-names config['krakenuniq']['extra']"
+            if GDC_READGRP_META_DF.loc[wc.rg_id].is_paired_end
+            else config["krakenuniq"]["extra"]
+        ),
     output:
         KRAKENUNIQ_MICROBIALDB_CLASSIF_FILE,
         report=KRAKENUNIQ_MICROBIALDB_REPORT_FILE,
@@ -20,9 +22,7 @@ rule bracken_quantify_microbialdb:
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
         report=KRAKENUNIQ_MICROBIALDB_REPORT_FILE,
     params:
-        # readlen=,
-        level=config["bracken"]["level"],
-        threshold=config["bracken"]["threshold"],
+        readlen=lambda wc: GDC_READGRP_META_DF.loc[wc.rg_id].read_length,
         extra=config["bracken"]["extra"],
     output:
         BRACKEN_MICROBIALDB_QUANT_FILE,

@@ -20,7 +20,11 @@ rule bowtie2_index:
 
 rule bowtie2_align:
     input:
-        sample=[GDC_UNMAPPED_FASTQ1_FILE, GDC_UNMAPPED_FASTQ2_FILE],
+        sample=lambda wc: (
+            [GDC_UNMAPPED_FASTQ_1_FILE, GDC_UNMAPPED_FASTQ_2_FILE]
+            if GDC_READGRP_META_DF.loc[wc.rg_id].is_paired_end
+            else GDC_UNMAPPED_FASTQ_S_FILE
+        ),
         idx=multiext(
             BOWTIE2_INDEX_DIR,
             ".1.bt2",
@@ -54,14 +58,28 @@ rule bowtie2_sorted_sam:
         SAMTOOLS_SORT_WRAPPER
 
 
-rule bowtie2_filtered_fastq:
+rule bowtie2_filtered_fastq_pe:
     input:
         BOWTIE2_SORTED_FILTERED_SAM_FILE,
     params:
         extra=config["samtools"]["fastq"]["extra"],
     output:
-        BOWTIE2_FILTERED_FASTQ1_FILE,
-        BOWTIE2_FILTERED_FASTQ2_FILE,
+        BOWTIE2_FILTERED_FASTQ_1_FILE,
+        BOWTIE2_FILTERED_FASTQ_2_FILE,
+    log:
+        BOWTIE2_FILTERED_FASTQ_LOG,
+    threads: SAMTOOLS_FASTQ_THREADS
+    wrapper:
+        SAMTOOLS_FASTQ_SEPARATE_WRAPPER
+
+
+rule bowtie2_filtered_fastq_se:
+    input:
+        BOWTIE2_SORTED_FILTERED_SAM_FILE,
+    params:
+        extra=config["samtools"]["fastq"]["extra"],
+    output:
+        BOWTIE2_FILTERED_FASTQ_S_FILE,
     log:
         BOWTIE2_FILTERED_FASTQ_LOG,
     threads: SAMTOOLS_FASTQ_THREADS

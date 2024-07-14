@@ -6,14 +6,18 @@ from snakemake.shell import shell
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 
+outdir = (
+    snakemake.output.get("outdir")
+    if snakemake.output.get("outdir")
+    else snakemake.params.get("outdir")
+)
+
 extra = snakemake.params.get("extra", "")
 
 shell(
-    "bracken"
-    " -d {snakemake.input.db}"
-    " -i {snakemake.input.report}"
-    " -o {snakemake.output}"
-    " -r {snakemake.params.readlen}"
+    "bamtofastq"
+    " filename={snakemake.input}"
+    " outputdir={outdir}"
     " {extra}"
     " {log}"
 )
