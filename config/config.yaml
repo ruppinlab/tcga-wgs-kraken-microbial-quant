@@ -74,11 +74,11 @@ biobambam2:
       inputformat=bam
       level=5
       outputperreadgroup=1
-      outputperreadgroupsuffixF=_unmapped_1.fastq.gz
-      outputperreadgroupsuffixF2=_unmapped_2.fastq.gz
+      outputperreadgroupsuffixF=_unmapped_r1.fastq.gz
+      outputperreadgroupsuffixF2=_unmapped_r2.fastq.gz
       outputperreadgroupsuffixO=_unmapped_o1.fastq.gz
       outputperreadgroupsuffixO2=_unmapped_o2.fastq.gz
-      outputperreadgroupsuffixS=_unmapped_s.fastq.gz
+      outputperreadgroupsuffixS=_unmapped_se.fastq.gz
       tryoq=1
 
 krakenuniq:

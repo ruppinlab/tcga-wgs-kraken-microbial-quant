@@ -20,7 +20,6 @@ shell(
     " --output {output}"
     " {extra}"
     " {report}"
-    " {snakemake.input.fq1}"
-    " {snakemake.input.fq2}"
+    " {snakemake.input.fqs}"
     " {log}"
 )

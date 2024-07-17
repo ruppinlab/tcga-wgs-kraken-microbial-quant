@@ -1,4 +1,4 @@
-rule gdc_unmapped_bam_file:
+rule gdc_unmapped_bam:
     conda:
         "../envs/httr.yaml"
     params:
@@ -15,28 +15,30 @@ rule gdc_unmapped_bam_file:
 
 rule gdc_unmapped_fastq_pe:
     input:
-        lambda wc: f"{GDC_READGRP_META_DF.loc[wc.rg_id].file_id}_unmapped.bam",
+        GDC_UNMAPPED_BAM_FILE,
     params:
-        outdir=GDC_RESULTS_DIR,
+        outdir=GDC_BAM_RESULTS_DIR,
         extra=config["biobambam2"]["bamtofastq"]["extra"],
     output:
-        GDC_UNMAPPED_FASTQ_1_FILE,
-        GDC_UNMAPPED_FASTQ_2_FILE,
+        GDC_UNMAPPED_FASTQ_R1_FILE,
+        GDC_UNMAPPED_FASTQ_R2_FILE,
+        temp(GDC_UNMAPPED_FASTQ_O1_FILE),
+        temp(GDC_UNMAPPED_FASTQ_O2_FILE),
     log:
         GDC_UNMAPPED_FASTQ_LOG,
     wrapper:
-        BIOBAMBAM_BAMTOFASTQ_WRAPPER
+        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
 
 
 rule gdc_unmapped_fastq_se:
     input:
-        lambda wc: f"{GDC_READGRP_META_DF.loc[wc.rg_id].file_id}_unmapped.bam",
+        GDC_UNMAPPED_BAM_FILE,
     params:
-        outdir=GDC_RESULTS_DIR,
+        outdir=GDC_BAM_RESULTS_DIR,
         extra=config["biobambam2"]["bamtofastq"]["extra"],
     output:
-        GDC_UNMAPPED_FASTQ_S_FILE,
+        GDC_UNMAPPED_FASTQ_SE_FILE,
     log:
         GDC_UNMAPPED_FASTQ_LOG,
     wrapper:
-        BIOBAMBAM_BAMTOFASTQ_WRAPPER
+        BIOBAMBAM2_BAMTOFASTQ_WRAPPER

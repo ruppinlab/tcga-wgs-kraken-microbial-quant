@@ -1,4 +1,4 @@
-rule ref_genome_seq:
+rule ref_genome_fasta:
     params:
         REF_FASTA_URL,
     output:
