@@ -12,7 +12,7 @@
 !wrappers
 !wrappers/**
 !docs/wrappers
-!salzberg-microbial-quant.svg
+!tcga-wgs-kraken-microbial-quant.svg
 !.gitignore
 !.editorconfig
 !.gitattributes
