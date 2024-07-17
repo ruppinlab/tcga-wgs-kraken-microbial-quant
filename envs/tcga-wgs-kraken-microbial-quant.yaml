@@ -1,4 +1,4 @@
-name: salzberg-microbial-quant
+name: tcga-wgs-kraken-microbial-quant
 channels:
   - conda-forge
   - bioconda
