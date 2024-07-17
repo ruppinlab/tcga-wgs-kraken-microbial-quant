@@ -27,6 +27,7 @@ EXPAND_PARAMS = {}
 
 PUBLIC_WRAPPERS_VERSION = config["wrappers"]["public"]["version"]
 PERSONAL_WRAPPERS_BASE_URL = config["wrappers"]["personal"]["base_url"]
+LOCAL_WRAPPERS_BASE_URL = config["wrappers"]["local"]["base_url"]
 
 INPUT_MODE = config["input"]["mode"]
 
@@ -212,21 +213,43 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
 ).tolist()
 
 KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
+KRAKENUNIQ_BAM_RESULTS_DIR = join(KRAKENUNIQ_RESULTS_DIR, "{bam_id}")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
+KRAKENUNIQ_BAM_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "{bam_id}")
 KRAKENUNIQ_MICROBIALDB_CLASSIF_PE_FILE = join(
-    KRAKENUNIQ_RESULTS_DIR, "{rg_pe_id}_classif.tsv"
+    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_classif_pe.tsv"
 )
 KRAKENUNIQ_MICROBIALDB_REPORT_PE_FILE = join(
-    KRAKENUNIQ_RESULTS_DIR, "{rg_pe_id}_report.txt"
+    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_report_pe.txt"
 )
-KRAKENUNIQ_MICROBIALDB_CLASSIF_PE_LOG = join(
-    KRAKENUNIQ_LOG_DIR, "{rg_pe_id}_classif.log"
+KRAKENUNIQ_MICROBIALDB_CLASSIF_SE_FILE = join(
+    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_classif_se.tsv"
 )
+KRAKENUNIQ_MICROBIALDB_REPORT_SE_FILE = join(
+    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_report_se.txt"
+)
+KRAKENUNIQ_MICROBIALDB_CLASSIF_LOG = join(KRAKENUNIQ_BAM_LOG_DIR, "{rg_id}_classif.log")
+
+READ_LENGTH_RESULTS_DIR = join(RESULTS_DIR, "read_length")
+READ_LENGTH_BAM_RESULTS_DIR = join(READ_LENGTH_RESULTS_DIR, "{bam_id}")
+READ_LENGTH_LOG_DIR = join(LOG_DIR, "read_length")
+READ_LENGTH_BAM_LOG_DIR = join(READ_LENGTH_LOG_DIR, "{bam_id}")
+READ_LENGTH_HISTOGRAM_FILE = join(READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_histogram.tsv")
+READ_LENGTH_FILE = join(READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_length.txt")
+READ_LENGTH_HISTOGRAM_LOG = join(READ_LENGTH_BAM_LOG_DIR, "{rg_id}_histogram.log")
+READ_LENGTH_LOG = join(READ_LENGTH_BAM_LOG_DIR, "{rg_id}_length.log")
 
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
+BRACKEN_RESULTS_BAM_DIR = join(BRACKEN_RESULTS_DIR, "{bam_id}")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
-BRACKEN_MICROBIALDB_QUANT_PE_FILE = join(BRACKEN_RESULTS_DIR, "{rg_pe_id}_quant.tsv")
-BRACKEN_MICROBIALDB_QUANT_PE_LOG = join(BRACKEN_LOG_DIR, "{rg_pe_id}_classif.log")
+BRACKEN_BAM_LOG_DIR = join(BRACKEN_LOG_DIR, "{bam_id}")
+BRACKEN_MICROBIALDB_QUANT_PE_FILE = join(
+    BRACKEN_RESULTS_BAM_DIR, "{rg_id}_quant_pe.tsv"
+)
+BRACKEN_MICROBIALDB_QUANT_SE_FILE = join(
+    BRACKEN_RESULTS_BAM_DIR, "{rg_id}_quant_se.tsv"
+)
+BRACKEN_MICROBIALDB_QUANT_LOG = join(BRACKEN_BAM_LOG_DIR, "{rg_id}_classif.log")
 
 SAMTOOLS_SORT_THREADS = (
     workflow.cores
@@ -255,7 +278,7 @@ KRAKENUNIQ_THREADS = (
 )
 
 BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
-    PERSONAL_WRAPPERS_BASE_URL, "bio/biobambam2/bamtofastq"
+    LOCAL_WRAPPERS_BASE_URL, "bio/biobambam2/bamtofastq"
 )
 SAMTOOLS_SORT_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/samtools/sort")
 SAMTOOLS_FASTQ_SEPARATE_WRAPPER = join(
@@ -263,8 +286,9 @@ SAMTOOLS_FASTQ_SEPARATE_WRAPPER = join(
 )
 BOWTIE2_BUILD_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/build")
 BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
-KRAKENUNIQ_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/krakenuniq")
-BRACKEN_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/bracken")
+KRAKENUNIQ_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq")
+READ_LENGTH_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/bbmap/readlength")
+BRACKEN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken")
 
 
 include: join(RULES_DIR, "gdc_file.smk")
@@ -276,7 +300,6 @@ include: join(RULES_DIR, "ref.smk")
 wildcard_constraints:
     bam_id="[0-9a-f\\-]+",
     rg_id="[0-9a-f\\-]+",
-    # **{w: "|".join(set([re.escape(v) for v in l])) for w, l in EXPAND_PARAMS.items()},
 
 
 rule all:

@@ -1,6 +1,4 @@
 rule gdc_unmapped_bam:
-    conda:
-        "../envs/httr.yaml"
     params:
         token=config["input"]["gdc"]["token"],
         bam_id=GDC_BAM_ID_WILDCARD_STR,
@@ -10,7 +8,7 @@ rule gdc_unmapped_bam:
         GDC_UNMAPPED_BAM_LOG,
     retries: config["download"]["retries"]
     script:
-        "../scripts/gdc_unmapped_bam.R"
+        "../scripts/gdc_unmapped_bam.py"
 
 
 rule gdc_unmapped_fastq_pe:

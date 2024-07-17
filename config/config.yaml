@@ -1,8 +1,10 @@
 ---
 wrappers:
   public:
-    version: v3.13.6
+    version: v3.13.7
   personal:
+    base_url: https://github.com/hermidalc/snakemake-wrappers/raw/main
+  local:
     base_url: file:wrappers
 
 tmp_dir: /tmp
