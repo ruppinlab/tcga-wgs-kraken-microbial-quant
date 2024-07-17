@@ -81,11 +81,11 @@ biobambam2:
       paired_end: collate=1
       per_readgrp: >-
         outputperreadgroup=1
-        outputperreadgroupsuffixF=_r1.fastq.gz
-        outputperreadgroupsuffixF2=_r2.fastq.gz
-        outputperreadgroupsuffixO=_o1.fastq.gz
-        outputperreadgroupsuffixO2=_o2.fastq.gz
-        outputperreadgroupsuffixS=_se.fastq.gz
+        outputperreadgroupsuffixF=_unmapped_r1.fastq.gz
+        outputperreadgroupsuffixF2=_unmapped_r2.fastq.gz
+        outputperreadgroupsuffixO=_unmapped_o1.fastq.gz
+        outputperreadgroupsuffixO2=_unmapped_o2.fastq.gz
+        outputperreadgroupsuffixS=_unmapped_se.fastq.gz
 
 krakenuniq:
   extra: '--preload-size 16G'
