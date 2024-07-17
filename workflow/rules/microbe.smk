@@ -4,7 +4,7 @@ rule krakenuniq_classify_pe:
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
     params:
         extra=lambda wc: (
-            f"--paired --check-names config['krakenuniq']['extra']"
+            f"--paired --check-names {config['krakenuniq']['extra']}"
             if GDC_READGRP_META_DF.loc[wc.rg_id, "is_paired_end"]
             else config["krakenuniq"]["extra"]
         ),
@@ -24,7 +24,7 @@ rule krakenuniq_classify_se:
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
     params:
         extra=lambda wc: (
-            f"--paired --check-names config['krakenuniq']['extra']"
+            f"--paired --check-names {config['krakenuniq']['extra']}"
             if GDC_READGRP_META_DF.loc[wc.rg_id, "is_paired_end"]
             else config["krakenuniq"]["extra"]
         ),
