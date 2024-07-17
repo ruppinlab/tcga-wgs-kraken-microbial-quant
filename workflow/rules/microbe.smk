@@ -1,4 +1,4 @@
-rule krakenuniq_classify_microbialdb_pe:
+rule krakenuniq_classify_pe:
     input:
         fqs=[BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE],
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
@@ -9,16 +9,16 @@ rule krakenuniq_classify_microbialdb_pe:
             else config["krakenuniq"]["extra"]
         ),
     output:
-        KRAKENUNIQ_MICROBIALDB_CLASSIF_PE_FILE,
-        report=KRAKENUNIQ_MICROBIALDB_REPORT_PE_FILE,
+        KRAKENUNIQ_CLASSIF_PE_FILE,
+        report=KRAKENUNIQ_REPORT_PE_FILE,
     log:
-        KRAKENUNIQ_MICROBIALDB_CLASSIF_LOG,
+        KRAKENUNIQ_CLASSIF_LOG,
     threads: KRAKENUNIQ_THREADS
     wrapper:
         KRAKENUNIQ_WRAPPER
 
 
-rule krakenuniq_classify_microbialdb_se:
+rule krakenuniq_classify_se:
     input:
         fqs=BOWTIE2_FILTERED_FASTQ_SE_FILE,
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
@@ -29,42 +29,42 @@ rule krakenuniq_classify_microbialdb_se:
             else config["krakenuniq"]["extra"]
         ),
     output:
-        KRAKENUNIQ_MICROBIALDB_CLASSIF_SE_FILE,
-        report=KRAKENUNIQ_MICROBIALDB_REPORT_SE_FILE,
+        KRAKENUNIQ_CLASSIF_SE_FILE,
+        report=KRAKENUNIQ_REPORT_SE_FILE,
     log:
-        KRAKENUNIQ_MICROBIALDB_CLASSIF_LOG,
+        KRAKENUNIQ_CLASSIF_LOG,
     threads: KRAKENUNIQ_THREADS
     wrapper:
         KRAKENUNIQ_WRAPPER
 
 
-rule bracken_quantify_microbialdb_pe:
+rule bracken_quantify_pe:
     input:
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
-        report=KRAKENUNIQ_MICROBIALDB_REPORT_PE_FILE,
-        readlen=READ_LENGTH_FILE,
+        report=KRAKENUNIQ_REPORT_PE_FILE,
+        readlen=READ_LENGTH_PE_FILE,
     params:
         # readlen=lambda wc: GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"],
         extra=config["bracken"]["extra"],
     output:
-        BRACKEN_MICROBIALDB_QUANT_PE_FILE,
+        BRACKEN_QUANT_PE_FILE,
     log:
-        BRACKEN_MICROBIALDB_QUANT_LOG,
+        BRACKEN_QUANT_LOG,
     wrapper:
         BRACKEN_WRAPPER
 
 
-rule bracken_quantify_microbialdb_se:
+rule bracken_quantify_se:
     input:
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
-        report=KRAKENUNIQ_MICROBIALDB_REPORT_SE_FILE,
-        readlen=READ_LENGTH_FILE,
+        report=KRAKENUNIQ_REPORT_SE_FILE,
+        readlen=READ_LENGTH_SE_FILE,
     params:
         # readlen=lambda wc: GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"],
         extra=config["bracken"]["extra"],
     output:
-        BRACKEN_MICROBIALDB_QUANT_SE_FILE,
+        BRACKEN_QUANT_SE_FILE,
     log:
-        BRACKEN_MICROBIALDB_QUANT_LOG,
+        BRACKEN_QUANT_LOG,
     wrapper:
         BRACKEN_WRAPPER

@@ -12,6 +12,7 @@
 !wrappers
 !wrappers/**
 !docs/wrappers
+!salzberg-microbial-quant.svg
 !.gitignore
 !.editorconfig
 !.gitattributes

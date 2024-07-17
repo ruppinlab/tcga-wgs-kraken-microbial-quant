@@ -34,7 +34,8 @@ INPUT_MODE = config["input"]["mode"]
 REF_FASTA_URL = config["resources"]["ref"]["fasta_url"]
 REF_FASTA_FILE = join(RESOURCES_DIR, "ref", basename(urlparse(REF_FASTA_URL).path))
 
-GDC_METADATA_DIR = config["input"]["gdc"]["metadata"]["dir"]
+GDC_METADATA_DIR = config["input"]["gdc"]["metadata"]["data_dir"]
+GDC_METADATA_LOG_DIR = config["input"]["gdc"]["metadata"]["log_dir"]
 if INPUT_MODE == "gdc":
     GDC_BAM_META_FILENAME = config["input"]["gdc"]["metadata"]["file_meta_filename"]
     GDC_BAM_META_FILE = join(GDC_METADATA_DIR, GDC_BAM_META_FILENAME)
@@ -42,12 +43,13 @@ if INPUT_MODE == "gdc":
         "readgrp_meta_filename"
     ]
     GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, GDC_READGRP_META_FILENAME)
-    if not exists(GDC_BAM_META_FILE) or not exists(GDC_READGRP_META_FILE):
-        print("Getting GDC metadata...")
-        makedirs(GDC_METADATA_DIR, mode=0o755, exist_ok=True)
-        shell("Rscript ./workflow/scripts/gdc_metadata.R")
-    else:
-        print("Using existing GDC metadata")
+    with open(log[0], "w") as fh:
+        if not exists(GDC_BAM_META_FILE) or not exists(GDC_READGRP_META_FILE):
+            fh.write("Getting GDC metadata...")
+            makedirs(GDC_METADATA_DIR, mode=0o755, exist_ok=True)
+            shell("Rscript ./workflow/scripts/gdc_metadata.R")
+        else:
+            fh.write("Using existing GDC metadata")
 
     GDC_BAM_META_DF = pd.read_csv(GDC_BAM_META_FILE, sep="\t").set_index(
         "file_id", drop=False, verify_integrity=True
@@ -147,7 +149,6 @@ BOWTIE2_SAM_SE_FILE = join(BOWTIE2_BAM_RESULTS_DIR, "{rg_id}_se.sam")
 BOWTIE2_FILTERED_SAM_PE_FILE = join(BOWTIE2_BAM_RESULTS_DIR, "{rg_id}_filtered_pe.sam")
 BOWTIE2_FILTERED_SAM_SE_FILE = join(BOWTIE2_BAM_RESULTS_DIR, "{rg_id}_filtered_se.sam")
 BOWTIE2_ALIGN_LOG = join(BOWTIE2_BAM_LOG_DIR, "{rg_id}_align.log")
-
 BOWTIE2_FILTERED_SAM_FILES = GDC_READGRP_META_DF.apply(
     lambda x: (
         join(
@@ -164,7 +165,6 @@ BOWTIE2_FILTERED_SAM_FILES = GDC_READGRP_META_DF.apply(
     ),
     axis=1,
 ).tolist()
-
 BOWTIE2_SORTED_FILTERED_SAM_PE_FILE = join(
     BOWTIE2_BAM_RESULTS_DIR, "{rg_id}_sorted_filtered_pe.sam"
 )
@@ -216,26 +216,24 @@ KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
 KRAKENUNIQ_BAM_RESULTS_DIR = join(KRAKENUNIQ_RESULTS_DIR, "{bam_id}")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
 KRAKENUNIQ_BAM_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "{bam_id}")
-KRAKENUNIQ_MICROBIALDB_CLASSIF_PE_FILE = join(
-    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_classif_pe.tsv"
-)
-KRAKENUNIQ_MICROBIALDB_REPORT_PE_FILE = join(
-    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_report_pe.txt"
-)
-KRAKENUNIQ_MICROBIALDB_CLASSIF_SE_FILE = join(
-    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_classif_se.tsv"
-)
-KRAKENUNIQ_MICROBIALDB_REPORT_SE_FILE = join(
-    KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_report_se.txt"
-)
-KRAKENUNIQ_MICROBIALDB_CLASSIF_LOG = join(KRAKENUNIQ_BAM_LOG_DIR, "{rg_id}_classif.log")
+KRAKENUNIQ_CLASSIF_PE_FILE = join(KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_classif_pe.tsv")
+KRAKENUNIQ_REPORT_PE_FILE = join(KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_report_pe.txt")
+KRAKENUNIQ_CLASSIF_SE_FILE = join(KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_classif_se.tsv")
+KRAKENUNIQ_REPORT_SE_FILE = join(KRAKENUNIQ_BAM_RESULTS_DIR, "{rg_id}_report_se.txt")
+KRAKENUNIQ_CLASSIF_LOG = join(KRAKENUNIQ_BAM_LOG_DIR, "{rg_id}_classif.log")
 
 READ_LENGTH_RESULTS_DIR = join(RESULTS_DIR, "read_length")
 READ_LENGTH_BAM_RESULTS_DIR = join(READ_LENGTH_RESULTS_DIR, "{bam_id}")
 READ_LENGTH_LOG_DIR = join(LOG_DIR, "read_length")
 READ_LENGTH_BAM_LOG_DIR = join(READ_LENGTH_LOG_DIR, "{bam_id}")
-READ_LENGTH_HISTOGRAM_FILE = join(READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_histogram.tsv")
-READ_LENGTH_FILE = join(READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_length.txt")
+READ_LENGTH_HISTOGRAM_PE_FILE = join(
+    READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_histogram_pe.tsv"
+)
+READ_LENGTH_PE_FILE = join(READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_length_pe.txt")
+READ_LENGTH_HISTOGRAM_SE_FILE = join(
+    READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_histogram_se.tsv"
+)
+READ_LENGTH_SE_FILE = join(READ_LENGTH_BAM_RESULTS_DIR, "{rg_id}_length_se.txt")
 READ_LENGTH_HISTOGRAM_LOG = join(READ_LENGTH_BAM_LOG_DIR, "{rg_id}_histogram.log")
 READ_LENGTH_LOG = join(READ_LENGTH_BAM_LOG_DIR, "{rg_id}_length.log")
 
@@ -243,13 +241,25 @@ BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_RESULTS_BAM_DIR = join(BRACKEN_RESULTS_DIR, "{bam_id}")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
 BRACKEN_BAM_LOG_DIR = join(BRACKEN_LOG_DIR, "{bam_id}")
-BRACKEN_MICROBIALDB_QUANT_PE_FILE = join(
-    BRACKEN_RESULTS_BAM_DIR, "{rg_id}_quant_pe.tsv"
-)
-BRACKEN_MICROBIALDB_QUANT_SE_FILE = join(
-    BRACKEN_RESULTS_BAM_DIR, "{rg_id}_quant_se.tsv"
-)
-BRACKEN_MICROBIALDB_QUANT_LOG = join(BRACKEN_BAM_LOG_DIR, "{rg_id}_classif.log")
+BRACKEN_QUANT_PE_FILE = join(BRACKEN_RESULTS_BAM_DIR, "{rg_id}_quant_pe.tsv")
+BRACKEN_QUANT_SE_FILE = join(BRACKEN_RESULTS_BAM_DIR, "{rg_id}_quant_se.tsv")
+BRACKEN_QUANT_LOG = join(BRACKEN_BAM_LOG_DIR, "{rg_id}_classif.log")
+BRACKEN_QUANT_FILES = GDC_READGRP_META_DF.apply(
+    lambda x: (
+        join(
+            BRACKEN_RESULTS_DIR,
+            x["file_id"],
+            f"{x['read_group_id']}_quant_pe.tsv",
+        )
+        if x["is_paired_end"]
+        else join(
+            BRACKEN_RESULTS_DIR,
+            x["file_id"],
+            f"{x['read_group_id']}_quant_se.tsv",
+        )
+    ),
+    axis=1,
+).tolist()
 
 SAMTOOLS_SORT_THREADS = (
     workflow.cores
@@ -294,6 +304,7 @@ BRACKEN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken")
 include: join(RULES_DIR, "gdc_file.smk")
 include: join(RULES_DIR, "host_filter.smk")
 include: join(RULES_DIR, "microbe.smk")
+include: join(RULES_DIR, "read_length.smk")
 include: join(RULES_DIR, "ref.smk")
 
 
@@ -309,6 +320,7 @@ rule all:
         BOWTIE2_INDEX_FILES,
         BOWTIE2_FILTERED_SAM_FILES,
         BOWTIE2_FILTERED_FASTQ_FILES,
+        BRACKEN_QUANT_FILES,
 
 
 def clean(*dirs):

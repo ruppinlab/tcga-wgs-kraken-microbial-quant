@@ -4,9 +4,16 @@ suppressPackageStartupMessages({
     library(yaml)
 })
 
-stopifnot(GenomicDataCommons::status()$status == "OK")
-
 config <- yaml.load_file("./config/config.yaml")
+
+# Sink the stderr and stdout to the snakemake log file
+# https://stackoverflow.com/a/48173272
+log_dir <- config$input$gdc$metadata$log_dir
+log <- file(paste(log_dir, "gdc_metadata.log", sep = "/"), open = "wt")
+sink(log)
+sink(log, type = "message")
+
+stopifnot(GenomicDataCommons::status()$status == "OK")
 
 file_query <-
     files() %>%
@@ -84,16 +91,21 @@ readgrp_meta <- merge(
             ),
             .id = "file_id"
         ),
-    )
+    ),
+    by = "file_id"
 )
 row.names(readgrp_meta) <- readgrp_meta$read_group_id
 readgrp_meta <- arrange(readgrp_meta, read_group_id)
 
-num_uniq_readgrps <-
+uniq_readgrps <-
     readgrp_meta %>%
     dplyr::select(file_id, read_length, is_paired_end) %>%
     group_by(across(everything())) %>%
     summarize(.groups = "drop") %>%
+    as.data.frame()
+
+num_uniq_readgrps <-
+    uniq_readgrps %>%
     group_by(file_id) %>%
     summarize(num_uniq_read_groups = n(), .groups = "drop") %>%
     as.data.frame()
@@ -102,7 +114,7 @@ file_meta <- merge(file_meta, num_uniq_readgrps, by = "file_id")
 row.names(file_meta) <- file_meta$file_id
 file_meta <- arrange(file_meta, file_id)
 
-data_dir <- config$input$gdc$metadata$dir
+data_dir <- config$input$gdc$metadata$data_dir
 if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
 file_meta_filename <- config$input$gdc$metadata$file_meta_filename
 cat("Writing", file_meta_filename, "\n")
@@ -119,3 +131,16 @@ write.table(
     file = paste(data_dir, readgrp_meta_filename, sep = "/"),
     quote = FALSE, sep = "\t", row.names = FALSE
 )
+uniq_readgrps_filename <-
+    config$input$gdc$metadata$uniq_readgrps_filename
+cat("Writing", uniq_readgrps_filename, "\n")
+write.table(
+    uniq_readgrps,
+    file = paste(data_dir, uniq_readgrps_filename, sep = "/"),
+    quote = FALSE, sep = "\t", row.names = FALSE
+)
+
+# Proper syntax to close the connection for the log file but could be optional
+# for Snakemake wrapper
+sink(type = "message")
+sink()
