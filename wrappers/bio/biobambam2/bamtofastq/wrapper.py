@@ -4,20 +4,25 @@ __license__ = "BSD 3-Clause"
 
 from snakemake.shell import shell
 
-log = snakemake.log_fmt_shell(stdout=True, stderr=True)
-
-outdir = (
-    snakemake.output.get("outdir")
-    if snakemake.output.get("outdir")
-    else snakemake.params.get("outdir")
-)
+per_readgrp = snakemake.params.get("per_readgrp", False)
+paired_end = snakemake.params.get("paired_end", False)
 
 extra = snakemake.params.get("extra", "")
 
-shell(
-    "bamtofastq"
-    " filename={snakemake.input}"
-    " outputdir={outdir}"
-    " {extra}"
-    " {log}"
-)
+if per_readgrp:
+    outdir = snakemake.params.get("outdir")
+    assert (
+        outdir is not None
+    ), "params: outdir is a required input parameter when per_readgrp=True"
+    output = "outputdir={outdir}"
+elif paired_end:
+    output = (
+        "F={snakemake.output[0]} F2={snakemake.output[1]} "
+        "O={snakemake.output[2]} 02={snakemake.output[3]}"
+    )
+else:
+    output = "S={snakemake.output[0]}"
+
+log = snakemake.log_fmt_shell(stdout=True if per_readgrp else False, stderr=True)
+
+shell("bamtofastq filename={snakemake.input} {output} {extra} {log}")
