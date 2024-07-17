@@ -1,7 +1,7 @@
 rule gdc_unmapped_bam:
     params:
         token=config["input"]["gdc"]["token"],
-        bam_id=GDC_BAM_ID_WILDCARD_STR,
+        bam_id="{bam_id}",
     output:
         GDC_UNMAPPED_BAM_FILE,
     log:
@@ -15,33 +15,20 @@ rule gdc_unmapped_fastq_pe:
     input:
         GDC_UNMAPPED_BAM_FILE,
     params:
+        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.method == "rg" else None,
         paired_end=True,
-        extra=(
-            f"{config['biobambam2']['bamtofastq']['extra']['common']} "
-            f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
-        ),
-    output:
-        GDC_UNMAPPED_FASTQ_R1_FILE,
-        GDC_UNMAPPED_FASTQ_R2_FILE,
-        temp(GDC_UNMAPPED_FASTQ_O1_FILE),
-        temp(GDC_UNMAPPED_FASTQ_O2_FILE),
-    log:
-        GDC_UNMAPPED_FASTQ_LOG,
-    wrapper:
-        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
-
-
-rule gdc_unmapped_fastq_pe_per_readgrp:
-    input:
-        GDC_UNMAPPED_BAM_FILE,
-    params:
-        outdir=GDC_BAM_RESULTS_DIR,
-        paired_end=True,
-        per_readgrp=True,
-        extra=(
-            f"{config['biobambam2']['bamtofastq']['extra']['common']} "
-            f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
-            f"{config['biobambam2']['bamtofastq']['extra']['per_readgrp']}"
+        per_readgrp=lambda wc: True if wc.method == "rg" else False,
+        extra=lambda wc: (
+            (
+                f"{config['biobambam2']['bamtofastq']['extra']['common']} "
+                f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
+                f"{config['biobambam2']['bamtofastq']['extra']['per_readgrp']}"
+            )
+            if wc.method == "rg"
+            else (
+                f"{config['biobambam2']['bamtofastq']['extra']['common']} "
+                f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
+            )
         ),
     output:
         GDC_UNMAPPED_FASTQ_R1_FILE,
@@ -58,24 +45,16 @@ rule gdc_unmapped_fastq_se:
     input:
         GDC_UNMAPPED_BAM_FILE,
     params:
-        extra=config["biobambam2"]["bamtofastq"]["extra"]["common"],
-    output:
-        GDC_UNMAPPED_FASTQ_SE_FILE,
-    log:
-        GDC_UNMAPPED_FASTQ_LOG,
-    wrapper:
-        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
-
-
-rule gdc_unmapped_fastq_se_per_readgrp:
-    input:
-        GDC_UNMAPPED_BAM_FILE,
-    params:
-        outdir=GDC_BAM_RESULTS_DIR,
-        per_readgrp=True,
-        extra=(
-            f"{config['biobambam2']['bamtofastq']['extra']['common']} "
-            f"{config['biobambam2']['bamtofastq']['extra']['per_readgrp']}"
+        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.method == "rg" else None,
+        paired_end=False,
+        per_readgrp=lambda wc: True if wc.method == "rg" else False,
+        extra=lambda wc: (
+            (
+                f"{config['biobambam2']['bamtofastq']['extra']['common']} "
+                f"{config['biobambam2']['bamtofastq']['extra']['per_readgrp']}"
+            )
+            if wc.method == "rg"
+            else config["biobambam2"]["bamtofastq"]["extra"]["common"]
         ),
     output:
         GDC_UNMAPPED_FASTQ_SE_FILE,

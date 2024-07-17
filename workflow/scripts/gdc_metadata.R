@@ -95,7 +95,6 @@ readgrp_meta <- merge(
     by = "file_id"
 )
 row.names(readgrp_meta) <- readgrp_meta$read_group_id
-readgrp_meta <- arrange(readgrp_meta, read_group_id)
 
 uniq_readgrps <-
     readgrp_meta %>%
@@ -110,9 +109,27 @@ num_uniq_readgrps <-
     summarize(num_uniq_read_groups = n(), .groups = "drop") %>%
     as.data.frame()
 
-file_meta <- merge(file_meta, num_uniq_readgrps, by = "file_id")
+single_readgrp_data <- uniq_readgrps[
+    uniq_readgrps$file_id %in% num_uniq_readgrps$file_id[
+        num_uniq_readgrps$num_uniq_read_groups == 1
+    ],
+    c("file_id", "read_length", "is_paired_end")
+]
+
+file_meta <- merge(
+    file_meta, num_uniq_readgrps,
+    by = "file_id", all.x = TRUE
+)
+file_meta <- merge(
+    file_meta, single_readgrp_data,
+    by = "file_id", all.x = TRUE
+)
 row.names(file_meta) <- file_meta$file_id
 file_meta <- arrange(file_meta, file_id)
+
+readgrp_meta <- merge(readgrp_meta, num_uniq_readgrps, by = "file_id")
+row.names(readgrp_meta) <- readgrp_meta$read_group_id
+readgrp_meta <- arrange(readgrp_meta, read_group_id)
 
 data_dir <- config$input$gdc$metadata$data_dir
 if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
