@@ -27,8 +27,8 @@ by the instructions below.
 Install and set up
 [Miniforge3](https://github.com/conda-forge/miniforge#miniforge3)
 
-To obtain the source of the project and create a conda environment
-with the tools needed to run the project, execute the following below:
+Obtain the project source and create a conda environment with the tools
+needed to run the project:
 
 ```bash
 git clone https://github.com/hermidalc/tcga-wgs-kraken-microbial-quant.git
