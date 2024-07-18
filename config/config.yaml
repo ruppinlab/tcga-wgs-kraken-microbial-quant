@@ -55,20 +55,6 @@ bowtie2:
     align:
       threads: all
 
-samtools:
-  sort:
-    # sort by read name for subsequent conversion to fastq
-    extra: '-n'
-    threads: all
-  fastq:
-    # -F 2816 exclude:
-    #   not primary alignment (0x100)
-    #   read fails platform/vendor quality checks (0x200)
-    #   supplementary alignment (0x800)
-    # -c 6 output fastq.gz with default compression
-    extra: '-F 2816 -c 6'
-    threads: all
-
 biobambam2:
   bamtofastq:
     extra:

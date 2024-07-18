@@ -32,44 +32,33 @@ rule bowtie2_align:
         BOWTIE2_ALIGN_WRAPPER
 
 
-rule bowtie2_sorted_sam:
+rule bowtie2_filtered_fastq_pe:
     input:
         BOWTIE2_FILTERED_SAM_FILE,
     params:
-        extra=config["samtools"]["sort"]["extra"],
-    output:
-        BOWTIE2_SORTED_FILTERED_SAM_FILE,
-    log:
-        BOWTIE2_SORTED_FILTERED_SAM_LOG,
-    threads: SAMTOOLS_SORT_THREADS
-    wrapper:
-        SAMTOOLS_SORT_WRAPPER
-
-
-rule bowtie2_filtered_fastq_pe:
-    input:
-        BOWTIE2_SORTED_FILTERED_SAM_FILE,
-    params:
-        extra=config["samtools"]["fastq"]["extra"],
+        paired_end=True,
+        extra=(
+            f"{config['biobambam2']['bamtofastq']['extra']['common']} "
+            f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
+        ),
     output:
         BOWTIE2_FILTERED_FASTQ_R1_FILE,
         BOWTIE2_FILTERED_FASTQ_R2_FILE,
     log:
         BOWTIE2_FILTERED_FASTQ_LOG,
-    threads: SAMTOOLS_FASTQ_THREADS
     wrapper:
-        SAMTOOLS_FASTQ_SEPARATE_WRAPPER
+        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
 
 
 rule bowtie2_filtered_fastq_se:
     input:
-        BOWTIE2_SORTED_FILTERED_SAM_FILE,
+        BOWTIE2_FILTERED_SAM_FILE,
     params:
-        extra=config["samtools"]["fastq"]["extra"],
+        paired_end=False,
+        extra=config["biobambam2"]["bamtofastq"]["extra"]["common"],
     output:
         BOWTIE2_FILTERED_FASTQ_SE_FILE,
     log:
         BOWTIE2_FILTERED_FASTQ_LOG,
-    threads: SAMTOOLS_FASTQ_THREADS
     wrapper:
-        SAMTOOLS_FASTQ_SEPARATE_WRAPPER
+        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
