@@ -9,9 +9,3 @@ dependencies:
   - snakemake
   - r-dplyr
   - r-yaml
-  - ipython
-  - biobambam
-  - bowtie2
-  - krakenuniq
-  - kraken2
-  - bracken

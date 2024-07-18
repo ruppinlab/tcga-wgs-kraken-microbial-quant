@@ -78,5 +78,5 @@ krakenuniq:
   threads: all
 
 bracken:
-  # species level min threshold 0 counts
-  extra: '-l S -t 0'
+  level: S
+  threshold: 0.0

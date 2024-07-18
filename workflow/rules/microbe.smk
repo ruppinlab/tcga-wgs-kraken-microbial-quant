@@ -68,7 +68,7 @@ rule bracken_count_matrix:
     conda:
         "../envs/pandas.yaml"
     input:
-        counts=BRACKEN_BAM_COUNT_FILES,
+        BRACKEN_BAM_COUNT_FILES,
     params:
         samples=BRACKEN_BAM_IDS,
     output:
