@@ -38,6 +38,36 @@ mamba env create -f envs/tcga-wgs-kraken-microbial-quant.yaml
 mamba activate tcga-wgs-kraken-microbial-quant
 ```
 
+Test that the installation is working by doing a dry run:
+
+```
+$ snakemake --dry-run
+
+Building DAG of jobs...
+Job stats:
+job                            count
+---------------------------  -------
+all                                1
+bbmap_max_read_length          13955
+bbmap_read_length_histogram    13955
+bowtie2_filter_host            13955
+bowtie2_filtered_fastq_pe      13531
+bowtie2_filtered_fastq_se        424
+bowtie2_host_index                 1
+bracken_count_matrix               1
+bracken_merged_rg_counts          82
+bracken_quantify_reads         13955
+gdc_unmapped_bam               10838
+gdc_unmapped_fastq_pe          13531
+gdc_unmapped_fastq_se            424
+host_genome_fasta                  1
+krakenuniq_classify_reads      13955
+total                         108609
+
+Execute 10839 jobs...
+```
+
+
 ### Execution
 
 Set the GDC controlled-access authentication token in `config/config.yaml`:
