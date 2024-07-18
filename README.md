@@ -40,6 +40,16 @@ mamba activate tcga-wgs-kraken-microbial-quant
 
 ### Execution
 
+Set the GDC controlled-access authentication token in `config/config.yaml`:
+
+```yaml
+input:
+  mode: gdc
+  gdc:
+    token: ''
+```
+
+Run the workflow:
 
 ```bash
 snakemake --use-conda --printshellcmds
