@@ -1,8 +1,8 @@
-rule ref_genome_fasta:
+rule host_genome_fasta:
     params:
-        REF_FASTA_URL,
+        HOST_REF_FASTA_URL,
     output:
-        REF_FASTA_FILE,
+        HOST_REF_FASTA_FILE,
     message:
         "{params}"
     retries: config["download"]["retries"]

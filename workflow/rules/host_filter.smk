@@ -1,25 +1,25 @@
-rule bowtie2_index:
+rule bowtie2_host_index:
     input:
-        ref=REF_FASTA_FILE,
+        ref=HOST_REF_FASTA_FILE,
     params:
         extra=f"--seed {config['random_seed']}",
     output:
-        BOWTIE2_INDEX_FILES,
+        BOWTIE2_HOST_INDEX_FILES,
     log:
-        BOWTIE2_INDEX_LOG,
+        BOWTIE2_HOST_INDEX_LOG,
     threads: BOWTIE2_BUILD_THREADS
     wrapper:
         BOWTIE2_BUILD_WRAPPER
 
 
-rule bowtie2_align:
+rule bowtie2_filter_host:
     input:
         sample=lambda wc: (
             [GDC_UNMAPPED_FASTQ_R1_FILE, GDC_UNMAPPED_FASTQ_R2_FILE]
             if wc.etype == "pe"
             else GDC_UNMAPPED_FASTQ_SE_FILE
         ),
-        idx=BOWTIE2_INDEX_FILES,
+        idx=BOWTIE2_HOST_INDEX_FILES,
     params:
         extra=f"--seed {config['random_seed']}",
     output:

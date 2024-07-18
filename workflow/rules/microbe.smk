@@ -1,4 +1,4 @@
-rule krakenuniq_classify:
+rule krakenuniq_classify_reads:
     input:
         fqs=lambda wc: (
             [BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE]
@@ -22,7 +22,7 @@ rule krakenuniq_classify:
         KRAKENUNIQ_WRAPPER
 
 
-rule bracken_quantify:
+rule bracken_quantify_reads:
     input:
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
         report=KRAKENUNIQ_REPORT_FILE,
@@ -31,8 +31,37 @@ rule bracken_quantify:
         # readlen=lambda wc: GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"],
         extra=config["bracken"]["extra"],
     output:
-        BRACKEN_QUANT_FILE,
+        BRACKEN_COUNT_FILE,
     log:
-        BRACKEN_QUANT_LOG,
+        BRACKEN_COUNT_LOG,
     wrapper:
         BRACKEN_WRAPPER
+
+
+rule bracken_merged_rg_counts:
+    input:
+        lambda wc: GDC_READGRP_META_DF[GDC_READGRP_META_DF["file_id"] == wc.bam_id]
+        .apply(
+            lambda x: join(
+                BRACKEN_COUNT_RESULTS_DIR,
+                "rg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['read_group_id']}_counts.tsv",
+            ),
+            axis=1,
+        )
+        .tolist(),
+    output:
+        BRACKEN_MERGED_RG_COUNT_FILE,
+    log:
+        BRACKEN_MERGED_RG_COUNT_LOG,
+
+
+rule bracken_count_matrix:
+    input:
+        BRACKEN_BAM_COUNT_FILES,
+    output:
+        BRACKEN_COUNT_MATRIX_FILE,
+    log:
+        BRACKEN_COUNT_MATRIX_LOG,

@@ -31,8 +31,10 @@ LOCAL_WRAPPERS_BASE_URL = config["wrappers"]["local"]["base_url"]
 
 INPUT_MODE = config["input"]["mode"]
 
-REF_FASTA_URL = config["resources"]["ref"]["fasta_url"]
-REF_FASTA_FILE = join(RESOURCES_DIR, "ref", basename(urlparse(REF_FASTA_URL).path))
+HOST_REF_FASTA_URL = config["resources"]["ref"]["fasta_url"]
+HOST_REF_FASTA_FILE = join(
+    RESOURCES_DIR, "ref", basename(urlparse(HOST_REF_FASTA_URL).path)
+)
 
 GDC_METADATA_DIR = config["input"]["gdc"]["metadata"]["data_dir"]
 GDC_METADATA_LOG_DIR = config["input"]["gdc"]["metadata"]["log_dir"]
@@ -193,9 +195,9 @@ if INPUT_MODE == "gdc":
 
 BOWTIE2_RESULTS_DIR = join(RESULTS_DIR, "bowtie2")
 BOWTIE2_LOG_DIR = join(LOG_DIR, "bowtie2")
-BOWTIE2_INDEX_PREFIX = join(RESOURCES_DIR, "bowtie2", "genome")
-BOWTIE2_INDEX_FILES = multiext(
-    BOWTIE2_INDEX_PREFIX,
+BOWTIE2_HOST_INDEX_PREFIX = join(RESOURCES_DIR, "bowtie2", "genome")
+BOWTIE2_HOST_INDEX_FILES = multiext(
+    BOWTIE2_HOST_INDEX_PREFIX,
     ".1.bt2",
     ".2.bt2",
     ".3.bt2",
@@ -203,7 +205,7 @@ BOWTIE2_INDEX_FILES = multiext(
     ".rev.1.bt2",
     ".rev.2.bt2",
 )
-BOWTIE2_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", "index.log")
+BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", "index.log")
 BOWTIE2_FILE_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "{method}", "{bam_id}", "{etype}")
 BOWTIE2_FILE_LOG_DIR = join(BOWTIE2_LOG_DIR, "align", "{method}", "{bam_id}", "{etype}")
 BOWTIE2_SAM_FILE = join(BOWTIE2_FILE_RESULTS_DIR, "{rg_id}.sam")
@@ -212,46 +214,22 @@ BOWTIE2_ALIGN_LOG = join(BOWTIE2_FILE_LOG_DIR, "{rg_id}_align.log")
 BOWTIE2_FILTERED_SAM_FILES = pd.concat(
     [
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
-            lambda x: (
-                join(
-                    BOWTIE2_RESULTS_DIR,
-                    "sg",
-                    x["file_id"],
-                    "pe",
-                    f"{x['file_id']}_filtered.sam",
-                )
-                if x["is_paired_end"]
-                else join(
-                    BOWTIE2_RESULTS_DIR,
-                    "sg",
-                    x["file_id"],
-                    "se",
-                    f"{x['file_id']}_filtered.sam",
-                )
+            lambda x: join(
+                BOWTIE2_RESULTS_DIR,
+                "sg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['file_id']}_filtered.sam",
             ),
             axis=1,
         ),
         GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
-            lambda x: (
-                [
-                    join(
-                        BOWTIE2_RESULTS_DIR,
-                        "rg",
-                        x["file_id"],
-                        "pe",
-                        f"{x['read_group_id']}_filtered.sam",
-                    ),
-                ]
-                if x["is_paired_end"]
-                else [
-                    join(
-                        BOWTIE2_RESULTS_DIR,
-                        "rg",
-                        x["file_id"],
-                        "se",
-                        f"{x['read_group_id']}_filtered.sam",
-                    )
-                ]
+            lambda x: join(
+                BOWTIE2_RESULTS_DIR,
+                "rg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['read_group_id']}_filtered.sam",
             ),
             axis=1,
         ),
@@ -361,53 +339,74 @@ READ_LENGTH_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_length.log")
 
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
-BRACKEN_FILE_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "{method}", "{bam_id}", "{etype}")
-BRACKEN_FILE_LOG_DIR = join(BRACKEN_LOG_DIR, "{method}", "{bam_id}", "{etype}")
-BRACKEN_QUANT_FILE = join(BRACKEN_FILE_RESULTS_DIR, "{rg_id}_quant.tsv")
-BRACKEN_QUANT_LOG = join(BRACKEN_FILE_LOG_DIR, "{rg_id}_classif.log")
-BRACKEN_QUANT_FILES = pd.concat(
+
+BRACKEN_COUNT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "counts")
+BRACKEN_COUNT_LOG_DIR = join(BRACKEN_LOG_DIR, "counts")
+BRACKEN_COUNT_FILE_RESULTS_DIR = join(
+    BRACKEN_COUNT_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
+)
+BRACKEN_COUNT_FILE_LOG_DIR = join(
+    BRACKEN_COUNT_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+)
+BRACKEN_COUNT_FILE = join(BRACKEN_COUNT_FILE_RESULTS_DIR, "{rg_id}_counts.tsv")
+BRACKEN_COUNT_LOG = join(BRACKEN_COUNT_FILE_LOG_DIR, "{rg_id}_counts.log")
+BRACKEN_COUNT_FILES = pd.concat(
     [
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
-            lambda x: (
-                join(
-                    BRACKEN_RESULTS_DIR,
-                    "sg",
-                    x["file_id"],
-                    "pe",
-                    f"{x['file_id']}_quant.tsv",
-                )
-                if x["is_paired_end"]
-                else join(
-                    BRACKEN_RESULTS_DIR,
-                    "sg",
-                    x["file_id"],
-                    "se",
-                    f"{x['file_id']}_quant.tsv",
-                )
+            lambda x: join(
+                BRACKEN_COUNT_RESULTS_DIR,
+                "sg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['file_id']}_counts.tsv",
             ),
             axis=1,
         ),
         GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
-            lambda x: (
-                [
-                    join(
-                        BRACKEN_RESULTS_DIR,
-                        "rg",
-                        x["file_id"],
-                        "pe",
-                        f"{x['read_group_id']}_quant.tsv",
-                    ),
-                ]
-                if x["is_paired_end"]
-                else [
-                    join(
-                        BRACKEN_RESULTS_DIR,
-                        "rg",
-                        x["file_id"],
-                        "se",
-                        f"{x['read_group_id']}_quant.tsv",
-                    )
-                ]
+            lambda x: join(
+                BRACKEN_COUNT_RESULTS_DIR,
+                "rg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['read_group_id']}_counts.tsv",
+            ),
+            axis=1,
+        ),
+    ],
+    axis=0,
+).tolist()
+
+BRACKEN_MERGED_RG_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "merge_rg")
+BRACKEN_MERGED_RG_LOG_DIR = join(BRACKEN_LOG_DIR, "merge_rg")
+BRACKEN_MERGED_RG_COUNT_FILE = join(
+    BRACKEN_MERGED_RG_RESULTS_DIR, "{bam_id}_counts.tsv"
+)
+BRACKEN_MERGED_RG_COUNT_LOG = join(BRACKEN_MERGED_RG_LOG_DIR, "{bam_id}_counts.log")
+
+BRACKEN_COUNT_MATRIX_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "matrix")
+BRACKEN_COUNT_MATRIX_LOG_DIR = join(BRACKEN_LOG_DIR, "matrix")
+BRACKEN_COUNT_MATRIX_FILE = join(
+    BRACKEN_COUNT_MATRIX_RESULTS_DIR, f"{STUDY_NAME}_count_matrix.tsv"
+)
+BRACKEN_COUNT_MATRIX_LOG = join(
+    BRACKEN_COUNT_MATRIX_LOG_DIR, f"{STUDY_NAME}_count_matrix.log"
+)
+BRACKEN_BAM_COUNT_FILES = pd.concat(
+    [
+        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
+            lambda x: join(
+                BRACKEN_COUNT_RESULTS_DIR,
+                "sg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['file_id']}_counts.tsv",
+            ),
+            axis=1,
+        ),
+        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] > 1].apply(
+            lambda x: join(
+                BRACKEN_MERGED_RG_RESULTS_DIR,
+                f"{x['file_id']}_counts.tsv",
             ),
             axis=1,
         ),
@@ -457,13 +456,14 @@ wildcard_constraints:
 
 rule all:
     input:
-        # REF_FASTA_FILE,
+        # HOST_REF_FASTA_FILE,
         # GDC_UNMAPPED_BAM_FILES,
         # GDC_UNMAPPED_FASTQ_FILES,
-        # BOWTIE2_INDEX_FILES,
+        # BOWTIE2_HOST_INDEX_FILES,
         # BOWTIE2_FILTERED_SAM_FILES,
         # BOWTIE2_FILTERED_FASTQ_FILES,
-        BRACKEN_QUANT_FILES,
+        # BRACKEN_COUNT_FILES,
+        BRACKEN_COUNT_MATRIX_FILE,
 
 
 def clean(*dirs):
