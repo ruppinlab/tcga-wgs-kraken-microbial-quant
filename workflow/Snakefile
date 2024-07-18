@@ -323,7 +323,7 @@ KRAKENUNIQ_FILE_RESULTS_DIR = join(
 )
 KRAKENUNIQ_FILE_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "{method}", "{bam_id}", "{etype}")
 KRAKENUNIQ_CLASSIF_FILE = join(KRAKENUNIQ_FILE_RESULTS_DIR, "{rg_id}_classif.tsv")
-KRAKENUNIQ_REPORT_FILE = join(KRAKENUNIQ_FILE_RESULTS_DIR, "{rg_id}_report.txt")
+KRAKENUNIQ_REPORT_FILE = join(KRAKENUNIQ_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
 KRAKENUNIQ_CLASSIF_LOG = join(KRAKENUNIQ_FILE_LOG_DIR, "{rg_id}_classif.log")
 
 READ_LENGTH_RESULTS_DIR = join(RESULTS_DIR, "read_length")
@@ -349,6 +349,7 @@ BRACKEN_COUNT_FILE_LOG_DIR = join(
     BRACKEN_COUNT_LOG_DIR, "{method}", "{bam_id}", "{etype}"
 )
 BRACKEN_COUNT_FILE = join(BRACKEN_COUNT_FILE_RESULTS_DIR, "{rg_id}_counts.tsv")
+BRACKEN_REPORT_FILE = join(BRACKEN_COUNT_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
 BRACKEN_COUNT_LOG = join(BRACKEN_COUNT_FILE_LOG_DIR, "{rg_id}_counts.log")
 BRACKEN_COUNT_FILES = pd.concat(
     [
@@ -410,6 +411,13 @@ BRACKEN_BAM_COUNT_FILES = pd.concat(
             ),
             axis=1,
         ),
+    ],
+    axis=0,
+).tolist()
+BRACKEN_BAM_IDS = pd.concat(
+    [
+        GDC_BAM_META_DF.loc[GDC_BAM_META_DF["num_uniq_read_groups"] == 1, "file_id"],
+        GDC_BAM_META_DF.loc[GDC_BAM_META_DF["num_uniq_read_groups"] > 1, "file_id"],
     ],
     axis=0,
 ).tolist()

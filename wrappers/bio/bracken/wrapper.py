@@ -15,14 +15,17 @@ if read_length is None:
     with open(read_length_file, "r") as fh:
         read_length = re.sub("\D+", "", fh.readline())
 
-extra = snakemake.params.get("extra", "")
+level = snakemake.params.get("level", "S")
+threshold = snakemake.params.get("threshold", 0.0)
 
 shell(
     "bracken"
     " -d {snakemake.input.db}"
     " -i {snakemake.input.report}"
-    " -o {snakemake.output}"
+    " -o {snakemake.output.counts}"
+    " -w {snakemake.output.report}"
     " -r {read_length}"
-    " {extra}"
+    " -l {level}"
+    " -t {threshold}"
     " {log}"
 )
