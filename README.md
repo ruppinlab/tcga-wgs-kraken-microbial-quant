@@ -2,9 +2,9 @@
 
 A Kraken-based pipeline for classifying and quantifying microbial
 reads from GDC TCGA WGS data. Properly handles TCGA WGS merged
-BAMs with mixed SE and PE reads or multiple read lengths when needed
-by splitting to read-group level FASTQs and processing data at
-read-group level through the pipeline before merging results.
+BAMs with mixed SE and PE reads and multiple read lengths when needed
+by splitting to read group level FASTQs and processing data through
+the pipeline at read group level before aggregating the results.
 See [References](#references) for the basis for this pipeline and
 more information.
 
