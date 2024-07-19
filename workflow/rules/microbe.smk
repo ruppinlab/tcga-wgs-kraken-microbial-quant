@@ -1,3 +1,28 @@
+rule kraken2_db_taxonomy:
+    params:
+        taskopt="--download-taxonomy",
+    output:
+        directory(KRAKEN2_DB_TAX_DIR),
+    log:
+        KRAKEN2_DB_TAX_LOG,
+    threads: KRAKEN2_BUILD_THREADS
+    wrapper:
+        KRAKEN2_BUILD_WRAPPER
+
+
+rule kraken2_db_library:
+    params:
+        lib="{klib}",
+        taskopt="--download-library",
+    output:
+        directory(KRAKEN2_DB_LIB_DIR),
+    log:
+        KRAKEN2_DB_LIB_LOG,
+    threads: KRAKEN2_BUILD_THREADS
+    wrapper:
+        KRAKEN2_BUILD_WRAPPER
+
+
 rule krakenuniq_read_classif:
     input:
         fqs=lambda wc: (
@@ -5,7 +30,7 @@ rule krakenuniq_read_classif:
             if wc.etype == "pe"
             else BOWTIE2_FILTERED_FASTQ_SE_FILE
         ),
-        db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
+        db=KRAKENUNIQ_DB_DIR,
     params:
         extra=lambda wc: (
             f"--paired --check-names {config['krakenuniq']['extra']}"
@@ -24,7 +49,7 @@ rule krakenuniq_read_classif:
 
 rule bracken_read_quant:
     input:
-        db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
+        db=KRAKENUNIQ_DB_DIR,
         report=KRAKENUNIQ_REPORT_FILE,
         readlen=READ_LENGTH_FILE,
     params:

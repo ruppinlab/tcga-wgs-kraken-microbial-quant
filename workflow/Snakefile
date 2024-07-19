@@ -41,6 +41,12 @@ GDC_BAM_META_FILE = join(GDC_METADATA_DIR, GDC_BAM_META_FILENAME)
 GDC_READGRP_META_FILENAME = config["gdc"]["metadata"]["readgrp_meta_filename"]
 GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, GDC_READGRP_META_FILENAME)
 
+KRAKEN2_DB_LIBS = config["resources"]["kraken"]["db"]["libs"]
+KRAKEN2_DB_DIR = config["resources"]["kraken"]["db"]["dir"]
+KRAKENUNIQ_DB_DIR = config["resources"]["kraken"]["db"]["dir"]
+
+EXPAND_PARAMS["klib"] = KRAKEN2_DB_LIBS
+
 makedirs(GDC_METADATA_LOG_DIR, mode=0o755, exist_ok=True)
 GDC_METADATA_LOG = join(GDC_METADATA_LOG_DIR, "gdc_metadata.log")
 with open(GDC_METADATA_LOG, "wt") as log_fh:
@@ -311,6 +317,13 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
     )
 ).tolist()
 
+KRAKEN2_RESOURCES_DIR = join(RESOURCES_DIR, "kraken2")
+KRAKEN2_LOG_DIR = join(LOG_DIR, "kraken2")
+KRAKEN2_DB_TAX_DIR = join(KRAKEN2_DB_DIR, "taxonomy")
+KRAKEN2_DB_TAX_LOG = join(KRAKEN2_LOG_DIR, "taxonomy.log")
+KRAKEN2_DB_LIB_DIR = join(KRAKEN2_DB_DIR, "library", "{klib}")
+KRAKEN2_DB_LIB_LOG = join(KRAKEN2_LOG_DIR, "{klib}.log")
+
 KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
 KRAKENUNIQ_FILE_RESULTS_DIR = join(
@@ -427,6 +440,11 @@ BOWTIE2_ALIGN_THREADS = (
     if config["bowtie2"]["align"]["threads"] == "all"
     else config["bowtie2"]["align"]["threads"]
 )
+KRAKEN2_BUILD_THREADS = (
+    workflow.cores
+    if config["kraken2"]["build"]["threads"] == "all"
+    else config["kraken2"]["build"]["threads"]
+)
 KRAKENUNIQ_THREADS = (
     workflow.cores
     if config["krakenuniq"]["threads"] == "all"
@@ -438,6 +456,7 @@ BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
 )
 BOWTIE2_BUILD_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/build")
 BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
+KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKENUNIQ_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq")
 READ_LENGTH_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/bbmap/readlength")
 BRACKEN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken")
@@ -451,6 +470,7 @@ include: join(RULES_DIR, "ref.smk")
 
 
 wildcard_constraints:
+    **{w: "|".join(set([re.escape(v) for v in l])) for w, l in EXPAND_PARAMS.items()},
     bam_id="[0-9a-f\\-]+",
     rg_id="[0-9a-f\\-]+",
     method="sg|rg",
@@ -460,6 +480,8 @@ wildcard_constraints:
 rule all:
     input:
         # HOST_REF_FASTA_FILE,
+        KRAKEN2_DB_TAX_DIR,
+        expand(KRAKEN2_DB_LIB_DIR, **EXPAND_PARAMS),
         # GDC_UNMAPPED_BAM_FILES,
         # GDC_UNMAPPED_FASTQ_FILES,
         # BOWTIE2_HOST_INDEX_FILES,

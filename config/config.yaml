@@ -17,9 +17,10 @@ download:
 resources:
   ref:
     fasta_url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
-  krakenuniq:
-    microbialdb:
-      dir: /mnt/hgfs/D/tcga-wgs-kraken-microbial-quant
+  kraken:
+    db:
+      libs: [archaea, bacteria, viral, human, UniVec_Core]
+      dir: /mnt/hgfs/D/tcga-wgs-kraken-microbial-quant/resources/MicrobialDB
 
 study: tcga_wgs
 
@@ -69,6 +70,12 @@ biobambam2:
         outputperreadgroupsuffixO=_unmapped_o1.fastq.gz
         outputperreadgroupsuffixO2=_unmapped_o2.fastq.gz
         outputperreadgroupsuffixS=_unmapped_se.fastq.gz
+
+kraken2:
+  build:
+    threads: all
+  classify:
+    threads: all
 
 krakenuniq:
   extra: '--preload-size 16G'
