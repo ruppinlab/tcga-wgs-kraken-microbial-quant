@@ -47,6 +47,9 @@ gdc:
 host_filter:
   mode: bowtie2
 
+read_classif:
+  mode: krakenuniq
+
 bowtie2:
     build:
       threads: all

@@ -12,7 +12,7 @@ rule bowtie2_host_index:
         BOWTIE2_BUILD_WRAPPER
 
 
-rule bowtie2_filter_host:
+rule bowtie2_host_filter:
     input:
         sample=lambda wc: (
             [GDC_UNMAPPED_FASTQ_R1_FILE, GDC_UNMAPPED_FASTQ_R2_FILE]

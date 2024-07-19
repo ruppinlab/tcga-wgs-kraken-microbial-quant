@@ -2,9 +2,9 @@ rule kraken2_db_taxonomy:
     params:
         db=KRAKEN2_DB_DIR,
         taskopt="--download-taxonomy",
-        extra=config["resources"]["kraken2"]["build"]["extra"],
+        extra=config["kraken2"]["build"]["extra"],
     output:
-        directory(KRAKEN2_DB_TAX_DIR),
+        touch(KRAKEN2_DB_TAX_TOUCH_FILE),
     log:
         KRAKEN2_DB_TAX_LOG,
     threads: KRAKEN2_BUILD_THREADS
@@ -17,9 +17,9 @@ rule kraken2_db_library:
         db=KRAKEN2_DB_DIR,
         lib="{klib}",
         taskopt="--download-library",
-        extra=config["resources"]["kraken2"]["build"]["extra"],
+        extra=config["kraken2"]["build"]["extra"],
     output:
-        directory(KRAKEN2_DB_LIB_DIR),
+        touch(KRAKEN2_DB_LIB_TOUCH_FILE),
     log:
         KRAKEN2_DB_LIB_LOG,
     threads: KRAKEN2_BUILD_THREADS
@@ -28,14 +28,17 @@ rule kraken2_db_library:
 
 
 rule kraken2_db_build:
+    input:
+        KRAKEN2_DB_TAX_TOUCH_FILE,
+        expand(KRAKEN2_DB_LIB_TOUCH_FILE, **EXPAND_PARAMS),
     params:
         db=KRAKEN2_DB_DIR,
         taskopt="--build",
-        extra=config["resources"]["kraken2"]["build"]["extra"],
+        extra=config["kraken2"]["build"]["extra"],
     output:
-        directory(KRAKEN2_DB_DIR),
+        touch(KRAKEN2_DB_BUILD_TOUCH_FILE),
     log:
-        KRAKEN2_DB_LOG,
+        KRAKEN2_DB_BUILD_LOG,
     threads: KRAKEN2_BUILD_THREADS
     wrapper:
         KRAKEN2_BUILD_WRAPPER

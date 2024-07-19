@@ -323,6 +323,10 @@ KRAKEN2_DB_TAX_DIR = join(KRAKEN2_DB_DIR, "taxonomy")
 KRAKEN2_DB_TAX_LOG = join(KRAKEN2_LOG_DIR, "taxonomy.log")
 KRAKEN2_DB_LIB_DIR = join(KRAKEN2_DB_DIR, "library", "{klib}")
 KRAKEN2_DB_LIB_LOG = join(KRAKEN2_LOG_DIR, "{klib}.log")
+KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "build.log")
+KRAKEN2_DB_TAX_TOUCH_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_db_taxonomy.done")
+KRAKEN2_DB_LIB_TOUCH_FILE = join(KRAKEN2_DB_LIB_DIR, "kraken2_db_{klib}.done")
+KRAKEN2_DB_BUILD_TOUCH_FILE = join(KRAKEN2_DB_DIR, "kraken2_db_build.done")
 
 KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
@@ -480,8 +484,9 @@ wildcard_constraints:
 rule all:
     input:
         # HOST_REF_FASTA_FILE,
-        KRAKEN2_DB_TAX_DIR,
-        expand(KRAKEN2_DB_LIB_DIR, **EXPAND_PARAMS),
+        KRAKEN2_DB_TAX_TOUCH_FILE,
+        expand(KRAKEN2_DB_LIB_TOUCH_FILE, **EXPAND_PARAMS),
+        KRAKEN2_DB_BUILD_TOUCH_FILE,
         # GDC_UNMAPPED_BAM_FILES,
         # GDC_UNMAPPED_FASTQ_FILES,
         # BOWTIE2_HOST_INDEX_FILES,
