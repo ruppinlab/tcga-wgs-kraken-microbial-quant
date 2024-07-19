@@ -8,6 +8,8 @@ the pipeline at read group level before aggregating the results.
 See [References](#references) for the general basis for this pipeline
 and more information.
 
+Pipeline summary and Snakemake rulegraph:
+
 GDC TCGA WGS Unmapped Read BAMs ->
 Biobambam2 Unmapped FASTQs (Split to Read Group Level when Required) ->
 Bowtie2 Host Filtering (T2T-CHM13v2.0) ->
@@ -75,14 +77,9 @@ Execute 10839 jobs...
 
 ### Execution
 
-Set the GDC controlled-access authentication token in `config/config.yaml`:
-
-```yaml
-input:
-  mode: gdc
-  gdc:
-    token: ''
-```
+Set your GDC controlled-access authentication token in environment
+variables `GDC_TOKEN` or `GDC_TOKEN_FILE`, the `~/.gdc_token`, or in
+`config/config.yaml` so the pipeline can get the token.
 
 Run the workflow:
 

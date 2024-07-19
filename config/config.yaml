@@ -23,28 +23,27 @@ resources:
 
 study: tcga_wgs
 
-input:
-  mode: gdc
-  gdc:
-    token: ''
-    program_names: [
-      'TCGA'
-    ]
-    sample_types: [
-      'Primary Tumor',
-      'Primary Blood Derived Cancer - Peripheral Blood',
-      'Additional - New Primary'
-    ]
-    exp_strategy: WGS
-    workflow_types: [
-      'BWA with Mark Duplicates and BQSR'
-    ]
-    metadata:
-      data_dir: data/gdc
-      log_dir: logs/gdc
-      file_meta_filename: gdc_file_meta.tsv
-      readgrp_meta_filename: gdc_readgrp_meta.tsv
-      uniq_readgrps_filename: gdc_uniq_readgrps.tsv
+gdc:
+  # only set if env var GDC_TOKEN, GDC_TOKEN_FILE, or file ~/.gdc_token not available
+  token:
+  program_names: [
+    'TCGA'
+  ]
+  sample_types: [
+    'Primary Tumor',
+    'Primary Blood Derived Cancer - Peripheral Blood',
+    'Additional - New Primary'
+  ]
+  exp_strategy: WGS
+  workflow_types: [
+    'BWA with Mark Duplicates and BQSR'
+  ]
+  metadata:
+    data_dir: data/gdc
+    log_dir: logs/gdc
+    file_meta_filename: gdc_file_meta.tsv
+    readgrp_meta_filename: gdc_readgrp_meta.tsv
+    uniq_readgrps_filename: gdc_uniq_readgrps.tsv
 
 host_filter:
   mode: bowtie2

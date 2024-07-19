@@ -1,4 +1,4 @@
-rule krakenuniq_classify_reads:
+rule krakenuniq_read_classif:
     input:
         fqs=lambda wc: (
             [BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE]
@@ -22,7 +22,7 @@ rule krakenuniq_classify_reads:
         KRAKENUNIQ_WRAPPER
 
 
-rule bracken_quantify_reads:
+rule bracken_read_quant:
     input:
         db=config["resources"]["krakenuniq"]["microbialdb"]["dir"],
         report=KRAKENUNIQ_REPORT_FILE,

@@ -29,169 +29,162 @@ PUBLIC_WRAPPERS_VERSION = config["wrappers"]["public"]["version"]
 PERSONAL_WRAPPERS_BASE_URL = config["wrappers"]["personal"]["base_url"]
 LOCAL_WRAPPERS_BASE_URL = config["wrappers"]["local"]["base_url"]
 
-INPUT_MODE = config["input"]["mode"]
-
 HOST_REF_FASTA_URL = config["resources"]["ref"]["fasta_url"]
 HOST_REF_FASTA_FILE = join(
     RESOURCES_DIR, "ref", basename(urlparse(HOST_REF_FASTA_URL).path)
 )
 
-GDC_METADATA_DIR = config["input"]["gdc"]["metadata"]["data_dir"]
-GDC_METADATA_LOG_DIR = config["input"]["gdc"]["metadata"]["log_dir"]
-if INPUT_MODE == "gdc":
-    GDC_BAM_META_FILENAME = config["input"]["gdc"]["metadata"]["file_meta_filename"]
-    GDC_BAM_META_FILE = join(GDC_METADATA_DIR, GDC_BAM_META_FILENAME)
-    GDC_READGRP_META_FILENAME = config["input"]["gdc"]["metadata"][
-        "readgrp_meta_filename"
-    ]
-    GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, GDC_READGRP_META_FILENAME)
+GDC_METADATA_DIR = config["gdc"]["metadata"]["data_dir"]
+GDC_METADATA_LOG_DIR = config["gdc"]["metadata"]["log_dir"]
+GDC_BAM_META_FILENAME = config["gdc"]["metadata"]["file_meta_filename"]
+GDC_BAM_META_FILE = join(GDC_METADATA_DIR, GDC_BAM_META_FILENAME)
+GDC_READGRP_META_FILENAME = config["gdc"]["metadata"]["readgrp_meta_filename"]
+GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, GDC_READGRP_META_FILENAME)
 
-    makedirs(GDC_METADATA_LOG_DIR, mode=0o755, exist_ok=True)
-    GDC_METADATA_LOG = join(GDC_METADATA_LOG_DIR, "gdc_metadata.log")
-    with open(GDC_METADATA_LOG, "wt") as log_fh:
-        if not exists(GDC_BAM_META_FILE) or not exists(GDC_READGRP_META_FILE):
-            log_fh.write("Getting GDC metadata...\n")
-            makedirs(GDC_METADATA_DIR, mode=0o755, exist_ok=True)
-            shell("Rscript ./workflow/scripts/gdc_metadata.R")
-        else:
-            log_fh.write("Using existing GDC metadata\n")
+makedirs(GDC_METADATA_LOG_DIR, mode=0o755, exist_ok=True)
+GDC_METADATA_LOG = join(GDC_METADATA_LOG_DIR, "gdc_metadata.log")
+with open(GDC_METADATA_LOG, "wt") as log_fh:
+    if not exists(GDC_BAM_META_FILE) or not exists(GDC_READGRP_META_FILE):
+        log_fh.write("Getting GDC metadata...\n")
+        makedirs(GDC_METADATA_DIR, mode=0o755, exist_ok=True)
+        shell("Rscript ./workflow/scripts/gdc_metadata.R")
+    else:
+        log_fh.write("Using existing GDC metadata\n")
 
-    GDC_BAM_META_DF = pd.read_csv(GDC_BAM_META_FILE, sep="\t").set_index(
-        "file_id", drop=False, verify_integrity=True
-    )
-    GDC_READGRP_META_DF = pd.read_csv(
-        GDC_READGRP_META_FILE, sep="\t", dtype={"is_paired_end": bool}
-    ).set_index("read_group_id", drop=False, verify_integrity=True)
+GDC_BAM_META_DF = pd.read_csv(GDC_BAM_META_FILE, sep="\t").set_index(
+    "file_id", drop=False, verify_integrity=True
+)
+GDC_READGRP_META_DF = pd.read_csv(
+    GDC_READGRP_META_FILE, sep="\t", dtype={"is_paired_end": bool}
+).set_index("read_group_id", drop=False, verify_integrity=True)
 
-    GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
-    GDC_LOG_DIR = join(LOG_DIR, "gdc")
-    GDC_FILE_RESULTS_DIR = join(GDC_RESULTS_DIR, "{method}", "{bam_id}")
-    GDC_FILE_LOG_DIR = join(GDC_LOG_DIR, "{method}", "{bam_id}")
-    GDC_UNMAPPED_BAM_FILE = join(GDC_FILE_RESULTS_DIR, "{bam_id}_unmapped.bam")
-    GDC_UNMAPPED_BAM_LOG = join(GDC_FILE_LOG_DIR, "{bam_id}_unmapped_bam.log")
-    GDC_UNMAPPED_BAM_FILES = GDC_BAM_META_DF.apply(
-        lambda x: (
-            join(
-                GDC_RESULTS_DIR,
-                "sg",
-                x["file_id"],
-                f"{x['file_id']}_unmapped.bam",
-            )
-            if x["num_uniq_read_groups"] == 1
-            else join(
-                GDC_RESULTS_DIR,
-                "rg",
-                x["file_id"],
-                f"{x['file_id']}_unmapped.bam",
-            )
-        ),
-        axis=1,
-    ).tolist()
-    GDC_UNMAPPED_FASTQ_R1_FILE = join(
-        GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_r1.fastq.gz"
-    )
-    GDC_UNMAPPED_FASTQ_R2_FILE = join(
-        GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_r2.fastq.gz"
-    )
-    GDC_UNMAPPED_FASTQ_O1_FILE = join(
-        GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o1.fastq.gz"
-    )
-    GDC_UNMAPPED_FASTQ_O2_FILE = join(
-        GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o2.fastq.gz"
-    )
-    GDC_UNMAPPED_FASTQ_SE_FILE = join(
-        GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_se.fastq.gz"
-    )
-    GDC_UNMAPPED_FASTQ_LOG = join(GDC_FILE_LOG_DIR, "{rg_id}_unmapped_fastq.log")
-    GDC_UNMAPPED_FASTQ_FILES = np.hstack(
-        pd.concat(
-            [
-                GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
-                    lambda x: (
-                        [
-                            join(
-                                GDC_RESULTS_DIR,
-                                "sg",
-                                x["file_id"],
-                                f"{x['file_id']}_unmapped_r1.fastq.gz",
-                            ),
-                            join(
-                                GDC_RESULTS_DIR,
-                                "sg",
-                                x["file_id"],
-                                f"{x['file_id']}_unmapped_r2.fastq.gz",
-                            ),
-                            join(
-                                GDC_RESULTS_DIR,
-                                "sg",
-                                x["file_id"],
-                                f"{x['file_id']}_unmapped_o1.fastq.gz",
-                            ),
-                            join(
-                                GDC_RESULTS_DIR,
-                                "sg",
-                                x["file_id"],
-                                f"{x['file_id']}_unmapped_o2.fastq.gz",
-                            ),
-                        ]
-                        if x["is_paired_end"]
-                        else [
-                            join(
-                                GDC_RESULTS_DIR,
-                                "sg",
-                                x["file_id"],
-                                f"{x['file_id']}_unmapped_se.fastq.gz",
-                            )
-                        ]
-                    ),
-                    axis=1,
-                ),
-                GDC_READGRP_META_DF[
-                    GDC_READGRP_META_DF["num_uniq_read_groups"] > 1
-                ].apply(
-                    lambda x: (
-                        [
-                            join(
-                                GDC_RESULTS_DIR,
-                                "rg",
-                                x["file_id"],
-                                f"{x['read_group_id']}_unmapped_r1.fastq.gz",
-                            ),
-                            join(
-                                GDC_RESULTS_DIR,
-                                "rg",
-                                x["file_id"],
-                                f"{x['read_group_id']}_unmapped_r2.fastq.gz",
-                            ),
-                            join(
-                                GDC_RESULTS_DIR,
-                                "rg",
-                                x["file_id"],
-                                f"{x['read_group_id']}_unmapped_o1.fastq.gz",
-                            ),
-                            join(
-                                GDC_RESULTS_DIR,
-                                "rg",
-                                x["file_id"],
-                                f"{x['read_group_id']}_unmapped_o2.fastq.gz",
-                            ),
-                        ]
-                        if x["is_paired_end"]
-                        else [
-                            join(
-                                GDC_RESULTS_DIR,
-                                "rg",
-                                x["file_id"],
-                                f"{x['read_group_id']}_unmapped_se.fastq.gz",
-                            )
-                        ]
-                    ),
-                    axis=1,
-                ),
-            ],
-            axis=0,
+GDC_TOKEN = os.getenv("GDC_TOKEN")
+if GDC_TOKEN is None:
+    GDC_TOKEN_FILE = os.getenv("GDC_TOKEN_FILE", "~/.gdc_token")
+    if GDC_TOKEN_FILE is not None:
+        GDC_TOKEN_FILE = GDC_TOKEN_FILE.strip()
+        with open(GDC_TOKEN_FILE, "rt") as token_fh:
+            GDC_TOKEN = token_fh.readline().strip()
+if GDC_TOKEN is None:
+    GDC_TOKEN = config["gdc"]["token"]
+
+GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
+GDC_LOG_DIR = join(LOG_DIR, "gdc")
+GDC_FILE_RESULTS_DIR = join(GDC_RESULTS_DIR, "{method}", "{bam_id}")
+GDC_FILE_LOG_DIR = join(GDC_LOG_DIR, "{method}", "{bam_id}")
+GDC_UNMAPPED_BAM_FILE = join(GDC_FILE_RESULTS_DIR, "{bam_id}_unmapped.bam")
+GDC_UNMAPPED_BAM_LOG = join(GDC_FILE_LOG_DIR, "{bam_id}_unmapped_bam.log")
+GDC_UNMAPPED_BAM_FILES = GDC_BAM_META_DF.apply(
+    lambda x: (
+        join(
+            GDC_RESULTS_DIR,
+            "sg",
+            x["file_id"],
+            f"{x['file_id']}_unmapped.bam",
         )
-    ).tolist()
+        if x["num_uniq_read_groups"] == 1
+        else join(
+            GDC_RESULTS_DIR,
+            "rg",
+            x["file_id"],
+            f"{x['file_id']}_unmapped.bam",
+        )
+    ),
+    axis=1,
+).tolist()
+GDC_UNMAPPED_FASTQ_R1_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_r1.fastq.gz")
+GDC_UNMAPPED_FASTQ_R2_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_r2.fastq.gz")
+GDC_UNMAPPED_FASTQ_O1_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o1.fastq.gz")
+GDC_UNMAPPED_FASTQ_O2_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o2.fastq.gz")
+GDC_UNMAPPED_FASTQ_SE_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_se.fastq.gz")
+GDC_UNMAPPED_FASTQ_LOG = join(GDC_FILE_LOG_DIR, "{rg_id}_unmapped_fastq.log")
+GDC_UNMAPPED_FASTQ_FILES = np.hstack(
+    pd.concat(
+        [
+            GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
+                lambda x: (
+                    [
+                        join(
+                            GDC_RESULTS_DIR,
+                            "sg",
+                            x["file_id"],
+                            f"{x['file_id']}_unmapped_r1.fastq.gz",
+                        ),
+                        join(
+                            GDC_RESULTS_DIR,
+                            "sg",
+                            x["file_id"],
+                            f"{x['file_id']}_unmapped_r2.fastq.gz",
+                        ),
+                        join(
+                            GDC_RESULTS_DIR,
+                            "sg",
+                            x["file_id"],
+                            f"{x['file_id']}_unmapped_o1.fastq.gz",
+                        ),
+                        join(
+                            GDC_RESULTS_DIR,
+                            "sg",
+                            x["file_id"],
+                            f"{x['file_id']}_unmapped_o2.fastq.gz",
+                        ),
+                    ]
+                    if x["is_paired_end"]
+                    else [
+                        join(
+                            GDC_RESULTS_DIR,
+                            "sg",
+                            x["file_id"],
+                            f"{x['file_id']}_unmapped_se.fastq.gz",
+                        )
+                    ]
+                ),
+                axis=1,
+            ),
+            GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
+                lambda x: (
+                    [
+                        join(
+                            GDC_RESULTS_DIR,
+                            "rg",
+                            x["file_id"],
+                            f"{x['read_group_id']}_unmapped_r1.fastq.gz",
+                        ),
+                        join(
+                            GDC_RESULTS_DIR,
+                            "rg",
+                            x["file_id"],
+                            f"{x['read_group_id']}_unmapped_r2.fastq.gz",
+                        ),
+                        join(
+                            GDC_RESULTS_DIR,
+                            "rg",
+                            x["file_id"],
+                            f"{x['read_group_id']}_unmapped_o1.fastq.gz",
+                        ),
+                        join(
+                            GDC_RESULTS_DIR,
+                            "rg",
+                            x["file_id"],
+                            f"{x['read_group_id']}_unmapped_o2.fastq.gz",
+                        ),
+                    ]
+                    if x["is_paired_end"]
+                    else [
+                        join(
+                            GDC_RESULTS_DIR,
+                            "rg",
+                            x["file_id"],
+                            f"{x['read_group_id']}_unmapped_se.fastq.gz",
+                        )
+                    ]
+                ),
+                axis=1,
+            ),
+        ],
+        axis=0,
+    )
+).tolist()
 
 BOWTIE2_RESULTS_DIR = join(RESULTS_DIR, "bowtie2")
 BOWTIE2_LOG_DIR = join(LOG_DIR, "bowtie2")

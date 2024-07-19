@@ -1,6 +1,6 @@
 rule gdc_unmapped_bam:
     params:
-        token=config["input"]["gdc"]["token"],
+        token=GDC_TOKEN,
         bam_id="{bam_id}",
     output:
         GDC_UNMAPPED_BAM_FILE,
