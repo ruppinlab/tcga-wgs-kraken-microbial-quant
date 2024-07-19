@@ -8,10 +8,15 @@ the pipeline at read group level before aggregating the results.
 See [References](#references) for the basis for this pipeline and
 more information.
 
-TCGA WGS Unmapped BAMs -> Biobambam2 Unmapped FASTQs ->
-Bowtie2 Host Filtering (T2T-CHM13v2.0) -> Filtered BAMs ->
-Biobambam2 Filtered FASTQs -> KrakenUniq Read Classification ->
-BBMap Read Length -> Bracken Read Quantification ->
+GDC TCGA WGS Unmapped Read BAMs ->
+Biobambam2 Unmapped FASTQs (Split to Read Group Level when Required) ->
+Bowtie2 Host Filtering (T2T-CHM13v2.0) ->
+Filtered BAMs ->
+Biobambam2 Filtered FASTQs ->
+KrakenUniq Read Classification ->
+BBMap Read Length ->
+Bracken Read Quantification ->
+Aggregate Read Group Level Quants ->
 Count Matrix
 
 ![Snakemake rule graph](tcga-wgs-kraken-microbial-quant.svg)
