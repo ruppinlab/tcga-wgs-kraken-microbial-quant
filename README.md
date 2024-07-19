@@ -5,8 +5,8 @@ reads from GDC TCGA WGS data. Properly handles TCGA WGS merged
 BAMs with mixed SE and PE reads and multiple read lengths when needed
 by splitting to read group level FASTQs and processing data through
 the pipeline at read group level before aggregating the results.
-See [References](#references) for the basis for this pipeline and
-more information.
+See [References](#references) for the general basis for this pipeline
+and more information.
 
 GDC TCGA WGS Unmapped Read BAMs ->
 Biobambam2 Unmapped FASTQs (Split to Read Group Level when Required) ->
