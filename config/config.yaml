@@ -73,12 +73,15 @@ biobambam2:
 
 kraken2:
   build:
+    extra: '--use-ftp'
     threads: all
   classify:
     threads: all
 
 krakenuniq:
-  extra: '--preload-size 16G'
+  extra:
+    common: '--preload-size 16G'
+    paired_end: '--paired --check-names'
   threads: all
 
 bracken:

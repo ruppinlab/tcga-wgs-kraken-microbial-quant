@@ -21,7 +21,7 @@ rule gdc_unmapped_fastq_pe:
         extra=lambda wc: (
             (
                 f"{config['biobambam2']['bamtofastq']['extra']['common']} "
-                f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
+                f"{config['biobambam2']['bamtofastq']['extra']['paired_end']} "
                 f"{config['biobambam2']['bamtofastq']['extra']['per_readgrp']}"
             )
             if wc.method == "rg"

@@ -1,6 +1,8 @@
 rule kraken2_db_taxonomy:
     params:
+        db=KRAKEN2_DB_DIR,
         taskopt="--download-taxonomy",
+        extra=config["resources"]["kraken2"]["build"]["extra"],
     output:
         directory(KRAKEN2_DB_TAX_DIR),
     log:
@@ -12,12 +14,28 @@ rule kraken2_db_taxonomy:
 
 rule kraken2_db_library:
     params:
+        db=KRAKEN2_DB_DIR,
         lib="{klib}",
         taskopt="--download-library",
+        extra=config["resources"]["kraken2"]["build"]["extra"],
     output:
         directory(KRAKEN2_DB_LIB_DIR),
     log:
         KRAKEN2_DB_LIB_LOG,
+    threads: KRAKEN2_BUILD_THREADS
+    wrapper:
+        KRAKEN2_BUILD_WRAPPER
+
+
+rule kraken2_db_build:
+    params:
+        db=KRAKEN2_DB_DIR,
+        taskopt="--build",
+        extra=config["resources"]["kraken2"]["build"]["extra"],
+    output:
+        directory(KRAKEN2_DB_DIR),
+    log:
+        KRAKEN2_DB_LOG,
     threads: KRAKEN2_BUILD_THREADS
     wrapper:
         KRAKEN2_BUILD_WRAPPER
@@ -33,9 +51,10 @@ rule krakenuniq_read_classif:
         db=KRAKENUNIQ_DB_DIR,
     params:
         extra=lambda wc: (
-            f"--paired --check-names {config['krakenuniq']['extra']}"
+            f"{config['krakenuniq']['extra']['paired_end']} "
+            f"{config['krakenuniq']['extra']['common']}"
             if wc.etype == "pe"
-            else config["krakenuniq"]["extra"]
+            else config["krakenuniq"]["extra"]["common"]
         ),
     output:
         KRAKENUNIQ_CLASSIF_FILE,

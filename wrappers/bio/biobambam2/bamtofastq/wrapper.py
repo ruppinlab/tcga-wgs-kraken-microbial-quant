@@ -14,14 +14,14 @@ if per_readgrp:
     assert (
         outdir is not None
     ), "params: outdir is a required input parameter when per_readgrp=True"
-    output = "outputdir={outdir}"
+    output = f"outputdir={outdir}"
 elif paired_end:
     output = (
-        "F={snakemake.output[0]} F2={snakemake.output[1]} "
-        "O={snakemake.output[2]} 02={snakemake.output[3]}"
+        f"F={snakemake.output[0]} F2={snakemake.output[1]} "
+        f"O={snakemake.output[2]} 02={snakemake.output[3]}"
     )
 else:
-    output = "S={snakemake.output[0]}"
+    output = f"S={snakemake.output[0]}"
 
 log = snakemake.log_fmt_shell(stdout=True if per_readgrp else False, stderr=True)
 
