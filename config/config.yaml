@@ -88,5 +88,8 @@ krakenuniq:
   threads: all
 
 bracken:
-  level: S
-  threshold: 0.0
+  build:
+    threads: all
+  quant:
+    level: S
+    threshold: 0.0

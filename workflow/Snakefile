@@ -44,6 +44,7 @@ GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, GDC_READGRP_META_FILENAME)
 KRAKEN2_DB_LIBS = config["resources"]["kraken"]["db"]["libs"]
 KRAKEN2_DB_DIR = config["resources"]["kraken"]["db"]["dir"]
 KRAKENUNIQ_DB_DIR = config["resources"]["kraken"]["db"]["dir"]
+KRAKEN_MODE = config["read_classif"]["mode"]
 
 EXPAND_PARAMS["klib"] = KRAKEN2_DB_LIBS
 
@@ -62,7 +63,7 @@ GDC_BAM_META_DF = pd.read_csv(GDC_BAM_META_FILE, sep="\t").set_index(
     "file_id", drop=False, verify_integrity=True
 )
 GDC_READGRP_META_DF = pd.read_csv(
-    GDC_READGRP_META_FILE, sep="\t", dtype={"is_paired_end": bool}
+    GDC_READGRP_META_FILE, sep="\t", dtype={"is_paired_end": bool, "read_length": int}
 ).set_index("read_group_id", drop=False, verify_integrity=True)
 
 GDC_TOKEN = os.getenv("GDC_TOKEN")
@@ -323,10 +324,12 @@ KRAKEN2_DB_TAX_DIR = join(KRAKEN2_DB_DIR, "taxonomy")
 KRAKEN2_DB_TAX_LOG = join(KRAKEN2_LOG_DIR, "taxonomy.log")
 KRAKEN2_DB_LIB_DIR = join(KRAKEN2_DB_DIR, "library", "{klib}")
 KRAKEN2_DB_LIB_LOG = join(KRAKEN2_LOG_DIR, "{klib}.log")
-KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "build.log")
+KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "kraken2_build.log")
 KRAKEN2_DB_TAX_TOUCH_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_db_taxonomy.done")
 KRAKEN2_DB_LIB_TOUCH_FILE = join(KRAKEN2_DB_LIB_DIR, "kraken2_db_{klib}.done")
 KRAKEN2_DB_BUILD_TOUCH_FILE = join(KRAKEN2_DB_DIR, "kraken2_db_build.done")
+BRACKEN_DB_BUILD_TOUCH_FILE = join(KRAKEN2_DB_DIR, "bracken_db_build.done")
+BRACKEN_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "bracken_build.log")
 
 KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
@@ -351,7 +354,6 @@ READ_LENGTH_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_length.log")
 
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
-
 BRACKEN_COUNT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "counts")
 BRACKEN_COUNT_LOG_DIR = join(BRACKEN_LOG_DIR, "counts")
 BRACKEN_COUNT_FILE_RESULTS_DIR = join(
@@ -449,6 +451,11 @@ KRAKEN2_BUILD_THREADS = (
     if config["kraken2"]["build"]["threads"] == "all"
     else config["kraken2"]["build"]["threads"]
 )
+BRACKEN_BUILD_THREADS = (
+    workflow.cores
+    if config["bracken"]["build"]["threads"] == "all"
+    else config["bracken"]["build"]["threads"]
+)
 KRAKENUNIQ_THREADS = (
     workflow.cores
     if config["krakenuniq"]["threads"] == "all"
@@ -463,7 +470,8 @@ BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKENUNIQ_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq")
 READ_LENGTH_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/bbmap/readlength")
-BRACKEN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken")
+BRACKEN_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/build")
+BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
 
 
 include: join(RULES_DIR, "gdc_file.smk")

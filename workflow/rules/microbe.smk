@@ -36,6 +36,7 @@ rule kraken2_db_build:
         taskopt="--build",
         extra=config["kraken2"]["build"]["extra"],
     output:
+        directory(KRAKEN2_DB_DIR),
         touch(KRAKEN2_DB_BUILD_TOUCH_FILE),
     log:
         KRAKEN2_DB_BUILD_LOG,
@@ -44,7 +45,7 @@ rule kraken2_db_build:
         KRAKEN2_BUILD_WRAPPER
 
 
-rule krakenuniq_read_classif:
+rule krakenuniq_classif:
     input:
         fqs=lambda wc: (
             [BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE]
@@ -69,22 +70,40 @@ rule krakenuniq_read_classif:
         KRAKENUNIQ_WRAPPER
 
 
+rule bracken_db_build:
+    input:
+        KRAKEN2_DB_DIR,
+    params:
+        klen=35 if KRAKEN_MODE == "kraken2" else 31,
+        ktype=KRAKEN_MODE,
+        # readlen=,
+    output:
+        touch(BRACKEN_DB_BUILD_TOUCH_FILE),
+    log:
+        BRACKEN_DB_BUILD_LOG,
+    threads: BRACKEN_BUILD_THREADS
+    wrapper:
+        BRACKEN_BUILD_WRAPPER
+
+
 rule bracken_read_quant:
     input:
-        db=KRAKENUNIQ_DB_DIR,
-        report=KRAKENUNIQ_REPORT_FILE,
+        db=KRAKEN2_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+        report=(
+            KRAKEN2_REPORT_FILE if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_REPORT_FILE
+        ),
         readlen=READ_LENGTH_FILE,
     params:
         # readlen=lambda wc: GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"],
-        level=config["bracken"]["level"],
-        threshold=config["bracken"]["threshold"],
+        level=config["bracken"]["quant"]["level"],
+        threshold=config["bracken"]["quant"]["threshold"],
     output:
         counts=BRACKEN_COUNT_FILE,
         report=BRACKEN_REPORT_FILE,
     log:
         BRACKEN_COUNT_LOG,
     wrapper:
-        BRACKEN_WRAPPER
+        BRACKEN_QUANT_WRAPPER
 
 
 rule bracken_merged_rg_counts:

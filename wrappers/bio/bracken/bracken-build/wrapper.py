@@ -17,7 +17,7 @@ if read_length is None:
 
 shell(
     "bracken-build"
-    " -d {snakemake.input.db}"
+    " -d {snakemake.input}"
     " -k {snakemake.params.klen}"
     " -l {read_length}"
     " -y {snakemake.params.ktype}"
