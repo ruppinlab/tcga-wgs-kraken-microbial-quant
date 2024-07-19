@@ -88,32 +88,24 @@ readgrp_meta <- merge(
     by = "file_id"
 )
 
-uniq_readgrps <-
-    readgrp_meta %>%
-    dplyr::select(file_id, read_length, is_paired_end) %>%
-    group_by(across(everything())) %>%
-    summarize(.groups = "drop") %>%
-    as.data.frame()
-
-num_uniq_readgrps <-
-    uniq_readgrps %>%
-    group_by(file_id) %>%
-    summarize(num_uniq_read_groups = n(), .groups = "drop") %>%
-    as.data.frame()
-
-single_readgrp_data <- uniq_readgrps[
-    uniq_readgrps$file_id %in% num_uniq_readgrps$file_id[
-        num_uniq_readgrps$num_uniq_read_groups == 1
-    ],
-    c("file_id", "read_length", "is_paired_end")
-]
+uniq_readgrps <- dplyr::distinct(
+    readgrp_meta, file_id, read_length, is_paired_end
+)
+num_uniq_readgrps <- dplyr::count(
+    uniq_readgrps, file_id,
+    name = "num_uniq_read_groups"
+)
+single_readgrps <- semi_join(
+    uniq_readgrps, dplyr::filter(num_uniq_readgrps, num_uniq_read_groups == 1),
+    by = join_by(file_id)
+)
 
 file_meta <- merge(
     file_meta, num_uniq_readgrps,
     by = "file_id", all.x = TRUE
 )
 file_meta <- merge(
-    file_meta, single_readgrp_data,
+    file_meta, single_readgrps,
     by = "file_id", all.x = TRUE
 )
 row.names(file_meta) <- file_meta$file_id
