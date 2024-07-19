@@ -65,8 +65,7 @@ if GDC_TOKEN is None:
         GDC_TOKEN_FILE = GDC_TOKEN_FILE.strip()
         with open(GDC_TOKEN_FILE, "rt") as token_fh:
             GDC_TOKEN = token_fh.readline().strip()
-if GDC_TOKEN is None:
-    GDC_TOKEN = config["gdc"]["token"]
+assert GDC_TOKEN is not None, "GDC auth token not found"
 
 GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
 GDC_LOG_DIR = join(LOG_DIR, "gdc")

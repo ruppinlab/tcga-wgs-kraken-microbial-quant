@@ -24,8 +24,6 @@ resources:
 study: tcga_wgs
 
 gdc:
-  # only set if env var GDC_TOKEN, GDC_TOKEN_FILE, or file ~/.gdc_token not available
-  token:
   program_names: [
     'TCGA'
   ]
