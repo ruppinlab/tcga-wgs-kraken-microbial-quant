@@ -6,13 +6,6 @@ suppressPackageStartupMessages({
 
 config <- yaml.load_file("./config/config.yaml")
 
-# Sink the stderr and stdout to the snakemake log file
-# https://stackoverflow.com/a/48173272
-log_dir <- config$gdc$metadata$log_dir
-log <- file(paste(log_dir, "gdc_metadata.log", sep = "/"), open = "wt")
-sink(log)
-sink(log, type = "message")
-
 stopifnot(GenomicDataCommons::status()$status == "OK")
 
 file_query <-
@@ -94,7 +87,6 @@ readgrp_meta <- merge(
     ),
     by = "file_id"
 )
-row.names(readgrp_meta) <- readgrp_meta$read_group_id
 
 uniq_readgrps <-
     readgrp_meta %>%
@@ -156,8 +148,3 @@ write.table(
     file = paste(data_dir, uniq_readgrps_filename, sep = "/"),
     quote = FALSE, sep = "\t", row.names = FALSE
 )
-
-# Proper syntax to close the connection for the log file but could be optional
-# for Snakemake wrapper
-sink(type = "message")
-sink()
