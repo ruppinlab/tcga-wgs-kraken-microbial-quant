@@ -61,11 +61,13 @@ GDC_READGRP_META_DF = pd.read_csv(
 GDC_TOKEN = os.getenv("GDC_TOKEN")
 if GDC_TOKEN is None:
     GDC_TOKEN_FILE = os.getenv("GDC_TOKEN_FILE", "~/.gdc_token")
-    if GDC_TOKEN_FILE is not None:
+    if GDC_TOKEN_FILE is not None and exists(GDC_TOKEN_FILE):
         GDC_TOKEN_FILE = GDC_TOKEN_FILE.strip()
         with open(GDC_TOKEN_FILE, "rt") as token_fh:
             GDC_TOKEN = token_fh.readline().strip()
-assert GDC_TOKEN is not None, "GDC auth token not found"
+assert (
+    GDC_TOKEN is not None
+), "GDC auth token not found in GDC_TOKEN, GDC_TOKEN_FILE, or ~/.gdc_token"
 
 GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
 GDC_LOG_DIR = join(LOG_DIR, "gdc")
