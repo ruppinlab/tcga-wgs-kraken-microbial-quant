@@ -78,8 +78,8 @@ Execute 10839 jobs...
 ### Execution
 
 Set your GDC controlled-access authentication token in environment
-variables `GDC_TOKEN` or `GDC_TOKEN_FILE`, the `~/.gdc_token`, or in
-`config/config.yaml` so the pipeline can get the token.
+variables `GDC_TOKEN` or `GDC_TOKEN_FILE`, the file `~/.gdc_token`, or
+in `config/config.yaml` so the pipeline can get the token.
 
 Run the workflow:
 
