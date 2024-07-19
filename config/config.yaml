@@ -19,7 +19,7 @@ resources:
     fasta_url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
   krakenuniq:
     microbialdb:
-      dir: /mnt/hgfs/VMData/salzberg/resources/MicrobialDB
+      dir: /mnt/hgfs/D/tcga-wgs-kraken-microbial-quant
 
 study: tcga_wgs
 
