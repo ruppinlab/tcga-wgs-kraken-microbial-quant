@@ -217,19 +217,22 @@ BOWTIE2_HOST_INDEX_FILES = multiext(
     ".rev.2.bt2",
 )
 BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", "index.log")
-BOWTIE2_FILE_RESULTS_DIR = join(
-    BOWTIE2_RESULTS_DIR, "align", "{method}", "{bam_id}", "{etype}"
+BOWTIE2_ALIGN_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "align")
+BOWTIE2_ALIGN_LOG_DIR = join(BOWTIE2_LOG_DIR, "align")
+BOWTIE2_ALIGN_FILE_RESULTS_DIR = join(
+    BOWTIE2_ALIGN_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
 )
-BOWTIE2_FILE_LOG_DIR = join(BOWTIE2_LOG_DIR, "align", "{method}", "{bam_id}", "{etype}")
-BOWTIE2_SAM_FILE = join(BOWTIE2_FILE_RESULTS_DIR, "{rg_id}.sam")
-BOWTIE2_FILTERED_SAM_FILE = join(BOWTIE2_FILE_RESULTS_DIR, "{rg_id}_filtered.sam")
-BOWTIE2_ALIGN_LOG = join(BOWTIE2_FILE_LOG_DIR, "{rg_id}_align.log")
+BOWTIE2_ALIGN_FILE_LOG_DIR = join(
+    BOWTIE2_ALIGN_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+)
+BOWTIE2_SAM_FILE = join(BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}.sam")
+BOWTIE2_FILTERED_SAM_FILE = join(BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered.sam")
+BOWTIE2_ALIGN_LOG = join(BOWTIE2_ALIGN_FILE_LOG_DIR, "{rg_id}_align.log")
 BOWTIE2_FILTERED_SAM_FILES = pd.concat(
     [
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
             lambda x: join(
-                BOWTIE2_RESULTS_DIR,
-                "align",
+                BOWTIE2_ALIGN_RESULTS_DIR,
                 "sg",
                 x["file_id"],
                 "pe" if x["is_paired_end"] else "se",
@@ -239,8 +242,7 @@ BOWTIE2_FILTERED_SAM_FILES = pd.concat(
         ),
         GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
             lambda x: join(
-                BOWTIE2_RESULTS_DIR,
-                "align",
+                BOWTIE2_ALIGN_RESULTS_DIR,
                 "rg",
                 x["file_id"],
                 "pe" if x["is_paired_end"] else "se",
@@ -252,15 +254,17 @@ BOWTIE2_FILTERED_SAM_FILES = pd.concat(
     axis=0,
 ).tolist()
 BOWTIE2_FILTERED_FASTQ_R1_FILE = join(
-    BOWTIE2_FILE_RESULTS_DIR, "{rg_id}_filtered_r1.fastq.gz"
+    BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered_r1.fastq.gz"
 )
 BOWTIE2_FILTERED_FASTQ_R2_FILE = join(
-    BOWTIE2_FILE_RESULTS_DIR, "{rg_id}_filtered_r2.fastq.gz"
+    BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered_r2.fastq.gz"
 )
 BOWTIE2_FILTERED_FASTQ_SE_FILE = join(
-    BOWTIE2_FILE_RESULTS_DIR, "{rg_id}_filtered_se.fastq.gz"
+    BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered_se.fastq.gz"
 )
-BOWTIE2_FILTERED_FASTQ_LOG = join(BOWTIE2_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log")
+BOWTIE2_FILTERED_FASTQ_LOG = join(
+    BOWTIE2_ALIGN_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
+)
 BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
     pd.concat(
         [
@@ -268,16 +272,14 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                 lambda x: (
                     [
                         join(
-                            BOWTIE2_RESULTS_DIR,
-                            "align",
+                            BOWTIE2_ALIGN_RESULTS_DIR,
                             "sg",
                             x["file_id"],
                             "pe",
                             f"{x['file_id']}_filtered_r1.fastq.gz",
                         ),
                         join(
-                            BOWTIE2_RESULTS_DIR,
-                            "align",
+                            BOWTIE2_ALIGN_RESULTS_DIR,
                             "sg",
                             x["file_id"],
                             "pe",
@@ -287,8 +289,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     if x["is_paired_end"]
                     else [
                         join(
-                            BOWTIE2_RESULTS_DIR,
-                            "align",
+                            BOWTIE2_ALIGN_RESULTS_DIR,
                             "sg",
                             x["file_id"],
                             "se",
@@ -302,16 +303,14 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                 lambda x: (
                     [
                         join(
-                            BOWTIE2_RESULTS_DIR,
-                            "align",
+                            BOWTIE2_ALIGN_RESULTS_DIR,
                             "rg",
                             x["file_id"],
                             "pe",
                             f"{x['read_group_id']}_filtered_r1.fastq.gz",
                         ),
                         join(
-                            BOWTIE2_RESULTS_DIR,
-                            "align",
+                            BOWTIE2_ALIGN_RESULTS_DIR,
                             "rg",
                             x["file_id"],
                             "pe",
@@ -321,8 +320,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     if x["is_paired_end"]
                     else [
                         join(
-                            BOWTIE2_RESULTS_DIR,
-                            "align",
+                            BOWTIE2_ALIGN_RESULTS_DIR,
                             "rg",
                             x["file_id"],
                             "se",
