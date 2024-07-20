@@ -217,7 +217,9 @@ BOWTIE2_HOST_INDEX_FILES = multiext(
     ".rev.2.bt2",
 )
 BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", "index.log")
-BOWTIE2_FILE_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "{method}", "{bam_id}", "{etype}")
+BOWTIE2_FILE_RESULTS_DIR = join(
+    BOWTIE2_RESULTS_DIR, "align", "{method}", "{bam_id}", "{etype}"
+)
 BOWTIE2_FILE_LOG_DIR = join(BOWTIE2_LOG_DIR, "align", "{method}", "{bam_id}", "{etype}")
 BOWTIE2_SAM_FILE = join(BOWTIE2_FILE_RESULTS_DIR, "{rg_id}.sam")
 BOWTIE2_FILTERED_SAM_FILE = join(BOWTIE2_FILE_RESULTS_DIR, "{rg_id}_filtered.sam")
