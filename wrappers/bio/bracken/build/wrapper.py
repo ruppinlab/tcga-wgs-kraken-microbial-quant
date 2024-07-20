@@ -8,7 +8,7 @@ from snakemake.shell import shell
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 
-db = snakemake.params.get("db", snakemake.input[0])
+db = snakemake.input.get("db") or snakemake.input[0]
 assert db is not None, "input: db is a required position 0 or named parameter"
 
 read_length = snakemake.params.get("readlen")
