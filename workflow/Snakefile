@@ -341,17 +341,6 @@ KRAKENUNIQ_CLASSIF_FILE = join(KRAKENUNIQ_FILE_RESULTS_DIR, "{rg_id}_classif.tsv
 KRAKENUNIQ_REPORT_FILE = join(KRAKENUNIQ_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
 KRAKENUNIQ_CLASSIF_LOG = join(KRAKENUNIQ_FILE_LOG_DIR, "{rg_id}_classif.log")
 
-READ_LENGTH_RESULTS_DIR = join(RESULTS_DIR, "read_length")
-READ_LENGTH_LOG_DIR = join(LOG_DIR, "read_length")
-READ_LENGTH_FILE_RESULTS_DIR = join(
-    READ_LENGTH_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
-)
-READ_LENGTH_FILE_LOG_DIR = join(READ_LENGTH_LOG_DIR, "{method}", "{bam_id}", "{etype}")
-READ_LENGTH_HISTOGRAM_FILE = join(READ_LENGTH_FILE_RESULTS_DIR, "{rg_id}_histogram.tsv")
-READ_LENGTH_FILE = join(READ_LENGTH_FILE_RESULTS_DIR, "{rg_id}_length.txt")
-READ_LENGTH_HISTOGRAM_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_histogram.log")
-READ_LENGTH_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_length.log")
-
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
 BRACKEN_COUNT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "counts")
@@ -469,7 +458,6 @@ BOWTIE2_BUILD_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/build")
 BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKENUNIQ_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq")
-READ_LENGTH_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "bio/bbmap/readlength")
 BRACKEN_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/build")
 BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
 
@@ -477,8 +465,6 @@ BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
 include: join(RULES_DIR, "gdc_file.smk")
 include: join(RULES_DIR, "host_filter.smk")
 include: join(RULES_DIR, "microbe.smk")
-include: join(RULES_DIR, "read_length.smk")
-include: join(RULES_DIR, "ref.smk")
 
 
 wildcard_constraints:

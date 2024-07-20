@@ -92,7 +92,6 @@ rule bracken_read_quant:
         report=(
             KRAKEN2_REPORT_FILE if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_REPORT_FILE
         ),
-        readlen=READ_LENGTH_FILE,
     params:
         # readlen=lambda wc: GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"],
         level=config["bracken"]["quant"]["level"],

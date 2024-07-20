@@ -1,3 +1,15 @@
+rule host_genome_fasta:
+    params:
+        HOST_REF_FASTA_URL,
+    output:
+        HOST_REF_FASTA_FILE,
+    message:
+        "{params}"
+    retries: config["download"]["retries"]
+    script:
+        "../scripts/url_file.py"
+
+
 rule bowtie2_host_index:
     input:
         ref=HOST_REF_FASTA_FILE,
