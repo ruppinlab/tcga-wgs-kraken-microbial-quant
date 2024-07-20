@@ -8,15 +8,14 @@ the pipeline at read group level before aggregating the results.
 See [References](#references) for the general basis for this pipeline
 and more information.
 
-Pipeline summary and Snakemake rulegraph:
+Pipeline short summary and full pipeline Snakemake rulegraph:
 
 GDC TCGA WGS Unmapped Read BAMs ->
 Biobambam2 Unmapped FASTQs (Split to Read Group Level when Required) ->
 Bowtie2 Host Filtering (T2T-CHM13v2.0) ->
 Filtered BAMs ->
 Biobambam2 Filtered FASTQs ->
-KrakenUniq Read Classification ->
-BBMap Read Length ->
+Kraken2 Read Classification ->
 Bracken Read Quantification ->
 Aggregate Read Group Level Quants ->
 Count Matrix
@@ -79,7 +78,7 @@ total                        80713
 
 ### Execution
 
-Set your GDC controlled-access authentication token in the environment
+Set your GDC controlled access authentication token in the environment
 variable `GDC_TOKEN` or `GDC_TOKEN_FILE`, or the file `~/.gdc_token`
 so the pipeline can get the token.
 
