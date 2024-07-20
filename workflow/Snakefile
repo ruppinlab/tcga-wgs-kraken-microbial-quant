@@ -229,6 +229,7 @@ BOWTIE2_FILTERED_SAM_FILES = pd.concat(
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
             lambda x: join(
                 BOWTIE2_RESULTS_DIR,
+                "align",
                 "sg",
                 x["file_id"],
                 "pe" if x["is_paired_end"] else "se",
@@ -239,6 +240,7 @@ BOWTIE2_FILTERED_SAM_FILES = pd.concat(
         GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
             lambda x: join(
                 BOWTIE2_RESULTS_DIR,
+                "align",
                 "rg",
                 x["file_id"],
                 "pe" if x["is_paired_end"] else "se",
@@ -267,6 +269,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     [
                         join(
                             BOWTIE2_RESULTS_DIR,
+                            "align",
                             "sg",
                             x["file_id"],
                             "pe",
@@ -274,6 +277,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                         ),
                         join(
                             BOWTIE2_RESULTS_DIR,
+                            "align",
                             "sg",
                             x["file_id"],
                             "pe",
@@ -284,6 +288,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     else [
                         join(
                             BOWTIE2_RESULTS_DIR,
+                            "align",
                             "sg",
                             x["file_id"],
                             "se",
@@ -298,6 +303,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     [
                         join(
                             BOWTIE2_RESULTS_DIR,
+                            "align",
                             "rg",
                             x["file_id"],
                             "pe",
@@ -305,6 +311,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                         ),
                         join(
                             BOWTIE2_RESULTS_DIR,
+                            "align",
                             "rg",
                             x["file_id"],
                             "pe",
@@ -315,6 +322,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     else [
                         join(
                             BOWTIE2_RESULTS_DIR,
+                            "align",
                             "rg",
                             x["file_id"],
                             "se",
