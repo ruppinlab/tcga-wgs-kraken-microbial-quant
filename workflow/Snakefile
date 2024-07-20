@@ -57,7 +57,7 @@ with open(GDC_METADATA_LOG, "wt") as log_fh:
     else:
         log_fh.write("Using existing GDC metadata\n")
 if not exists(GDC_BAM_META_FILE) or not exists(GDC_READGRP_META_FILE):
-    shell(f"Rscript ./workflow/scripts/gdc_metadata.R > {GDC_METADATA_LOG} 2>&1")
+    shell(f"Rscript ./workflow/scripts/gdc_metadata.R >> {GDC_METADATA_LOG} 2>&1")
 
 GDC_BAM_META_DF = pd.read_csv(GDC_BAM_META_FILE, sep="\t").set_index(
     "file_id", drop=False, verify_integrity=True
