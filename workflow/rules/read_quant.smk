@@ -1,6 +1,11 @@
 rule bracken_db_build:
     input:
-        KRAKEN2_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+        db=KRAKEN2_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+        build_done=(
+            KRAKEN2_DB_BUILD_DONE_FILE
+            if KRAKEN_MODE == "kraken2"
+            else KRAKENUNIQ_DB_BUILD_DONE_FILE
+        ),
     params:
         klen=35 if KRAKEN_MODE == "kraken2" else 31,
         ktype=KRAKEN_MODE,
