@@ -6,7 +6,6 @@ sample_names = snakemake.params.get("samples")
 assert sample_names is not None, "params: samples is a required parameter"
 
 count_matrix_df = pd.DataFrame()
-
 for count_file, sample_name in zip(count_files, sample_names):
     count_df = pd.read_csv(
         count_file, sep="\t", header=None, index_col=0, usecols=[0, 3]
@@ -16,7 +15,7 @@ for count_file, sample_name in zip(count_files, sample_names):
         [count_matrix_df, count_df], axis=1, verify_integrity=True
     )
 
-count_matrix_df.index.name = "name"
 count_matrix_df = count_matrix_df.astype(int)
-count_matrix_df.sort_index(inplace=True)
+count_matrix_df.fillna(0)
+count_matrix_df.index.name = "Taxonomic Name"
 count_matrix_df.to_csv(snakemake.output[0], sep="\t")
