@@ -15,6 +15,12 @@ if read_length is None:
     with open(read_length_file, "r") as fh:
         read_length = re.sub("\D+", "", fh.readline())
 
+db_read_lengths = snakemake.params.get("db_readlens")
+assert db_read_lengths is not None, "params: db_readlens is a required parameter"
+
+# find closest db read length to sample read length
+read_length = min(db_read_lengths, lambda x: abs(x - read_length))
+
 level = snakemake.params.get("level", "S")
 threshold = snakemake.params.get("threshold", 0.0)
 

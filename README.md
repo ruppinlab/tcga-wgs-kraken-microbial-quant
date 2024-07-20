@@ -54,26 +54,26 @@ $ snakemake --dry-run
 
 Building DAG of jobs...
 Job stats:
-job                            count
----------------------------  -------
-all                                1
-bbmap_max_read_length          13955
-bbmap_read_length_histogram    13955
-bowtie2_filter_host            13955
-bowtie2_filtered_fastq_pe      13531
-bowtie2_filtered_fastq_se        424
-bowtie2_host_index                 1
-bracken_count_matrix               1
-bracken_merged_rg_counts          82
-bracken_quantify_reads         13955
-gdc_unmapped_bam               10838
-gdc_unmapped_fastq_pe          13531
-gdc_unmapped_fastq_se            424
-host_genome_fasta                  1
-krakenuniq_classify_reads      13955
-total                         108609
-
-Execute 10839 jobs...
+job                          count
+-------------------------  -------
+all                              1
+bowtie2_filtered_fastq_pe    13531
+bowtie2_filtered_fastq_se      424
+bowtie2_host_filter          13955
+bowtie2_host_index               1
+bracken_count_matrix             1
+bracken_db_build                 7
+bracken_merged_rg_counts        82
+bracken_read_quant           13955
+gdc_unmapped_bam             10838
+gdc_unmapped_fastq_pe        13531
+gdc_unmapped_fastq_se          424
+host_genome_fasta                1
+kraken2_db_build                 1
+kraken2_db_library               5
+kraken2_db_taxonomy              1
+kraken2_read_classif         13955
+total                        80713
 ```
 
 
@@ -97,6 +97,3 @@ Nat Protoc. 2022 Dec;17(12):2815-2839. doi: 10.1038/s41596-022-00738-y
 2. Ge et al. [Comprehensive analysis of microbial content in whole-genome
 sequencing samples from The Cancer Genome Atlas project](
     https://doi.org/10.1101/2024.05.24.595788). bioRxiv 2024.05.24.595788
-3. Gihawi et al. [Major data analysis errors invalidate cancer microbiome
-findings](https://pubmed.ncbi.nlm.nih.gov/37811944/). mBio. 2023 Oct
-31;14(5):e0160723. doi: 10.1128/mbio.01607-23

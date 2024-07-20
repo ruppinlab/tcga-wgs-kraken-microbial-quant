@@ -13,7 +13,6 @@ LOG_DIR = "logs"
 RESOURCES_DIR = "resources"
 RESULTS_DIR = "results"
 RULES_DIR = "rules"
-REPORT_DIR = "report"
 
 
 configfile: join(CONFIG_DIR, "config.yaml")
@@ -41,12 +40,22 @@ GDC_BAM_META_FILE = join(GDC_METADATA_DIR, GDC_BAM_META_FILENAME)
 GDC_READGRP_META_FILENAME = config["gdc"]["metadata"]["readgrp_meta_filename"]
 GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, GDC_READGRP_META_FILENAME)
 
-KRAKEN2_DB_LIBS = config["resources"]["kraken"]["db"]["libs"]
-KRAKEN2_DB_DIR = config["resources"]["kraken"]["db"]["dir"]
-KRAKENUNIQ_DB_DIR = config["resources"]["kraken"]["db"]["dir"]
+KRAKEN2_DB_LIBS = config["resources"]["db"]["kraken2"]["libs"]
+KRAKENUNIQ_DB_LIBS = config["resources"]["db"]["krakenuniq"]["libs"]
+BRACKEN_DB_READ_LENGTHS = config["resources"]["db"]["bracken"]["readlens"]
+
+DB_BASEDIR = config["resources"]["db"]["base_dir"]
+KRAKEN2_DB_NAME = config["resources"]["db"]["kraken2"]["name"]
+KRAKENUNIQ_DB_NAME = config["resources"]["db"]["krakenuniq"]["name"]
+
+KRAKEN2_DB_DIR = join(DB_BASEDIR, KRAKEN2_DB_NAME)
+KRAKENUNIQ_DB_DIR = join(DB_BASEDIR, KRAKENUNIQ_DB_NAME)
+
 KRAKEN_MODE = config["read_classif"]["mode"]
 
-EXPAND_PARAMS["klib"] = KRAKEN2_DB_LIBS
+EXPAND_PARAMS["k2lib"] = KRAKEN2_DB_LIBS
+EXPAND_PARAMS["kulib"] = KRAKENUNIQ_DB_LIBS
+EXPAND_PARAMS["readlen"] = BRACKEN_DB_READ_LENGTHS
 
 makedirs(GDC_METADATA_LOG_DIR, mode=0o755, exist_ok=True)
 GDC_METADATA_LOG = join(GDC_METADATA_LOG_DIR, "gdc_metadata.log")
@@ -318,47 +327,83 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
     )
 ).tolist()
 
-KRAKEN2_RESOURCES_DIR = join(RESOURCES_DIR, "kraken2")
+KRAKEN2_RESULTS_DIR = join(RESULTS_DIR, "kraken2")
 KRAKEN2_LOG_DIR = join(LOG_DIR, "kraken2")
+KRAKEN2_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build")
+KRAKEN2_CLASSIF_RESULTS_DIR = join(KRAKEN2_RESULTS_DIR, "classif")
+KRAKEN2_CLASSIF_LOG_DIR = join(KRAKEN2_LOG_DIR, "classif")
+
 KRAKEN2_DB_TAX_DIR = join(KRAKEN2_DB_DIR, "taxonomy")
-KRAKEN2_DB_TAX_LOG = join(KRAKEN2_LOG_DIR, "taxonomy.log")
-KRAKEN2_DB_LIB_DIR = join(KRAKEN2_DB_DIR, "library", "{klib}")
-KRAKEN2_DB_LIB_LOG = join(KRAKEN2_LOG_DIR, "{klib}.log")
-KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "kraken2_build.log")
-KRAKEN2_DB_TAX_TOUCH_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_db_taxonomy.done")
-KRAKEN2_DB_LIB_TOUCH_FILE = join(KRAKEN2_DB_LIB_DIR, "kraken2_db_{klib}.done")
-KRAKEN2_DB_BUILD_TOUCH_FILE = join(KRAKEN2_DB_DIR, "kraken2_db_build.done")
-BRACKEN_DB_BUILD_TOUCH_FILE = join(KRAKEN2_DB_DIR, "bracken_db_build.done")
-BRACKEN_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "bracken_build.log")
+KRAKEN2_DB_TAX_LOG = join(KRAKEN2_BUILD_LOG_DIR, "download_taxonomy.log")
+KRAKEN2_DB_LIB_DIR = join(KRAKEN2_DB_DIR, "library", "{k2lib}")
+KRAKEN2_DB_LIB_LOG = join(KRAKEN2_BUILD_LOG_DIR, "download_{k2lib}.log")
+KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "kraken2_db_build.log")
+KRAKEN2_DB_TAX_DONE_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_db_taxonomy.done")
+KRAKEN2_DB_LIB_DONE_FILE = join(KRAKEN2_DB_LIB_DIR, "kraken2_db_{k2lib}.done")
+KRAKEN2_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_db_build.done")
+BRACKEN_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "bracken_db_build_{readlen}.done")
+
+KRAKEN2_CLASSIF_FILE_RESULTS_DIR = join(
+    KRAKEN2_CLASSIF_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
+)
+KRAKEN2_CLASSIF_FILE_LOG_DIR = join(
+    KRAKEN2_CLASSIF_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+)
+KRAKEN2_CLASSIF_FILE = join(KRAKEN2_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_classif.tsv")
+KRAKEN2_REPORT_FILE = join(KRAKEN2_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
+KRAKEN2_CLASSIF_LOG = join(KRAKEN2_CLASSIF_FILE_LOG_DIR, "{rg_id}_classif.log")
 
 KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
-KRAKENUNIQ_FILE_RESULTS_DIR = join(
-    KRAKENUNIQ_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
+KRAKENUNIQ_BUILD_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "build")
+KRAKENUNIQ_CLASSIF_RESULTS_DIR = join(KRAKENUNIQ_RESULTS_DIR, "classif")
+KRAKENUNIQ_CLASSIF_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "classif")
+
+KRAKENUNIQ_DB_TAX_DIR = join(KRAKENUNIQ_DB_DIR, "taxonomy")
+KRAKENUNIQ_DB_TAX_LOG = join(KRAKENUNIQ_BUILD_LOG_DIR, "download_taxonomy.log")
+KRAKENUNIQ_DB_LIB_DIR = join(KRAKENUNIQ_DB_DIR, "library", "{kulib}")
+KRAKENUNIQ_DB_LIB_LOG = join(KRAKENUNIQ_BUILD_LOG_DIR, "download_{kulib}.log")
+KRAKENUNIQ_DB_BUILD_LOG = join(KRAKENUNIQ_LOG_DIR, "krakenuniq_db_build.log")
+KRAKENUNIQ_DB_TAX_DONE_FILE = join(KRAKENUNIQ_DB_TAX_DIR, "krakenuniq_db_taxonomy.done")
+KRAKENUNIQ_DB_LIB_DONE_FILE = join(KRAKENUNIQ_DB_LIB_DIR, "krakenuniq_db_{kulib}.done")
+KRAKENUNIQ_DB_BUILD_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "krakenuniq_db_build.done")
+BRACKEN_DB_BUILD_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "bracken_db_build_{readlen}.done")
+
+KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR = join(
+    KRAKENUNIQ_CLASSIF_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
 )
-KRAKENUNIQ_FILE_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "{method}", "{bam_id}", "{etype}")
-KRAKENUNIQ_CLASSIF_FILE = join(KRAKENUNIQ_FILE_RESULTS_DIR, "{rg_id}_classif.tsv")
-KRAKENUNIQ_REPORT_FILE = join(KRAKENUNIQ_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
-KRAKENUNIQ_CLASSIF_LOG = join(KRAKENUNIQ_FILE_LOG_DIR, "{rg_id}_classif.log")
+KRAKENUNIQ_CLASSIF_FILE_LOG_DIR = join(
+    KRAKENUNIQ_CLASSIF_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+)
+KRAKENUNIQ_CLASSIF_FILE = join(
+    KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_classif.tsv"
+)
+KRAKENUNIQ_REPORT_FILE = join(KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
+KRAKENUNIQ_CLASSIF_LOG = join(KRAKENUNIQ_CLASSIF_FILE_LOG_DIR, "{rg_id}_classif.log")
+
+BRACKEN_DB_BUILD_LOG = join(
+    KRAKEN2_BUILD_LOG_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_BUILD_LOG_DIR,
+    "bracken_db_build_{readlen}.log",
+)
 
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
-BRACKEN_COUNT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "counts")
-BRACKEN_COUNT_LOG_DIR = join(BRACKEN_LOG_DIR, "counts")
-BRACKEN_COUNT_FILE_RESULTS_DIR = join(
-    BRACKEN_COUNT_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
+BRACKEN_QUANT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "quant")
+BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant")
+BRACKEN_QUANT_FILE_RESULTS_DIR = join(
+    BRACKEN_QUANT_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
 )
-BRACKEN_COUNT_FILE_LOG_DIR = join(
-    BRACKEN_COUNT_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+BRACKEN_QUANT_FILE_LOG_DIR = join(
+    BRACKEN_QUANT_LOG_DIR, "{method}", "{bam_id}", "{etype}"
 )
-BRACKEN_COUNT_FILE = join(BRACKEN_COUNT_FILE_RESULTS_DIR, "{rg_id}_counts.tsv")
-BRACKEN_REPORT_FILE = join(BRACKEN_COUNT_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
-BRACKEN_COUNT_LOG = join(BRACKEN_COUNT_FILE_LOG_DIR, "{rg_id}_counts.log")
+BRACKEN_COUNT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_counts.tsv")
+BRACKEN_REPORT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
+BRACKEN_QUANT_LOG = join(BRACKEN_QUANT_FILE_LOG_DIR, "{rg_id}_quant.log")
 BRACKEN_COUNT_FILES = pd.concat(
     [
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
             lambda x: join(
-                BRACKEN_COUNT_RESULTS_DIR,
+                BRACKEN_QUANT_RESULTS_DIR,
                 "sg",
                 x["file_id"],
                 "pe" if x["is_paired_end"] else "se",
@@ -368,7 +413,7 @@ BRACKEN_COUNT_FILES = pd.concat(
         ),
         GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
             lambda x: join(
-                BRACKEN_COUNT_RESULTS_DIR,
+                BRACKEN_QUANT_RESULTS_DIR,
                 "rg",
                 x["file_id"],
                 "pe" if x["is_paired_end"] else "se",
@@ -399,7 +444,7 @@ BRACKEN_BAM_COUNT_FILES = pd.concat(
     [
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
             lambda x: join(
-                BRACKEN_COUNT_RESULTS_DIR,
+                BRACKEN_QUANT_RESULTS_DIR,
                 "sg",
                 x["file_id"],
                 "pe" if x["is_paired_end"] else "se",
@@ -417,13 +462,7 @@ BRACKEN_BAM_COUNT_FILES = pd.concat(
     ],
     axis=0,
 ).tolist()
-BRACKEN_BAM_IDS = pd.concat(
-    [
-        GDC_BAM_META_DF.loc[GDC_BAM_META_DF["num_uniq_read_groups"] == 1, "file_id"],
-        GDC_BAM_META_DF.loc[GDC_BAM_META_DF["num_uniq_read_groups"] > 1, "file_id"],
-    ],
-    axis=0,
-).tolist()
+BRACKEN_BAM_ALIQUOT_IDS = GDC_BAM_META_DF["aliquot_submitter_id"].tolist()
 
 BOWTIE2_BUILD_THREADS = (
     workflow.cores
@@ -440,15 +479,30 @@ KRAKEN2_BUILD_THREADS = (
     if config["kraken2"]["build"]["threads"] == "all"
     else config["kraken2"]["build"]["threads"]
 )
+KRAKEN2_CLASSIFY_THREADS = (
+    workflow.cores
+    if config["kraken2"]["classify"]["threads"] == "all"
+    else config["kraken2"]["classify"]["threads"]
+)
+KRAKENUNIQ_DOWNLOAD_THREADS = (
+    workflow.cores
+    if config["krakenuniq"]["download"]["threads"] == "all"
+    else config["krakenuniq"]["download"]["threads"]
+)
+KRAKENUNIQ_BUILD_THREADS = (
+    workflow.cores
+    if config["krakenuniq"]["build"]["threads"] == "all"
+    else config["krakenuniq"]["build"]["threads"]
+)
+KRAKENUNIQ_CLASSIFY_THREADS = (
+    workflow.cores
+    if config["krakenuniq"]["classify"]["threads"] == "all"
+    else config["krakenuniq"]["classify"]["threads"]
+)
 BRACKEN_BUILD_THREADS = (
     workflow.cores
     if config["bracken"]["build"]["threads"] == "all"
     else config["bracken"]["build"]["threads"]
-)
-KRAKENUNIQ_THREADS = (
-    workflow.cores
-    if config["krakenuniq"]["threads"] == "all"
-    else config["krakenuniq"]["threads"]
 )
 
 BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
@@ -457,7 +511,11 @@ BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
 BOWTIE2_BUILD_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/build")
 BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
-KRAKENUNIQ_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq")
+KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
+KRAKEN2_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/classify")
+KRAKENUNIQ_DOWNLOAD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/download")
+KRAKENUNIQ_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/build")
+KRAKENUNIQ_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/classify")
 BRACKEN_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/build")
 BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
 
@@ -469,7 +527,10 @@ include: join(RULES_DIR, "read_quant.smk")
 
 
 wildcard_constraints:
-    **{w: "|".join(set([re.escape(v) for v in l])) for w, l in EXPAND_PARAMS.items()},
+    **{
+        w: "|".join(set([re.escape(str(v)) for v in l]))
+        for w, l in EXPAND_PARAMS.items()
+    },
     bam_id="[0-9a-f\\-]+",
     rg_id="[0-9a-f\\-]+",
     method="sg|rg",
@@ -479,9 +540,6 @@ wildcard_constraints:
 rule all:
     input:
         # HOST_REF_FASTA_FILE,
-        KRAKEN2_DB_TAX_TOUCH_FILE,
-        expand(KRAKEN2_DB_LIB_TOUCH_FILE, **EXPAND_PARAMS),
-        KRAKEN2_DB_BUILD_TOUCH_FILE,
         # GDC_UNMAPPED_BAM_FILES,
         # GDC_UNMAPPED_FASTQ_FILES,
         # BOWTIE2_HOST_INDEX_FILES,

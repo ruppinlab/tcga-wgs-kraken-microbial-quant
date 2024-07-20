@@ -25,15 +25,8 @@ if taskopt == "--download-library":
 
 extra = snakemake.params.get("extra", "")
 
-# workaround for Kraken2 issue with --download-library human
-kraken2_build = (
-    "yes y | kraken2-build"
-    if taskopt == "--download-library" and lib == "human"
-    else "kraken2-build"
-)
-
 shell(
-    "{kraken2_build}"
+    "krakenuniq-build"
     " {taskopt}"
     " --db {db}"
     " --threads {snakemake.threads}"
