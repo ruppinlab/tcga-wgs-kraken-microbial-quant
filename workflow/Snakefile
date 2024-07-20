@@ -464,7 +464,8 @@ BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
 
 include: join(RULES_DIR, "gdc_file.smk")
 include: join(RULES_DIR, "host_filter.smk")
-include: join(RULES_DIR, "microbe.smk")
+include: join(RULES_DIR, "read_classif.smk")
+include: join(RULES_DIR, "read_quant.smk")
 
 
 wildcard_constraints:
