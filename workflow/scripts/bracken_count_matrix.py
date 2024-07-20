@@ -17,5 +17,5 @@ for count_file, sample_name in zip(count_files, sample_names):
 
 count_matrix_df = count_matrix_df.astype(int)
 count_matrix_df.fillna(0)
-count_matrix_df.index.name = "Taxonomic Name"
+count_matrix_df.index.name = "Taxonomic name"
 count_matrix_df.to_csv(snakemake.output[0], sep="\t")
