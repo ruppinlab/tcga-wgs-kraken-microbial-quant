@@ -80,7 +80,8 @@ total                        80713
 ## Execution
 
 Given the compute intensive nature of this pipeline and the number of
-jobs to execute we highly recommend running the pipeline on an HPC cluster.
+jobs to execute it we highly recommend running the pipeline on an HPC
+cluster.
 
 Set your GDC controlled access authentication token in the environment
 variable `GDC_TOKEN` or `GDC_TOKEN_FILE`, or the file `~/.gdc_token`
