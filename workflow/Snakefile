@@ -349,7 +349,6 @@ KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "kraken2_db_build.log")
 KRAKEN2_DB_TAX_DONE_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_db_taxonomy.done")
 KRAKEN2_DB_LIB_DONE_FILE = join(KRAKEN2_DB_LIB_DIR, "kraken2_db_{k2lib}.done")
 KRAKEN2_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_db_build.done")
-BRACKEN_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "bracken_db_build_{readlen}.done")
 
 KRAKEN2_CLASSIF_FILE_RESULTS_DIR = join(
     KRAKEN2_CLASSIF_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
@@ -375,7 +374,6 @@ KRAKENUNIQ_DB_BUILD_LOG = join(KRAKENUNIQ_LOG_DIR, "krakenuniq_db_build.log")
 KRAKENUNIQ_DB_TAX_DONE_FILE = join(KRAKENUNIQ_DB_TAX_DIR, "krakenuniq_db_taxonomy.done")
 KRAKENUNIQ_DB_LIB_DONE_FILE = join(KRAKENUNIQ_DB_LIB_DIR, "krakenuniq_db_{kulib}.done")
 KRAKENUNIQ_DB_BUILD_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "krakenuniq_db_build.done")
-BRACKEN_DB_BUILD_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "bracken_db_build_{readlen}.done")
 
 KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR = join(
     KRAKENUNIQ_CLASSIF_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
@@ -389,6 +387,10 @@ KRAKENUNIQ_CLASSIF_FILE = join(
 KRAKENUNIQ_REPORT_FILE = join(KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
 KRAKENUNIQ_CLASSIF_LOG = join(KRAKENUNIQ_CLASSIF_FILE_LOG_DIR, "{rg_id}_classif.log")
 
+BRACKEN_DB_BUILD_DONE_FILE = join(
+    KRAKEN2_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+    "bracken_db_build_{readlen}.done",
+)
 BRACKEN_DB_BUILD_LOG = join(
     KRAKEN2_BUILD_LOG_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_BUILD_LOG_DIR,
     "bracken_db_build_{readlen}.log",
