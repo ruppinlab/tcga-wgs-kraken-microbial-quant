@@ -50,7 +50,7 @@ Obtain the latest project source code:
 
 ```bash
 git clone https://github.com/hermidalc/tcga-wgs-kraken-microbial-quant.git
-cd dragonfish
+cd tcga-wgs-kraken-microbial-quant
 ```
 
 Test that the installation is working by doing a dry run (if you don't
