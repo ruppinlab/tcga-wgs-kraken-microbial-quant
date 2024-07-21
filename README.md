@@ -46,7 +46,7 @@ mamba env create -f envs/tcga-wgs-kraken-microbial-quant.yaml
 mamba activate tcga-wgs-kraken-microbial-quant
 ```
 
-Obtain the latest Dragonfish project source code:
+Obtain the latest project source code:
 
 ```bash
 git clone https://github.com/hermidalc/tcga-wgs-kraken-microbial-quant.git
