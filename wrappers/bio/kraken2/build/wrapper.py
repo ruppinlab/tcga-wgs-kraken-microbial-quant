@@ -24,6 +24,9 @@ if taskopt == "--download-library":
     taskopt = f"{taskopt} {lib}"
 
 extra = snakemake.params.get("extra", "")
+protein = snakemake.params.get("protein")
+if protein is not None:
+    extra = f"--protein {extra}"
 
 # workaround for Kraken2 issue with --download-library human
 kraken2_build = (

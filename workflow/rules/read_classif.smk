@@ -17,6 +17,11 @@ rule kraken2_db_library:
         db=KRAKEN2_DB_DIR,
         lib="{k2lib}",
         taskopt="--download-library",
+        protein=lambda wc: (
+            True
+            if config["kraken2"]["build"]["protein"] and wc.k2lib != "UniVec_Core"
+            else False
+        ),
         extra=config["kraken2"]["build"]["extra"],
     output:
         touch(KRAKEN2_DB_LIB_DONE_FILE),

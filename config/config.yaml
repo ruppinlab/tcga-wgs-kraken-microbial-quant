@@ -82,7 +82,8 @@ biobambam2:
 
 kraken2:
   build:
-    extra: '--protein --use-ftp'
+    protein: true
+    extra: '--use-ftp'
     threads: all
   classify:
     extra:
