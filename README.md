@@ -10,7 +10,7 @@ and more information.
 
 Pipeline short summary and full pipeline Snakemake rulegraph:
 
-GDC TCGA WGS Unmapped Read BAMs ->
+`GDC TCGA WGS Unmapped Read BAMs ->
 Biobambam2 Unmapped FASTQs (Split to Read Group Level when Required) ->
 Bowtie2 Host Filtering (T2T-CHM13v2.0) ->
 Filtered BAMs ->
@@ -18,18 +18,18 @@ Biobambam2 Filtered FASTQs ->
 Kraken2 Read Classification ->
 Bracken Read Quantification ->
 Aggregate Read Group Level Counts ->
-Count Matrix
+Count Matrix`
 
 ![Snakemake rule graph](tcga-wgs-kraken-microbial-quant.svg)
 
-### Prerequisites
+## Prerequisites
 
 The project was developed under GNU Linux and MacOS and assumes the
 use of a Unix command line shell. Both Linux and MacOS provide a
 command line shell by default. Other needed tools will be installed
 by the instructions below.
 
-### Installation
+## Installation
 
 Install and set up
 [Miniforge3](https://github.com/conda-forge/miniforge#miniforge3)
@@ -46,7 +46,8 @@ mamba activate tcga-wgs-kraken-microbial-quant
 
 Test that the installation is working by doing a dry run (if you don't
 have a GDC token yet and wish to test your install do
-`GDC_TOKEN='' snakemake --dry-run`):
+`GDC_TOKEN='' snakemake --dry-run`). Below are the job statistics you
+would see for all TCGA WGS primary tumors:
 
 ```
 $ snakemake --dry-run
@@ -76,7 +77,10 @@ total                        80713
 ```
 
 
-### Execution
+## Execution
+
+Given the compute intensive nature of this pipeline and the number of
+jobs to execute we highly recommend running the pipeline on an HPC cluster.
 
 Set your GDC controlled access authentication token in the environment
 variable `GDC_TOKEN` or `GDC_TOKEN_FILE`, or the file `~/.gdc_token`
@@ -88,7 +92,7 @@ Run the workflow:
 snakemake --use-conda --printshellcmds
 ```
 
-### References
+## References
 
 1. Lu et al. [Metagenome analysis using the Kraken software suite](
     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9725748/).
