@@ -17,7 +17,7 @@ Filtered BAMs ->
 Biobambam2 Filtered FASTQs ->
 Kraken2 Read Classification ->
 Bracken Read Quantification ->
-Aggregate Read Group Level Quants ->
+Aggregate Read Group Level Counts ->
 Count Matrix
 
 ![Snakemake rule graph](tcga-wgs-kraken-microbial-quant.svg)
