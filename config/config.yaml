@@ -82,11 +82,11 @@ biobambam2:
 
 kraken2:
   build:
-    extra: '--use-ftp'
+    extra: '--protein --use-ftp'
     threads: all
   classify:
     extra:
-      common:
+      common: '--use-names'
       paired_end: '--paired'
     threads: all
 
