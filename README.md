@@ -15,7 +15,7 @@ Biobambam2 Unmapped FASTQs (Split to Read Group Level when Required) ->
 Bowtie2 Host Filtering (T2T-CHM13v2.0) ->
 Filtered BAMs ->
 Biobambam2 Filtered FASTQs ->
-Kraken2 Read Classification ->
+Kraken2 Read Classification (with additional Protein Translated Search) ->
 Bracken Read Quantification ->
 Aggregate Read Group Level Counts ->
 Count Matrix`
