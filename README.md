@@ -10,15 +10,17 @@ and more information.
 
 Pipeline short summary and full pipeline Snakemake rulegraph:
 
-`GDC TCGA WGS Unmapped Read BAMs ->
-Biobambam2 Unmapped FASTQs (Split to Read Group Level when Required) ->
-Bowtie2 Host Filtering (T2T-CHM13v2.0) ->
-Filtered BAMs ->
-Biobambam2 Filtered FASTQs ->
+```
+GDC TCGA WGS Unmapped Read BAMs ->
+Biobambam2 Unmapped Read FASTQs (Split to Read Group Level when BAM has mixed PE/SE or mixed read lengths) ->
+Bowtie2 Host Filtering (with T2T-CHM13v2.0) ->
+Host Filtered BAMs ->
+Biobambam2 Host Filtered FASTQs ->
 Kraken2 Read Classification (with additional Protein Translated Search) ->
 Bracken Read Quantification ->
 Aggregate Read Group Level Counts ->
-Count Matrix`
+Count Matrix
+```
 
 ![Snakemake rule graph](tcga-wgs-kraken-microbial-quant.svg)
 
