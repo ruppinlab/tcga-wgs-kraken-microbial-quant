@@ -13,7 +13,8 @@ aggregating the Bracken count results back to GDC BAM level.
 See [References](#references) for the general basis for this pipeline
 and more information.
 
-Pipeline short summary and the full pipeline Snakemake rulegraph:
+Here's a pipeline high-level summary and the full Snakemake pipeline
+rulegraph:
 
 ```
 GDC TCGA WGS Unmapped Read BAMs ->
