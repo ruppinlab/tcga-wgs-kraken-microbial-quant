@@ -88,7 +88,6 @@ gdc_unmapped_fastq_pe           13531
 gdc_unmapped_fastq_se             424
 host_genome_fasta                   1
 kraken2_combined_report         13955
-kraken2_compressed_fastq        27486
 kraken2_db_build                    2
 kraken2_db_taxonomy                 2
 kraken2_nucl_library                5
@@ -97,7 +96,7 @@ kraken2_nucl_read_classif_se      424
 kraken2_prot_library                4
 kraken2_prot_read_classif_pe    13531
 kraken2_prot_read_classif_se      424
-total                          136115
+total                          108629
 ```
 
 

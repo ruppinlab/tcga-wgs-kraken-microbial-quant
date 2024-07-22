@@ -84,12 +84,12 @@ rule kraken2_nucl_read_classif_pe:
         ),
     output:
         classif=[
-            temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R1_DC_FILE),
-            temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R2_DC_FILE),
+            temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R1_FILE),
+            temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R2_FILE),
         ],
         unclassif=[
-            temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_DC_FILE),
-            temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_DC_FILE),
+            temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE),
+            temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE),
         ],
         report=KRAKEN2_NUCL_REPORT_PE_FILE,
     log:
@@ -109,8 +109,8 @@ rule kraken2_nucl_read_classif_se:
         paired_end=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
     output:
-        classif=temp(KRAKEN2_NUCL_CLASSIF_FASTQ_SE_DC_FILE),
-        unclassif=temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_DC_FILE),
+        classif=temp(KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE),
+        unclassif=temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE),
         report=KRAKEN2_NUCL_REPORT_SE_FILE,
     log:
         KRAKEN2_NUCL_CLASSIFY_SE_LOG,
@@ -136,12 +136,12 @@ rule kraken2_prot_read_classif_pe:
         ),
     output:
         classif=[
-            temp(KRAKEN2_PROT_CLASSIF_FASTQ_R1_DC_FILE),
-            temp(KRAKEN2_PROT_CLASSIF_FASTQ_R2_DC_FILE),
+            temp(KRAKEN2_PROT_CLASSIF_FASTQ_R1_FILE),
+            temp(KRAKEN2_PROT_CLASSIF_FASTQ_R2_FILE),
         ],
         unclassif=[
-            temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_DC_FILE),
-            temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_DC_FILE),
+            temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE),
+            temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE),
         ],
         report=KRAKEN2_PROT_REPORT_PE_FILE,
     log:
@@ -161,26 +161,14 @@ rule kraken2_prot_read_classif_se:
         paired_end=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
     output:
-        classif=temp(KRAKEN2_PROT_CLASSIF_FASTQ_SE_DC_FILE),
-        unclassif=temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_DC_FILE),
+        classif=temp(KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE),
+        unclassif=temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE),
         report=KRAKEN2_PROT_REPORT_SE_FILE,
     log:
         KRAKEN2_PROT_CLASSIFY_SE_LOG,
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
-
-
-rule kraken2_compressed_fastq:
-    input:
-        KRAKEN2_FASTQ_DC_FILE,
-    output:
-        KRAKEN2_FASTQ_CP_FILE,
-    log:
-        KRAKEN2_COMPRESSED_FASTQ_LOG,
-    threads: PIGZ_THREADS
-    wrapper:
-        PIGZ_WRAPPER
 
 
 rule kraken2_combined_report:

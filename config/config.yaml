@@ -114,6 +114,3 @@ bracken:
   quant:
     level: S
     threshold: 0.0
-
-pigz:
-  threads: all
