@@ -22,6 +22,9 @@ if report is not None:
     report = f"--report-file {report}"
 
 extra = snakemake.params.get("extra", "")
+paired_end = snakemake.params.get("paired_end", False)
+if paired_end:
+    extra = f"--paired {extra}"
 
 shell(
     "kraken2"

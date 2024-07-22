@@ -116,11 +116,11 @@ GDC_UNMAPPED_BAM_FILES = GDC_BAM_META_DF.apply(
     ),
     axis=1,
 ).tolist()
-GDC_UNMAPPED_FASTQ_R1_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_r1.fastq.gz")
-GDC_UNMAPPED_FASTQ_R2_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_r2.fastq.gz")
-GDC_UNMAPPED_FASTQ_O1_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o1.fastq.gz")
-GDC_UNMAPPED_FASTQ_O2_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o2.fastq.gz")
-GDC_UNMAPPED_FASTQ_SE_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_se.fastq.gz")
+GDC_UNMAPPED_FASTQ_R1_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_1.fq.gz")
+GDC_UNMAPPED_FASTQ_R2_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_2.fq.gz")
+GDC_UNMAPPED_FASTQ_O1_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o1.fq.gz")
+GDC_UNMAPPED_FASTQ_O2_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_o2.fq.gz")
+GDC_UNMAPPED_FASTQ_SE_FILE = join(GDC_FILE_RESULTS_DIR, "{rg_id}_unmapped_s.fq.gz")
 GDC_UNMAPPED_FASTQ_LOG = join(GDC_FILE_LOG_DIR, "{rg_id}_unmapped_fastq.log")
 GDC_UNMAPPED_FASTQ_FILES = np.hstack(
     pd.concat(
@@ -132,25 +132,25 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                             GDC_RESULTS_DIR,
                             "sg",
                             x["file_id"],
-                            f"{x['file_id']}_unmapped_r1.fastq.gz",
+                            f"{x['file_id']}_unmapped_1.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
                             "sg",
                             x["file_id"],
-                            f"{x['file_id']}_unmapped_r2.fastq.gz",
+                            f"{x['file_id']}_unmapped_2.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
                             "sg",
                             x["file_id"],
-                            f"{x['file_id']}_unmapped_o1.fastq.gz",
+                            f"{x['file_id']}_unmapped_o1.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
                             "sg",
                             x["file_id"],
-                            f"{x['file_id']}_unmapped_o2.fastq.gz",
+                            f"{x['file_id']}_unmapped_o2.fq.gz",
                         ),
                     ]
                     if x["is_paired_end"]
@@ -159,7 +159,7 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                             GDC_RESULTS_DIR,
                             "sg",
                             x["file_id"],
-                            f"{x['file_id']}_unmapped_se.fastq.gz",
+                            f"{x['file_id']}_unmapped_s.fq.gz",
                         )
                     ]
                 ),
@@ -172,25 +172,25 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                             GDC_RESULTS_DIR,
                             "rg",
                             x["file_id"],
-                            f"{x['read_group_id']}_unmapped_r1.fastq.gz",
+                            f"{x['read_group_id']}_unmapped_1.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
                             "rg",
                             x["file_id"],
-                            f"{x['read_group_id']}_unmapped_r2.fastq.gz",
+                            f"{x['read_group_id']}_unmapped_2.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
                             "rg",
                             x["file_id"],
-                            f"{x['read_group_id']}_unmapped_o1.fastq.gz",
+                            f"{x['read_group_id']}_unmapped_o1.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
                             "rg",
                             x["file_id"],
-                            f"{x['read_group_id']}_unmapped_o2.fastq.gz",
+                            f"{x['read_group_id']}_unmapped_o2.fq.gz",
                         ),
                     ]
                     if x["is_paired_end"]
@@ -199,7 +199,7 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                             GDC_RESULTS_DIR,
                             "rg",
                             x["file_id"],
-                            f"{x['read_group_id']}_unmapped_se.fastq.gz",
+                            f"{x['read_group_id']}_unmapped_s.fq.gz",
                         )
                     ]
                 ),
@@ -275,13 +275,13 @@ BOWTIE2_FILTERED_SAM_FILES = pd.concat(
     axis=0,
 ).tolist()
 BOWTIE2_FILTERED_FASTQ_R1_FILE = join(
-    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_r1.fastq.gz"
+    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_1.fq.gz"
 )
 BOWTIE2_FILTERED_FASTQ_R2_FILE = join(
-    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_r2.fastq.gz"
+    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_2.fq.gz"
 )
 BOWTIE2_FILTERED_FASTQ_SE_FILE = join(
-    BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}_filtered_se.fastq.gz"
+    BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}_filtered_s.fq.gz"
 )
 BOWTIE2_FILTERED_FASTQ_PE_LOG = join(
     BOWTIE2_ALIGN_PE_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
@@ -300,14 +300,14 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                             "sg",
                             x["file_id"],
                             "pe",
-                            f"{x['file_id']}_filtered_r1.fastq.gz",
+                            f"{x['file_id']}_filtered_1.fq.gz",
                         ),
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
                             "sg",
                             x["file_id"],
                             "pe",
-                            f"{x['file_id']}_filtered_r2.fastq.gz",
+                            f"{x['file_id']}_filtered_2.fq.gz",
                         ),
                     ]
                     if x["is_paired_end"]
@@ -317,7 +317,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                             "sg",
                             x["file_id"],
                             "se",
-                            f"{x['file_id']}_filtered_se.fastq.gz",
+                            f"{x['file_id']}_filtered_s.fq.gz",
                         )
                     ]
                 ),
@@ -331,14 +331,14 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                             "rg",
                             x["file_id"],
                             "pe",
-                            f"{x['read_group_id']}_filtered_r1.fastq.gz",
+                            f"{x['read_group_id']}_filtered_1.fq.gz",
                         ),
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
                             "rg",
                             x["file_id"],
                             "pe",
-                            f"{x['read_group_id']}_filtered_r2.fastq.gz",
+                            f"{x['read_group_id']}_filtered_2.fq.gz",
                         ),
                     ]
                     if x["is_paired_end"]
@@ -348,7 +348,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                             "rg",
                             x["file_id"],
                             "se",
-                            f"{x['read_group_id']}_filtered_se.fastq.gz",
+                            f"{x['read_group_id']}_filtered_s.fq.gz",
                         )
                     ]
                 ),
@@ -386,6 +386,12 @@ KRAKEN2_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_build.done")
 KRAKEN2_NUCL_DB_BUILD_DONE_FILE = join(KRAKEN2_NUCL_DB_DIR, "kraken2_build.done")
 KRAKEN2_PROT_DB_BUILD_DONE_FILE = join(KRAKEN2_PROT_DB_DIR, "kraken2_build.done")
 
+KRAKEN2_CLASSIFY_RESULTS_DIR = join(
+    KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "{k2dtype}"
+)
+KRAKEN2_CLASSIFY_LOG_DIR = join(
+    KRAKEN2_LOG_DIR, "classify", KRAKEN_DB_NAME, "{k2dtype}"
+)
 KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR = join(
     KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "nucl"
 )
@@ -397,6 +403,26 @@ KRAKEN2_PROT_CLASSIFY_RESULTS_DIR = join(
 )
 KRAKEN2_PROT_CLASSIFY_LOG_DIR = join(
     KRAKEN2_LOG_DIR, "classify", KRAKEN_DB_NAME, "prot"
+)
+
+KRAKEN2_CLASSIFY_FILE_RESULTS_DIR = join(
+    KRAKEN2_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+)
+KRAKEN2_CLASSIFY_FILE_LOG_DIR = join(
+    KRAKEN2_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "{etype}"
+)
+
+EXPAND_PARAMS["ctype"] = ["classif", "unclassif"]
+EXPAND_PARAMS["fqdcsfx"] = ["1.fq", "2.fq", "s.fq"]
+
+KRAKEN2_FASTQ_DC_FILE = join(
+    KRAKEN2_CLASSIFY_FILE_RESULTS_DIR, "{rg_id}_{ctype}_{fqdcsfx}"
+)
+KRAKEN2_FASTQ_CP_FILE = join(
+    KRAKEN2_CLASSIFY_FILE_RESULTS_DIR, "{rg_id}_{ctype}_{fqdcsfx}.gz"
+)
+KRAKEN2_COMPRESSED_FASTQ_LOG = join(
+    KRAKEN2_CLASSIFY_FILE_LOG_DIR, "{rg_id}_{ctype}_{fqdcsfx}.gz.log"
 )
 
 KRAKEN2_NUCL_CLASSIFY_FILE_RESULTS_DIR = join(
@@ -419,23 +445,55 @@ KRAKEN2_NUCL_CLASSIFY_SE_FILE_LOG_DIR = join(
     KRAKEN2_NUCL_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
 )
 
+KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+)
+KRAKEN2_PROT_CLASSIFY_PE_FILE_LOG_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKEN2_PROT_CLASSIFY_SE_FILE_LOG_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+)
+
+KRAKEN2_NUCL_CLASSIF_FASTQ_R1_DC_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_1.fq"
+)
+KRAKEN2_NUCL_CLASSIF_FASTQ_R2_DC_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_2.fq"
+)
+KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_DC_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_1.fq"
+)
+KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_DC_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_2.fq"
+)
+KRAKEN2_NUCL_CLASSIF_FASTQ_SE_DC_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_s.fq"
+)
+KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_DC_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_s.fq"
+)
+
 KRAKEN2_NUCL_CLASSIF_FASTQ_R1_FILE = join(
-    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r1.fastq.gz"
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_1.fq.gz"
 )
 KRAKEN2_NUCL_CLASSIF_FASTQ_R2_FILE = join(
-    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r2.fastq.gz"
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_2.fq.gz"
 )
 KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE = join(
-    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r1.fastq.gz"
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_1.fq.gz"
 )
 KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE = join(
-    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r2.fastq.gz"
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_2.fq.gz"
 )
 KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE = join(
-    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_se.fastq.gz"
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_s.fq.gz"
 )
 KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE = join(
-    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_se.fastq.gz"
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_s.fq.gz"
 )
 KRAKEN2_NUCL_REPORT_PE_FILE = join(
     KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
@@ -450,36 +508,42 @@ KRAKEN2_NUCL_CLASSIFY_SE_LOG = join(
     KRAKEN2_NUCL_CLASSIFY_SE_FILE_LOG_DIR, "{rg_id}_classify.log"
 )
 
-KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+KRAKEN2_PROT_CLASSIF_FASTQ_R1_DC_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_1.fq"
 )
-KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+KRAKEN2_PROT_CLASSIF_FASTQ_R2_DC_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_2.fq"
 )
-KRAKEN2_PROT_CLASSIFY_PE_FILE_LOG_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_DC_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_1.fq"
 )
-KRAKEN2_PROT_CLASSIFY_SE_FILE_LOG_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_DC_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_2.fq"
+)
+KRAKEN2_PROT_CLASSIF_FASTQ_SE_DC_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_s.fq"
+)
+KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_DC_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_s.fq"
 )
 
 KRAKEN2_PROT_CLASSIF_FASTQ_R1_FILE = join(
-    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r1.fastq.gz"
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_1.fq.gz"
 )
 KRAKEN2_PROT_CLASSIF_FASTQ_R2_FILE = join(
-    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r2.fastq.gz"
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_2.fq.gz"
 )
 KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE = join(
-    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r1.fastq.gz"
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_1.fq.gz"
 )
 KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE = join(
-    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r2.fastq.gz"
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_2.fq.gz"
 )
 KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE = join(
-    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_se.fastq.gz"
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_s.fq.gz"
 )
 KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE = join(
-    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_se.fastq.gz"
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_s.fq.gz"
 )
 KRAKEN2_PROT_REPORT_PE_FILE = join(
     KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
@@ -550,22 +614,22 @@ KRAKENUNIQ_CLASSIFY_SE_FILE_LOG_DIR = join(
 )
 
 KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE = join(
-    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r1.fastq.gz"
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_1.fq.gz"
 )
 KRAKENUNIQ_CLASSIF_FASTQ_R2_FILE = join(
-    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r2.fastq.gz"
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_2.fq.gz"
 )
 KRAKENUNIQ_UNCLASSIF_FASTQ_R1_FILE = join(
-    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r1.fastq.gz"
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_1.fq.gz"
 )
 KRAKENUNIQ_UNCLASSIF_FASTQ_R2_FILE = join(
-    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r2.fastq.gz"
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_2.fq.gz"
 )
 KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE = join(
-    KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_se.fastq.gz"
+    KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_s.fq.gz"
 )
 KRAKENUNIQ_UNCLASSIF_FASTQ_SE_FILE = join(
-    KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_se.fastq.gz"
+    KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_s.fq.gz"
 )
 KRAKENUNIQ_REPORT_PE_FILE = join(
     KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
@@ -704,6 +768,9 @@ BRACKEN_BUILD_THREADS = (
     if config["bracken"]["build"]["threads"] == "all"
     else config["bracken"]["build"]["threads"]
 )
+PIGZ_THREADS = (
+    workflow.cores if config["pigz"]["threads"] == "all" else config["pigz"]["threads"]
+)
 
 BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
     LOCAL_WRAPPERS_BASE_URL, "bio/biobambam2/bamtofastq"
@@ -721,6 +788,7 @@ KRAKENUNIQ_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/build")
 KRAKENUNIQ_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/classify")
 BRACKEN_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/build")
 BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
+PIGZ_WRAPPER = join(PERSONAL_WRAPPERS_BASE_URL, "utils/pigz")
 
 
 include: join(RULES_DIR, "gdc_file.smk")

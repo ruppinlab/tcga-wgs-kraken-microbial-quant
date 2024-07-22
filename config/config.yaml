@@ -74,11 +74,11 @@ biobambam2:
       paired_end: collate=1
       per_readgrp: >-
         outputperreadgroup=1
-        outputperreadgroupsuffixF=_unmapped_r1.fastq.gz
-        outputperreadgroupsuffixF2=_unmapped_r2.fastq.gz
-        outputperreadgroupsuffixO=_unmapped_o1.fastq.gz
-        outputperreadgroupsuffixO2=_unmapped_o2.fastq.gz
-        outputperreadgroupsuffixS=_unmapped_se.fastq.gz
+        outputperreadgroupsuffixF=_unmapped_1.fq.gz
+        outputperreadgroupsuffixF2=_unmapped_2.fq.gz
+        outputperreadgroupsuffixO=_unmapped_o1.fq.gz
+        outputperreadgroupsuffixO2=_unmapped_o2.fq.gz
+        outputperreadgroupsuffixS=_unmapped_s.fq.gz
 
 kraken2:
   build:
@@ -88,7 +88,7 @@ kraken2:
   classify:
     extra:
       common: '--use-names'
-      paired_end: '--paired'
+      paired_end: ''
     threads: all
 
 krakenuniq:
@@ -101,7 +101,7 @@ krakenuniq:
   classify:
     extra:
       common: '--preload-size 16G'
-      paired_end: '--paired --check-names'
+      paired_end: '--check-names'
     threads: all
 
 krakentools:
@@ -114,3 +114,6 @@ bracken:
   quant:
     level: S
     threshold: 0.0
+
+pigz:
+  threads: all
