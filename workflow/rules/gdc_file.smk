@@ -31,8 +31,8 @@ rule gdc_unmapped_fastq_pe:
             )
         ),
     output:
-        GDC_UNMAPPED_FASTQ_R1_FILE,
-        GDC_UNMAPPED_FASTQ_R2_FILE,
+        temp(GDC_UNMAPPED_FASTQ_R1_FILE),
+        temp(GDC_UNMAPPED_FASTQ_R2_FILE),
         temp(GDC_UNMAPPED_FASTQ_O1_FILE),
         temp(GDC_UNMAPPED_FASTQ_O2_FILE),
     log:
@@ -57,7 +57,7 @@ rule gdc_unmapped_fastq_se:
             else config["biobambam2"]["bamtofastq"]["extra"]["common"]
         ),
     output:
-        GDC_UNMAPPED_FASTQ_SE_FILE,
+        temp(GDC_UNMAPPED_FASTQ_SE_FILE),
     log:
         GDC_UNMAPPED_FASTQ_LOG,
     wrapper:

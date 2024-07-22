@@ -259,12 +259,12 @@ rule krakenuniq_read_classif_pe:
         ),
     output:
         classif=[
-            KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE,
-            KRAKENUNIQ_CLASSIF_FASTQ_R2_FILE,
+            temp(KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE),
+            temp(KRAKENUNIQ_CLASSIF_FASTQ_R2_FILE),
         ],
         unclassif=[
-            KRAKENUNIQ_UNCLASSIF_FASTQ_R1_FILE,
-            KRAKENUNIQ_UNCLASSIF_FASTQ_R2_FILE,
+            temp(KRAKENUNIQ_UNCLASSIF_FASTQ_R1_FILE),
+            temp(KRAKENUNIQ_UNCLASSIF_FASTQ_R2_FILE),
         ],
         report=KRAKENUNIQ_REPORT_PE_FILE,
     log:
@@ -284,8 +284,8 @@ rule krakenuniq_read_classif_se:
         paired_end=False,
         extra=config["krakenuniq"]["classify"]["extra"]["common"],
     output:
-        classif=KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE,
-        unclassif=KRAKENUNIQ_UNCLASSIF_FASTQ_SE_FILE,
+        classif=temp(KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE),
+        unclassif=temp(KRAKENUNIQ_UNCLASSIF_FASTQ_SE_FILE),
         report=KRAKENUNIQ_REPORT_SE_FILE,
     log:
         KRAKENUNIQ_CLASSIFY_SE_LOG,

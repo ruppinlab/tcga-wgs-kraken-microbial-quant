@@ -39,7 +39,7 @@ rule bowtie2_host_filter:
         extra=f"--seed {config['random_seed']}",
     output:
         temp(BOWTIE2_SAM_FILE),
-        unaligned=BOWTIE2_FILTERED_SAM_FILE,
+        unaligned=temp(BOWTIE2_FILTERED_SAM_FILE),
     log:
         BOWTIE2_ALIGN_LOG,
     threads: BOWTIE2_ALIGN_THREADS
@@ -57,8 +57,8 @@ rule bowtie2_filtered_fastq_pe:
             f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
         ),
     output:
-        BOWTIE2_FILTERED_FASTQ_R1_FILE,
-        BOWTIE2_FILTERED_FASTQ_R2_FILE,
+        temp(BOWTIE2_FILTERED_FASTQ_R1_FILE),
+        temp(BOWTIE2_FILTERED_FASTQ_R2_FILE),
     log:
         BOWTIE2_FILTERED_FASTQ_PE_LOG,
     wrapper:
@@ -72,7 +72,7 @@ rule bowtie2_filtered_fastq_se:
         paired_end=False,
         extra=config["biobambam2"]["bamtofastq"]["extra"]["common"],
     output:
-        BOWTIE2_FILTERED_FASTQ_SE_FILE,
+        temp(BOWTIE2_FILTERED_FASTQ_SE_FILE),
     log:
         BOWTIE2_FILTERED_FASTQ_SE_LOG,
     wrapper:
