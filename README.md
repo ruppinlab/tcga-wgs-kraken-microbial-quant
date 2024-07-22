@@ -55,13 +55,6 @@ mamba env create -f envs/tcga-wgs-kraken-microbial-quant.yaml
 mamba activate tcga-wgs-kraken-microbial-quant
 ```
 
-Obtain the latest project source code:
-
-```bash
-git clone https://github.com/hermidalc/tcga-wgs-kraken-microbial-quant.git
-cd tcga-wgs-kraken-microbial-quant
-```
-
 Test that the installation is working by doing a dry run (if you don't
 have a GDC token yet and wish to test your install do
 `GDC_TOKEN='' snakemake --dry-run`). Below are the job statistics you
