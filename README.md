@@ -6,8 +6,8 @@ classification. Includes the option to do a second pass Kraken2 protein
 translated search of the unclassified reads from the Kraken2 first pass
 and combining the report results before feeding into Bracken. Properly
 handles TCGA WGS merged BAMs with mixed SE and PE reads and multiple
-read lengths when needed by splitting to read group level FASTQs and
-processing data through the pipeline at read group level before
+read lengths when needed by splitting them into read group level FASTQs
+and processing data through the pipeline at read group level before
 aggregating the Bracken count results back to GDC BAM level.
 
 See [References](#references) for the general basis for this pipeline
