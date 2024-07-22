@@ -6,6 +6,8 @@ from snakemake.shell import shell
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 
+paired_end = snakemake.params.get("paired_end", False)
+
 output = snakemake.output.get("output")
 if output is None:
     output = snakemake.params.get("output")
@@ -22,7 +24,6 @@ if report is not None:
     report = f"--report-file {report}"
 
 extra = snakemake.params.get("extra", "")
-paired_end = snakemake.params.get("paired_end", False)
 if paired_end:
     extra = f"--paired {extra}"
 

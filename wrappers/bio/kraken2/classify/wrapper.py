@@ -2,9 +2,15 @@ __author__ = "Leandro C. Hermida"
 __email__ = "leandro@leandrohermida.com"
 __license__ = "BSD 3-Clause"
 
+import re
+
 from snakemake.shell import shell
 
+fastq_ext_regex = re.compile("(\.(?:fastq|fq)(?:\.gz)?)$", flags=re.IGNORECASE)
+
 log = snakemake.log_fmt_shell(stdout=True, stderr=True)
+
+paired_end = snakemake.params.get("paired_end", False)
 
 output = snakemake.output.get("output")
 if output is None:
@@ -13,16 +19,19 @@ assert output is not None, "output/params: output is a required named parameter"
 output = f"--output {output}"
 classif = snakemake.output.get("classif")
 if classif is not None:
+    if paired_end:
+        classif = re.sub(fastq_ext_regex, "#\1", classif[0], count=1)
     output += f"--classified-out {classif}"
 unclassif = snakemake.output.get("unclassif")
 if unclassif is not None:
+    if paired_end:
+        unclassif = re.sub(fastq_ext_regex, "#\1", unclassif[0], count=1)
     output += f"--unclassified-out {unclassif}"
 report = snakemake.output.get("report")
 if report is not None:
     report = f"--report-file {report}"
 
 extra = snakemake.params.get("extra", "")
-paired_end = snakemake.params.get("paired_end", False)
 if paired_end:
     extra = f"--paired {extra}"
 
