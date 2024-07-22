@@ -13,7 +13,7 @@ aggregating the Bracken count results back to GDC BAM level.
 See [References](#references) for the general basis for this pipeline
 and more information.
 
-Here's a pipeline high-level summary and the full Snakemake pipeline
+A high-level pipeline summary and the full Snakemake pipeline
 rulegraph:
 
 ```
