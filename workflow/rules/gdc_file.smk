@@ -15,16 +15,16 @@ rule gdc_unmapped_fastq_pe:
     input:
         GDC_UNMAPPED_BAM_FILE,
     params:
-        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.method == "rg" else None,
+        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.level == "rg" else None,
         paired_end=True,
-        per_readgrp=lambda wc: True if wc.method == "rg" else False,
+        per_readgrp=lambda wc: True if wc.level == "rg" else False,
         extra=lambda wc: (
             (
                 f"{config['biobambam2']['bamtofastq']['extra']['common']} "
                 f"{config['biobambam2']['bamtofastq']['extra']['paired_end']} "
                 f"{config['biobambam2']['bamtofastq']['extra']['per_readgrp']}"
             )
-            if wc.method == "rg"
+            if wc.level == "rg"
             else (
                 f"{config['biobambam2']['bamtofastq']['extra']['common']} "
                 f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
@@ -45,15 +45,15 @@ rule gdc_unmapped_fastq_se:
     input:
         GDC_UNMAPPED_BAM_FILE,
     params:
-        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.method == "rg" else None,
+        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.level == "rg" else None,
         paired_end=False,
-        per_readgrp=lambda wc: True if wc.method == "rg" else False,
+        per_readgrp=lambda wc: True if wc.level == "rg" else False,
         extra=lambda wc: (
             (
                 f"{config['biobambam2']['bamtofastq']['extra']['common']} "
                 f"{config['biobambam2']['bamtofastq']['extra']['per_readgrp']}"
             )
-            if wc.method == "rg"
+            if wc.level == "rg"
             else config["biobambam2"]["bamtofastq"]["extra"]["common"]
         ),
     output:

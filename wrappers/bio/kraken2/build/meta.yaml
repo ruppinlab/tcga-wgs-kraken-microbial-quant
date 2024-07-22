@@ -1,4 +1,4 @@
-name: kraken2-build
+name: kraken2 build
 description: Kraken2 library downloading and database build
 authors:
   - Leandro C. Hermida

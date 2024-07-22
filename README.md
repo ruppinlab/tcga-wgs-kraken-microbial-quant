@@ -8,15 +8,16 @@ the pipeline at read group level before aggregating the results.
 See [References](#references) for the general basis for this pipeline
 and more information.
 
-Pipeline short summary and full pipeline Snakemake rulegraph:
+Pipeline short summary and the full pipeline Snakemake rulegraph:
 
 ```
 GDC TCGA WGS Unmapped Read BAMs ->
-Biobambam2 Unmapped Read FASTQs (Split to Read Group Level when BAM has mixed PE/SE or mixed read lengths) ->
+Biobambam2 Unmapped Read FASTQs (Split to Read Group Level when BAM has mixed PE/SE or read lengths) ->
 Bowtie2 Host Filtering (with T2T-CHM13v2.0) ->
-Host Filtered BAMs ->
 Biobambam2 Host Filtered FASTQs ->
-Kraken2 Read Classification (with additional Protein Translated Search) ->
+Kraken2 Nucleotide Read Classification ->
+Kraken2 Translated Protein Search Read Classification of Unclassified Reads ->
+KrakenTools Combine Nucleotide and Protein Reports ->
 Bracken Read Quantification ->
 Aggregate Read Group Level Counts ->
 Count Matrix
@@ -56,33 +57,40 @@ cd tcga-wgs-kraken-microbial-quant
 Test that the installation is working by doing a dry run (if you don't
 have a GDC token yet and wish to test your install do
 `GDC_TOKEN='' snakemake --dry-run`). Below are the job statistics you
-would see for all TCGA WGS primary tumors:
+would see for an analysis of all TCGA WGS primary tumors using Kraken2
+with the optional addtional step of Kraken2 protein translated search of
+unclassified reads:
 
 ```
 $ snakemake --dry-run
 
 Building DAG of jobs...
 Job stats:
-job                          count
--------------------------  -------
-all                              1
-bowtie2_filtered_fastq_pe    13531
-bowtie2_filtered_fastq_se      424
-bowtie2_host_filter          13955
-bowtie2_host_index               1
-bracken_count_matrix             1
-bracken_db_build                 7
-bracken_merged_rg_counts        82
-bracken_read_quant           13955
-gdc_unmapped_bam             10838
-gdc_unmapped_fastq_pe        13531
-gdc_unmapped_fastq_se          424
-host_genome_fasta                1
-kraken2_db_build                 1
-kraken2_db_library               5
-kraken2_db_taxonomy              1
-kraken2_read_classif         13955
-total                        80713
+job                             count
+----------------------------  -------
+all                                 1
+bowtie2_filtered_fastq_pe       13531
+bowtie2_filtered_fastq_se         424
+bowtie2_host_filter             13955
+bowtie2_host_index                  1
+bracken_count_matrix                1
+bracken_db_build                    7
+bracken_merged_rg_counts           82
+bracken_read_quant              13955
+gdc_unmapped_bam                10838
+gdc_unmapped_fastq_pe           13531
+gdc_unmapped_fastq_se             424
+host_genome_fasta                   1
+kraken2_combined_report         13955
+kraken2_db_build                    2
+kraken2_db_taxonomy                 2
+kraken2_nucl_library                5
+kraken2_nucl_read_classif_pe    13531
+kraken2_nucl_read_classif_se      424
+kraken2_prot_library                4
+kraken2_prot_read_classif_pe    13531
+kraken2_prot_read_classif_se      424
+total                          108629
 ```
 
 

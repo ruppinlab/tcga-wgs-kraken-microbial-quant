@@ -1,4 +1,4 @@
-name: kraken2-classify
+name: kraken2 classify
 description: Kraken2 fast taxonomic classification tool for metagenomic sequencing data
 authors:
   - Leandro C. Hermida

@@ -18,13 +18,13 @@ resources:
   ref:
     fasta_url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
   db:
+    name: MicrobialDB
     base_dir: /mnt/hgfs/D/tcga-wgs-kraken-microbial-quant/resources
     kraken2:
       libs: [archaea, bacteria, viral, human, UniVec_Core]
-      name: MicrobialDB
+      nucl_only: [UniVec, UniVec_Core]
     krakenuniq:
       libs: [refseq/archaea, refseq/bacteria, refseq/viral, human, UniVec_Core]
-      name: MicrobialDB
     bracken:
       readlens: [25, 35, 50, 75, 100, 125, 150]
 
@@ -82,7 +82,7 @@ biobambam2:
 
 kraken2:
   build:
-    protein: true
+    tsearch_unclassif: true
     extra: '--use-ftp'
     threads: all
   classify:
@@ -103,6 +103,10 @@ krakenuniq:
       common: '--preload-size 16G'
       paired_end: '--paired --check-names'
     threads: all
+
+krakentools:
+  combine_kreports:
+    extra: '--only-combined'
 
 bracken:
   build:

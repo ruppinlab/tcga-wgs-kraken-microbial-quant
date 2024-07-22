@@ -1,4 +1,4 @@
-name: krakenuniq-build
+name: krakenuniq build
 description: Metagenomics classifier with unique k-mer counting for more specific results
 authors:
   - Leandro C. Hermida

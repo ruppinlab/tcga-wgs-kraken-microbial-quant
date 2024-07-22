@@ -1,8 +1,8 @@
 rule bracken_db_build:
     input:
-        db=KRAKEN2_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         build_done=(
-            KRAKEN2_DB_BUILD_DONE_FILE
+            KRAKEN2_NUCL_DB_BUILD_DONE_FILE
             if KRAKEN_MODE == "kraken2"
             else KRAKENUNIQ_DB_BUILD_DONE_FILE
         ),
@@ -21,15 +21,21 @@ rule bracken_db_build:
 
 rule bracken_read_quant:
     input:
-        db=KRAKEN2_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
-        report=(
-            KRAKEN2_REPORT_FILE if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_REPORT_FILE
+        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+        report=lambda wc: (
+            KRAKENUNIQ_REPORT_FILE
+            if KRAKEN_MODE == "krakenuniq"
+            else (
+                KRAKEN2_COMBINED_REPORT_FILE
+                if KRAKEN_MODE == "kraken2" and KRAKEN2_TSEARCH_UNCLASSIF
+                else KRAKEN2_NUCL_REPORT_FILE
+            )
         ),
         build_done=expand(BRACKEN_DB_BUILD_DONE_FILE, **EXPAND_PARAMS),
     params:
         readlen=lambda wc: int(
             GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
-            if wc.method == "sg"
+            if wc.level == "sg"
             else GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"]
         ),
         db_readlens=BRACKEN_DB_READ_LENGTHS,

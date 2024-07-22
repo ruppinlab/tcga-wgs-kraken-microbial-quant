@@ -1,4 +1,4 @@
-name: bracken-quant
+name: bracken quant
 description: Bracken (Bayesian Reestimation of Abundance with KrakEN) is a highly accurate statistical method that computes the abundance of species in DNA sequences from a metagenomics sample.
 authors:
   - Leandro C. Hermida

@@ -1,5 +1,5 @@
-name: biobambam2
-description: Tools for early stage alignment file processing
+name: biobambam2 bamtofastq
+description: BAM to FASTQ converter
 authors:
   - Leandro C. Hermida
 notes: |

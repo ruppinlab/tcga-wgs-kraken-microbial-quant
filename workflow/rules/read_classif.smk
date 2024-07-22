@@ -1,7 +1,8 @@
 rule kraken2_db_taxonomy:
     params:
         db=KRAKEN2_DB_DIR,
-        taskopt="--download-taxonomy",
+        task="download-taxonomy",
+        protein=lambda wc: True if wc.k2dtype == "prot" else False,
         extra=config["kraken2"]["build"]["extra"],
     output:
         touch(KRAKEN2_DB_TAX_DONE_FILE),
@@ -12,21 +13,33 @@ rule kraken2_db_taxonomy:
         KRAKEN2_BUILD_WRAPPER
 
 
-rule kraken2_db_library:
+rule kraken2_nucl_library:
     params:
-        db=KRAKEN2_DB_DIR,
-        lib="{k2lib}",
-        taskopt="--download-library",
-        protein=lambda wc: (
-            True
-            if config["kraken2"]["build"]["protein"] and wc.k2lib != "UniVec_Core"
-            else False
-        ),
+        db=KRAKEN2_NUCL_DB_DIR,
+        lib="{k2nlib}",
+        task="download-library",
+        protein=False,
         extra=config["kraken2"]["build"]["extra"],
     output:
-        touch(KRAKEN2_DB_LIB_DONE_FILE),
+        touch(KRAKEN2_NUCL_DB_LIB_DONE_FILE),
     log:
-        KRAKEN2_DB_LIB_LOG,
+        KRAKEN2_NUCL_DB_LIB_LOG,
+    threads: KRAKEN2_BUILD_THREADS
+    wrapper:
+        KRAKEN2_BUILD_WRAPPER
+
+
+rule kraken2_prot_library:
+    params:
+        db=KRAKEN2_PROT_DB_DIR,
+        lib="{k2plib}",
+        task="download-library",
+        protein=True,
+        extra=config["kraken2"]["build"]["extra"],
+    output:
+        touch(KRAKEN2_PROT_DB_LIB_DONE_FILE),
+    log:
+        KRAKEN2_PROT_DB_LIB_LOG,
     threads: KRAKEN2_BUILD_THREADS
     wrapper:
         KRAKEN2_BUILD_WRAPPER
@@ -35,10 +48,18 @@ rule kraken2_db_library:
 rule kraken2_db_build:
     input:
         KRAKEN2_DB_TAX_DONE_FILE,
-        expand(KRAKEN2_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
+        lambda wc: expand(
+            (
+                KRAKEN2_NUCL_DB_LIB_DONE_FILE
+                if wc.k2dtype == "nucl"
+                else KRAKEN2_PROT_DB_LIB_DONE_FILE
+            ),
+            **EXPAND_PARAMS,
+        ),
     params:
         db=KRAKEN2_DB_DIR,
-        taskopt="--build",
+        task="build",
+        protein=lambda wc: True if wc.k2dtype == "prot" else False,
         extra=config["kraken2"]["build"]["extra"],
     output:
         touch(KRAKEN2_DB_BUILD_DONE_FILE),
@@ -49,30 +70,118 @@ rule kraken2_db_build:
         KRAKEN2_BUILD_WRAPPER
 
 
-rule kraken2_read_classif:
+rule kraken2_nucl_read_classif_pe:
     input:
-        fqs=lambda wc: (
-            [BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE]
-            if wc.etype == "pe"
-            else BOWTIE2_FILTERED_FASTQ_SE_FILE
-        ),
-        db=KRAKEN2_DB_DIR,
-        build_done=KRAKEN2_DB_BUILD_DONE_FILE,
+        fqs=[BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE],
+        db=KRAKEN2_NUCL_DB_DIR,
+        build_done=KRAKEN2_NUCL_DB_BUILD_DONE_FILE,
     params:
-        extra=lambda wc: (
+        output="-",
+        extra=(
             f"{config['kraken2']['classify']['extra']['paired_end']} "
             f"{config['kraken2']['classify']['extra']['common']}"
-            if wc.etype == "pe"
-            else config["kraken2"]["classify"]["extra"]["common"]
         ),
     output:
-        KRAKEN2_CLASSIF_FILE,
-        report=KRAKEN2_REPORT_FILE,
+        classif=[
+            KRAKEN2_NUCL_CLASSIF_FASTQ_R1_FILE,
+            KRAKEN2_NUCL_CLASSIF_FASTQ_R2_FILE,
+        ],
+        unclassif=[
+            KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE,
+            KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE,
+        ],
+        report=KRAKEN2_NUCL_REPORT_PE_FILE,
     log:
-        KRAKEN2_CLASSIF_LOG,
+        KRAKEN2_NUCL_CLASSIFY_PE_LOG,
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
+
+
+rule kraken2_nucl_read_classif_se:
+    input:
+        fqs=BOWTIE2_FILTERED_FASTQ_SE_FILE,
+        db=KRAKEN2_NUCL_DB_DIR,
+        build_done=KRAKEN2_NUCL_DB_BUILD_DONE_FILE,
+    params:
+        output="-",
+        extra=config["kraken2"]["classify"]["extra"]["common"],
+    output:
+        classif=KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE,
+        unclassif=KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE,
+        report=KRAKEN2_NUCL_REPORT_SE_FILE,
+    log:
+        KRAKEN2_NUCL_CLASSIFY_SE_LOG,
+    threads: KRAKEN2_CLASSIFY_THREADS
+    wrapper:
+        KRAKEN2_CLASSIFY_WRAPPER
+
+
+rule kraken2_prot_read_classif_pe:
+    input:
+        fqs=[
+            KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE,
+            KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE,
+        ],
+        db=KRAKEN2_PROT_DB_DIR,
+        build_done=KRAKEN2_PROT_DB_BUILD_DONE_FILE,
+    params:
+        output="-",
+        extra=(
+            f"{config['kraken2']['classify']['extra']['paired_end']} "
+            f"{config['kraken2']['classify']['extra']['common']}"
+        ),
+    output:
+        classif=[
+            KRAKEN2_PROT_CLASSIF_FASTQ_R1_FILE,
+            KRAKEN2_PROT_CLASSIF_FASTQ_R2_FILE,
+        ],
+        unclassif=[
+            KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE,
+            KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE,
+        ],
+        report=KRAKEN2_PROT_REPORT_PE_FILE,
+    log:
+        KRAKEN2_PROT_CLASSIFY_PE_LOG,
+    threads: KRAKEN2_CLASSIFY_THREADS
+    wrapper:
+        KRAKEN2_CLASSIFY_WRAPPER
+
+
+rule kraken2_prot_read_classif_se:
+    input:
+        fqs=KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE,
+        db=KRAKEN2_PROT_DB_DIR,
+        build_done=KRAKEN2_PROT_DB_BUILD_DONE_FILE,
+    params:
+        output="-",
+        extra=config["kraken2"]["classify"]["extra"]["common"],
+    output:
+        classif=KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE,
+        unclassif=KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE,
+        report=KRAKEN2_PROT_REPORT_SE_FILE,
+    log:
+        KRAKEN2_PROT_CLASSIFY_SE_LOG,
+    threads: KRAKEN2_CLASSIFY_THREADS
+    wrapper:
+        KRAKEN2_CLASSIFY_WRAPPER
+
+
+rule kraken2_combined_report:
+    input:
+        lambda wc: (
+            [KRAKEN2_NUCL_REPORT_PE_FILE, KRAKEN2_PROT_REPORT_PE_FILE]
+            if wc.etype == "pe"
+            else [KRAKEN2_NUCL_REPORT_SE_FILE, KRAKEN2_PROT_REPORT_SE_FILE]
+        ),
+    params:
+        extra=config["krakentools"]["combine_kreports"]["extra"],
+    output:
+        KRAKEN2_COMBINED_REPORT_FILE,
+    log:
+        KRAKEN2_COMBINED_REPORT_LOG,
+    wrapper:
+        KRAKENTOOLS_COMBINE_KREPORTS_WRAPPER
 
 
 rule krakenuniq_db_taxonomy:
@@ -109,7 +218,7 @@ rule krakenuniq_db_build:
         expand(KRAKENUNIQ_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
     params:
         db=KRAKENUNIQ_DB_DIR,
-        taskopt="--build",
+        task="build",
         extra=config["krakenuniq"]["build"]["extra"],
     output:
         touch(KRAKENUNIQ_DB_BUILD_DONE_FILE),
@@ -120,27 +229,48 @@ rule krakenuniq_db_build:
         KRAKENUNIQ_BUILD_WRAPPER
 
 
-rule krakenuniq_read_classif:
+rule krakenuniq_read_classif_pe:
     input:
-        fqs=lambda wc: (
-            [BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE]
-            if wc.etype == "pe"
-            else BOWTIE2_FILTERED_FASTQ_SE_FILE
-        ),
+        fqs=[BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE],
         db=KRAKENUNIQ_DB_DIR,
         build_done=KRAKENUNIQ_DB_BUILD_DONE_FILE,
     params:
-        extra=lambda wc: (
+        output="off",
+        extra=(
             f"{config['krakenuniq']['classify']['extra']['paired_end']} "
             f"{config['krakenuniq']['classify']['extra']['common']}"
-            if wc.etype == "pe"
-            else config["krakenuniq"]["classify"]["extra"]["common"]
         ),
     output:
-        KRAKENUNIQ_CLASSIF_FILE,
-        report=KRAKENUNIQ_REPORT_FILE,
+        classif=[
+            KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE,
+            KRAKENUNIQ_CLASSIF_FASTQ_R2_FILE,
+        ],
+        unclassif=[
+            KRAKENUNIQ_UNCLASSIF_FASTQ_R1_FILE,
+            KRAKENUNIQ_UNCLASSIF_FASTQ_R2_FILE,
+        ],
+        report=KRAKENUNIQ_REPORT_PE_FILE,
     log:
-        KRAKENUNIQ_CLASSIF_LOG,
+        KRAKENUNIQ_CLASSIFY_PE_LOG,
+    threads: KRAKENUNIQ_CLASSIFY_THREADS
+    wrapper:
+        KRAKENUNIQ_CLASSIFY_WRAPPER
+
+
+rule krakenuniq_read_classif_se:
+    input:
+        fqs=BOWTIE2_FILTERED_FASTQ_SE_FILE,
+        db=KRAKENUNIQ_DB_DIR,
+        build_done=KRAKENUNIQ_DB_BUILD_DONE_FILE,
+    params:
+        output="off",
+        extra=config["krakenuniq"]["classify"]["extra"]["common"],
+    output:
+        classif=KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE,
+        unclassif=KRAKENUNIQ_UNCLASSIF_FASTQ_SE_FILE,
+        report=KRAKENUNIQ_REPORT_SE_FILE,
+    log:
+        KRAKENUNIQ_CLASSIFY_SE_LOG,
     threads: KRAKENUNIQ_CLASSIFY_THREADS
     wrapper:
         KRAKENUNIQ_CLASSIFY_WRAPPER

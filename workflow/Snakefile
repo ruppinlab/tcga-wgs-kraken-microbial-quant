@@ -44,16 +44,22 @@ KRAKEN2_DB_LIBS = config["resources"]["db"]["kraken2"]["libs"]
 KRAKENUNIQ_DB_LIBS = config["resources"]["db"]["krakenuniq"]["libs"]
 BRACKEN_DB_READ_LENGTHS = config["resources"]["db"]["bracken"]["readlens"]
 
-DB_BASEDIR = config["resources"]["db"]["base_dir"]
-KRAKEN2_DB_NAME = config["resources"]["db"]["kraken2"]["name"]
-KRAKENUNIQ_DB_NAME = config["resources"]["db"]["krakenuniq"]["name"]
+KRAKEN_DB_BASEDIR = config["resources"]["db"]["base_dir"]
+KRAKEN_DB_NAME = config["resources"]["db"]["name"]
 
-KRAKEN2_DB_DIR = join(DB_BASEDIR, KRAKEN2_DB_NAME)
-KRAKENUNIQ_DB_DIR = join(DB_BASEDIR, KRAKENUNIQ_DB_NAME)
+KRAKEN2_TSEARCH_UNCLASSIF = config["kraken2"]["build"]["tsearch_unclassif"]
+
+KRAKEN2_DB_TYPES = ["nucl", "prot"] if KRAKEN2_TSEARCH_UNCLASSIF else ["nucl"]
 
 KRAKEN_MODE = config["read_classif"]["mode"]
 
-EXPAND_PARAMS["k2lib"] = KRAKEN2_DB_LIBS
+EXPAND_PARAMS["k2dtype"] = KRAKEN2_DB_TYPES
+EXPAND_PARAMS["k2nlib"] = KRAKEN2_DB_LIBS
+EXPAND_PARAMS["k2plib"] = [
+    l
+    for l in KRAKEN2_DB_LIBS
+    if l not in config["resources"]["db"]["kraken2"]["nucl_only"]
+]
 EXPAND_PARAMS["kulib"] = KRAKENUNIQ_DB_LIBS
 EXPAND_PARAMS["readlen"] = BRACKEN_DB_READ_LENGTHS
 
@@ -88,8 +94,8 @@ assert (
 
 GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
 GDC_LOG_DIR = join(LOG_DIR, "gdc")
-GDC_FILE_RESULTS_DIR = join(GDC_RESULTS_DIR, "{method}", "{bam_id}")
-GDC_FILE_LOG_DIR = join(GDC_LOG_DIR, "{method}", "{bam_id}")
+GDC_FILE_RESULTS_DIR = join(GDC_RESULTS_DIR, "{level}", "{bam_id}")
+GDC_FILE_LOG_DIR = join(GDC_LOG_DIR, "{level}", "{bam_id}")
 GDC_UNMAPPED_BAM_FILE = join(GDC_FILE_RESULTS_DIR, "{bam_id}_unmapped.bam")
 GDC_UNMAPPED_BAM_LOG = join(GDC_FILE_LOG_DIR, "{bam_id}_unmapped_bam.log")
 GDC_UNMAPPED_BAM_FILES = GDC_BAM_META_DF.apply(
@@ -217,16 +223,31 @@ BOWTIE2_HOST_INDEX_FILES = multiext(
     ".rev.2.bt2",
 )
 BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", "index.log")
+
 BOWTIE2_ALIGN_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "align")
 BOWTIE2_ALIGN_LOG_DIR = join(BOWTIE2_LOG_DIR, "align")
 BOWTIE2_ALIGN_FILE_RESULTS_DIR = join(
-    BOWTIE2_ALIGN_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
+    BOWTIE2_ALIGN_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
 )
 BOWTIE2_ALIGN_FILE_LOG_DIR = join(
-    BOWTIE2_ALIGN_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+    BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "{etype}"
 )
+BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR = join(
+    BOWTIE2_ALIGN_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+)
+BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR = join(
+    BOWTIE2_ALIGN_RESULTS_DIR, "{level}", "{bam_id}", "se"
+)
+BOWTIE2_ALIGN_PE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "pe")
+BOWTIE2_ALIGN_SE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "se")
 BOWTIE2_SAM_FILE = join(BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}.sam")
 BOWTIE2_FILTERED_SAM_FILE = join(BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered.sam")
+BOWTIE2_FILTERED_SAM_PE_FILE = join(
+    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered.sam"
+)
+BOWTIE2_FILTERED_SAM_SE_FILE = join(
+    BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}_filtered.sam"
+)
 BOWTIE2_ALIGN_LOG = join(BOWTIE2_ALIGN_FILE_LOG_DIR, "{rg_id}_align.log")
 BOWTIE2_FILTERED_SAM_FILES = pd.concat(
     [
@@ -254,16 +275,19 @@ BOWTIE2_FILTERED_SAM_FILES = pd.concat(
     axis=0,
 ).tolist()
 BOWTIE2_FILTERED_FASTQ_R1_FILE = join(
-    BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered_r1.fastq.gz"
+    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_r1.fastq.gz"
 )
 BOWTIE2_FILTERED_FASTQ_R2_FILE = join(
-    BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered_r2.fastq.gz"
+    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_r2.fastq.gz"
 )
 BOWTIE2_FILTERED_FASTQ_SE_FILE = join(
-    BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered_se.fastq.gz"
+    BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}_filtered_se.fastq.gz"
 )
-BOWTIE2_FILTERED_FASTQ_LOG = join(
-    BOWTIE2_ALIGN_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
+BOWTIE2_FILTERED_FASTQ_PE_LOG = join(
+    BOWTIE2_ALIGN_PE_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
+)
+BOWTIE2_FILTERED_FASTQ_SE_LOG = join(
+    BOWTIE2_ALIGN_SE_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
 )
 BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
     pd.concat(
@@ -337,74 +361,240 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
 
 KRAKEN2_RESULTS_DIR = join(RESULTS_DIR, "kraken2")
 KRAKEN2_LOG_DIR = join(LOG_DIR, "kraken2")
-KRAKEN2_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build")
-KRAKEN2_CLASSIF_RESULTS_DIR = join(KRAKEN2_RESULTS_DIR, "classif")
-KRAKEN2_CLASSIF_LOG_DIR = join(KRAKEN2_LOG_DIR, "classif")
+
+KRAKEN2_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "{k2dtype}")
+KRAKEN2_NUCL_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "nucl")
+KRAKEN2_PROT_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "prot")
+
+KRAKEN2_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", "{k2dtype}")
+KRAKEN2_NUCL_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", "nucl")
+KRAKEN2_PROT_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", "prot")
 
 KRAKEN2_DB_TAX_DIR = join(KRAKEN2_DB_DIR, "taxonomy")
-KRAKEN2_DB_TAX_LOG = join(KRAKEN2_BUILD_LOG_DIR, "download_taxonomy.log")
-KRAKEN2_DB_LIB_DIR = join(KRAKEN2_DB_DIR, "library", "{k2lib}")
-KRAKEN2_DB_LIB_LOG = join(KRAKEN2_BUILD_LOG_DIR, "download_{k2lib}.log")
-KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_LOG_DIR, "kraken2_db_build.log")
-KRAKEN2_DB_TAX_DONE_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_db_taxonomy.done")
-KRAKEN2_DB_LIB_DONE_FILE = join(KRAKEN2_DB_LIB_DIR, "kraken2_db_{k2lib}.done")
-KRAKEN2_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_db_build.done")
+KRAKEN2_DB_TAX_LOG = join(KRAKEN2_DB_BUILD_LOG_DIR, "download_taxonomy.log")
+KRAKEN2_DB_TAX_DONE_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_taxonomy.done")
 
-KRAKEN2_CLASSIF_FILE_RESULTS_DIR = join(
-    KRAKEN2_CLASSIF_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
+KRAKEN2_NUCL_DB_LIB_DIR = join(KRAKEN2_NUCL_DB_DIR, "library", "{k2nlib}")
+KRAKEN2_NUCL_DB_LIB_LOG = join(KRAKEN2_NUCL_DB_BUILD_LOG_DIR, "download_{k2nlib}.log")
+KRAKEN2_NUCL_DB_LIB_DONE_FILE = join(KRAKEN2_NUCL_DB_DIR, "kraken2_{k2nlib}.done")
+KRAKEN2_PROT_DB_LIB_DIR = join(KRAKEN2_PROT_DB_DIR, "library", "{k2plib}")
+KRAKEN2_PROT_DB_LIB_LOG = join(KRAKEN2_PROT_DB_BUILD_LOG_DIR, "download_{k2plib}.log")
+KRAKEN2_PROT_DB_LIB_DONE_FILE = join(KRAKEN2_PROT_DB_DIR, "kraken2_{k2plib}.done")
+
+KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_DB_BUILD_LOG_DIR, "kraken2_build.log")
+KRAKEN2_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_build.done")
+KRAKEN2_NUCL_DB_BUILD_DONE_FILE = join(KRAKEN2_NUCL_DB_DIR, "kraken2_build.done")
+KRAKEN2_PROT_DB_BUILD_DONE_FILE = join(KRAKEN2_PROT_DB_DIR, "kraken2_build.done")
+
+KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR = join(
+    KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "nucl"
 )
-KRAKEN2_CLASSIF_FILE_LOG_DIR = join(
-    KRAKEN2_CLASSIF_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+KRAKEN2_NUCL_CLASSIFY_LOG_DIR = join(
+    KRAKEN2_LOG_DIR, "classify", KRAKEN_DB_NAME, "nucl"
 )
-KRAKEN2_CLASSIF_FILE = join(KRAKEN2_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_classif.tsv")
-KRAKEN2_REPORT_FILE = join(KRAKEN2_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
-KRAKEN2_CLASSIF_LOG = join(KRAKEN2_CLASSIF_FILE_LOG_DIR, "{rg_id}_classif.log")
+KRAKEN2_PROT_CLASSIFY_RESULTS_DIR = join(
+    KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "prot"
+)
+KRAKEN2_PROT_CLASSIFY_LOG_DIR = join(
+    KRAKEN2_LOG_DIR, "classify", KRAKEN_DB_NAME, "prot"
+)
+
+KRAKEN2_NUCL_CLASSIFY_FILE_RESULTS_DIR = join(
+    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+)
+KRAKEN2_NUCL_REPORT_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+
+KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR = join(
+    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR = join(
+    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+)
+KRAKEN2_NUCL_CLASSIFY_PE_FILE_LOG_DIR = join(
+    KRAKEN2_NUCL_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKEN2_NUCL_CLASSIFY_SE_FILE_LOG_DIR = join(
+    KRAKEN2_NUCL_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+)
+
+KRAKEN2_NUCL_CLASSIF_FASTQ_R1_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r1.fastq.gz"
+)
+KRAKEN2_NUCL_CLASSIF_FASTQ_R2_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r2.fastq.gz"
+)
+KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r1.fastq.gz"
+)
+KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r2.fastq.gz"
+)
+KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_se.fastq.gz"
+)
+KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_se.fastq.gz"
+)
+KRAKEN2_NUCL_REPORT_PE_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+KRAKEN2_NUCL_REPORT_SE_FILE = join(
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+KRAKEN2_NUCL_CLASSIFY_PE_LOG = join(
+    KRAKEN2_NUCL_CLASSIFY_PE_FILE_LOG_DIR, "{rg_id}_classify.log"
+)
+KRAKEN2_NUCL_CLASSIFY_SE_LOG = join(
+    KRAKEN2_NUCL_CLASSIFY_SE_FILE_LOG_DIR, "{rg_id}_classify.log"
+)
+
+KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+)
+KRAKEN2_PROT_CLASSIFY_PE_FILE_LOG_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKEN2_PROT_CLASSIFY_SE_FILE_LOG_DIR = join(
+    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+)
+
+KRAKEN2_PROT_CLASSIF_FASTQ_R1_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r1.fastq.gz"
+)
+KRAKEN2_PROT_CLASSIF_FASTQ_R2_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r2.fastq.gz"
+)
+KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r1.fastq.gz"
+)
+KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r2.fastq.gz"
+)
+KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_se.fastq.gz"
+)
+KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_se.fastq.gz"
+)
+KRAKEN2_PROT_REPORT_PE_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+KRAKEN2_PROT_REPORT_SE_FILE = join(
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+KRAKEN2_PROT_CLASSIFY_PE_LOG = join(
+    KRAKEN2_PROT_CLASSIFY_PE_FILE_LOG_DIR, "{rg_id}_classify.log"
+)
+KRAKEN2_PROT_CLASSIFY_SE_LOG = join(
+    KRAKEN2_PROT_CLASSIFY_SE_FILE_LOG_DIR, "{rg_id}_classify.log"
+)
+
+KRAKEN2_COMBINED_REPORT_RESULTS_DIR = join(KRAKEN2_RESULTS_DIR, "combine_reports")
+KRAKEN2_COMBINED_REPORT_LOG_DIR = join(KRAKEN2_LOG_DIR, "combine_reports")
+KRAKEN2_COMBINED_REPORT_FILE_RESULTS_DIR = join(
+    KRAKEN2_COMBINED_REPORT_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+)
+KRAKEN2_COMBINED_REPORT_FILE_LOG_DIR = join(
+    KRAKEN2_COMBINED_REPORT_LOG_DIR, "{level}", "{bam_id}", "{etype}"
+)
+KRAKEN2_COMBINED_REPORT_FILE = join(
+    KRAKEN2_COMBINED_REPORT_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+KRAKEN2_COMBINED_REPORT_LOG = join(
+    KRAKEN2_COMBINED_REPORT_FILE_LOG_DIR, "{rg_id}_report.log"
+)
 
 KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
-KRAKENUNIQ_BUILD_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "build")
-KRAKENUNIQ_CLASSIF_RESULTS_DIR = join(KRAKENUNIQ_RESULTS_DIR, "classif")
-KRAKENUNIQ_CLASSIF_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "classif")
 
+KRAKENUNIQ_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME)
+
+KRAKENUNIQ_DB_BUILD_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "build", KRAKEN_DB_NAME)
 KRAKENUNIQ_DB_TAX_DIR = join(KRAKENUNIQ_DB_DIR, "taxonomy")
-KRAKENUNIQ_DB_TAX_LOG = join(KRAKENUNIQ_BUILD_LOG_DIR, "download_taxonomy.log")
+KRAKENUNIQ_DB_TAX_LOG = join(KRAKENUNIQ_DB_BUILD_LOG_DIR, "download_taxonomy.log")
 KRAKENUNIQ_DB_LIB_DIR = join(KRAKENUNIQ_DB_DIR, "library", "{kulib}")
-KRAKENUNIQ_DB_LIB_LOG = join(KRAKENUNIQ_BUILD_LOG_DIR, "download_{kulib}.log")
-KRAKENUNIQ_DB_BUILD_LOG = join(KRAKENUNIQ_LOG_DIR, "krakenuniq_db_build.log")
-KRAKENUNIQ_DB_TAX_DONE_FILE = join(KRAKENUNIQ_DB_TAX_DIR, "krakenuniq_db_taxonomy.done")
-KRAKENUNIQ_DB_LIB_DONE_FILE = join(KRAKENUNIQ_DB_LIB_DIR, "krakenuniq_db_{kulib}.done")
-KRAKENUNIQ_DB_BUILD_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "krakenuniq_db_build.done")
+KRAKENUNIQ_DB_LIB_LOG = join(KRAKENUNIQ_DB_BUILD_LOG_DIR, "download_{kulib}.log")
+KRAKENUNIQ_DB_TAX_DONE_FILE = join(KRAKENUNIQ_DB_TAX_DIR, "krakenuniq_taxonomy.done")
+KRAKENUNIQ_DB_LIB_DONE_FILE = join(KRAKENUNIQ_DB_LIB_DIR, "krakenuniq_{kulib}.done")
 
-KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR = join(
-    KRAKENUNIQ_CLASSIF_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
-)
-KRAKENUNIQ_CLASSIF_FILE_LOG_DIR = join(
-    KRAKENUNIQ_CLASSIF_LOG_DIR, "{method}", "{bam_id}", "{etype}"
-)
-KRAKENUNIQ_CLASSIF_FILE = join(
-    KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_classif.tsv"
-)
-KRAKENUNIQ_REPORT_FILE = join(KRAKENUNIQ_CLASSIF_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
-KRAKENUNIQ_CLASSIF_LOG = join(KRAKENUNIQ_CLASSIF_FILE_LOG_DIR, "{rg_id}_classif.log")
+KRAKENUNIQ_DB_BUILD_LOG = join(KRAKENUNIQ_DB_BUILD_LOG_DIR, "krakenuniq_build.log")
+KRAKENUNIQ_DB_BUILD_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "krakenuniq_build.done")
 
-BRACKEN_DB_BUILD_DONE_FILE = join(
-    KRAKEN2_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
-    "bracken_db_build_{readlen}.done",
+KRAKENUNIQ_CLASSIFY_RESULTS_DIR = join(
+    KRAKENUNIQ_RESULTS_DIR, "classify", KRAKEN_DB_NAME
 )
-BRACKEN_DB_BUILD_LOG = join(
-    KRAKEN2_BUILD_LOG_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_BUILD_LOG_DIR,
-    "bracken_db_build_{readlen}.log",
+KRAKENUNIQ_CLASSIFY_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "classify", KRAKEN_DB_NAME)
+KRAKENUNIQ_CLASSIFY_FILE_RESULTS_DIR = join(
+    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+)
+KRAKENUNIQ_REPORT_FILE = join(
+    KRAKENUNIQ_CLASSIFY_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+
+KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR = join(
+    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR = join(
+    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+)
+KRAKENUNIQ_CLASSIFY_PE_FILE_LOG_DIR = join(
+    KRAKENUNIQ_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+)
+KRAKENUNIQ_CLASSIFY_SE_FILE_LOG_DIR = join(
+    KRAKENUNIQ_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+)
+
+KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE = join(
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r1.fastq.gz"
+)
+KRAKENUNIQ_CLASSIF_FASTQ_R2_FILE = join(
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_classif_r2.fastq.gz"
+)
+KRAKENUNIQ_UNCLASSIF_FASTQ_R1_FILE = join(
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r1.fastq.gz"
+)
+KRAKENUNIQ_UNCLASSIF_FASTQ_R2_FILE = join(
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_unclassif_r2.fastq.gz"
+)
+KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE = join(
+    KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_classif_se.fastq.gz"
+)
+KRAKENUNIQ_UNCLASSIF_FASTQ_SE_FILE = join(
+    KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_unclassif_se.fastq.gz"
+)
+KRAKENUNIQ_REPORT_PE_FILE = join(
+    KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+KRAKENUNIQ_REPORT_SE_FILE = join(
+    KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
+)
+KRAKENUNIQ_CLASSIFY_PE_LOG = join(
+    KRAKENUNIQ_CLASSIFY_PE_FILE_LOG_DIR, "{rg_id}_classify.log"
+)
+KRAKENUNIQ_CLASSIFY_SE_LOG = join(
+    KRAKENUNIQ_CLASSIFY_SE_FILE_LOG_DIR, "{rg_id}_classify.log"
 )
 
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
+BRACKEN_DB_BUILD_LOG_DIR = join(BRACKEN_LOG_DIR, "build")
 BRACKEN_QUANT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "quant")
 BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant")
+
+BRACKEN_DB_BUILD_LOG = join(BRACKEN_DB_BUILD_LOG_DIR, "bracken_build_{readlen}.log")
+BRACKEN_DB_BUILD_DONE_FILE = join(
+    BRACKEN_DB_BUILD_LOG_DIR, "bracken_build_{readlen}.done"
+)
 BRACKEN_QUANT_FILE_RESULTS_DIR = join(
-    BRACKEN_QUANT_RESULTS_DIR, "{method}", "{bam_id}", "{etype}"
+    BRACKEN_QUANT_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
 )
 BRACKEN_QUANT_FILE_LOG_DIR = join(
-    BRACKEN_QUANT_LOG_DIR, "{method}", "{bam_id}", "{etype}"
+    BRACKEN_QUANT_LOG_DIR, "{level}", "{bam_id}", "{etype}"
 )
 BRACKEN_COUNT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_counts.tsv")
 BRACKEN_REPORT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
@@ -523,6 +713,9 @@ BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKEN2_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/classify")
+KRAKENTOOLS_COMBINE_KREPORTS_WRAPPER = join(
+    LOCAL_WRAPPERS_BASE_URL, "bio/krakentools/combine_kreports"
+)
 KRAKENUNIQ_DOWNLOAD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/download")
 KRAKENUNIQ_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/build")
 KRAKENUNIQ_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/classify")
@@ -543,7 +736,7 @@ wildcard_constraints:
     },
     bam_id="[0-9a-f\\-]+",
     rg_id="[0-9a-f\\-]+",
-    method="sg|rg",
+    level="sg|rg",
     etype="pe|se",
 
 

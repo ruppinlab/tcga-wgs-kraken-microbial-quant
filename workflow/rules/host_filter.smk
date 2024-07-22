@@ -6,8 +6,11 @@ rule host_genome_fasta:
     message:
         "{params}"
     retries: config["download"]["retries"]
-    script:
-        "../scripts/url_file.py"
+    run:
+        from urllib.request import urlcleanup, urlretrieve
+
+        urlretrieve(snakemake.params[0], filename=snakemake.output[0])
+        urlcleanup()
 
 
 rule bowtie2_host_index:
@@ -46,7 +49,7 @@ rule bowtie2_host_filter:
 
 rule bowtie2_filtered_fastq_pe:
     input:
-        BOWTIE2_FILTERED_SAM_FILE,
+        BOWTIE2_FILTERED_SAM_PE_FILE,
     params:
         paired_end=True,
         extra=(
@@ -57,20 +60,20 @@ rule bowtie2_filtered_fastq_pe:
         BOWTIE2_FILTERED_FASTQ_R1_FILE,
         BOWTIE2_FILTERED_FASTQ_R2_FILE,
     log:
-        BOWTIE2_FILTERED_FASTQ_LOG,
+        BOWTIE2_FILTERED_FASTQ_PE_LOG,
     wrapper:
         BIOBAMBAM2_BAMTOFASTQ_WRAPPER
 
 
 rule bowtie2_filtered_fastq_se:
     input:
-        BOWTIE2_FILTERED_SAM_FILE,
+        BOWTIE2_FILTERED_SAM_SE_FILE,
     params:
         paired_end=False,
         extra=config["biobambam2"]["bamtofastq"]["extra"]["common"],
     output:
         BOWTIE2_FILTERED_FASTQ_SE_FILE,
     log:
-        BOWTIE2_FILTERED_FASTQ_LOG,
+        BOWTIE2_FILTERED_FASTQ_SE_LOG,
     wrapper:
         BIOBAMBAM2_BAMTOFASTQ_WRAPPER
