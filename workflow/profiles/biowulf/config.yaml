@@ -1,0 +1,47 @@
+executor: slurm
+keep-going: True
+printshellcmds: True
+
+default-resources:
+  slurm_partition: "ccr,norm"
+  cpus_per_task: 2
+  mem_mb_per_cpu: 4096
+  runtime: 8-00:00:00
+  slurm_extra: "'--gres=lscratch:100'"
+
+set-resources:
+  gdc_unmapped_bam:
+    mem_mb_per_cpu: 1024
+
+  host_genome_fasta:
+    mem_mb_per_cpu: 1024
+
+  bowtie2_host_index:
+    cpus_per_task: 56
+
+  kraken2_db_build:
+    cpus_per_task: 56
+
+  kraken2_nucl_read_classif_pe:
+    cpus_per_task: 56
+
+  kraken2_nucl_read_classif_se:
+    cpus_per_task: 56
+
+  kraken2_prot_read_classif_pe:
+    cpus_per_task: 56
+
+  kraken2_prot_read_classif_se:
+    cpus_per_task: 56
+
+  krakenuniq_db_build:
+    cpus_per_task: 56
+
+  krakenuniq_read_classif_pe:
+    cpus_per_task: 56
+
+  krakenuniq_read_classif_se:
+    cpus_per_task: 56
+
+  bracken_db_build:
+    cpus_per_task: 56
