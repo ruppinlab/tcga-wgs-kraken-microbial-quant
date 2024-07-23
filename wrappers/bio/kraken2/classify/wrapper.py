@@ -6,7 +6,7 @@ import re
 
 from snakemake.shell import shell
 
-fastq_ext_regex = re.compile("(\.(?:fastq|fq)(?:\.gz)?)$", flags=re.IGNORECASE)
+fastq_ext_regex = re.compile(r"(.(?:fastq|fq)(?:.gz)?)$", flags=re.IGNORECASE)
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 
