@@ -17,7 +17,7 @@ A high-level pipeline summary:
 
 ```
 GDC TCGA WGS Unmapped Read BAMs ->
-Biobambam2 Unmapped Read FASTQs (Split to Read Group Level when BAM has mixed PE/SE or read lengths) ->
+Biobambam2 Unmapped Read FASTQs (Split by Read Group when BAM has mixed PE/SE or read lengths) ->
 Bowtie2 Host Filtering (with T2T-CHM13v2.0) ->
 Biobambam2 Host Filtered FASTQs ->
 Kraken2 Nucleotide Read Classification ->
