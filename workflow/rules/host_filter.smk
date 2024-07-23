@@ -3,14 +3,19 @@ rule host_genome_fasta:
         HOST_REF_FASTA_URL,
     output:
         HOST_REF_FASTA_FILE,
+    log:
+        HOST_REF_FASTA_LOG,
     message:
         "{params}"
     retries: config["download"]["retries"]
     run:
+        from contextlib import redirect_stdout, redirect_stderr
         from urllib.request import urlcleanup, urlretrieve
 
-        urlretrieve(snakemake.params[0], filename=snakemake.output[0])
-        urlcleanup()
+        with open(log[0], "wt") as log_fh:
+            with redirect_stdout(log_fh), redirect_stderr(log_fh):
+                urlretrieve(snakemake.params[0], filename=snakemake.output[0])
+                urlcleanup()
 
 
 rule bowtie2_host_index:

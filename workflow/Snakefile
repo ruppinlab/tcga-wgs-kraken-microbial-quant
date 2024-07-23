@@ -29,9 +29,6 @@ PERSONAL_WRAPPERS_BASE_URL = config["wrappers"]["personal"]["base_url"]
 LOCAL_WRAPPERS_BASE_URL = config["wrappers"]["local"]["base_url"]
 
 HOST_REF_FASTA_URL = config["resources"]["ref"]["fasta_url"]
-HOST_REF_FASTA_FILE = join(
-    RESOURCES_DIR, "ref", basename(urlparse(HOST_REF_FASTA_URL).path)
-)
 
 GDC_METADATA_DIR = config["gdc"]["metadata"]["data_dir"]
 GDC_METADATA_LOG_DIR = config["gdc"]["metadata"]["log_dir"]
@@ -62,6 +59,10 @@ EXPAND_PARAMS["k2plib"] = [
 ]
 EXPAND_PARAMS["kulib"] = KRAKENUNIQ_DB_LIBS
 EXPAND_PARAMS["readlen"] = BRACKEN_DB_READ_LENGTHS
+
+REF_FASTA_FILE_NAME = basename(urlparse(HOST_REF_FASTA_URL).path)
+HOST_REF_FASTA_FILE = join(RESOURCES_DIR, "ref", REF_FASTA_FILE_NAME)
+HOST_REF_FASTA_LOG = join(LOG_DIR, "ref", f"{REF_FASTA_FILE_NAME}.log")
 
 makedirs(GDC_METADATA_LOG_DIR, mode=0o755, exist_ok=True)
 GDC_METADATA_LOG = join(GDC_METADATA_LOG_DIR, "gdc_metadata.log")
