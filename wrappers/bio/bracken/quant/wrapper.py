@@ -18,8 +18,8 @@ if read_length is None:
 db_read_lengths = snakemake.params.get("db_readlens")
 assert db_read_lengths is not None, "params: db_readlens is a required parameter"
 
-# find closest db read length to sample read length
-read_length = min(db_read_lengths, lambda x: abs(x - read_length))
+# find closest db read length <= sample read length
+read_length = max([l for l in db_read_lengths if read_length >= l])
 
 level = snakemake.params.get("level", "S")
 threshold = snakemake.params.get("threshold", 0.0)
