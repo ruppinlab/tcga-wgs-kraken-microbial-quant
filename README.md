@@ -97,9 +97,9 @@ total                          108629
 
 ## Execution
 
-Given the compute intensive nature of this pipeline and the number of
-jobs to execute it we highly recommend running the pipeline on an HPC
-cluster.
+Given the compute intensive nature of this pipeline and the large
+number of jobs to execute it we highly recommend running the it on
+an HPC cluster.
 
 Set your GDC controlled access authentication token in the environment
 variable `GDC_TOKEN` or `GDC_TOKEN_FILE`, or the file `~/.gdc_token`
@@ -110,6 +110,12 @@ Run the workflow:
 ```bash
 snakemake --use-conda --printshellcmds
 ```
+
+The pipeline is configured to not require much storage, as intermediate
+files are flagged as temporary and deleted when they are no longer
+needed as the pipeline is running, except for Bracken outputs. If you
+would like to keep intermediate files for other uses, specifiy the
+`--notemp` snakemake option in the execution command above.
 
 ## References
 
