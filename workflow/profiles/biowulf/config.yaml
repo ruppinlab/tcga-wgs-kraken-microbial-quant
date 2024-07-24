@@ -1,6 +1,7 @@
 executor: slurm
-keep-going: True
-printshellcmds: True
+software-deployment-method: conda
+keep-going: true
+printshellcmds: true
 
 default-resources:
   slurm_partition: "ccr,norm"
