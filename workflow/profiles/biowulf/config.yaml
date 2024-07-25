@@ -1,48 +1,59 @@
-executor: slurm
 software-deployment-method: conda
 keep-going: true
+# rerun-incomplete: true
 printshellcmds: true
+remote-job-local-storage-prefix: "/lscratch/$SLURM_JOB_ID/tmp"
 
 default-resources:
   slurm_partition: "ccr,norm"
   cpus_per_task: 2
-  mem_mb_per_cpu: 4096
-  runtime: 8-00:00:00
+  mem_mb_per_cpu: 2048
+  time: 8-00:00:00
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
-  gdc_unmapped_bam:
-    mem_mb_per_cpu: 1024
+  gdc_unmapped_fastq_pe:
+    cpus_per_task: 4
 
-  host_genome_fasta:
-    mem_mb_per_cpu: 1024
+  gdc_unmapped_fastq_se:
+    cpus_per_task: 4
 
   bowtie2_host_index:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   kraken2_db_build:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   kraken2_nucl_read_classif_se:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   kraken2_prot_read_classif_pe:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   kraken2_prot_read_classif_se:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   krakenuniq_db_build:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   krakenuniq_read_classif_pe:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   krakenuniq_read_classif_se:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
 
   bracken_db_build:
     cpus_per_task: 56
+    mem_mb_per_cpu: 4096
