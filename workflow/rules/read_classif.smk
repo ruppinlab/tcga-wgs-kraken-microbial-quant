@@ -13,7 +13,9 @@ rule kraken2_db_taxonomy:
         KRAKEN2_BUILD_WRAPPER
 
 
-rule kraken2_nucl_library:
+rule kraken2_nucl_db_library:
+    input:
+        KRAKEN2_NUCL_DB_TAX_DONE_FILE,
     params:
         db=KRAKEN2_NUCL_DB_DIR,
         lib="{k2nlib}",
@@ -29,7 +31,9 @@ rule kraken2_nucl_library:
         KRAKEN2_BUILD_WRAPPER
 
 
-rule kraken2_prot_library:
+rule kraken2_prot_db_library:
+    input:
+        KRAKEN2_PROT_DB_TAX_DONE_FILE,
     params:
         db=KRAKEN2_PROT_DB_DIR,
         lib="{k2plib}",
@@ -203,6 +207,8 @@ rule krakenuniq_db_taxonomy:
 
 
 rule krakenuniq_db_library:
+    input:
+        KRAKENUNIQ_DB_TAX_DONE_FILE,
     params:
         db=KRAKENUNIQ_DB_DIR,
         lib="{kulib}",

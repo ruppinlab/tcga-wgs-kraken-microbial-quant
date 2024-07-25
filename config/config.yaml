@@ -7,8 +7,6 @@ wrappers:
   local:
     base_url: file:wrappers
 
-tmp_dir: /tmp
-
 random_seed: 777
 
 download:

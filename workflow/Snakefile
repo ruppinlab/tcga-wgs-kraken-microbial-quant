@@ -20,8 +20,6 @@ configfile: join(CONFIG_DIR, "config.yaml")
 
 STUDY_NAME = config["study"]
 
-TEMP_DIR = config["tmp_dir"] if config["tmp_dir"] else gettempdir()
-
 EXPAND_PARAMS = {}
 
 PUBLIC_WRAPPERS_VERSION = config["wrappers"]["public"]["version"]
@@ -368,12 +366,17 @@ KRAKEN2_NUCL_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "nucl")
 KRAKEN2_PROT_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "prot")
 
 KRAKEN2_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", "{k2dtype}")
-KRAKEN2_NUCL_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", "nucl")
-KRAKEN2_PROT_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", "prot")
+KRAKEN2_NUCL_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", KRAKEN_DB_NAME, "nucl")
+KRAKEN2_PROT_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", KRAKEN_DB_NAME, "prot")
 
 KRAKEN2_DB_TAX_DIR = join(KRAKEN2_DB_DIR, "taxonomy")
+KRAKEN2_NUCL_DB_TAX_DIR = join(KRAKEN2_NUCL_DB_DIR, "taxonomy")
+KRAKEN2_PROT_DB_TAX_DIR = join(KRAKEN2_PROT_DB_DIR, "taxonomy")
+
 KRAKEN2_DB_TAX_LOG = join(KRAKEN2_DB_BUILD_LOG_DIR, "download_taxonomy.log")
 KRAKEN2_DB_TAX_DONE_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_taxonomy.done")
+KRAKEN2_NUCL_DB_TAX_DONE_FILE = join(KRAKEN2_NUCL_DB_TAX_DIR, "kraken2_taxonomy.done")
+KRAKEN2_PROT_DB_TAX_DONE_FILE = join(KRAKEN2_PROT_DB_TAX_DIR, "kraken2_taxonomy.done")
 
 KRAKEN2_NUCL_DB_LIB_DIR = join(KRAKEN2_NUCL_DB_DIR, "library", "{k2nlib}")
 KRAKEN2_NUCL_DB_LIB_LOG = join(KRAKEN2_NUCL_DB_BUILD_LOG_DIR, "download_{k2nlib}.log")

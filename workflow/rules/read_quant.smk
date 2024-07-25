@@ -51,8 +51,6 @@ rule bracken_read_quant:
 
 
 rule bracken_merged_rg_counts:
-    conda:
-        "../envs/pandas.yaml"
     input:
         lambda wc: GDC_READGRP_META_DF[GDC_READGRP_META_DF["file_id"] == wc.bam_id]
         .apply(
@@ -70,13 +68,13 @@ rule bracken_merged_rg_counts:
         BRACKEN_MERGED_RG_COUNT_FILE,
     log:
         BRACKEN_MERGED_RG_COUNT_LOG,
+    conda:
+        "../envs/pandas.yaml"
     script:
         "../scripts/braken_sum_counts.py"
 
 
 rule bracken_count_matrix:
-    conda:
-        "../envs/pandas.yaml"
     input:
         BRACKEN_BAM_COUNT_FILES,
     params:
@@ -85,5 +83,7 @@ rule bracken_count_matrix:
         BRACKEN_COUNT_MATRIX_FILE,
     log:
         BRACKEN_COUNT_MATRIX_LOG,
+    conda:
+        "../envs/pandas.yaml"
     script:
         "../scripts/braken_count_matrix.py"
