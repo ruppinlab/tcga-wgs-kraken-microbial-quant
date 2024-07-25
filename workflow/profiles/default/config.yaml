@@ -1,0 +1,9 @@
+software-deployment-method: conda
+# keep-going: true
+# rerun-incomplete: true
+printshellcmds: true
+
+resources:
+  num_k2_nucl_db_lib_tasks=1,
+  num_k2_prot_db_lib_tasks=1,
+  num_ku_db_lib_tasks=1
