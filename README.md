@@ -108,7 +108,7 @@ so the pipeline can get the token.
 Run the workflow:
 
 ```bash
-snakemake --use-conda --printshellcmds
+snakemake
 ```
 
 The pipeline is configured to not require much storage, as intermediate
