@@ -2,9 +2,11 @@ __author__ = "Leandro C. Hermida"
 __email__ = "leandro@leandrohermida.com"
 __license__ = "BSD 3-Clause"
 
+import re
+
 from snakemake.shell import shell
 
-log = snakemake.log_fmt_shell(stdout=True, stderr=True)
+log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 paired_end = snakemake.params.get("paired_end", False)
 
@@ -27,13 +29,18 @@ extra = snakemake.params.get("extra", "")
 if paired_end:
     extra = f"--paired {extra}"
 
-shell(
-    "krakenuniq"
-    " --db {snakemake.input.db}"
-    " --threads {snakemake.threads}"
-    " {output}"
-    " {report}"
-    " {extra}"
-    " {snakemake.input.fqs}"
-    " {log}"
+shellcmd = (
+    f"krakenuniq"
+    f" --db {snakemake.input.db}"
+    f" --threads {snakemake.threads}"
+    f" {output}"
+    f" {report}"
+    f" {extra}"
+    f" {snakemake.input.fqs}"
+    f" {log}"
 )
+shellcmd = re.sub(r"\s+", " ", shellcmd)
+with open(snakemake.log, "wt") as log_fh:
+    log_fh.write(f"{shellcmd}\n")
+
+shell(shellcmd)

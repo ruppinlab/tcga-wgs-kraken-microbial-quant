@@ -2,16 +2,23 @@ __author__ = "Leandro C. Hermida"
 __email__ = "leandro@leandrohermida.com"
 __license__ = "BSD 3-Clause"
 
+import re
+
 from snakemake.shell import shell
 
-log = snakemake.log_fmt_shell(stdout=True, stderr=True)
+log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 extra = snakemake.params.get("extra", "")
 
-shell(
-    "combine_kreports.py"
-    " --report-files {snakemake.input}"
-    " --output {snakemake.output}"
-    " {extra}"
-    " {log}"
+shellcmd = (
+    f"combine_kreports.py"
+    f" --report-files {snakemake.input}"
+    f" --output {snakemake.output}"
+    f" {extra}"
+    f" {log}"
 )
+shellcmd = re.sub(r"\s+", " ", shellcmd)
+with open(snakemake.log, "wt") as log_fh:
+    log_fh.write(f"{shellcmd}\n")
+
+shell(shellcmd)

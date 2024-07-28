@@ -8,7 +8,7 @@ from snakemake.shell import shell
 
 fastq_ext_regex = re.compile(r"(.(?:fastq|fq)(?:.gz)?)$", flags=re.IGNORECASE)
 
-log = snakemake.log_fmt_shell(stdout=True, stderr=True)
+log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 paired_end = snakemake.params.get("paired_end", False)
 
@@ -35,13 +35,18 @@ extra = snakemake.params.get("extra", "")
 if paired_end:
     extra = f"--paired {extra}"
 
-shell(
-    "kraken2"
-    " --db {snakemake.input.db}"
-    " --threads {snakemake.threads}"
-    " {output}"
-    " {report}"
-    " {extra}"
-    " {snakemake.input.fqs}"
-    " {log}"
+shellcmd = (
+    f"kraken2"
+    f" --db {snakemake.input.db}"
+    f" --threads {snakemake.threads}"
+    f" {output}"
+    f" {report}"
+    f" {extra}"
+    f" {snakemake.input.fqs}"
+    f" {log}"
 )
+shellcmd = re.sub(r"\s+", " ", shellcmd)
+with open(snakemake.log, "wt") as log_fh:
+    log_fh.write(f"{shellcmd}\n")
+
+shell(shellcmd)

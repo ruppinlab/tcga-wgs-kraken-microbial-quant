@@ -2,6 +2,8 @@ __author__ = "Leandro C. Hermida"
 __email__ = "leandro@leandrohermida.com"
 __license__ = "BSD 3-Clause"
 
+import re
+
 from snakemake.shell import shell
 
 per_readgrp = snakemake.params.get("per_readgrp", False)
@@ -23,6 +25,13 @@ elif paired_end:
 else:
     output = f"S={snakemake.output[0]}"
 
-log = snakemake.log_fmt_shell(stdout=True if per_readgrp else False, stderr=True)
+log = snakemake.log_fmt_shell(
+    stdout=True if per_readgrp else False, stderr=True, append=True
+)
 
-shell("bamtofastq filename={snakemake.input} {output} {extra} {log}")
+shellcmd = f"bamtofastq filename={snakemake.input} {output} {extra} {log}"
+shellcmd = re.sub(r"\s+", " ", shellcmd)
+with open(snakemake.log, "wt") as log_fh:
+    log_fh.write(f"{shellcmd}\n")
+
+shell(shellcmd)

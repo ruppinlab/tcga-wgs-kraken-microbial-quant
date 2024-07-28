@@ -6,7 +6,7 @@ import re
 
 from snakemake.shell import shell
 
-log = snakemake.log_fmt_shell(stdout=True, stderr=True)
+log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 db = snakemake.input.get("db") or snakemake.input[0]
 assert db is not None, "input: db is a required position 0 or named parameter"
@@ -18,12 +18,17 @@ if read_length is None:
     with open(read_length_file, "r") as fh:
         read_length = re.sub("\D+", "", fh.readline())
 
-shell(
-    "bracken-build"
-    " -d {db}"
-    " -k {snakemake.params.klen}"
-    " -l {read_length}"
-    " -y {snakemake.params.ktype}"
-    " -t {snakemake.threads}"
-    " {log}"
+shellcmd = (
+    f"bracken-build"
+    f" -d {db}"
+    f" -k {snakemake.params.klen}"
+    f" -l {read_length}"
+    f" -y {snakemake.params.ktype}"
+    f" -t {snakemake.threads}"
+    f" {log}"
 )
+shellcmd = re.sub(r"\s+", " ", shellcmd)
+with open(snakemake.log, "wt") as log_fh:
+    log_fh.write(f"{shellcmd}\n")
+
+shell(shellcmd)

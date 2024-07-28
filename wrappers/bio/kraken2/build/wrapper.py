@@ -2,9 +2,11 @@ __author__ = "Leandro C. Hermida"
 __email__ = "leandro@leandrohermida.com"
 __license__ = "BSD 3-Clause"
 
+import re
+
 from snakemake.shell import shell
 
-log = snakemake.log_fmt_shell(stdout=True, stderr=True)
+log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 db = snakemake.params.get("db")
 assert db is not None, "params: db is a required parameter"
@@ -26,8 +28,11 @@ task = f"--{task}"
 
 extra = snakemake.params.get("extra", "")
 protein = snakemake.params.get("protein")
-if protein is not None:
+if protein:
     extra = f"--protein {extra}"
+use_ftp = snakemake.params.get("use_ftp")
+if use_ftp:
+    extra = f"--use-ftp {extra}"
 
 # workaround for Kraken2 issue with --download-library human
 kraken2_build = (
@@ -36,11 +41,16 @@ kraken2_build = (
     else "kraken2-build"
 )
 
-shell(
-    "{kraken2_build}"
-    " {task}"
-    " --db {db}"
-    " --threads {snakemake.threads}"
-    " {extra}"
-    " {log}"
+shellcmd = (
+    f"{kraken2_build}"
+    f" {task}"
+    f" --db {db}"
+    f" --threads {snakemake.threads}"
+    f" {extra}"
+    f" {log}"
 )
+shellcmd = re.sub(r"\s+", " ", shellcmd)
+with open(snakemake.log, "wt") as log_fh:
+    log_fh.write(f"{shellcmd}\n")
+
+shell(shellcmd)
