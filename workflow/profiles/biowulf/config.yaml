@@ -6,6 +6,7 @@ max-jobs-per-second: 1
 max-status-checks-per-second: 1
 local-cores: 4
 latency-wait: 240
+jobs: 1000
 # remote-job-local-storage-prefix: "/lscratch/\$SLURM_JOB_ID"
 
 default-resources:
@@ -21,7 +22,7 @@ set-resources:
     cpus_per_task: 56
     mem_mb_per_cpu: 4096
 
-  kraken2_db_build:
+  kraken2_db:
     cpus_per_task: 56
     mem_mb_per_cpu: 4096
 
@@ -41,7 +42,7 @@ set-resources:
     cpus_per_task: 56
     mem_mb_per_cpu: 4096
 
-  krakenuniq_db_build:
+  krakenuniq_db:
     cpus_per_task: 56
     mem_mb_per_cpu: 4096
 
@@ -53,6 +54,6 @@ set-resources:
     cpus_per_task: 56
     mem_mb_per_cpu: 4096
 
-  bracken_db_build:
+  bracken_db:
     cpus_per_task: 56
     mem_mb_per_cpu: 4096
