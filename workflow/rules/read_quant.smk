@@ -1,19 +1,19 @@
-rule bracken_db_build:
+rule bracken_db:
     input:
         db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
-        build_done=(
-            KRAKEN2_NUCL_DB_BUILD_DONE_FILE
+        db_done=(
+            KRAKEN2_NUCL_DB_DONE_FILE
             if KRAKEN_MODE == "kraken2"
-            else KRAKENUNIQ_DB_BUILD_DONE_FILE
+            else KRAKENUNIQ_DB_DONE_FILE
         ),
     params:
         klen=35 if KRAKEN_MODE == "kraken2" else 31,
         ktype=KRAKEN_MODE,
         readlen="{readlen}",
     output:
-        touch(BRACKEN_DB_BUILD_DONE_FILE),
+        touch(BRACKEN_DB_DONE_FILE),
     log:
-        BRACKEN_DB_BUILD_LOG,
+        BRACKEN_DB_LOG,
     threads: BRACKEN_BUILD_THREADS
     wrapper:
         BRACKEN_BUILD_WRAPPER
@@ -31,7 +31,7 @@ rule bracken_read_quant:
                 else KRAKEN2_NUCL_REPORT_FILE
             )
         ),
-        build_done=expand(BRACKEN_DB_BUILD_DONE_FILE, **EXPAND_PARAMS),
+        db_done=expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
     params:
         readlen=lambda wc: int(
             GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]

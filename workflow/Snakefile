@@ -1,3 +1,4 @@
+import re
 from os import getcwd, makedirs, walk
 from os.path import basename, exists, join
 from tempfile import gettempdir
@@ -35,12 +36,21 @@ GDC_BAM_META_FILE = join(GDC_METADATA_DIR, GDC_BAM_META_FILENAME)
 GDC_READGRP_META_FILENAME = config["gdc"]["metadata"]["readgrp_meta_filename"]
 GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, GDC_READGRP_META_FILENAME)
 
-KRAKEN2_DB_LIBS = config["resources"]["db"]["kraken2"]["libs"]
-KRAKENUNIQ_DB_LIBS = config["resources"]["db"]["krakenuniq"]["libs"]
+KRAKEN2_DB_LIBS = config["resources"]["db"]["libs"]["kraken2"]["names"]
+KRAKENUNIQ_DB_LIBS = config["resources"]["db"]["libs"]["krakenuniq"]["names"]
+
 BRACKEN_DB_READ_LENGTHS = config["resources"]["db"]["bracken"]["readlens"]
 
 KRAKEN_DB_BASEDIR = config["resources"]["db"]["base_dir"]
 KRAKEN_DB_NAME = config["resources"]["db"]["name"]
+
+EUPATHDB_BASE_URL = config["resources"]["db"]["libs"]["custom"]["eupathdb"]["base_url"]
+EUPATHDB_FASTA_TGZ_FILENAME = config["resources"]["db"]["libs"]["custom"]["eupathdb"][
+    "fa_tgz_filename"
+]
+EUPATHDB_SEQID2TAXID_MAP_FILENAME = config["resources"]["db"]["libs"]["custom"][
+    "eupathdb"
+]["idmap_filename"]
 
 KRAKEN2_TSEARCH_UNCLASSIF = config["kraken2"]["build"]["tsearch_unclassif"]
 
@@ -53,14 +63,14 @@ EXPAND_PARAMS["k2nlib"] = KRAKEN2_DB_LIBS
 EXPAND_PARAMS["k2plib"] = [
     l
     for l in KRAKEN2_DB_LIBS
-    if l not in config["resources"]["db"]["kraken2"]["nucl_only"]
+    if l not in config["resources"]["db"]["libs"]["kraken2"]["nucl_only"]
 ]
 EXPAND_PARAMS["kulib"] = KRAKENUNIQ_DB_LIBS
 EXPAND_PARAMS["readlen"] = BRACKEN_DB_READ_LENGTHS
 
 REF_FASTA_FILE_NAME = basename(urlparse(HOST_REF_FASTA_URL).path)
 HOST_REF_FASTA_FILE = join(RESOURCES_DIR, "ref", REF_FASTA_FILE_NAME)
-HOST_REF_FASTA_LOG = join(LOG_DIR, "ref", f"{REF_FASTA_FILE_NAME}.log")
+HOST_REF_FASTA_LOG = join(LOG_DIR, "ref", f"download_{REF_FASTA_FILE_NAME}.log")
 
 makedirs(GDC_METADATA_LOG_DIR, mode=0o755, exist_ok=True)
 GDC_METADATA_LOG = join(GDC_METADATA_LOG_DIR, "gdc_metadata.log")
@@ -358,6 +368,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
     )
 ).tolist()
 
+KRAKEN2_RESOURCES_DIR = join(RESOURCES_DIR, "kraken2")
 KRAKEN2_RESULTS_DIR = join(RESULTS_DIR, "kraken2")
 KRAKEN2_LOG_DIR = join(LOG_DIR, "kraken2")
 
@@ -365,30 +376,30 @@ KRAKEN2_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "{k2dtype}")
 KRAKEN2_NUCL_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "nucl")
 KRAKEN2_PROT_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME, "prot")
 
-KRAKEN2_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", "{k2dtype}")
-KRAKEN2_NUCL_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", KRAKEN_DB_NAME, "nucl")
-KRAKEN2_PROT_DB_BUILD_LOG_DIR = join(KRAKEN2_LOG_DIR, "build", KRAKEN_DB_NAME, "prot")
+KRAKEN2_DB_LOG_DIR = join(KRAKEN2_LOG_DIR, "db", KRAKEN_DB_NAME, "{k2dtype}")
+KRAKEN2_NUCL_DB_LOG_DIR = join(KRAKEN2_LOG_DIR, "db", KRAKEN_DB_NAME, "nucl")
+KRAKEN2_PROT_DB_LOG_DIR = join(KRAKEN2_LOG_DIR, "db", KRAKEN_DB_NAME, "prot")
 
 KRAKEN2_DB_TAX_DIR = join(KRAKEN2_DB_DIR, "taxonomy")
 KRAKEN2_NUCL_DB_TAX_DIR = join(KRAKEN2_NUCL_DB_DIR, "taxonomy")
 KRAKEN2_PROT_DB_TAX_DIR = join(KRAKEN2_PROT_DB_DIR, "taxonomy")
 
-KRAKEN2_DB_TAX_LOG = join(KRAKEN2_DB_BUILD_LOG_DIR, "download_taxonomy.log")
-KRAKEN2_DB_TAX_DONE_FILE = join(KRAKEN2_DB_TAX_DIR, "kraken2_taxonomy.done")
-KRAKEN2_NUCL_DB_TAX_DONE_FILE = join(KRAKEN2_NUCL_DB_TAX_DIR, "kraken2_taxonomy.done")
-KRAKEN2_PROT_DB_TAX_DONE_FILE = join(KRAKEN2_PROT_DB_TAX_DIR, "kraken2_taxonomy.done")
+KRAKEN2_DB_TAX_LOG = join(KRAKEN2_DB_LOG_DIR, "download_taxonomy.log")
+KRAKEN2_DB_TAX_DONE_FILE = join(KRAKEN2_DB_TAX_DIR, "download_taxonomy.done")
+KRAKEN2_NUCL_DB_TAX_DONE_FILE = join(KRAKEN2_NUCL_DB_TAX_DIR, "download_taxonomy.done")
+KRAKEN2_PROT_DB_TAX_DONE_FILE = join(KRAKEN2_PROT_DB_TAX_DIR, "download_taxonomy.done")
 
 KRAKEN2_NUCL_DB_LIB_DIR = join(KRAKEN2_NUCL_DB_DIR, "library", "{k2nlib}")
-KRAKEN2_NUCL_DB_LIB_LOG = join(KRAKEN2_NUCL_DB_BUILD_LOG_DIR, "download_{k2nlib}.log")
-KRAKEN2_NUCL_DB_LIB_DONE_FILE = join(KRAKEN2_NUCL_DB_DIR, "kraken2_{k2nlib}.done")
+KRAKEN2_NUCL_DB_LIB_LOG = join(KRAKEN2_NUCL_DB_LOG_DIR, "download_{k2nlib}.log")
+KRAKEN2_NUCL_DB_LIB_DONE_FILE = join(KRAKEN2_NUCL_DB_LIB_DIR, "download_{k2nlib}.done")
 KRAKEN2_PROT_DB_LIB_DIR = join(KRAKEN2_PROT_DB_DIR, "library", "{k2plib}")
-KRAKEN2_PROT_DB_LIB_LOG = join(KRAKEN2_PROT_DB_BUILD_LOG_DIR, "download_{k2plib}.log")
-KRAKEN2_PROT_DB_LIB_DONE_FILE = join(KRAKEN2_PROT_DB_DIR, "kraken2_{k2plib}.done")
+KRAKEN2_PROT_DB_LIB_LOG = join(KRAKEN2_PROT_DB_LOG_DIR, "download_{k2plib}.log")
+KRAKEN2_PROT_DB_LIB_DONE_FILE = join(KRAKEN2_PROT_DB_LIB_DIR, "download_{k2plib}.done")
 
-KRAKEN2_DB_BUILD_LOG = join(KRAKEN2_DB_BUILD_LOG_DIR, "kraken2_build.log")
-KRAKEN2_DB_BUILD_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_build.done")
-KRAKEN2_NUCL_DB_BUILD_DONE_FILE = join(KRAKEN2_NUCL_DB_DIR, "kraken2_build.done")
-KRAKEN2_PROT_DB_BUILD_DONE_FILE = join(KRAKEN2_PROT_DB_DIR, "kraken2_build.done")
+KRAKEN2_DB_LOG = join(KRAKEN2_DB_LOG_DIR, "kraken2_db.log")
+KRAKEN2_DB_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_db.done")
+KRAKEN2_NUCL_DB_DONE_FILE = join(KRAKEN2_NUCL_DB_DIR, "kraken2_db.done")
+KRAKEN2_PROT_DB_DONE_FILE = join(KRAKEN2_PROT_DB_DIR, "kraken2_db.done")
 
 KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR = join(
     KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "nucl"
@@ -513,21 +524,51 @@ KRAKEN2_COMBINED_REPORT_LOG = join(
     KRAKEN2_COMBINED_REPORT_FILE_LOG_DIR, "{rg_id}_report.log"
 )
 
+EUPATHDB_RESOURCES_DIR = join(RESOURCES_DIR, "eupathdb")
+EUPATHDB_LOG_DIR = join(LOG_DIR, "eupathdb")
+
+EUPATHDB_FASTA_TGZ_URL = join(EUPATHDB_BASE_URL, EUPATHDB_FASTA_TGZ_FILENAME)
+EUPATHDB_FASTA_TGZ_FILE = join(EUPATHDB_RESOURCES_DIR, EUPATHDB_FASTA_TGZ_FILENAME)
+EUPATHDB_FASTA_TGZ_LOG = join(
+    EUPATHDB_LOG_DIR, f"download_{EUPATHDB_FASTA_TGZ_FILENAME}.log"
+)
+EUPATHDB_FASTA_DIRNAME = re.sub(
+    r"(\.tar\.gz|\.tgz)$", "", EUPATHDB_FASTA_TGZ_FILENAME, re.IGNORECASE
+)
+EUPATHDB_FASTA_DIR = join(EUPATHDB_RESOURCES_DIR, EUPATHDB_FASTA_DIRNAME)
+EUPATHDB_FASTA_LOG = join(EUPATHDB_LOG_DIR, "unpack_fasta_tgz.log")
+
+KRAKEN2_EUPATHDB_LIB_DIR = join(KRAKEN2_NUCL_DB_DIR, "library", "eupathdb")
+KRAKEN2_EUPATHDB_LIB_FASTA_FILE = join(KRAKEN2_EUPATHDB_LIB_DIR, "library.fna")
+KRAKEN2_EUPATHDB_LIB_FASTA_LOG = join(EUPATHDB_LOG_DIR, "library_fna.log")
+
+EUPATHDB_SEQID2TAXID_MAP_URL = join(
+    EUPATHDB_BASE_URL, EUPATHDB_SEQID2TAXID_MAP_FILENAME
+)
+EUPATHDB_SEQID2TAXID_MAP_FILE = join(
+    EUPATHDB_RESOURCES_DIR, EUPATHDB_SEQID2TAXID_MAP_FILENAME
+)
+EUPATHDB_SEQID2TAXID_MAP_LOG = join(
+    EUPATHDB_LOG_DIR, f"download_{EUPATHDB_SEQID2TAXID_MAP_FILENAME}.log"
+)
+KRAKEN2_EUPATHDB_LIB_IDMAP_FILE = join(KRAKEN2_EUPATHDB_LIB_DIR, "prelim_map.txt")
+KRAKEN2_EUPATHDB_LIB_IDMAP_LOG = join(EUPATHDB_LOG_DIR, "prelim_map.log")
+
 KRAKENUNIQ_RESULTS_DIR = join(RESULTS_DIR, "krakenuniq")
 KRAKENUNIQ_LOG_DIR = join(LOG_DIR, "krakenuniq")
 
 KRAKENUNIQ_DB_DIR = join(KRAKEN_DB_BASEDIR, KRAKEN_DB_NAME)
 
-KRAKENUNIQ_DB_BUILD_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "build", KRAKEN_DB_NAME)
+KRAKENUNIQ_DB_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "db", KRAKEN_DB_NAME)
 KRAKENUNIQ_DB_TAX_DIR = join(KRAKENUNIQ_DB_DIR, "taxonomy")
-KRAKENUNIQ_DB_TAX_LOG = join(KRAKENUNIQ_DB_BUILD_LOG_DIR, "download_taxonomy.log")
+KRAKENUNIQ_DB_TAX_LOG = join(KRAKENUNIQ_DB_LOG_DIR, "download_taxonomy.log")
 KRAKENUNIQ_DB_LIB_DIR = join(KRAKENUNIQ_DB_DIR, "library", "{kulib}")
-KRAKENUNIQ_DB_LIB_LOG = join(KRAKENUNIQ_DB_BUILD_LOG_DIR, "download_{kulib}.log")
-KRAKENUNIQ_DB_TAX_DONE_FILE = join(KRAKENUNIQ_DB_TAX_DIR, "krakenuniq_taxonomy.done")
-KRAKENUNIQ_DB_LIB_DONE_FILE = join(KRAKENUNIQ_DB_LIB_DIR, "krakenuniq_{kulib}.done")
+KRAKENUNIQ_DB_LIB_LOG = join(KRAKENUNIQ_DB_LOG_DIR, "download_{kulib}.log")
+KRAKENUNIQ_DB_TAX_DONE_FILE = join(KRAKENUNIQ_DB_TAX_DIR, "download_taxonomy.done")
+KRAKENUNIQ_DB_LIB_DONE_FILE = join(KRAKENUNIQ_DB_LIB_DIR, "download_{kulib}.done")
 
-KRAKENUNIQ_DB_BUILD_LOG = join(KRAKENUNIQ_DB_BUILD_LOG_DIR, "krakenuniq_build.log")
-KRAKENUNIQ_DB_BUILD_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "krakenuniq_build.done")
+KRAKENUNIQ_DB_LOG = join(KRAKENUNIQ_DB_LOG_DIR, "krakenuniq_db.log")
+KRAKENUNIQ_DB_DONE_FILE = join(KRAKENUNIQ_DB_DIR, "krakenuniq_db.done")
 
 KRAKENUNIQ_CLASSIFY_RESULTS_DIR = join(
     KRAKENUNIQ_RESULTS_DIR, "classify", KRAKEN_DB_NAME
@@ -586,14 +627,12 @@ KRAKENUNIQ_CLASSIFY_SE_LOG = join(
 
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
-BRACKEN_DB_BUILD_LOG_DIR = join(BRACKEN_LOG_DIR, "build")
+BRACKEN_DB_LOG_DIR = join(BRACKEN_LOG_DIR, "db")
 BRACKEN_QUANT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "quant")
 BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant")
 
-BRACKEN_DB_BUILD_LOG = join(BRACKEN_DB_BUILD_LOG_DIR, "bracken_build_{readlen}.log")
-BRACKEN_DB_BUILD_DONE_FILE = join(
-    BRACKEN_DB_BUILD_LOG_DIR, "bracken_build_{readlen}.done"
-)
+BRACKEN_DB_LOG = join(BRACKEN_DB_LOG_DIR, "bracken_db_{readlen}.log")
+BRACKEN_DB_DONE_FILE = join(BRACKEN_DB_LOG_DIR, "bracken_db_{readlen}.done")
 BRACKEN_QUANT_FILE_RESULTS_DIR = join(
     BRACKEN_QUANT_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
 )
@@ -712,8 +751,8 @@ BRACKEN_BUILD_THREADS = (
 BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
     LOCAL_WRAPPERS_BASE_URL, "bio/biobambam2/bamtofastq"
 )
-BOWTIE2_BUILD_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/build")
-BOWTIE2_ALIGN_WRAPPER = join(PUBLIC_WRAPPERS_VERSION, "bio/bowtie2/align")
+BOWTIE2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bowtie2/build")
+BOWTIE2_ALIGN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bowtie2/align")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKEN2_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/classify")
@@ -727,12 +766,6 @@ BRACKEN_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/build")
 BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
 
 
-include: join(RULES_DIR, "gdc_file.smk")
-include: join(RULES_DIR, "host_filter.smk")
-include: join(RULES_DIR, "read_classif.smk")
-include: join(RULES_DIR, "read_quant.smk")
-
-
 wildcard_constraints:
     **{
         w: "|".join(set([re.escape(str(v)) for v in l]))
@@ -744,6 +777,14 @@ wildcard_constraints:
     etype="pe|se",
 
 
+include: join(RULES_DIR, "db_build.smk")
+include: join(RULES_DIR, "eupathdb.smk")
+include: join(RULES_DIR, "gdc_file.smk")
+include: join(RULES_DIR, "host_filter.smk")
+include: join(RULES_DIR, "read_classif.smk")
+include: join(RULES_DIR, "read_quant.smk")
+
+
 rule all:
     input:
         # HOST_REF_FASTA_FILE,
@@ -752,6 +793,13 @@ rule all:
         # BOWTIE2_HOST_INDEX_FILES,
         # BOWTIE2_FILTERED_SAM_FILES,
         # BOWTIE2_FILTERED_FASTQ_FILES,
+        # expand(KRAKEN2_DB_TAX_DONE_FILE, **EXPAND_PARAMS),
+        # expand(KRAKEN2_NUCL_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
+        # expand(KRAKEN2_PROT_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
+        # KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
+        # KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
+        # expand(KRAKEN2_DB_DONE_FILE, **EXPAND_PARAMS),
+        # expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
         # BRACKEN_COUNT_FILES,
         BRACKEN_COUNT_MATRIX_FILE,
 

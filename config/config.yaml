@@ -17,12 +17,19 @@ resources:
     fasta_url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
   db:
     name: MicrobialDB
-    base_dir: /mnt/hgfs/D/tcga-wgs-kraken-microbial-quant/resources
-    kraken2:
-      libs: [archaea, bacteria, viral, human, UniVec_Core]
-      nucl_only: [UniVec, UniVec_Core]
-    krakenuniq:
-      libs: [refseq/archaea, refseq/bacteria, refseq/viral, human, UniVec_Core]
+    base_dir: resources/kraken2/db
+    libs:
+      kraken2:
+        names: [archaea, bacteria, viral, human, UniVec_Core]
+        nucl_only: [UniVec, UniVec_Core]
+        ftp_only: [bacteria]
+      krakenuniq:
+        names: [refseq/archaea, refseq/bacteria, refseq/viral]
+      custom:
+          eupathdb:
+            base_url: ftp://ftp.ccb.jhu.edu/pub/data/EuPathDB54
+            fa_tgz_filename: eupathDB54_CLEAN.tar.gz
+            idmap_filename: seqid2taxid_eupathDB54.map
     bracken:
       readlens: [25, 35, 50, 75, 100, 125, 150]
 
@@ -79,9 +86,11 @@ biobambam2:
         outputperreadgroupsuffixS=_unmapped_s.fq.gz
 
 kraken2:
+  download:
+    use_ftp: false
   build:
     tsearch_unclassif: true
-    extra: '--use-ftp'
+    extra: ''
     threads: all
   classify:
     extra:
@@ -91,7 +100,8 @@ kraken2:
 
 krakenuniq:
   download:
-    extra:
+    use_rsync: true
+    extra: ''
     threads: all
   build:
     extra:

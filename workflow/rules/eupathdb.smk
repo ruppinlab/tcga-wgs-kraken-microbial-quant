@@ -1,0 +1,63 @@
+rule eupathdb_fasta_archive:
+    params:
+        EUPATHDB_FASTA_TGZ_URL,
+    output:
+        temp(EUPATHDB_FASTA_TGZ_FILE),
+    log:
+        EUPATHDB_FASTA_TGZ_LOG,
+    message:
+        "{params}"
+    retries: config["download"]["retries"]
+    script:
+        "../scripts/url_file.py"
+
+
+rule eupathdb_fastas:
+    input:
+        EUPATHDB_FASTA_TGZ_FILE,
+    output:
+        temp(directory(EUPATHDB_FASTA_DIR)),
+    log:
+        EUPATHDB_FASTA_LOG,
+    shell:
+        "tar -xvzf {input} > {log} 2>&1"
+
+
+rule kraken2_eupathdb_lib_fasta:
+    input:
+        EUPATHDB_FASTA_DIR,
+    output:
+        KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
+    log:
+        KRAKEN2_EUPATHDB_LIB_FASTA_LOG,
+    shell:
+        "find {input} -type f -name '*.fna' -exec cat {} + 1> {output} 2> {log}"
+
+
+rule eupathdb_seqid2taxid_map:
+    params:
+        EUPATHDB_SEQID2TAXID_MAP_URL,
+    output:
+        temp(EUPATHDB_SEQID2TAXID_MAP_FILE),
+    log:
+        EUPATHDB_SEQID2TAXID_MAP_LOG,
+    message:
+        "{params}"
+    retries: config["download"]["retries"]
+    script:
+        "../scripts/get_url_file.py"
+
+
+rule kraken2_eupathdb_lib_idmap:
+    input:
+        EUPATHDB_SEQID2TAXID_MAP_FILE,
+    output:
+        KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
+    log:
+        KRAKEN2_EUPATHDB_LIB_IDMAP_LOG,
+    run:
+        with open(output[0]) as out_fh:
+            with open(input[0]) as in_fh:
+                line = in_fh.readline().strip()
+                taxid = line.split("\t")[-1]
+                out_fh.write(f"TAXID\tkraken:taxid|{taxid}|{line}\n")

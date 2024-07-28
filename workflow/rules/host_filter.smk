@@ -8,14 +8,8 @@ rule host_genome_fasta:
     message:
         "{params}"
     retries: config["download"]["retries"]
-    run:
-        from contextlib import redirect_stdout, redirect_stderr
-        from urllib.request import urlcleanup, urlretrieve
-
-        with open(log[0], "wt") as log_fh:
-            with redirect_stdout(log_fh), redirect_stderr(log_fh):
-                urlretrieve(snakemake.params[0], filename=snakemake.output[0])
-                urlcleanup()
+    script:
+        "../scripts/url_file.py"
 
 
 rule bowtie2_host_index:
