@@ -24,7 +24,6 @@ if task == "download-library":
         lib is not None
     ), "params: lib is a required parameter when task=download-library"
     task = f"{task} {lib}"
-task = f"--{task}"
 
 extra = snakemake.params.get("extra", "")
 protein = snakemake.params.get("protein")
@@ -43,7 +42,7 @@ kraken2_build = (
 
 shellcmd = (
     f"{kraken2_build}"
-    f" {task}"
+    f" --{task}"
     f" --db {db}"
     f" --threads {snakemake.threads}"
     f" {extra}"
