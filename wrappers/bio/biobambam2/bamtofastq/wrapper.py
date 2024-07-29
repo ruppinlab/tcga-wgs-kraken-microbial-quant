@@ -31,7 +31,7 @@ log = snakemake.log_fmt_shell(
 
 shellcmd = f"bamtofastq filename={snakemake.input} {output} {extra} {log}"
 shellcmd = re.sub(r"\s+", " ", shellcmd)
-with open(snakemake.log, "wt") as log_fh:
+with open(snakemake.log[0], "wt") as log_fh:
     log_fh.write(f"{shellcmd}\n")
 
 shell(shellcmd)

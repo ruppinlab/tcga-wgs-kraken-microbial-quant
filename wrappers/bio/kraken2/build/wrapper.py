@@ -50,7 +50,7 @@ shellcmd = (
     f" {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)
-with open(snakemake.log, "wt") as log_fh:
+with open(snakemake.log[0], "wt") as log_fh:
     log_fh.write(f"{shellcmd}\n")
 
 shell(shellcmd)
