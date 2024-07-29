@@ -35,8 +35,8 @@ if use_ftp:
 
 # workaround for Kraken2 issue with --download-library human
 kraken2_build = (
-    "yes y | kraken2-build"
-    if task == "download-library" and lib == "human"
+    "(yes || true) | kraken2-build"
+    if task == "download-library human"
     else "kraken2-build"
 )
 
