@@ -89,7 +89,7 @@ host_genome_fasta                   1
 kraken2_combined_report         13955
 kraken2_db                          2
 kraken2_db_taxonomy                 2
-kraken2_eupathdb_lib_files          1
+kraken2_eupathdb_library            1
 kraken2_nucl_db_library             5
 kraken2_nucl_read_classif_pe    13531
 kraken2_nucl_read_classif_se      424

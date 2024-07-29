@@ -54,7 +54,7 @@ rule eupathdb_seqid2taxid_map:
         "wget -nv -O {output} {params} > {log} 2>&1"
 
 
-rule kraken2_eupathdb_lib_files:
+rule kraken2_eupathdb_library:
     input:
         idmap=EUPATHDB_SEQID2TAXID_MAP_FILE,
         fasta=EUPATHDB_MERGED_FASTA_FILE,
