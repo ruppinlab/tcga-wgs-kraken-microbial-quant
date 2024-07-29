@@ -8,30 +8,34 @@ rule eupathdb_fasta_archive:
     message:
         "{params}"
     retries: config["download"]["retries"]
-    script:
-        "../scripts/url_file.py"
+    conda:
+        "../envs/wget.yaml"
+    shell:
+        "wget -nv -O {output} {params} > {log} 2>&1"
 
 
 rule eupathdb_fastas:
     input:
         EUPATHDB_FASTA_TGZ_FILE,
+    params:
+        EUPATHDB_RESOURCES_DIR,
     output:
         temp(directory(EUPATHDB_FASTA_DIR)),
     log:
         EUPATHDB_FASTA_LOG,
     shell:
-        "tar -xvzf {input} > {log} 2>&1"
+        "tar -xvzf {input} -C {params} > {log} 2>&1"
 
 
-rule kraken2_eupathdb_lib_fasta:
+rule eupathdb_merged_fasta:
     input:
         EUPATHDB_FASTA_DIR,
     output:
-        KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
+        EUPATHDB_MERGED_FASTA_FILE,
     log:
-        KRAKEN2_EUPATHDB_LIB_FASTA_LOG,
+        EUPATHDB_MERGED_FASTA_LOG,
     shell:
-        "find {input} -type f -name '*.fna' -exec cat {} + 1> {output} 2> {log}"
+        "find {input} -type f -name '*.fna' -exec cat {{}} + 1> {output} 2> {log}"
 
 
 rule eupathdb_seqid2taxid_map:
@@ -44,20 +48,57 @@ rule eupathdb_seqid2taxid_map:
     message:
         "{params}"
     retries: config["download"]["retries"]
-    script:
-        "../scripts/get_url_file.py"
+    conda:
+        "../envs/wget.yaml"
+    shell:
+        "wget -nv -O {output} {params} > {log} 2>&1"
 
 
-rule kraken2_eupathdb_lib_idmap:
+rule kraken2_eupathdb_lib_files:
     input:
-        EUPATHDB_SEQID2TAXID_MAP_FILE,
+        idmap=EUPATHDB_SEQID2TAXID_MAP_FILE,
+        fasta=EUPATHDB_MERGED_FASTA_FILE,
     output:
-        KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
+        idmap=KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
+        fasta=KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
     log:
-        KRAKEN2_EUPATHDB_LIB_IDMAP_LOG,
+        KRAKEN2_EUPATHDB_LIB_FASTA_LOG,
     run:
-        with open(output[0]) as out_fh:
-            with open(input[0]) as in_fh:
-                line = in_fh.readline().strip()
-                taxid = line.split("\t")[-1]
-                out_fh.write(f"TAXID\tkraken:taxid|{taxid}|{line}\n")
+        from contextlib import redirect_stdout, redirect_stderr
+
+        with open(log[0], "wt") as log_fh:
+            with redirect_stdout(log_fh), redirect_stderr(log_fh):
+                seqid2taxid_map = {}
+                with open(output.idmap, "wt") as id_ofh:
+                    with open(input.idmap, "rt") as id_ifh:
+                        for line in id_ifh:
+                            seqid, taxid = (
+                                line.strip().replace(" ", "").split("\t", maxsplit=2)
+                            )
+                            seqid2taxid_map[seqid] = taxid
+                            id_ofh.write(
+                                f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
+                            )
+                    with open(output.fasta, "wt") as fa_ofh:
+                        with open(input.fasta, "rt") as fa_ifh:
+                            for line in fa_ifh:
+                                line = line.strip()
+                                if line[0] == ">":
+                                    seqid = (
+                                        line.replace(" ", "")
+                                        .replace(">", "")
+                                        .replace("|", "")
+                                    )
+                                    if seqid in seqid2taxid_map:
+                                        taxid = seqid2taxid_map[seqid]
+                                        line = f">kraken:taxid|{taxid}|{seqid}"
+                                    elif seqid.startswith("LMARLEM2494"):
+                                        # fix for missing Leishmania martiniquensis LEM2494
+                                        taxid = 1580590
+                                        line = f">kraken:taxid|{taxid}|{seqid}"
+                                        id_ofh.write(
+                                            f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
+                                        )
+                                    else:
+                                        log_fh.write(f"No taxid: {seqid}\n")
+                                fa_ofh.write(f"{line}\n")

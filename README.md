@@ -80,6 +80,7 @@ bracken_merged_rg_counts           82
 bracken_read_quant              13955
 eupathdb_fasta_archive              1
 eupathdb_fastas                     1
+eupathdb_merged_fasta               1
 eupathdb_seqid2taxid_map            1
 gdc_unmapped_bam                10838
 gdc_unmapped_fastq_pe           13531
@@ -88,8 +89,7 @@ host_genome_fasta                   1
 kraken2_combined_report         13955
 kraken2_db                          2
 kraken2_db_taxonomy                 2
-kraken2_eupathdb_lib_fasta          1
-kraken2_eupathdb_lib_idmap          1
+kraken2_eupathdb_lib_files          1
 kraken2_nucl_db_library             5
 kraken2_nucl_read_classif_pe    13531
 kraken2_nucl_read_classif_se      424
@@ -103,8 +103,8 @@ total                          108634
 ## Execution
 
 Given the compute intensive nature of this pipeline and the large
-number of jobs to execute it we highly recommend running the it on
-an HPC cluster.
+number of jobs required to execute it we highly recommend running the
+it on an HPC cluster.
 
 Set your GDC controlled access authentication token in the environment
 variable `GDC_TOKEN` or `GDC_TOKEN_FILE`, or the file `~/.gdc_token`

@@ -8,8 +8,10 @@ rule host_genome_fasta:
     message:
         "{params}"
     retries: config["download"]["retries"]
-    script:
-        "../scripts/url_file.py"
+    conda:
+        "../envs/wget.yaml"
+    shell:
+        "wget -nv -O {output} {params} > {log} 2>&1"
 
 
 rule bowtie2_host_index:
