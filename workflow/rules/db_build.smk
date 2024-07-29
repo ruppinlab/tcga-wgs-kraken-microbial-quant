@@ -77,7 +77,6 @@ rule kraken2_db:
         protein=lambda wc: True if wc.k2dtype == "prot" else False,
         extra=config["kraken2"]["build"]["extra"],
     output:
-        directory(KRAKEN2_DB_DIR),
         touch(KRAKEN2_DB_DONE_FILE),
     log:
         KRAKEN2_DB_LOG,
@@ -125,7 +124,6 @@ rule krakenuniq_db:
         task="build",
         extra=config["krakenuniq"]["build"]["extra"],
     output:
-        directory(KRAKENUNIQ_DB_DIR),
         touch(KRAKENUNIQ_DB_DONE_FILE),
     log:
         KRAKENUNIQ_DB_LOG,

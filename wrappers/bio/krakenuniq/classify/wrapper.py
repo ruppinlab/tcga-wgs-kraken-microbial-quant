@@ -31,7 +31,7 @@ if paired_end:
 
 shellcmd = (
     f"krakenuniq"
-    f" --db {snakemake.input.db}"
+    f" --db {snakemake.params.db}"
     f" --threads {snakemake.threads}"
     f" {output}"
     f" {report}"

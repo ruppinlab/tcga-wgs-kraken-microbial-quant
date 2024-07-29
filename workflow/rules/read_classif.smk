@@ -1,9 +1,9 @@
 rule kraken2_nucl_read_classif_pe:
     input:
         fqs=[BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE],
-        db=KRAKEN2_NUCL_DB_DIR,
         db_done=KRAKEN2_NUCL_DB_DONE_FILE,
     params:
+        db=KRAKEN2_NUCL_DB_DIR,
         output="-",
         paired_end=True,
         extra=(
@@ -30,9 +30,9 @@ rule kraken2_nucl_read_classif_pe:
 rule kraken2_nucl_read_classif_se:
     input:
         fqs=BOWTIE2_FILTERED_FASTQ_SE_FILE,
-        db=KRAKEN2_NUCL_DB_DIR,
         db_done=KRAKEN2_NUCL_DB_DONE_FILE,
     params:
+        db=KRAKEN2_NUCL_DB_DIR,
         output="-",
         paired_end=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
@@ -53,9 +53,9 @@ rule kraken2_prot_read_classif_pe:
             KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE,
             KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE,
         ],
-        db=KRAKEN2_PROT_DB_DIR,
         db_done=KRAKEN2_PROT_DB_DONE_FILE,
     params:
+        db=KRAKEN2_PROT_DB_DIR,
         output="-",
         paired_end=True,
         extra=(
@@ -82,9 +82,9 @@ rule kraken2_prot_read_classif_pe:
 rule kraken2_prot_read_classif_se:
     input:
         fqs=KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE,
-        db=KRAKEN2_PROT_DB_DIR,
         db_done=KRAKEN2_PROT_DB_DONE_FILE,
     params:
+        db=KRAKEN2_PROT_DB_DIR,
         output="-",
         paired_end=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
@@ -119,9 +119,9 @@ rule kraken2_combined_report:
 rule krakenuniq_read_classif_pe:
     input:
         fqs=[BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE],
-        db=KRAKENUNIQ_DB_DIR,
         db_done=KRAKENUNIQ_DB_DONE_FILE,
     params:
+        db=KRAKENUNIQ_DB_DIR,
         output="off",
         paired_end=True,
         extra=(
@@ -148,9 +148,9 @@ rule krakenuniq_read_classif_pe:
 rule krakenuniq_read_classif_se:
     input:
         fqs=BOWTIE2_FILTERED_FASTQ_SE_FILE,
-        db=KRAKENUNIQ_DB_DIR,
         db_done=KRAKENUNIQ_DB_DONE_FILE,
     params:
+        db=KRAKENUNIQ_DB_DIR,
         output="off",
         paired_end=False,
         extra=config["krakenuniq"]["classify"]["extra"]["common"],

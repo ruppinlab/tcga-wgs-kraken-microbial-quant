@@ -1,12 +1,12 @@
 rule bracken_db:
     input:
-        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         db_done=(
             KRAKEN2_NUCL_DB_DONE_FILE
             if KRAKEN_MODE == "kraken2"
             else KRAKENUNIQ_DB_DONE_FILE
         ),
     params:
+        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         klen=35 if KRAKEN_MODE == "kraken2" else 31,
         ktype=KRAKEN_MODE,
         readlen="{readlen}",
@@ -21,7 +21,6 @@ rule bracken_db:
 
 rule bracken_read_quant:
     input:
-        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         report=lambda wc: (
             KRAKENUNIQ_REPORT_FILE
             if KRAKEN_MODE == "krakenuniq"
@@ -31,8 +30,14 @@ rule bracken_read_quant:
                 else KRAKEN2_NUCL_REPORT_FILE
             )
         ),
-        db_done=expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
+        kdb_done=(
+            KRAKEN2_NUCL_DB_DONE_FILE
+            if KRAKEN_MODE == "kraken2"
+            else KRAKENUNIQ_DB_DONE_FILE
+        ),
+        bdb_done=expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
     params:
+        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         readlen=lambda wc: int(
             GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
             if wc.level == "sg"
