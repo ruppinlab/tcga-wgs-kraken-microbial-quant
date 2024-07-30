@@ -31,7 +31,7 @@ rule eupathdb_merged_fasta:
     input:
         EUPATHDB_FASTA_DIR,
     output:
-        EUPATHDB_MERGED_FASTA_FILE,
+        temp(EUPATHDB_MERGED_FASTA_FILE),
     log:
         EUPATHDB_MERGED_FASTA_LOG,
     shell:
