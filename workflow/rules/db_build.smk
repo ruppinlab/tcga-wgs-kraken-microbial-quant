@@ -8,6 +8,7 @@ rule kraken2_db_taxonomy:
         touch(KRAKEN2_DB_TAX_DONE_FILE),
     log:
         KRAKEN2_DB_TAX_LOG,
+    threads: KRAKEN2_BUILD_THREADS
     wrapper:
         KRAKEN2_BUILD_WRAPPER
 
@@ -31,6 +32,7 @@ rule kraken2_nucl_db_library:
         touch(KRAKEN2_NUCL_DB_LIB_DONE_FILE),
     log:
         KRAKEN2_NUCL_DB_LIB_LOG,
+    threads: KRAKEN2_BUILD_THREADS
     wrapper:
         KRAKEN2_BUILD_WRAPPER
 
@@ -54,6 +56,7 @@ rule kraken2_prot_db_library:
         touch(KRAKEN2_PROT_DB_LIB_DONE_FILE),
     log:
         KRAKEN2_PROT_DB_LIB_LOG,
+    threads: KRAKEN2_BUILD_THREADS
     wrapper:
         KRAKEN2_BUILD_WRAPPER
 
@@ -95,6 +98,7 @@ rule krakenuniq_db_taxonomy:
         touch(KRAKENUNIQ_DB_TAX_DONE_FILE),
     log:
         KRAKENUNIQ_DB_TAX_LOG,
+    threads: KRAKENUNIQ_BUILD_THREADS
     wrapper:
         KRAKENUNIQ_DOWNLOAD_WRAPPER
 
@@ -111,6 +115,7 @@ rule krakenuniq_db_library:
         touch(KRAKENUNIQ_DB_LIB_DONE_FILE),
     log:
         KRAKENUNIQ_DB_LIB_LOG,
+    threads: KRAKENUNIQ_BUILD_THREADS
     wrapper:
         KRAKENUNIQ_DOWNLOAD_WRAPPER
 

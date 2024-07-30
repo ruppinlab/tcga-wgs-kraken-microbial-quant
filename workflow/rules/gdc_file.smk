@@ -3,7 +3,7 @@ rule gdc_unmapped_bam:
         token=GDC_TOKEN,
         bam_id="{bam_id}",
     output:
-        GDC_UNMAPPED_BAM_FILE,
+        temp(GDC_UNMAPPED_BAM_FILE),
     log:
         GDC_UNMAPPED_BAM_LOG,
     retries: config["download"]["retries"]
