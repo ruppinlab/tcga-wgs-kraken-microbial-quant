@@ -20,7 +20,7 @@ assert task in (
     "download-taxonomy",
     "download-library",
     "build",
-), "params: invalid task"
+), "params: invalid/not yet supported task"
 if task == "download-library":
     lib = snakemake.params.get("lib")
     assert (
@@ -33,7 +33,7 @@ protein = snakemake.params.get("protein")
 if protein:
     extra = f"--protein {extra}"
 
-if task == "build":
+if task in ("download-library", "build"):
     # workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
     k2 = f"OMP_NUM_THREADS={snakemake.threads} {k2}"
     extra = f"--threads {snakemake.threads} {extra}"
