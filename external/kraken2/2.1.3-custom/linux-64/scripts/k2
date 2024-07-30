@@ -472,7 +472,9 @@ def lookup_accession_numbers(lookup_list_filename, out_filename, *accession_map_
                 f.write(k + "\n")
 
 
-def spawn_masking_subprocess(output_file, protein=False):
+def spawn_masking_subprocess(
+    output_file, protein=False, threads=multiprocessing.cpu_count() // 2
+):
     masking_binary = "segmasker" if protein else "k2mask"
     if "MASKER" in os.environ:
         masking_binary = os.environ["MASKER"]
@@ -481,9 +483,7 @@ def spawn_masking_subprocess(output_file, protein=False):
     argv = masking_binary + " -outfmt fasta | sed -e '/^>/!s/[a-z]/x/g'"
     if masking_binary.find("k2mask") >= 0:
         # k2mask can run multithreaded
-        argv = masking_binary + " -outfmt fasta -threads {} -r x".format(
-            multiprocessing.cpu_count() // 2
-        )
+        argv = masking_binary + " -outfmt fasta -threads {} -r x".format(threads)
 
     p = subprocess.Popen(argv, shell=True, stdin=subprocess.PIPE, stdout=output_file)
 
@@ -497,9 +497,14 @@ def spawn_masking_subprocess(output_file, protein=False):
 
 
 # Mask low complexity sequences in the database
-def mask_files(input_filenames, output_filename, protein=False):
+def mask_files(
+    input_filenames,
+    output_filename,
+    protein=False,
+    threads=multiprocessing.cpu_count() // 2,
+):
     with open(output_filename, "wb") as fout:
-        masker = spawn_masking_subprocess(fout, protein)
+        masker = spawn_masking_subprocess(fout, protein, threads)
         number_of_files = len(input_filenames)
         for i, input_filename in enumerate(input_filenames):
             library_name = os.path.basename(os.getcwd())
@@ -555,7 +560,12 @@ def add_to_library(args):
                 )
             shutil.copyfile(filename, destination)
         if not args.no_masking:
-            mask_files([destination], destination + ".masked", protein=args.protein)
+            mask_files(
+                [destination],
+                destination + ".masked",
+                protein=args.protein,
+                threads=args.threads,
+            )
             shutil.move(destination + ".masked", destination)
         with open("added.md5", "a") as out_file:
             out_file.write(filehash + "\t" + filename + "\t" + destination + "\n")
@@ -965,7 +975,12 @@ def download_genomic_library(args):
                 )
         files_to_remove = [args.library]
     if not args.no_masking:
-        mask_files([library_filename], library_filename + ".masked", args.protein)
+        mask_files(
+            [library_filename],
+            library_filename + ".masked",
+            protein=args.protein,
+            threads=args.threads,
+        )
         shutil.move(library_filename + ".masked", library_filename)
     LOG.info("Added {:s} to {:s}\n".format(args.library, args.db))
     if files_to_remove:
@@ -1878,6 +1893,13 @@ def make_download_library_parser(subparsers):
         help="Name of Kraken 2 database",
     )
     parser.add_argument(
+        "--threads",
+        type=int,
+        metavar="INT",
+        default=os.environ.get("KRAKEN2_NUM_THREADS") or 1,
+        help="Number of threads",
+    )
+    parser.add_argument(
         "--library",
         type=str,
         required=True,
@@ -1926,6 +1948,13 @@ def make_add_to_library_parser(subparsers):
         metavar="PATHNAME",
         required=True,
         help="Name of Kraken 2 database",
+    )
+    parser.add_argument(
+        "--threads",
+        type=int,
+        metavar="INT",
+        default=os.environ.get("KRAKEN2_NUM_THREADS") or 1,
+        help="Number of threads",
     )
     parser.add_argument(
         "--file",
