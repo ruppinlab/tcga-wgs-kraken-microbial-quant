@@ -390,11 +390,11 @@ KRAKEN2_NUCL_DB_TAX_DONE_FILE = join(KRAKEN2_NUCL_DB_TAX_DIR, "download_taxonomy
 KRAKEN2_PROT_DB_TAX_DONE_FILE = join(KRAKEN2_PROT_DB_TAX_DIR, "download_taxonomy.done")
 
 KRAKEN2_NUCL_DB_LIB_DIR = join(KRAKEN2_NUCL_DB_DIR, "library", "{k2nlib}")
-KRAKEN2_NUCL_DB_LIB_LOG = join(KRAKEN2_NUCL_DB_LOG_DIR, "download_{k2nlib}.log")
-KRAKEN2_NUCL_DB_LIB_DONE_FILE = join(KRAKEN2_NUCL_DB_LIB_DIR, "download_{k2nlib}.done")
+KRAKEN2_NUCL_DB_LIB_LOG = join(KRAKEN2_NUCL_DB_LOG_DIR, "{k2nlib}_library.log")
+KRAKEN2_NUCL_DB_LIB_DONE_FILE = join(KRAKEN2_NUCL_DB_LIB_DIR, "{k2nlib}_library.done")
 KRAKEN2_PROT_DB_LIB_DIR = join(KRAKEN2_PROT_DB_DIR, "library", "{k2plib}")
-KRAKEN2_PROT_DB_LIB_LOG = join(KRAKEN2_PROT_DB_LOG_DIR, "download_{k2plib}.log")
-KRAKEN2_PROT_DB_LIB_DONE_FILE = join(KRAKEN2_PROT_DB_LIB_DIR, "download_{k2plib}.done")
+KRAKEN2_PROT_DB_LIB_LOG = join(KRAKEN2_PROT_DB_LOG_DIR, "{k2plib}_library.log")
+KRAKEN2_PROT_DB_LIB_DONE_FILE = join(KRAKEN2_PROT_DB_LIB_DIR, "{k2plib}_library.done")
 
 KRAKEN2_DB_LOG = join(KRAKEN2_DB_LOG_DIR, "kraken2_db.log")
 KRAKEN2_DB_DONE_FILE = join(KRAKEN2_DB_DIR, "kraken2_db.done")
