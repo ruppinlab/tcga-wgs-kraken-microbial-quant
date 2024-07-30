@@ -9,7 +9,6 @@ rule kraken2_db_taxonomy:
         touch(KRAKEN2_DB_TAX_DONE_FILE),
     log:
         KRAKEN2_DB_TAX_LOG,
-    threads: KRAKEN2_K2_THREADS
     wrapper:
         KRAKEN2_K2_WRAPPER
 
