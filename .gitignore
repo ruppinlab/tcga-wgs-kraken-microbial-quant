@@ -5,6 +5,8 @@
 !config/config.yaml
 !envs
 !envs/*
+!external
+!external/**
 !LICENSE
 !README.md
 !workflow
