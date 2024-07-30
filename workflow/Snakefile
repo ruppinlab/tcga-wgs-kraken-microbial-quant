@@ -1,6 +1,6 @@
 import re
 from os import getcwd, makedirs, walk
-from os.path import basename, exists, join
+from os.path import abspath, basename, exists, join
 from tempfile import gettempdir
 from shutil import rmtree
 from urllib.parse import urlparse
@@ -52,8 +52,8 @@ EUPATHDB_SEQID2TAXID_MAP_FILENAME = config["resources"]["db"]["libs"]["custom"][
     "eupathdb"
 ]["idmap_filename"]
 
+KRAKEN2_K2_SCRIPT_PATH = abspath(join(config["kraken2"]["k2"]["script_dir"], "k2"))
 KRAKEN2_TSEARCH_UNCLASSIF = config["kraken2"]["build"]["tsearch_unclassif"]
-
 KRAKEN2_DB_TYPES = ["nucl", "prot"] if KRAKEN2_TSEARCH_UNCLASSIF else ["nucl"]
 
 KRAKEN_MODE = config["read_classif"]["mode"]

@@ -1,22 +1,24 @@
 rule kraken2_db_taxonomy:
     params:
+        k2=KRAKEN2_K2_SCRIPT_PATH,
         db=KRAKEN2_DB_DIR,
         task="download-taxonomy",
         protein=lambda wc: True if wc.k2dtype == "prot" else False,
-        extra=config["kraken2"]["build"]["extra"],
+        extra=config["kraken2"]["k2"]["extra"],
     output:
         touch(KRAKEN2_DB_TAX_DONE_FILE),
     log:
         KRAKEN2_DB_TAX_LOG,
-    threads: KRAKEN2_BUILD_THREADS
+    threads: KRAKEN2_K2_THREADS
     wrapper:
-        KRAKEN2_BUILD_WRAPPER
+        KRAKEN2_K2_WRAPPER
 
 
 rule kraken2_nucl_db_library:
     input:
         KRAKEN2_NUCL_DB_TAX_DONE_FILE,
     params:
+        k2=KRAKEN2_K2_SCRIPT_PATH,
         db=KRAKEN2_NUCL_DB_DIR,
         lib="{k2nlib}",
         task="download-library",
@@ -27,20 +29,21 @@ rule kraken2_nucl_db_library:
             or wc.k2nlib in config["resources"]["db"]["libs"]["kraken2"]["ftp_only"]
             else False
         ),
-        extra=config["kraken2"]["build"]["extra"],
+        extra=config["kraken2"]["k2"]["extra"],
     output:
         touch(KRAKEN2_NUCL_DB_LIB_DONE_FILE),
     log:
         KRAKEN2_NUCL_DB_LIB_LOG,
-    threads: KRAKEN2_BUILD_THREADS
+    threads: KRAKEN2_K2_THREADS
     wrapper:
-        KRAKEN2_BUILD_WRAPPER
+        KRAKEN2_K2_WRAPPER
 
 
 rule kraken2_prot_db_library:
     input:
         KRAKEN2_PROT_DB_TAX_DONE_FILE,
     params:
+        k2=KRAKEN2_K2_SCRIPT_PATH,
         db=KRAKEN2_PROT_DB_DIR,
         lib="{k2plib}",
         task="download-library",
@@ -51,14 +54,14 @@ rule kraken2_prot_db_library:
             or wc.k2plib in config["resources"]["db"]["libs"]["kraken2"]["ftp_only"]
             else False
         ),
-        extra=config["kraken2"]["build"]["extra"],
+        extra=config["kraken2"]["k2"]["extra"],
     output:
         touch(KRAKEN2_PROT_DB_LIB_DONE_FILE),
     log:
         KRAKEN2_PROT_DB_LIB_LOG,
-    threads: KRAKEN2_BUILD_THREADS
+    threads: KRAKEN2_K2_THREADS
     wrapper:
-        KRAKEN2_BUILD_WRAPPER
+        KRAKEN2_K2_WRAPPER
 
 
 rule kraken2_db:
@@ -75,17 +78,18 @@ rule kraken2_db:
         KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
         KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
     params:
+        k2=KRAKEN2_K2_SCRIPT_PATH,
         db=KRAKEN2_DB_DIR,
         task="build",
         protein=lambda wc: True if wc.k2dtype == "prot" else False,
-        extra=config["kraken2"]["build"]["extra"],
+        extra=config["kraken2"]["k2"]["extra"],
     output:
         touch(KRAKEN2_DB_DONE_FILE),
     log:
         KRAKEN2_DB_LOG,
-    threads: KRAKEN2_BUILD_THREADS
+    threads: KRAKEN2_K2_THREADS
     wrapper:
-        KRAKEN2_BUILD_WRAPPER
+        KRAKEN2_K2_WRAPPER
 
 
 rule krakenuniq_db_taxonomy:
