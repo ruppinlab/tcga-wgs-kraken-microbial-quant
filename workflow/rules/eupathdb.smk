@@ -63,42 +63,5 @@ rule kraken2_eupathdb_library:
         fasta=KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
     log:
         KRAKEN2_EUPATHDB_LIB_FASTA_LOG,
-    run:
-        from contextlib import redirect_stdout, redirect_stderr
-
-        with open(log[0], "wt") as log_fh:
-            with redirect_stdout(log_fh), redirect_stderr(log_fh):
-                seqid2taxid_map = {}
-                with open(output.idmap, "wt") as id_ofh:
-                    with open(input.idmap, "rt") as id_ifh:
-                        for line in id_ifh:
-                            seqid, taxid = (
-                                line.strip().replace(" ", "").split("\t", maxsplit=2)
-                            )
-                            seqid2taxid_map[seqid] = taxid
-                            id_ofh.write(
-                                f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
-                            )
-                    with open(output.fasta, "wt") as fa_ofh:
-                        with open(input.fasta, "rt") as fa_ifh:
-                            for line in fa_ifh:
-                                line = line.strip()
-                                if line[0] == ">":
-                                    seqid = (
-                                        line.replace(" ", "")
-                                        .replace(">", "")
-                                        .replace("|", "")
-                                    )
-                                    if seqid in seqid2taxid_map:
-                                        taxid = seqid2taxid_map[seqid]
-                                        line = f">kraken:taxid|{taxid}|{seqid}"
-                                    elif seqid.startswith("LMARLEM2494"):
-                                        # fix for missing Leishmania martiniquensis LEM2494
-                                        taxid = 1580590
-                                        line = f">kraken:taxid|{taxid}|{seqid}"
-                                        id_ofh.write(
-                                            f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
-                                        )
-                                    else:
-                                        log_fh.write(f"No taxid: {seqid}\n")
-                                fa_ofh.write(f"{line}\n")
+    script:
+        "../scripts/kraken2_eupathdb_library.py"
