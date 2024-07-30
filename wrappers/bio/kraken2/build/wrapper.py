@@ -33,7 +33,7 @@ use_ftp = snakemake.params.get("use_ftp")
 if use_ftp:
     extra = f"--use-ftp {extra}"
 
-# workaround for bug *_NUM_THREADS env vars not passed to wrapper shell()
+# workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
 kraken2_build = f"OMP_NUM_THREADS={snakemake.threads} kraken2-build"
 # workaround for interactive issue with --download-library human
 if task == "download-library human":
