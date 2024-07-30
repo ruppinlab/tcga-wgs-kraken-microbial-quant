@@ -722,6 +722,11 @@ BOWTIE2_ALIGN_THREADS = (
     if config["bowtie2"]["align"]["threads"] == "all"
     else config["bowtie2"]["align"]["threads"]
 )
+KRAKEN2_K2_THREADS = (
+    workflow.cores
+    if config["kraken2"]["k2"]["threads"] == "all"
+    else config["kraken2"]["k2"]["threads"]
+)
 KRAKEN2_BUILD_THREADS = (
     workflow.cores
     if config["kraken2"]["build"]["threads"] == "all"
@@ -758,7 +763,7 @@ BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
 )
 BOWTIE2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bowtie2/build")
 BOWTIE2_ALIGN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bowtie2/align")
-KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
+KRAKEN2_K2_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/k2")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKEN2_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/classify")
 KRAKENTOOLS_COMBINE_KREPORTS_WRAPPER = join(
