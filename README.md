@@ -28,8 +28,7 @@ Aggregate Read Group Level Counts ->
 Count Matrix
 ```
 
-Full Snakemake pipeline
-rulegraph:
+## Rulegraph
 
 ![Snakemake rule graph](tcga-wgs-kraken-microbial-quant.svg)
 
