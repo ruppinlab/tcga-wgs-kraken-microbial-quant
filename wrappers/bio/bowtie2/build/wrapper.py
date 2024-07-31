@@ -1,6 +1,6 @@
 __author__ = "Leandro C. Hermida"
 __email__ = "leandro@leandrohermida.com"
-__license__ = "BSD 3-Clause"
+__license__ = "MIT"
 
 import re
 from os.path import commonprefix
