@@ -11,7 +11,6 @@ import itertools
 import logging
 import lzma
 import math
-import multiprocessing
 import os
 import re
 import shutil
@@ -25,6 +24,8 @@ import urllib.error
 from urllib.error import HTTPError, ContentTooShortError
 import urllib.parse
 import urllib.request
+
+from joblib import delayed, Parallel
 
 LOG = None
 SCRIPT_PATHNAME = None
@@ -472,9 +473,7 @@ def lookup_accession_numbers(lookup_list_filename, out_filename, *accession_map_
                 f.write(k + "\n")
 
 
-def spawn_masking_subprocess(
-    output_file, protein=False, threads=multiprocessing.cpu_count() // 2
-):
+def spawn_masking_subprocess(output_file, protein=False, threads=1):
     masking_binary = "segmasker" if protein else "k2mask"
     if "MASKER" in os.environ:
         masking_binary = os.environ["MASKER"]
@@ -497,12 +496,7 @@ def spawn_masking_subprocess(
 
 
 # Mask low complexity sequences in the database
-def mask_files(
-    input_filenames,
-    output_filename,
-    protein=False,
-    threads=multiprocessing.cpu_count() // 2,
-):
+def mask_files(input_filenames, output_filename, protein=False, threads=1):
     with open(output_filename, "wb") as fout:
         masker = spawn_masking_subprocess(fout, protein, threads)
         number_of_files = len(input_filenames)
@@ -703,22 +697,30 @@ def download_log(filename):
 
 
 def http_download_file(url, local_name=None):
-    if not local_name:
-        local_name = urllib.parse.urlparse(url).path.split("/")[-1]
-    else:
-        local_name = os.path.abspath(local_name)
-        os.makedirs(os.path.dirname(local_name), exist_ok=True)
-    with urllib.request.urlopen(url) as conn:
-        remote_size = int(conn.headers["Content-Length"])
-        local_size = os.stat(local_name).st_size if os.path.exists(local_name) else 0
-        if local_size == remote_size:
-            LOG.info("Already downloaded {:s}\n".format(get_abs_path(local_name)))
-            return
-
-    LOG.info("Beginning download of {:s}\n".format(url))
-    urllib.request.urlretrieve(url, local_name, reporthook=download_log(local_name))
-    clear_console_line()
-    LOG.info("Saved {:s} to {:s}\n".format(local_name, os.getcwd()))
+    try:
+        if not local_name:
+            local_name = urllib.parse.urlparse(url).path.split("/")[-1]
+        else:
+            local_name = os.path.abspath(local_name)
+            os.makedirs(os.path.dirname(local_name), exist_ok=True)
+        with urllib.request.urlopen(url) as conn:
+            remote_size = int(conn.headers["Content-Length"])
+            local_size = (
+                os.stat(local_name).st_size if os.path.exists(local_name) else 0
+            )
+            if local_size == remote_size:
+                LOG.info("Already downloaded {:s}\n".format(get_abs_path(local_name)))
+                return True
+        LOG.info("Beginning download of {:s}\n".format(url))
+        urllib.request.urlretrieve(url, local_name, reporthook=download_log(local_name))
+        clear_console_line()
+        LOG.info("Saved {:s} to {:s}\n".format(local_name, os.getcwd()))
+        return True
+    except (ContentTooShortError, HTTPError) as e:
+        if os.path.exists(local_name):
+            os.remove(local_name)
+        LOG.info(f"Error: {url}: {e}")
+        return False
 
 
 def make_manifest_filter(file, regex):
@@ -753,9 +755,10 @@ def download_files_from_manifest(
     remote_dir,
     manifest_filename="manifest.txt",
     filepath_to_taxid_table=None,
+    threads=1,
 ):
     with open(manifest_filename, "r") as f:
-        filepaths = []
+        urls, filepaths = [], []
         ftp = FTP(server)
         spinner = ["|", "/", "—", "\\"]
         i = 0
@@ -776,27 +779,26 @@ def download_files_from_manifest(
                     )
                 )
                 continue
-            filepaths.append(filepath)
-        downloaded = 0
-        for filepath in filepaths:
             url = urllib.parse.urlunsplit(
                 ("https", server, remote_dir + filepath, "", "")
             )
-            try:
-                http_download_file(url, filepath)
-            except [ContentTooShortError, HTTPError]:
-                break
-            downloaded += 1
-        filepaths = filepaths[downloaded:]
-        if filepaths:
-            LOG.warning(
-                "There was an issue downloading files over HTTP, falling back to FTP for remaining {} file(s).\n".format(
-                    len(filepaths)
-                )
+            urls.append(url)
+            filepaths.append(filepath)
+
+    downloaded = Parallel(n_jobs=threads, backend="loky", verbose=1)(
+        delayed(http_download_file)(url, filepath)
+        for url, filepath in zip(urls, filepaths)
+    )
+    filepaths = [filepaths[i] for i in range(len(filepaths)) if not downloaded[i]]
+    if filepaths:
+        LOG.warning(
+            "There was an issue downloading files over HTTP, falling back to FTP for remaining {} file(s).\n".format(
+                len(filepaths)
             )
-            ftp.reconnect()
-            ftp.download(remote_dir, filepaths)
-            ftp.close()
+        )
+        ftp.reconnect()
+        ftp.download(remote_dir, filepaths)
+        ftp.close()
 
 
 def download_taxonomy(args):
@@ -880,6 +882,7 @@ def download_genomic_library(args):
                 NCBI_SERVER,
                 "genomes/",
                 filepath_to_taxid_table=filepath_to_taxid_table,
+                threads=args.threads,
             )
             seq_name_to_url_table = assign_taxid_to_sequences(
                 filepath_to_taxid_table, args.protein
