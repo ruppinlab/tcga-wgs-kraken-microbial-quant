@@ -42,7 +42,7 @@ by the instructions below.
 ## Installation
 
 Install and set up
-[Miniforge3](https://github.com/conda-forge/miniforge#miniforge3)
+[Miniforge3](https://github.com/conda-forge/miniforge#download)
 
 Obtain the project source and create a conda environment with the tools
 needed to run the project:
