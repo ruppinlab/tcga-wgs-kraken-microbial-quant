@@ -785,6 +785,7 @@ def download_files_from_manifest(
             urls.append(url)
             filepaths.append(filepath)
 
+    LOG.info("Downloading manifest files...\n")
     downloaded = Parallel(n_jobs=threads, backend="loky", verbose=1)(
         delayed(http_download_file)(url, filepath)
         for url, filepath in zip(urls, filepaths)
