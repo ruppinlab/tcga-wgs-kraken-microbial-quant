@@ -750,6 +750,16 @@ def get_manifest(server, remote_path, regex):
         ftp.close()
 
 
+def check_ftp_exists(server, remote_dir, filepath):
+    ftp = FTP(server)
+    if not ftp.exists(urllib.parse.urljoin(remote_dir, filepath)):
+        LOG.warning(
+            "{:s} does not exist on server, skipping\n".format(remote_dir + filepath)
+        )
+        return False
+    return True
+
+
 def download_files_from_manifest(
     server,
     remote_dir,
@@ -757,33 +767,27 @@ def download_files_from_manifest(
     filepath_to_taxid_table=None,
     threads=1,
 ):
+    filepaths, urls = [], []
     with open(manifest_filename, "r") as f:
-        urls, filepaths = [], []
-        ftp = FTP(server)
-        spinner = ["|", "/", "—", "\\"]
-        i = 0
         for filepath in f:
-            LOG.debug(
-                "Checking if manifest files exist on server {:s}\r".format(
-                    spinner[i % 4]
-                )
-            )
-            i += 1
             filepath = filepath.strip()
-            if not ftp.exists(urllib.parse.urljoin(remote_dir, filepath)):
-                if filepath_to_taxid_table:
-                    del filepath_to_taxid_table[filepath]
-                LOG.warning(
-                    "{:s} does not exist on server, skipping\n".format(
-                        remote_dir + filepath
-                    )
-                )
-                continue
             url = urllib.parse.urlunsplit(
                 ("https", server, remote_dir + filepath, "", "")
             )
-            urls.append(url)
             filepaths.append(filepath)
+            urls.append(url)
+
+    LOG.info("Checking if manifest files exist on server...\n")
+    file_exists = Parallel(n_jobs=threads, backend="loky", verbose=1)(
+        delayed(check_ftp_exists)(server, remote_dir, filepath)
+        for filepath in filepaths
+    )
+    if filepath_to_taxid_table:
+        for exists, filepath in zip(file_exists, filepaths):
+            if not exists:
+                del filepath_to_taxid_table[filepath]
+    filepaths = [filepaths[i] for i in range(len(filepaths)) if file_exists[i]]
+    urls = [urls[i] for i in range(len(urls)) if file_exists[i]]
 
     LOG.info("Downloading manifest files...\n")
     downloaded = Parallel(n_jobs=threads, backend="loky", verbose=1)(
