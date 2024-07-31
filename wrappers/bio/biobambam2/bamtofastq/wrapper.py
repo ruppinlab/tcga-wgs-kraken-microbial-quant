@@ -3,6 +3,7 @@ __email__ = "leandro@leandrohermida.com"
 __license__ = "MIT"
 
 import re
+from tempfile import gettempdir, NamedTemporaryFile, TemporaryDirectory
 
 from snakemake.shell import shell
 
@@ -27,9 +28,20 @@ else:
 
 log = snakemake.log_fmt_shell(stdout=False, stderr=True, append=True)
 
-shellcmd = f"bamtofastq filename={snakemake.input} {output} {extra} 1> /dev/null {log}"
-shellcmd = re.sub(r"\s+", " ", shellcmd)
-with open(snakemake.log[0], "wt") as log_fh:
-    log_fh.write(f"{shellcmd}\n")
+with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as tmpdir:
+    with NamedTemporaryFile(
+        dir=tmpdir, prefix="bamtofastq_", delete=False, delete_on_close=False
+    ) as tmpfile:
+        shellcmd = (
+            f"bamtofastq"
+            f" filename={snakemake.input}"
+            f" {output}"
+            f" {extra}"
+            f" T={tmpfile}"
+            f" 1> /dev/null {log}"
+        )
+        shellcmd = re.sub(r"\s+", " ", shellcmd)
+        with open(snakemake.log[0], "wt") as log_fh:
+            log_fh.write(f"{shellcmd}\n")
 
-shell(shellcmd)
+        shell(shellcmd)
