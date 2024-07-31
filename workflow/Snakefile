@@ -239,12 +239,6 @@ BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", f"{HOST_REF_NAME}.log")
 
 BOWTIE2_ALIGN_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "align")
 BOWTIE2_ALIGN_LOG_DIR = join(BOWTIE2_LOG_DIR, "align")
-BOWTIE2_ALIGN_FILE_RESULTS_DIR = join(
-    BOWTIE2_ALIGN_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
-)
-BOWTIE2_ALIGN_FILE_LOG_DIR = join(
-    BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "{etype}"
-)
 BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR = join(
     BOWTIE2_ALIGN_RESULTS_DIR, "{level}", "{bam_id}", "pe"
 )
@@ -253,42 +247,8 @@ BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR = join(
 )
 BOWTIE2_ALIGN_PE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "pe")
 BOWTIE2_ALIGN_SE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "se")
-BOWTIE2_SAM_FILE = join(BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}.sam")
-BOWTIE2_FILTERED_SAM_FILE = join(BOWTIE2_ALIGN_FILE_RESULTS_DIR, "{rg_id}_filtered.sam")
-BOWTIE2_FILTERED_SAM_PE_FILE = join(
-    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered.sam"
-)
-BOWTIE2_FILTERED_SAM_SE_FILE = join(
-    BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}_filtered.sam"
-)
-BOWTIE2_ALIGN_LOG = join(BOWTIE2_ALIGN_FILE_LOG_DIR, "{rg_id}_align.log")
-BOWTIE2_FILTERED_SAM_FILES = pd.concat(
-    [
-        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
-            lambda x: join(
-                BOWTIE2_ALIGN_RESULTS_DIR,
-                "sg",
-                x["file_id"],
-                "pe" if x["is_paired_end"] else "se",
-                f"{x['file_id']}_filtered.sam",
-            ),
-            axis=1,
-            result_type="reduce",
-        ),
-        GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
-            lambda x: join(
-                BOWTIE2_ALIGN_RESULTS_DIR,
-                "rg",
-                x["file_id"],
-                "pe" if x["is_paired_end"] else "se",
-                f"{x['read_group_id']}_filtered.sam",
-            ),
-            axis=1,
-            result_type="reduce",
-        ),
-    ],
-    axis=0,
-).tolist()
+BOWTIE2_SAM_PE_FILE = join(BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}.sam")
+BOWTIE2_SAM_SE_FILE = join(BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}.sam")
 BOWTIE2_FILTERED_FASTQ_R1_FILE = join(
     BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_1.fq.gz"
 )
@@ -853,7 +813,6 @@ rule all:
         # GDC_UNMAPPED_BAM_FILES,
         # GDC_UNMAPPED_FASTQ_FILES,
         # BOWTIE2_HOST_INDEX_FILES,
-        # BOWTIE2_FILTERED_SAM_FILES,
         # BOWTIE2_FILTERED_FASTQ_FILES,
         # expand(KRAKEN2_DB_TAX_DONE_FILE, **EXPAND_PARAMS),
         # expand(KRAKEN2_NUCL_DB_LIB_DONE_FILE, **EXPAND_PARAMS),

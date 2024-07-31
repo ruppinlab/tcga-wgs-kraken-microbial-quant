@@ -28,53 +28,36 @@ rule bowtie2_host_index:
         BOWTIE2_BUILD_WRAPPER
 
 
-rule bowtie2_host_filter:
+rule bowtie2_filtered_fastq_pe:
     input:
-        sample=lambda wc: (
-            [GDC_UNMAPPED_FASTQ_R1_FILE, GDC_UNMAPPED_FASTQ_R2_FILE]
-            if wc.etype == "pe"
-            else GDC_UNMAPPED_FASTQ_SE_FILE
-        ),
+        sample=[GDC_UNMAPPED_FASTQ_R1_FILE, GDC_UNMAPPED_FASTQ_R2_FILE],
         idx=BOWTIE2_HOST_INDEX_FILES,
     params:
         extra=f"--seed {config['random_seed']}",
     output:
-        temp(BOWTIE2_SAM_FILE),
-        unaligned=temp(BOWTIE2_FILTERED_SAM_FILE),
+        temp(BOWTIE2_SAM_PE_FILE),
+        un_conc=[
+            temp(BOWTIE2_FILTERED_FASTQ_R1_FILE),
+            temp(BOWTIE2_FILTERED_FASTQ_R2_FILE),
+        ],
     log:
-        BOWTIE2_ALIGN_LOG,
+        BOWTIE2_FILTERED_FASTQ_PE_LOG,
     threads: BOWTIE2_ALIGN_THREADS
     wrapper:
         BOWTIE2_ALIGN_WRAPPER
 
 
-rule bowtie2_filtered_fastq_pe:
-    input:
-        BOWTIE2_FILTERED_SAM_PE_FILE,
-    params:
-        paired_end=True,
-        extra=(
-            f"{config['biobambam2']['bamtofastq']['extra']['common']} "
-            f"{config['biobambam2']['bamtofastq']['extra']['paired_end']}"
-        ),
-    output:
-        temp(BOWTIE2_FILTERED_FASTQ_R1_FILE),
-        temp(BOWTIE2_FILTERED_FASTQ_R2_FILE),
-    log:
-        BOWTIE2_FILTERED_FASTQ_PE_LOG,
-    wrapper:
-        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
-
-
 rule bowtie2_filtered_fastq_se:
     input:
-        BOWTIE2_FILTERED_SAM_SE_FILE,
+        sample=[GDC_UNMAPPED_FASTQ_SE_FILE],
+        idx=BOWTIE2_HOST_INDEX_FILES,
     params:
-        paired_end=False,
-        extra=config["biobambam2"]["bamtofastq"]["extra"]["common"],
+        extra=f"--seed {config['random_seed']}",
     output:
-        temp(BOWTIE2_FILTERED_FASTQ_SE_FILE),
+        temp(BOWTIE2_SAM_SE_FILE),
+        unaligned=temp(BOWTIE2_FILTERED_FASTQ_SE_FILE),
     log:
         BOWTIE2_FILTERED_FASTQ_SE_LOG,
+    threads: BOWTIE2_ALIGN_THREADS
     wrapper:
-        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
+        BOWTIE2_ALIGN_WRAPPER
