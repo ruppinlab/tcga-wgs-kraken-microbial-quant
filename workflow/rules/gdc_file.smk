@@ -18,6 +18,8 @@ rule gdc_unmapped_fastq_pe:
         outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.level == "rg" else None,
         paired_end=True,
         per_readgrp=lambda wc: True if wc.level == "rg" else False,
+        O=GDC_UNMAPPED_FASTQ_O1_FILE,
+        O2=GDC_UNMAPPED_FASTQ_O2_FILE,
         extra=lambda wc: (
             (
                 f"{config['biobambam2']['bamtofastq']['extra']['common']} "
@@ -31,10 +33,8 @@ rule gdc_unmapped_fastq_pe:
             )
         ),
     output:
-        temp(GDC_UNMAPPED_FASTQ_R1_FILE),
-        temp(GDC_UNMAPPED_FASTQ_R2_FILE),
-        temp(GDC_UNMAPPED_FASTQ_O1_FILE),
-        temp(GDC_UNMAPPED_FASTQ_O2_FILE),
+        F=temp(GDC_UNMAPPED_FASTQ_R1_FILE),
+        F2=temp(GDC_UNMAPPED_FASTQ_R2_FILE),
     log:
         GDC_UNMAPPED_FASTQ_LOG,
     wrapper:
@@ -57,7 +57,7 @@ rule gdc_unmapped_fastq_se:
             else config["biobambam2"]["bamtofastq"]["extra"]["common"]
         ),
     output:
-        temp(GDC_UNMAPPED_FASTQ_SE_FILE),
+        S=temp(GDC_UNMAPPED_FASTQ_SE_FILE),
     log:
         GDC_UNMAPPED_FASTQ_LOG,
     wrapper:

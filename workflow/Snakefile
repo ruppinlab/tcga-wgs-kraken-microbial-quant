@@ -150,18 +150,18 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                             x["file_id"],
                             f"{x['file_id']}_unmapped_2.fq.gz",
                         ),
-                        join(
-                            GDC_RESULTS_DIR,
-                            "sg",
-                            x["file_id"],
-                            f"{x['file_id']}_unmapped_o1.fq.gz",
-                        ),
-                        join(
-                            GDC_RESULTS_DIR,
-                            "sg",
-                            x["file_id"],
-                            f"{x['file_id']}_unmapped_o2.fq.gz",
-                        ),
+                        # join(
+                        #     GDC_RESULTS_DIR,
+                        #     "sg",
+                        #     x["file_id"],
+                        #     f"{x['file_id']}_unmapped_o1.fq.gz",
+                        # ),
+                        # join(
+                        #     GDC_RESULTS_DIR,
+                        #     "sg",
+                        #     x["file_id"],
+                        #     f"{x['file_id']}_unmapped_o2.fq.gz",
+                        # ),
                     ]
                     if x["is_paired_end"]
                     else [
@@ -191,18 +191,18 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                             x["file_id"],
                             f"{x['read_group_id']}_unmapped_2.fq.gz",
                         ),
-                        join(
-                            GDC_RESULTS_DIR,
-                            "rg",
-                            x["file_id"],
-                            f"{x['read_group_id']}_unmapped_o1.fq.gz",
-                        ),
-                        join(
-                            GDC_RESULTS_DIR,
-                            "rg",
-                            x["file_id"],
-                            f"{x['read_group_id']}_unmapped_o2.fq.gz",
-                        ),
+                        # join(
+                        #     GDC_RESULTS_DIR,
+                        #     "rg",
+                        #     x["file_id"],
+                        #     f"{x['read_group_id']}_unmapped_o1.fq.gz",
+                        # ),
+                        # join(
+                        #     GDC_RESULTS_DIR,
+                        #     "rg",
+                        #     x["file_id"],
+                        #     f"{x['read_group_id']}_unmapped_o2.fq.gz",
+                        # ),
                     ]
                     if x["is_paired_end"]
                     else [

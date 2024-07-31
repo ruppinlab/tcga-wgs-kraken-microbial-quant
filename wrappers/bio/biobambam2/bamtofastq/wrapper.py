@@ -19,17 +19,15 @@ if per_readgrp:
     output = f"outputdir={outdir}"
 elif paired_end:
     output = (
-        f"F={snakemake.output[0]} F2={snakemake.output[1]} "
-        f"O={snakemake.output[2]} 02={snakemake.output[3]}"
+        f"F={snakemake.output.F} F2={snakemake.output.F2} "
+        f"O={snakemake.params.O} 02={snakemake.params.O2}"
     )
 else:
-    output = f"S={snakemake.output[0]}"
+    output = f"S={snakemake.output.S}"
 
-log = snakemake.log_fmt_shell(
-    stdout=True if per_readgrp else False, stderr=True, append=True
-)
+log = snakemake.log_fmt_shell(stdout=False, stderr=True, append=True)
 
-shellcmd = f"bamtofastq filename={snakemake.input} {output} {extra} {log}"
+shellcmd = f"bamtofastq filename={snakemake.input} {output} {extra} 1> /dev/null {log}"
 shellcmd = re.sub(r"\s+", " ", shellcmd)
 with open(snakemake.log[0], "wt") as log_fh:
     log_fh.write(f"{shellcmd}\n")
