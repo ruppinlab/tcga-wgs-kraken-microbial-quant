@@ -36,13 +36,14 @@ rule bracken_read_quant:
             else KRAKENUNIQ_DB_DONE_FILE
         ),
         bdb_done=expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
+        readlen=READ_LENGTH_FILE,
     params:
         db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
-        readlen=lambda wc: int(
-            GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
-            if wc.level == "sg"
-            else GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"]
-        ),
+        # readlen=lambda wc: int(
+        #     GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
+        #     if wc.level == "sg"
+        #     else GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"]
+        # ),
         db_readlens=BRACKEN_DB_READ_LENGTHS,
         level=config["bracken"]["quant"]["level"],
         threshold=config["bracken"]["quant"]["threshold"],

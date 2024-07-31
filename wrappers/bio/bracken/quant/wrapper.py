@@ -8,12 +8,13 @@ from snakemake.shell import shell
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
-read_length = snakemake.params.get("readlen")
-if read_length is None:
-    read_length_file = snakemake.input.get("readlen")
-    assert read_length_file is not None, "input/params: readlen is a required parameter"
+read_length_file = snakemake.input.get("readlen")
+if read_length is not None:
     with open(read_length_file, "r") as fh:
         read_length = re.sub("\D+", "", fh.readline())
+else:
+    read_length = snakemake.params.get("readlen")
+    assert read_length_file is not None, "input/params: readlen is a required parameter"
 
 db_read_lengths = snakemake.params.get("db_readlens")
 assert db_read_lengths is not None, "params: db_readlens is a required parameter"
