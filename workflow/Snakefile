@@ -27,6 +27,7 @@ PUBLIC_WRAPPERS_VERSION = config["wrappers"]["public"]["version"]
 PERSONAL_WRAPPERS_BASE_URL = config["wrappers"]["personal"]["base_url"]
 LOCAL_WRAPPERS_BASE_URL = config["wrappers"]["local"]["base_url"]
 
+HOST_REF_NAME = config["resources"]["ref"]["name"]
 HOST_REF_FASTA_URL = config["resources"]["ref"]["fasta_url"]
 
 GDC_METADATA_DIR = config["gdc"]["metadata"]["data_dir"]
@@ -224,7 +225,7 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
 
 BOWTIE2_RESULTS_DIR = join(RESULTS_DIR, "bowtie2")
 BOWTIE2_LOG_DIR = join(LOG_DIR, "bowtie2")
-BOWTIE2_HOST_INDEX_PREFIX = join(RESOURCES_DIR, "bowtie2", "genome")
+BOWTIE2_HOST_INDEX_PREFIX = join(RESOURCES_DIR, "bowtie2", HOST_REF_NAME)
 BOWTIE2_HOST_INDEX_FILES = multiext(
     BOWTIE2_HOST_INDEX_PREFIX,
     ".1.bt2",
@@ -234,7 +235,7 @@ BOWTIE2_HOST_INDEX_FILES = multiext(
     ".rev.1.bt2",
     ".rev.2.bt2",
 )
-BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", "index.log")
+BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", f"{HOST_REF_NAME}.log")
 
 BOWTIE2_ALIGN_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "align")
 BOWTIE2_ALIGN_LOG_DIR = join(BOWTIE2_LOG_DIR, "align")

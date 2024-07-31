@@ -14,6 +14,7 @@ download:
 
 resources:
   ref:
+    name: T2T-CHM13v2
     fasta_url: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/914/755/GCF_009914755.1_T2T-CHM13v2.0/GCF_009914755.1_T2T-CHM13v2.0_genomic.fna.gz
   db:
     name: MicrobialDB
