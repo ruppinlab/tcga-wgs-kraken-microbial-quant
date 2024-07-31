@@ -28,7 +28,7 @@ Aggregate Read Group Level Counts ->
 Count Matrix
 ```
 
-## Rulegraph
+## Workflow
 
 ![Snakemake rule graph](tcga-wgs-kraken-microbial-quant.svg)
 
@@ -69,6 +69,8 @@ Job stats:
 job                             count
 ----------------------------  -------
 all                                 1
+bbmap_max_read_length           13955
+bbmap_read_length_histogram     13955
 bowtie2_filtered_fastq_pe       13531
 bowtie2_filtered_fastq_se         424
 bowtie2_host_filter             13955
@@ -95,7 +97,7 @@ kraken2_nucl_read_classif_se      424
 kraken2_prot_db_library             4
 kraken2_prot_read_classif_pe    13531
 kraken2_prot_read_classif_se      424
-total                          108634
+total                          136544
 ```
 
 
