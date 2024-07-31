@@ -37,7 +37,7 @@ with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as 
             f" filename={snakemake.input}"
             f" {output}"
             f" {extra}"
-            f" T={tmpfile}"
+            f" T={tmpfile.name}"
             f" 1> /dev/null {log}"
         )
         shellcmd = re.sub(r"\s+", " ", shellcmd)
