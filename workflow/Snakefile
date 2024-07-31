@@ -637,6 +637,44 @@ KRAKENUNIQ_CLASSIFY_SE_LOG = join(
     KRAKENUNIQ_CLASSIFY_SE_FILE_LOG_DIR, "{rg_id}_classify.log"
 )
 
+READ_LENGTH_RESULTS_DIR = join(RESULTS_DIR, "read_length")
+READ_LENGTH_LOG_DIR = join(LOG_DIR, "read_length")
+READ_LENGTH_FILE_RESULTS_DIR = join(
+    READ_LENGTH_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+)
+READ_LENGTH_FILE_LOG_DIR = join(READ_LENGTH_LOG_DIR, "{level}", "{bam_id}", "{etype}")
+READ_LENGTH_HISTOGRAM_FILE = join(READ_LENGTH_FILE_RESULTS_DIR, "{rg_id}_histogram.tsv")
+READ_LENGTH_FILE = join(READ_LENGTH_FILE_RESULTS_DIR, "{rg_id}_length.txt")
+READ_LENGTH_HISTOGRAM_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_histogram.log")
+READ_LENGTH_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_length.log")
+READ_LENGTH_FILES = pd.concat(
+    [
+        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
+            lambda x: join(
+                READ_LENGTH_RESULTS_DIR,
+                "sg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['file_id']}_length.txt",
+            ),
+            axis=1,
+            result_type="reduce",
+        ),
+        GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
+            lambda x: join(
+                READ_LENGTH_RESULTS_DIR,
+                "rg",
+                x["file_id"],
+                "pe" if x["is_paired_end"] else "se",
+                f"{x['read_group_id']}_length.txt",
+            ),
+            axis=1,
+            result_type="reduce",
+        ),
+    ],
+    axis=0,
+).tolist()
+
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
 BRACKEN_DB_LOG_DIR = join(BRACKEN_LOG_DIR, "db")
@@ -785,6 +823,7 @@ KRAKENUNIQ_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/build")
 KRAKENUNIQ_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/classify")
 BRACKEN_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/build")
 BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
+READ_LENGTH_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bbmap/readlength")
 
 
 wildcard_constraints:
@@ -803,6 +842,7 @@ include: join(RULES_DIR, "eupathdb.smk")
 include: join(RULES_DIR, "gdc_file.smk")
 include: join(RULES_DIR, "host_filter.smk")
 include: join(RULES_DIR, "read_classif.smk")
+include: join(RULES_DIR, "read_length.smk")
 include: join(RULES_DIR, "read_quant.smk")
 
 
@@ -825,6 +865,7 @@ rule all:
         # KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
         # expand(KRAKEN2_DB_DONE_FILE, **EXPAND_PARAMS),
         # expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
+        # READ_LENGTH_FILES,
         # BRACKEN_COUNT_FILES,
         BRACKEN_COUNT_MATRIX_FILE,
 
