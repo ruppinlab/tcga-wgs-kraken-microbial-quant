@@ -879,7 +879,7 @@ def download_taxonomy(args):
     decompress_files(glob.glob("*accession2taxid.gz"))
     LOG.info("Untarring taxonomy tree data\n")
     with tarfile.open("taxdump.tar.gz", "r:gz") as tar:
-        tar.extractall()
+        tar.extractall(filter="data")
     remove_files(*glob.glob("*.gz"))
 
 
