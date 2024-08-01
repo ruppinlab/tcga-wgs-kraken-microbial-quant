@@ -642,7 +642,10 @@ BRACKEN_QUANT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "quant")
 BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant")
 
 BRACKEN_DB_LOG = join(BRACKEN_DB_LOG_DIR, "bracken_db_{readlen}.log")
-BRACKEN_DB_DONE_FILE = join(BRACKEN_DB_LOG_DIR, "bracken_db_{readlen}.done")
+BRACKEN_DB_DONE_FILE = join(
+    KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+    "bracken_db_{readlen}.done",
+)
 BRACKEN_QUANT_FILE_RESULTS_DIR = join(
     BRACKEN_QUANT_RESULTS_DIR, "{bam_id}", "{level}", "{etype}"
 )
