@@ -20,8 +20,8 @@ A high-level pipeline summary:
 GDC TCGA WGS Unmapped Read BAMs ->
 Biobambam2 Unmapped Read FASTQs (Split by Read Group when BAM has mixed PE/SE or read lengths) ->
 HISAT2 (or Bowtie2) Host Filtering (with T2T-CHM13v2.0) ->
-Kraken2 (or KrakenUniq) Nucleotide Read Classification ->
-Kraken2 Translated Protein Search Read Classification of Unclassified Reads ->
+Kraken2 (or KrakenUniq) Nucleotide Read Classification (with MicrobialDB) ->
+Kraken2 Translated Search Read Classification of Unclassified Reads (with protein MicrobialDB) ->
 KrakenTools Combine Nucleotide and Protein Reports ->
 Bracken Read Quantification ->
 Aggregate Read Group Level Counts ->
