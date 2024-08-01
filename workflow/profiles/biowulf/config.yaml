@@ -3,16 +3,17 @@ software-deployment-method: conda
 keep-going: true
 # rerun-incomplete: true
 printshellcmds: true
+scheduler: greedy
 max-jobs-per-second: 1
 max-status-checks-per-second: 1
 local-cores: 4
 latency-wait: 60
-jobs: 1000
+jobs: 5000
 
 default-resources:
   slurm_partition: "ccr,norm"
-  cpus_per_task: 4
-  mem_mb_per_cpu: 2048
+  cpus_per_task: 2
+  mem: 8g
   runtime: 8-00:00:00
   slurm_extra: "'--gres=lscratch:100'"
 
@@ -22,18 +23,23 @@ set-resources:
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
-  bowtie2_host_filter:
+  bowtie2_filtered_fastq_pe:
+    cpus_per_task: 56
+    mem: 0
+    slurm_extra: "'--exclusive --gres=lscratch:100'"
+
+  bowtie2_filtered_fastq_se:
     cpus_per_task: 56
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   kraken2_nucl_db_library:
-    cpus_per_task: 32
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   kraken2_prot_db_library:
-    cpus_per_task: 32
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
@@ -63,12 +69,12 @@ set-resources:
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   krakenuniq_db_taxonomy:
-    cpus_per_task: 32
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   krakenuniq_db_library:
-    cpus_per_task: 32
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
