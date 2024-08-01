@@ -1,6 +1,6 @@
 # tcga-wgs-kraken-microbial-quant
 
-A Kraken2-based pipeline for classifying and quantifying microbial
+A Kraken2 + Bracken based pipeline for classifying and quantifying microbial
 reads from GDC TCGA WGS data. Supports Kraken2 and KrakenUniq for read
 classification. Includes the option to do a second pass Kraken2 protein
 translated search of the unclassified reads from the Kraken2 first pass
