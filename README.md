@@ -80,10 +80,6 @@ job                             count
 all                                 1
 bbmap_max_read_length           13955
 bbmap_read_length_histogram     13955
-bowtie2_filtered_fastq_pe       13531
-bowtie2_filtered_fastq_se         424
-bowtie2_host_filter             13955
-bowtie2_host_index                  1
 bracken_count_matrix                1
 bracken_db                          7
 bracken_merged_rg_counts           82
@@ -95,7 +91,10 @@ eupathdb_seqid2taxid_map            1
 gdc_unmapped_bam                10838
 gdc_unmapped_fastq_pe           13531
 gdc_unmapped_fastq_se             424
+host_filtered_fastq_pe          13531
+host_filtered_fastq_se            424
 host_genome_fasta                   1
+host_genome_index                   1
 kraken2_combined_report         13955
 kraken2_db                          2
 kraken2_db_taxonomy                 2
@@ -106,7 +105,7 @@ kraken2_nucl_read_classif_se      424
 kraken2_prot_db_library             4
 kraken2_prot_read_classif_pe    13531
 kraken2_prot_read_classif_se      424
-total                          136544
+total                          122589
 ```
 
 
