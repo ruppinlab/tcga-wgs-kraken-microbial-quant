@@ -90,7 +90,7 @@ kraken2:
   download:
     use_ftp: false
   k2:
-    script_dir: 'external/kraken2/2.1.3-custom/linux-x64/scripts'
+    script_dir: 'external/kraken2/2.1.3-custom/linux-64/scripts'
     extra: ''
     threads: all
   build:
