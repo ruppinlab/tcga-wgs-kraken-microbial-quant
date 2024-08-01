@@ -1,0 +1,6 @@
+name: hisat2 align
+description: HISAT2 alignment
+authors:
+  - Leandro C. Hermida
+notes: |
+  * For more information, see https://github.com/DaehwanKimLab/hisat2

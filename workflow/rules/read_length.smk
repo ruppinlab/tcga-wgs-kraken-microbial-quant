@@ -1,9 +1,9 @@
 rule bbmap_read_length_histogram:
     input:
         lambda wc: (
-            [BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE]
+            [HOST_FILTERED_FASTQ_R1_FILE, HOST_FILTERED_FASTQ_R2_FILE]
             if wc.etype == "pe"
-            else BOWTIE2_FILTERED_FASTQ_SE_FILE
+            else HOST_FILTERED_FASTQ_SE_FILE
         ),
     output:
         READ_LENGTH_HISTOGRAM_FILE,

@@ -57,8 +57,10 @@ KRAKEN2_K2_SCRIPT_PATH = abspath(join(config["kraken2"]["k2"]["script_dir"], "k2
 KRAKEN2_TSEARCH_UNCLASSIF = config["kraken2"]["build"]["tsearch_unclassif"]
 KRAKEN2_DB_TYPES = ["nucl", "prot"] if KRAKEN2_TSEARCH_UNCLASSIF else ["nucl"]
 
+HOST_FILTER_MODE = config["host_filter"]["mode"]
 KRAKEN_MODE = config["read_classif"]["mode"]
 
+EXPAND_PARAMS["hfmode"] = [HOST_FILTER_MODE]
 EXPAND_PARAMS["k2dtype"] = KRAKEN2_DB_TYPES
 EXPAND_PARAMS["k2nlib"] = KRAKEN2_DB_LIBS
 EXPAND_PARAMS["k2plib"] = [
@@ -69,7 +71,8 @@ EXPAND_PARAMS["k2plib"] = [
 EXPAND_PARAMS["kulib"] = KRAKENUNIQ_DB_LIBS
 EXPAND_PARAMS["readlen"] = BRACKEN_DB_READ_LENGTHS
 
-REF_FASTA_FILE_NAME = basename(urlparse(HOST_REF_FASTA_URL).path)
+REF_FASTA_FILE_GZ_NAME = basename(urlparse(HOST_REF_FASTA_URL).path)
+REF_FASTA_FILE_NAME = REF_FASTA_FILE_GZ_NAME.removesuffix(".gz").removesuffix(".GZ")
 HOST_REF_FASTA_FILE = join(RESOURCES_DIR, "ref", REF_FASTA_FILE_NAME)
 HOST_REF_FASTA_LOG = join(LOG_DIR, "ref", f"download_{REF_FASTA_FILE_NAME}.log")
 
@@ -223,62 +226,53 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
     )
 ).tolist()
 
-BOWTIE2_RESULTS_DIR = join(RESULTS_DIR, "bowtie2")
-BOWTIE2_LOG_DIR = join(LOG_DIR, "bowtie2")
-BOWTIE2_HOST_INDEX_PREFIX = join(RESOURCES_DIR, "bowtie2", HOST_REF_NAME)
-BOWTIE2_HOST_INDEX_FILES = multiext(
-    BOWTIE2_HOST_INDEX_PREFIX,
-    ".1.bt2",
-    ".2.bt2",
-    ".3.bt2",
-    ".4.bt2",
-    ".rev.1.bt2",
-    ".rev.2.bt2",
-)
-BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", f"{HOST_REF_NAME}.log")
+HOST_GENOME_LOG_DIR = join(LOG_DIR, "{hfmode}", "index")
+HOST_FILTER_RESULTS_DIR = join(RESULTS_DIR, "{hfmode}", "align")
+HOST_FILTER_LOG_DIR = join(LOG_DIR, "{hfmode}", "align")
+HOST_GENOME_INDEX_DIR = join(RESOURCES_DIR, "{hfmode}", "index")
+HOST_GENOME_INDEX_PREFIX = join(HOST_GENOME_INDEX_DIR, HOST_REF_NAME)
+HOST_GENOME_INDEX_LOG = join(HOST_GENOME_LOG_DIR, f"{HOST_REF_NAME}.log")
 
-BOWTIE2_ALIGN_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "align")
-BOWTIE2_ALIGN_LOG_DIR = join(BOWTIE2_LOG_DIR, "align")
-BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR = join(
-    BOWTIE2_ALIGN_RESULTS_DIR, "{bam_id}", "{level}", "pe"
+HOST_FILTER_PE_FILE_RESULTS_DIR = join(
+    HOST_FILTER_RESULTS_DIR, "{bam_id}", "{level}", "pe"
 )
-BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR = join(
-    BOWTIE2_ALIGN_RESULTS_DIR, "{bam_id}", "{level}", "se"
+HOST_FILTER_SE_FILE_RESULTS_DIR = join(
+    HOST_FILTER_RESULTS_DIR, "{bam_id}", "{level}", "se"
 )
-BOWTIE2_ALIGN_PE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{bam_id}", "{level}", "pe")
-BOWTIE2_ALIGN_SE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{bam_id}", "{level}", "se")
-BOWTIE2_SAM_PE_FILE = join(BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}.sam")
-BOWTIE2_SAM_SE_FILE = join(BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}.sam")
-BOWTIE2_FILTERED_FASTQ_R1_FILE = join(
-    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_1.fq.gz"
+HOST_FILTER_PE_FILE_LOG_DIR = join(HOST_FILTER_LOG_DIR, "{bam_id}", "{level}", "pe")
+HOST_FILTER_SE_FILE_LOG_DIR = join(HOST_FILTER_LOG_DIR, "{bam_id}", "{level}", "se")
+HOST_BAM_PE_FILE = join(HOST_FILTER_PE_FILE_RESULTS_DIR, "{rg_id}.bam")
+HOST_BAM_SE_FILE = join(HOST_FILTER_SE_FILE_RESULTS_DIR, "{rg_id}.bam")
+HOST_FILTERED_FASTQ_R1_FILE = join(
+    HOST_FILTER_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_1.fq.gz"
 )
-BOWTIE2_FILTERED_FASTQ_R2_FILE = join(
-    BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_2.fq.gz"
+HOST_FILTERED_FASTQ_R2_FILE = join(
+    HOST_FILTER_PE_FILE_RESULTS_DIR, "{rg_id}_filtered_2.fq.gz"
 )
-BOWTIE2_FILTERED_FASTQ_SE_FILE = join(
-    BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}_filtered_s.fq.gz"
+HOST_FILTERED_FASTQ_SE_FILE = join(
+    HOST_FILTER_SE_FILE_RESULTS_DIR, "{rg_id}_filtered_s.fq.gz"
 )
-BOWTIE2_FILTERED_FASTQ_PE_LOG = join(
-    BOWTIE2_ALIGN_PE_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
+HOST_FILTERED_FASTQ_PE_LOG = join(
+    HOST_FILTER_PE_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
 )
-BOWTIE2_FILTERED_FASTQ_SE_LOG = join(
-    BOWTIE2_ALIGN_SE_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
+HOST_FILTERED_FASTQ_SE_LOG = join(
+    HOST_FILTER_SE_FILE_LOG_DIR, "{rg_id}_filtered_fastq.log"
 )
-BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
+HOST_FILTERED_FASTQ_FILES = np.hstack(
     pd.concat(
         [
             GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
                 lambda x: (
                     [
                         join(
-                            BOWTIE2_ALIGN_RESULTS_DIR,
+                            HOST_FILTER_RESULTS_DIR,
                             x["file_id"],
                             "sg",
                             "pe",
                             f"{x['file_id']}_filtered_1.fq.gz",
                         ),
                         join(
-                            BOWTIE2_ALIGN_RESULTS_DIR,
+                            HOST_FILTER_RESULTS_DIR,
                             x["file_id"],
                             "sg",
                             "pe",
@@ -288,7 +282,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     if x["is_paired_end"]
                     else [
                         join(
-                            BOWTIE2_ALIGN_RESULTS_DIR,
+                            HOST_FILTER_RESULTS_DIR,
                             x["file_id"],
                             "sg",
                             "se",
@@ -303,14 +297,14 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                 lambda x: (
                     [
                         join(
-                            BOWTIE2_ALIGN_RESULTS_DIR,
+                            HOST_FILTER_RESULTS_DIR,
                             x["file_id"],
                             "rg",
                             "pe",
                             f"{x['read_group_id']}_filtered_1.fq.gz",
                         ),
                         join(
-                            BOWTIE2_ALIGN_RESULTS_DIR,
+                            HOST_FILTER_RESULTS_DIR,
                             x["file_id"],
                             "rg",
                             "pe",
@@ -320,7 +314,7 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     if x["is_paired_end"]
                     else [
                         join(
-                            BOWTIE2_ALIGN_RESULTS_DIR,
+                            HOST_FILTER_RESULTS_DIR,
                             x["file_id"],
                             "rg",
                             "se",
@@ -722,15 +716,15 @@ BRACKEN_BAM_COUNT_FILES = pd.concat(
 ).tolist()
 BRACKEN_BAM_ALIQUOT_IDS = GDC_BAM_META_DF["aliquot_submitter_id"].tolist()
 
-BOWTIE2_BUILD_THREADS = (
+HOST_BUILD_THREADS = (
     workflow.cores
-    if config["bowtie2"]["build"]["threads"] == "all"
-    else config["bowtie2"]["build"]["threads"]
+    if config["hisat2"]["build"]["threads"] == "all"
+    else config["hisat2"]["build"]["threads"]
 )
-BOWTIE2_ALIGN_THREADS = (
+HOST_ALIGN_THREADS = (
     workflow.cores
-    if config["bowtie2"]["align"]["threads"] == "all"
-    else config["bowtie2"]["align"]["threads"]
+    if config["hisat2"]["align"]["threads"] == "all"
+    else config["hisat2"]["align"]["threads"]
 )
 KRAKEN2_K2_THREADS = (
     workflow.cores
@@ -771,8 +765,8 @@ BRACKEN_BUILD_THREADS = (
 BIOBAMBAM2_BAMTOFASTQ_WRAPPER = join(
     LOCAL_WRAPPERS_BASE_URL, "bio/biobambam2/bamtofastq"
 )
-BOWTIE2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bowtie2/build")
-BOWTIE2_ALIGN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bowtie2/align")
+HOST_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, f"bio/{HOST_FILTER_MODE}/build")
+HOST_ALIGN_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, f"bio/{HOST_FILTER_MODE}/align")
 KRAKEN2_K2_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/k2")
 KRAKEN2_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/build")
 KRAKEN2_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/kraken2/classify")
@@ -812,8 +806,8 @@ rule all:
         # HOST_REF_FASTA_FILE,
         # GDC_UNMAPPED_BAM_FILES,
         # GDC_UNMAPPED_FASTQ_FILES,
-        # BOWTIE2_HOST_INDEX_FILES,
-        # BOWTIE2_FILTERED_FASTQ_FILES,
+        # expand(HOST_GENOME_INDEX_DIR, **EXPAND_PARAMS),
+        # expand(HOST_FILTERED_FASTQ_FILES, **EXPAND_PARAMS),
         # expand(KRAKEN2_DB_TAX_DONE_FILE, **EXPAND_PARAMS),
         # expand(KRAKEN2_NUCL_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
         # expand(KRAKEN2_PROT_DB_LIB_DONE_FILE, **EXPAND_PARAMS),

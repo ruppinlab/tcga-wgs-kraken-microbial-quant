@@ -1,6 +1,6 @@
 __author__ = "Leandro C. Hermida"
-__email__ = "leandro@leandrohermida.com"
-__license__ = "MIT"
+__email__ = "hermidalc@pitt.edu"
+__license__ = "BSD 3-Clause"
 
 import re
 
@@ -28,8 +28,8 @@ else:
 makedirs(snakemake.output)
 
 shellcmd = (
-    f"bowtie2-build"
-    f" --threads {snakemake.threads}"
+    f"hisat2-build"
+    f" -p {snakemake.threads}"
     f" {extra}"
     f" {ref}"
     f" '{snakemake.params.prefix}'"

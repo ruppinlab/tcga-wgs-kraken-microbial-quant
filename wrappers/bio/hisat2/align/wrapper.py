@@ -1,34 +1,10 @@
 __author__ = "Leandro C. Hermida"
-__email__ = "leandro@leandrohermida.com"
-__license__ = "MIT"
+__email__ = "hermidalc@pitt.edu"
+__license__ = "BSD 3-Clause"
 
 import re
-from os.path import commonprefix
 
 from snakemake.shell import shell
-from snakemake_wrapper_utils.samtools import get_samtools_opts
-
-
-def get_format(path: str) -> str:
-    """
-    Return file format since Bowtie2 reads files that
-    could be gzip'ed (extension: .gz) or bzip2'ed (extension: .bz2).
-    """
-    if path.endswith((".gz", ".bz2")):
-        return path.split(".")[-2].lower()
-    return path.split(".")[-1].lower()
-
-
-bowtie2_threads = snakemake.threads - 1
-if bowtie2_threads < 1:
-    raise ValueError(
-        f"This wrapper expected at least two threads, got {snakemake.threads}"
-    )
-
-# Setting parse_threads to false since samtools performs only
-# bam compression. Thus the wrapper would use *twice* the amount
-# of threads reserved by user otherwise.
-samtools_opts = get_samtools_opts(snakemake, parse_threads=False)
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
@@ -61,10 +37,6 @@ elif all(get_format(r) == "tab6" for r in snakemake.input.reads):
     extra += " --tab6 "
 elif all(get_format(r) in ("fa", "mfa", "fasta") for r in snakemake.input.reads):
     extra += " -f "
-
-metrics = snakemake.output.get("metrics")
-if metrics:
-    extra += f" --met-file {metrics} "
 
 unaligned = snakemake.output.get("unaligned")
 if unaligned:
@@ -129,14 +101,12 @@ if concordant:
     extra += f" --{al_conc_opt} {al_conc_pat} "
 
 shellcmd = (
-    f"(bowtie2"
-    f" --threads {bowtie2_threads}"
+    f"(hisat2"
+    f" --threads {snakemake.threads}"
     f" {reads} "
     f" -x '{index}'"
     f" {extra}"
-    f" | samtools view --with-header"
-    f" {samtools_opts}"
-    f" -"
+    f" | samtools view -Sbh -o {snakemake.output[0]} -) "
     f") {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)

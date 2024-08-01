@@ -1,6 +1,6 @@
 rule kraken2_nucl_read_classif_pe:
     input:
-        fqs=[BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE],
+        fqs=[HOST_FILTERED_FASTQ_R1_FILE, HOST_FILTERED_FASTQ_R2_FILE],
         db_done=KRAKEN2_NUCL_DB_DONE_FILE,
     params:
         db=KRAKEN2_NUCL_DB_DIR,
@@ -29,7 +29,7 @@ rule kraken2_nucl_read_classif_pe:
 
 rule kraken2_nucl_read_classif_se:
     input:
-        fqs=BOWTIE2_FILTERED_FASTQ_SE_FILE,
+        fqs=HOST_FILTERED_FASTQ_SE_FILE,
         db_done=KRAKEN2_NUCL_DB_DONE_FILE,
     params:
         db=KRAKEN2_NUCL_DB_DIR,
@@ -118,7 +118,7 @@ rule kraken2_combined_report:
 
 rule krakenuniq_read_classif_pe:
     input:
-        fqs=[BOWTIE2_FILTERED_FASTQ_R1_FILE, BOWTIE2_FILTERED_FASTQ_R2_FILE],
+        fqs=[HOST_FILTERED_FASTQ_R1_FILE, HOST_FILTERED_FASTQ_R2_FILE],
         db_done=KRAKENUNIQ_DB_DONE_FILE,
     params:
         db=KRAKENUNIQ_DB_DIR,
@@ -147,7 +147,7 @@ rule krakenuniq_read_classif_pe:
 
 rule krakenuniq_read_classif_se:
     input:
-        fqs=BOWTIE2_FILTERED_FASTQ_SE_FILE,
+        fqs=HOST_FILTERED_FASTQ_SE_FILE,
         db_done=KRAKENUNIQ_DB_DONE_FILE,
     params:
         db=KRAKENUNIQ_DB_DIR,

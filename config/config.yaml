@@ -57,15 +57,25 @@ gdc:
     uniq_readgrps_filename: gdc_uniq_readgrps.tsv
 
 host_filter:
-  mode: bowtie2
+  mode: hisat2
 
 read_classif:
   mode: kraken2
 
 bowtie2:
     build:
+      extra: ''
       threads: all
     align:
+      extra: ''
+      threads: all
+
+hisat2:
+    build:
+      extra: ''
+      threads: all
+    align:
+      extra: ''
       threads: all
 
 biobambam2:
@@ -93,6 +103,7 @@ kraken2:
     script_dir: 'external/kraken2/2.1.3-custom/linux-64/scripts'
     extra: ''
     threads: all
+    verbosity: 1
   build:
     tsearch_unclassif: true
     extra: ''
