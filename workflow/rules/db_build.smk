@@ -1,16 +1,15 @@
 rule kraken2_db_taxonomy:
     params:
-        k2=KRAKEN2_K2_SCRIPT_PATH,
         db=KRAKEN2_DB_DIR,
         task="download-taxonomy",
         protein=lambda wc: True if wc.k2dtype == "prot" else False,
-        extra=config["kraken2"]["k2"]["extra"],
+        extra=config["kraken2"]["build"]["extra"],
     output:
         touch(KRAKEN2_DB_TAX_DONE_FILE),
     log:
         KRAKEN2_DB_TAX_LOG,
     wrapper:
-        KRAKEN2_K2_WRAPPER
+        KRAKEN2_BUILD_WRAPPER
 
 
 rule kraken2_nucl_db_library:
@@ -77,18 +76,17 @@ rule kraken2_db:
         KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
         KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
     params:
-        k2=KRAKEN2_K2_SCRIPT_PATH,
         db=KRAKEN2_DB_DIR,
         task="build",
         protein=lambda wc: True if wc.k2dtype == "prot" else False,
-        extra=config["kraken2"]["k2"]["extra"],
+        extra=config["kraken2"]["build"]["extra"],
     output:
         touch(KRAKEN2_DB_DONE_FILE),
     log:
         KRAKEN2_DB_LOG,
-    threads: KRAKEN2_K2_THREADS
+    threads: KRAKEN2_BUILD_THREADS
     wrapper:
-        KRAKEN2_K2_WRAPPER
+        KRAKEN2_BUILD_WRAPPER
 
 
 rule krakenuniq_db_taxonomy:
