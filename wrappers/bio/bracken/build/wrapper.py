@@ -8,15 +8,15 @@ from snakemake.shell import shell
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
-db = snakemake.input.get("db") or snakemake.input[0]
-assert db is not None, "input: db is a required position 0 or named parameter"
+db = snakemake.params.get("db") or snakemake.input[0]
+assert db is not None, "input/params: db is a required position 0 or named parameter"
 
 read_length = snakemake.params.get("readlen")
 if read_length is None:
     read_length_file = snakemake.input.get("readlen")
     assert read_length_file is not None, "input/params: readlen is a required parameter"
     with open(read_length_file, "r") as fh:
-        read_length = re.sub("\D+", "", fh.readline())
+        read_length = re.sub(r"\D+", "", fh.readline())
 
 shellcmd = (
     f"bracken-build"
