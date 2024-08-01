@@ -66,7 +66,6 @@ KRAKEN2_DB_TYPES = ["nucl", "prot"] if KRAKEN2_TSEARCH_UNCLASSIF else ["nucl"]
 HOST_FILTER_MODE = config["host_filter"]["mode"]
 KRAKEN_MODE = config["read_classif"]["mode"]
 
-EXPAND_PARAMS["hfmode"] = [HOST_FILTER_MODE]
 EXPAND_PARAMS["k2dtype"] = KRAKEN2_DB_TYPES
 EXPAND_PARAMS["k2nlib"] = KRAKEN2_DB_LIBS
 EXPAND_PARAMS["k2plib"] = [
@@ -232,10 +231,10 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
     )
 ).tolist()
 
-HOST_GENOME_LOG_DIR = join(LOG_DIR, "{hfmode}", "index")
-HOST_FILTER_RESULTS_DIR = join(RESULTS_DIR, "{hfmode}", "align")
-HOST_FILTER_LOG_DIR = join(LOG_DIR, "{hfmode}", "align")
-HOST_GENOME_INDEX_DIR = join(RESOURCES_DIR, "{hfmode}", "index")
+HOST_GENOME_LOG_DIR = join(LOG_DIR, HOST_FILTER_MODE, "index")
+HOST_FILTER_RESULTS_DIR = join(RESULTS_DIR, HOST_FILTER_MODE, "align")
+HOST_FILTER_LOG_DIR = join(LOG_DIR, HOST_FILTER_MODE, "align")
+HOST_GENOME_INDEX_DIR = join(RESOURCES_DIR, HOST_FILTER_MODE, "index")
 HOST_GENOME_INDEX_PREFIX = join(HOST_GENOME_INDEX_DIR, HOST_REF_NAME)
 HOST_GENOME_INDEX_LOG = join(HOST_GENOME_LOG_DIR, f"{HOST_REF_NAME}.log")
 

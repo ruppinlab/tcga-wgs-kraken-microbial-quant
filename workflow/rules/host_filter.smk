@@ -19,7 +19,7 @@ rule host_genome_index:
         fasta=HOST_REF_FASTA_FILE,
     params:
         prefix=HOST_GENOME_INDEX_PREFIX,
-        extra=lambda wc: f"{config[wc.hfmode]['build']['extra']} --seed {config['random_seed']}",
+        extra=f"{config[HOST_FILTER_MODE]['build']['extra']} --seed {config['random_seed']}",
     output:
         directory(HOST_GENOME_INDEX_DIR),
     log:
@@ -35,7 +35,7 @@ rule host_filtered_fastq_pe:
         dir=HOST_GENOME_INDEX_DIR,
     params:
         idx=HOST_GENOME_INDEX_PREFIX,
-        extra=lambda wc: f"{config[wc.hfmode]['align']['extra']} --seed {config['random_seed']}",
+        extra=f"{config[HOST_FILTER_MODE]['align']['extra']} --seed {config['random_seed']}",
     output:
         temp(HOST_BAM_PE_FILE),
         unconcordant=[
@@ -55,7 +55,7 @@ rule host_filtered_fastq_se:
         dir=HOST_GENOME_INDEX_DIR,
     params:
         idx=HOST_GENOME_INDEX_PREFIX,
-        extra=lambda wc: f"{config[wc.hfmode]['align']['extra']} --seed {config['random_seed']}",
+        extra=f"{config[HOST_FILTER_MODE]['align']['extra']} --seed {config['random_seed']}",
     output:
         temp(HOST_BAM_SE_FILE),
         unaligned=temp(HOST_FILTERED_FASTQ_SE_FILE),
