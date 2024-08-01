@@ -1,15 +1,24 @@
 # tcga-wgs-kraken-microbial-quant
 
 A Kraken2 + Bracken based pipeline for classifying and quantifying
-microbial reads from GDC TCGA WGS data. Supports Kraken2 or KrakenUniq
-for read classification and HISAT2 or Bowtie2 for host filtering. Includes
-the option to do a second pass Kraken2 protein translated search of the
-unclassified reads from the Kraken2 first pass and combining the report
-results before feeding into Bracken. Properly handles TCGA WGS merged BAMs
-with mixed SE and PE reads and multiple read lengths when needed by
-splitting them into read group level FASTQs and processing data through
-the pipeline at read group level before aggregating the Bracken count
-results back to GDC BAM level.
+microbial reads from GDC TCGA WGS data.
+
+Feature highlights:
+
+- Supports Kraken2 or KrakenUniq for read classification.
+- Supports HISAT2 or Bowtie2 for host filtering.
+- Automatically builds the latest MicrobialDB nucleotide and protein
+  Kraken2 databases (or KrakenUniq [nucleotide only]). MicrobialDB
+  consists of archaea, bacteria, viral, human, UniVec_Core, and
+  eukaryotic pathogen genomes (EuPathDBv54) with contaminants removed.
+- Includes the option to do a second pass Kraken2 protein translated
+  search of the unclassified reads from the Kraken2 first pass and
+  combining the report results before feeding into Bracken.
+- Properly handles TCGA WGS merged BAMs with mixed PE/SE reads and
+  multiple read lengths when needed by splitting them into read group
+  level FASTQs and processing data through the pipeline at read group
+  level before aggregating the Bracken count results back to GDC BAM
+  level.
 
 See [References](#references) for the general basis for this pipeline
 and more information.
@@ -17,15 +26,15 @@ and more information.
 A high-level pipeline summary:
 
 ```
-GDC TCGA WGS Unmapped Read BAMs ->
-Biobambam2 Unmapped Read FASTQs (Split by Read Group when BAM has mixed PE/SE or read lengths) ->
-HISAT2 (or Bowtie2) Host Filtering (with T2T-CHM13v2.0) ->
-Kraken2 (or KrakenUniq) Nucleotide Read Classification (with MicrobialDB) ->
-Kraken2 Translated Search Read Classification of Unclassified Reads (with protein MicrobialDB) ->
-KrakenTools Combine Nucleotide and Protein Reports ->
-Bracken Read Quantification ->
-Aggregate Read Group Level Counts ->
-Count Matrix
+GDC TCGA WGS Unmapped Read BAMs
+Biobambam2 Unmapped Read FASTQs (split by read group when BAM has mixed PE/SE or read lengths)
+HISAT2 (or Bowtie2) Host Filtering (with T2T-CHM13v2.0)
+Kraken2 (or KrakenUniq) Nucleotide Read Classification (with MicrobialDB)
+Kraken2 Translated Search Read Classification of Unclassified Reads (with protein MicrobialDB)
+KrakenTools Combine Nucleotide and Protein Reports
+Bracken Read Quantification
+Aggregate Read Group Level Counts/Abundances
+Count/Abundance Matrix
 ```
 
 ## Workflow
