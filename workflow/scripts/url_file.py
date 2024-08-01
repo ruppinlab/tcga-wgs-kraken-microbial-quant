@@ -2,10 +2,10 @@ from shutil import copyfileobj
 from urllib.request import Request, urlopen
 
 req = Request(
-    f"https://api.gdc.cancer.gov/slicing/view/{snakemake.params['bam_id']}?region=unmapped",
+    snakemake.params.url,
     data=None,
-    headers={"X-Auth-Token": snakemake.params["token"]},
-    method="GET",
+    headers=snakemake.params.headers,
+    method=snakemake.params.method,
 )
 
 with urlopen(req) as res, open(snakemake.output[0], "wb") as out_file:

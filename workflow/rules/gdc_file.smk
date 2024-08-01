@@ -1,14 +1,17 @@
 rule gdc_unmapped_bam:
     params:
-        token=GDC_TOKEN,
-        bam_id="{bam_id}",
+        url="https://api.gdc.cancer.gov/slicing/view/{bam_id}?region=unmapped",
+        headers={"X-Auth-Token": GDC_TOKEN},
+        method="GET",
     output:
         temp(GDC_UNMAPPED_BAM_FILE),
     log:
         GDC_UNMAPPED_BAM_LOG,
+    message:
+        "{params.url}"
     retries: config["download"]["retries"]
     script:
-        "../scripts/gdc_unmapped_bam.py"
+        "../scripts/url_file.py"
 
 
 rule gdc_unmapped_fastq_pe:
