@@ -104,23 +104,23 @@ assert (
 
 GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
 GDC_LOG_DIR = join(LOG_DIR, "gdc")
-GDC_FILE_RESULTS_DIR = join(GDC_RESULTS_DIR, "{level}", "{bam_id}")
-GDC_FILE_LOG_DIR = join(GDC_LOG_DIR, "{level}", "{bam_id}")
+GDC_FILE_RESULTS_DIR = join(GDC_RESULTS_DIR, "{bam_id}", "{level}")
+GDC_FILE_LOG_DIR = join(GDC_LOG_DIR, "{bam_id}", "{level}")
 GDC_UNMAPPED_BAM_FILE = join(GDC_FILE_RESULTS_DIR, "{bam_id}_unmapped.bam")
 GDC_UNMAPPED_BAM_LOG = join(GDC_FILE_LOG_DIR, "{bam_id}_unmapped_bam.log")
 GDC_UNMAPPED_BAM_FILES = GDC_BAM_META_DF.apply(
     lambda x: (
         join(
             GDC_RESULTS_DIR,
-            "sg",
             x["file_id"],
+            "sg",
             f"{x['file_id']}_unmapped.bam",
         )
         if x["num_uniq_read_groups"] == 1
         else join(
             GDC_RESULTS_DIR,
-            "rg",
             x["file_id"],
+            "rg",
             f"{x['file_id']}_unmapped.bam",
         )
     ),
@@ -141,26 +141,26 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                     [
                         join(
                             GDC_RESULTS_DIR,
-                            "sg",
                             x["file_id"],
+                            "sg",
                             f"{x['file_id']}_unmapped_1.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
-                            "sg",
                             x["file_id"],
+                            "sg",
                             f"{x['file_id']}_unmapped_2.fq.gz",
                         ),
                         # join(
                         #     GDC_RESULTS_DIR,
-                        #     "sg",
                         #     x["file_id"],
+                        #     "sg",
                         #     f"{x['file_id']}_unmapped_o1.fq.gz",
                         # ),
                         # join(
                         #     GDC_RESULTS_DIR,
-                        #     "sg",
                         #     x["file_id"],
+                        #     "sg",
                         #     f"{x['file_id']}_unmapped_o2.fq.gz",
                         # ),
                     ]
@@ -168,8 +168,8 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                     else [
                         join(
                             GDC_RESULTS_DIR,
-                            "sg",
                             x["file_id"],
+                            "sg",
                             f"{x['file_id']}_unmapped_s.fq.gz",
                         )
                     ]
@@ -182,26 +182,26 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                     [
                         join(
                             GDC_RESULTS_DIR,
-                            "rg",
                             x["file_id"],
+                            "rg",
                             f"{x['read_group_id']}_unmapped_1.fq.gz",
                         ),
                         join(
                             GDC_RESULTS_DIR,
-                            "rg",
                             x["file_id"],
+                            "rg",
                             f"{x['read_group_id']}_unmapped_2.fq.gz",
                         ),
                         # join(
                         #     GDC_RESULTS_DIR,
-                        #     "rg",
                         #     x["file_id"],
+                        #     "rg",
                         #     f"{x['read_group_id']}_unmapped_o1.fq.gz",
                         # ),
                         # join(
                         #     GDC_RESULTS_DIR,
-                        #     "rg",
                         #     x["file_id"],
+                        #     "rg",
                         #     f"{x['read_group_id']}_unmapped_o2.fq.gz",
                         # ),
                     ]
@@ -209,8 +209,8 @@ GDC_UNMAPPED_FASTQ_FILES = np.hstack(
                     else [
                         join(
                             GDC_RESULTS_DIR,
-                            "rg",
                             x["file_id"],
+                            "rg",
                             f"{x['read_group_id']}_unmapped_s.fq.gz",
                         )
                     ]
@@ -240,13 +240,13 @@ BOWTIE2_HOST_INDEX_LOG = join(BOWTIE2_LOG_DIR, "build", f"{HOST_REF_NAME}.log")
 BOWTIE2_ALIGN_RESULTS_DIR = join(BOWTIE2_RESULTS_DIR, "align")
 BOWTIE2_ALIGN_LOG_DIR = join(BOWTIE2_LOG_DIR, "align")
 BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR = join(
-    BOWTIE2_ALIGN_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+    BOWTIE2_ALIGN_RESULTS_DIR, "{bam_id}", "{level}", "pe"
 )
 BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR = join(
-    BOWTIE2_ALIGN_RESULTS_DIR, "{level}", "{bam_id}", "se"
+    BOWTIE2_ALIGN_RESULTS_DIR, "{bam_id}", "{level}", "se"
 )
-BOWTIE2_ALIGN_PE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "pe")
-BOWTIE2_ALIGN_SE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{level}", "{bam_id}", "se")
+BOWTIE2_ALIGN_PE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{bam_id}", "{level}", "pe")
+BOWTIE2_ALIGN_SE_FILE_LOG_DIR = join(BOWTIE2_ALIGN_LOG_DIR, "{bam_id}", "{level}", "se")
 BOWTIE2_SAM_PE_FILE = join(BOWTIE2_ALIGN_PE_FILE_RESULTS_DIR, "{rg_id}.sam")
 BOWTIE2_SAM_SE_FILE = join(BOWTIE2_ALIGN_SE_FILE_RESULTS_DIR, "{rg_id}.sam")
 BOWTIE2_FILTERED_FASTQ_R1_FILE = join(
@@ -272,15 +272,15 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     [
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
-                            "sg",
                             x["file_id"],
+                            "sg",
                             "pe",
                             f"{x['file_id']}_filtered_1.fq.gz",
                         ),
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
-                            "sg",
                             x["file_id"],
+                            "sg",
                             "pe",
                             f"{x['file_id']}_filtered_2.fq.gz",
                         ),
@@ -289,8 +289,8 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     else [
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
-                            "sg",
                             x["file_id"],
+                            "sg",
                             "se",
                             f"{x['file_id']}_filtered_s.fq.gz",
                         )
@@ -304,15 +304,15 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     [
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
-                            "rg",
                             x["file_id"],
+                            "rg",
                             "pe",
                             f"{x['read_group_id']}_filtered_1.fq.gz",
                         ),
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
-                            "rg",
                             x["file_id"],
+                            "rg",
                             "pe",
                             f"{x['read_group_id']}_filtered_2.fq.gz",
                         ),
@@ -321,8 +321,8 @@ BOWTIE2_FILTERED_FASTQ_FILES = np.hstack(
                     else [
                         join(
                             BOWTIE2_ALIGN_RESULTS_DIR,
-                            "rg",
                             x["file_id"],
+                            "rg",
                             "se",
                             f"{x['read_group_id']}_filtered_s.fq.gz",
                         )
@@ -383,36 +383,36 @@ KRAKEN2_PROT_CLASSIFY_LOG_DIR = join(
 )
 
 KRAKEN2_NUCL_CLASSIFY_FILE_RESULTS_DIR = join(
-    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "{etype}"
 )
 KRAKEN2_NUCL_REPORT_FILE = join(
     KRAKEN2_NUCL_CLASSIFY_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
 )
 
 KRAKEN2_NUCL_CLASSIFY_PE_FILE_RESULTS_DIR = join(
-    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "pe"
 )
 KRAKEN2_NUCL_CLASSIFY_SE_FILE_RESULTS_DIR = join(
-    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+    KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "se"
 )
 KRAKEN2_NUCL_CLASSIFY_PE_FILE_LOG_DIR = join(
-    KRAKEN2_NUCL_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+    KRAKEN2_NUCL_CLASSIFY_LOG_DIR, "{bam_id}", "{level}", "pe"
 )
 KRAKEN2_NUCL_CLASSIFY_SE_FILE_LOG_DIR = join(
-    KRAKEN2_NUCL_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+    KRAKEN2_NUCL_CLASSIFY_LOG_DIR, "{bam_id}", "{level}", "se"
 )
 
 KRAKEN2_PROT_CLASSIFY_PE_FILE_RESULTS_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "pe"
 )
 KRAKEN2_PROT_CLASSIFY_SE_FILE_RESULTS_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+    KRAKEN2_PROT_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "se"
 )
 KRAKEN2_PROT_CLASSIFY_PE_FILE_LOG_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{bam_id}", "{level}", "pe"
 )
 KRAKEN2_PROT_CLASSIFY_SE_FILE_LOG_DIR = join(
-    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+    KRAKEN2_PROT_CLASSIFY_LOG_DIR, "{bam_id}", "{level}", "se"
 )
 
 KRAKEN2_NUCL_CLASSIF_FASTQ_R1_FILE = join(
@@ -480,10 +480,10 @@ KRAKEN2_PROT_CLASSIFY_SE_LOG = join(
 KRAKEN2_COMBINED_REPORT_RESULTS_DIR = join(KRAKEN2_RESULTS_DIR, "combine_reports")
 KRAKEN2_COMBINED_REPORT_LOG_DIR = join(KRAKEN2_LOG_DIR, "combine_reports")
 KRAKEN2_COMBINED_REPORT_FILE_RESULTS_DIR = join(
-    KRAKEN2_COMBINED_REPORT_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+    KRAKEN2_COMBINED_REPORT_RESULTS_DIR, "{bam_id}", "{level}", "{etype}"
 )
 KRAKEN2_COMBINED_REPORT_FILE_LOG_DIR = join(
-    KRAKEN2_COMBINED_REPORT_LOG_DIR, "{level}", "{bam_id}", "{etype}"
+    KRAKEN2_COMBINED_REPORT_LOG_DIR, "{bam_id}", "{level}", "{etype}"
 )
 KRAKEN2_COMBINED_REPORT_FILE = join(
     KRAKEN2_COMBINED_REPORT_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
@@ -548,23 +548,23 @@ KRAKENUNIQ_CLASSIFY_RESULTS_DIR = join(
 )
 KRAKENUNIQ_CLASSIFY_LOG_DIR = join(KRAKENUNIQ_LOG_DIR, "classify", KRAKEN_DB_NAME)
 KRAKENUNIQ_CLASSIFY_FILE_RESULTS_DIR = join(
-    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "{etype}"
 )
 KRAKENUNIQ_REPORT_FILE = join(
     KRAKENUNIQ_CLASSIFY_FILE_RESULTS_DIR, "{rg_id}_report.tsv"
 )
 
 KRAKENUNIQ_CLASSIFY_PE_FILE_RESULTS_DIR = join(
-    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "pe"
+    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "pe"
 )
 KRAKENUNIQ_CLASSIFY_SE_FILE_RESULTS_DIR = join(
-    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{level}", "{bam_id}", "se"
+    KRAKENUNIQ_CLASSIFY_RESULTS_DIR, "{bam_id}", "{level}", "se"
 )
 KRAKENUNIQ_CLASSIFY_PE_FILE_LOG_DIR = join(
-    KRAKENUNIQ_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "pe"
+    KRAKENUNIQ_CLASSIFY_LOG_DIR, "{bam_id}", "{level}", "pe"
 )
 KRAKENUNIQ_CLASSIFY_SE_FILE_LOG_DIR = join(
-    KRAKENUNIQ_CLASSIFY_LOG_DIR, "{level}", "{bam_id}", "se"
+    KRAKENUNIQ_CLASSIFY_LOG_DIR, "{bam_id}", "{level}", "se"
 )
 
 KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE = join(
@@ -601,9 +601,9 @@ KRAKENUNIQ_CLASSIFY_SE_LOG = join(
 READ_LENGTH_RESULTS_DIR = join(RESULTS_DIR, "read_length")
 READ_LENGTH_LOG_DIR = join(LOG_DIR, "read_length")
 READ_LENGTH_FILE_RESULTS_DIR = join(
-    READ_LENGTH_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+    READ_LENGTH_RESULTS_DIR, "{bam_id}", "{level}", "{etype}"
 )
-READ_LENGTH_FILE_LOG_DIR = join(READ_LENGTH_LOG_DIR, "{level}", "{bam_id}", "{etype}")
+READ_LENGTH_FILE_LOG_DIR = join(READ_LENGTH_LOG_DIR, "{bam_id}", "{level}", "{etype}")
 READ_LENGTH_HISTOGRAM_FILE = join(READ_LENGTH_FILE_RESULTS_DIR, "{rg_id}_histogram.tsv")
 READ_LENGTH_FILE = join(READ_LENGTH_FILE_RESULTS_DIR, "{rg_id}_length.txt")
 READ_LENGTH_HISTOGRAM_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_histogram.log")
@@ -613,8 +613,8 @@ READ_LENGTH_FILES = pd.concat(
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
             lambda x: join(
                 READ_LENGTH_RESULTS_DIR,
-                "sg",
                 x["file_id"],
+                "sg",
                 "pe" if x["is_paired_end"] else "se",
                 f"{x['file_id']}_length.txt",
             ),
@@ -624,8 +624,8 @@ READ_LENGTH_FILES = pd.concat(
         GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
             lambda x: join(
                 READ_LENGTH_RESULTS_DIR,
-                "rg",
                 x["file_id"],
+                "rg",
                 "pe" if x["is_paired_end"] else "se",
                 f"{x['read_group_id']}_length.txt",
             ),
@@ -645,10 +645,10 @@ BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant")
 BRACKEN_DB_LOG = join(BRACKEN_DB_LOG_DIR, "bracken_db_{readlen}.log")
 BRACKEN_DB_DONE_FILE = join(BRACKEN_DB_LOG_DIR, "bracken_db_{readlen}.done")
 BRACKEN_QUANT_FILE_RESULTS_DIR = join(
-    BRACKEN_QUANT_RESULTS_DIR, "{level}", "{bam_id}", "{etype}"
+    BRACKEN_QUANT_RESULTS_DIR, "{bam_id}", "{level}", "{etype}"
 )
 BRACKEN_QUANT_FILE_LOG_DIR = join(
-    BRACKEN_QUANT_LOG_DIR, "{level}", "{bam_id}", "{etype}"
+    BRACKEN_QUANT_LOG_DIR, "{bam_id}", "{level}", "{etype}"
 )
 BRACKEN_COUNT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_counts.tsv")
 BRACKEN_REPORT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
@@ -658,8 +658,8 @@ BRACKEN_COUNT_FILES = pd.concat(
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
             lambda x: join(
                 BRACKEN_QUANT_RESULTS_DIR,
-                "sg",
                 x["file_id"],
+                "sg",
                 "pe" if x["is_paired_end"] else "se",
                 f"{x['file_id']}_counts.tsv",
             ),
@@ -669,8 +669,8 @@ BRACKEN_COUNT_FILES = pd.concat(
         GDC_READGRP_META_DF[GDC_READGRP_META_DF["num_uniq_read_groups"] > 1].apply(
             lambda x: join(
                 BRACKEN_QUANT_RESULTS_DIR,
-                "rg",
                 x["file_id"],
+                "rg",
                 "pe" if x["is_paired_end"] else "se",
                 f"{x['read_group_id']}_counts.tsv",
             ),
@@ -701,8 +701,8 @@ BRACKEN_BAM_COUNT_FILES = pd.concat(
         GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
             lambda x: join(
                 BRACKEN_QUANT_RESULTS_DIR,
-                "sg",
                 x["file_id"],
+                "sg",
                 "pe" if x["is_paired_end"] else "se",
                 f"{x['file_id']}_counts.tsv",
             ),

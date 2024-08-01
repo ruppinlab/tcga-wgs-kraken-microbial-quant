@@ -62,8 +62,8 @@ rule bracken_merged_rg_counts:
         .apply(
             lambda x: join(
                 BRACKEN_QUANT_RESULTS_DIR,
-                "rg",
                 x["file_id"],
+                "rg",
                 "pe" if x["is_paired_end"] else "se",
                 f"{x['read_group_id']}_counts.tsv",
             ),
