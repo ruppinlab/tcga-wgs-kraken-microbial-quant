@@ -8,33 +8,29 @@ from snakemake.shell import shell
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
-index = snakemake.input.get("index")
-assert index is not None, "input: index is a required input parameter"
+index = snakemake.input.get("idx")
+assert index is not None, "input: idx is a required input parameter"
 
 n = len(snakemake.input.reads)
 assert (
     n == 1 or n == 2
 ), "input: reads must have 1 (single-end) or 2 (paired-end) elements."
 
-reads = ""
-if n == 1:
-    if get_format(snakemake.input.reads[0]) in ("bam", "sam"):
-        reads = f"-b {snakemake.input.reads}"
-    else:
-        if snakemake.params.get("interleaved", False):
-            reads = f"--interleaved {snakemake.input.reads}"
-        else:
-            reads = f"-U {snakemake.input.reads}"
+reads = snakemake.input.get("reads")
+if isinstance(reads, str):
+    reads = "-U {0}".format(reads)
+elif len(reads) == 1:
+    reads = "-U {0}".format(reads[0])
+elif len(reads) == 2:
+    reads = "-1 {0} -2 {1}".format(*reads)
 else:
-    reads = "-1 {} -2 {}".format(*snakemake.input.reads)
+    raise RuntimeError(
+        "Reads parameter must contain at least 1 and at most 2" " input files."
+    )
 
 extra = snakemake.params.get("extra", "")
 if all(get_format(r) in ("fastq", "fq") for r in snakemake.input.reads):
     extra += " -q "
-elif all(get_format(r) == "tab5" for r in snakemake.input.reads):
-    extra += " --tab5 "
-elif all(get_format(r) == "tab6" for r in snakemake.input.reads):
-    extra += " --tab6 "
 elif all(get_format(r) in ("fa", "mfa", "fasta") for r in snakemake.input.reads):
     extra += " -f "
 

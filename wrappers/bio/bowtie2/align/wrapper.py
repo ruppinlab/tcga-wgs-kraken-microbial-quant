@@ -3,7 +3,6 @@ __email__ = "leandro@leandrohermida.com"
 __license__ = "MIT"
 
 import re
-from os.path import commonprefix
 
 from snakemake.shell import shell
 from snakemake_wrapper_utils.samtools import get_samtools_opts
@@ -32,8 +31,8 @@ samtools_opts = get_samtools_opts(snakemake, parse_threads=False)
 
 log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
-index = snakemake.input.get("index")
-assert index is not None, "input: index is a required input parameter"
+index = snakemake.input.get("idx")
+assert index is not None, "input: idx is a required input parameter"
 
 n = len(snakemake.input.reads)
 assert (
