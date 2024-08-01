@@ -617,6 +617,14 @@ def assign_taxid_to_sequences(manifest_to_taxid, is_protein):
                         ch_added += len(line) - 1
                     f.write(line)
             projects_added += 1
+            if sys.stderr.isatty():
+                out_line = progress_line(
+                    projects_added, total_projects, sequences_added, ch_added, ch
+                )
+                max_out_chars = max(len(out_line), max_out_chars)
+                space_line = " " * max_out_chars
+                LOG.debug("\r{:s}\r{:s}".format(space_line, out_line))
+        if not sys.stderr.isatty():
             out_line = progress_line(
                 projects_added, total_projects, sequences_added, ch_added, ch
             )
@@ -624,7 +632,6 @@ def assign_taxid_to_sequences(manifest_to_taxid, is_protein):
             space_line = " " * max_out_chars
             LOG.debug("\r{:s}\r{:s}".format(space_line, out_line))
         LOG.info("\nFinished assigning taxonomic IDs to sequences\n")
-
         return sequence_name_to_remote_filepath
 
 
@@ -698,7 +705,7 @@ def download_log(filename):
     return inner
 
 
-def http_download_file_with_md5_check(url, local_name, verbosity):
+def http_download_file_with_md5_check(url, local_name, verbosity=1):
     filepath = os.path.abspath(local_name)
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     try:
@@ -708,7 +715,11 @@ def http_download_file_with_md5_check(url, local_name, verbosity):
             if local_size == remote_size:
                 print(f"Already downloaded {local_name}", flush=True)
                 return True
-        urllib.request.urlretrieve(url, filepath)
+        urllib.request.urlretrieve(
+            url,
+            filepath,
+            reporthook=download_log(local_name) if verbosity == 2 else None,
+        )
         if verbosity == 2:
             print(f"Saved {local_name}", flush=True)
     except (urllib.error.ContentTooShortError, urllib.error.HTTPError) as e:
@@ -751,7 +762,7 @@ def http_download_file_with_md5_check(url, local_name, verbosity):
         return False
 
 
-def http_download_file(url):
+def http_download_file(url, verbosity=1):
     local_name = urllib.parse.urlparse(url).path.split("/")[-1]
     with urllib.request.urlopen(url) as conn:
         remote_size = int(conn.headers["Content-Length"])
@@ -760,7 +771,9 @@ def http_download_file(url):
             LOG.info(f"Already downloaded {local_name}\n")
             return
     LOG.info(f"Beginning download of {url}\n")
-    urllib.request.urlretrieve(url, local_name, reporthook=download_log(local_name))
+    urllib.request.urlretrieve(
+        url, local_name, reporthook=download_log(local_name) if verbosity == 2 else None
+    )
     clear_console_line()
     LOG.info(f"Saved {local_name} to {os.getcwd()}\n")
 
@@ -796,7 +809,7 @@ def check_ftp_exists(server, remote_dir, filepath):
     ftp = FTP(server)
     if not ftp.exists(urllib.parse.urljoin(remote_dir, filepath)):
         print(
-            "{:s} does not exist on server, skipping".format(remote_dir + filepath),
+            f"{remote_dir}{filepath} does not exist on server, skipping",
             flush=True,
         )
         return False
@@ -911,7 +924,7 @@ def download_genomic_library(args):
             url = "ftp://{:s}/genomes/refseq/{:s}/assembly_summary.txt".format(
                 NCBI_SERVER, remote_dir_name
             )
-            http_download_file(url)
+            http_download_file(url, verbosity=args.verbosity)
         except urllib.error.URLError:
             LOG.error(
                 "Error downloading assembly summary file for {:s}, exiting\n".format(
@@ -1572,10 +1585,12 @@ def build_16S_rdp(args):
         os.makedirs(directory, exist_ok=True)
     os.chdir("data")
     http_download_file(
-        "http://rdp.cme.msu.edu/download/current_Bacteria_unaligned.fa.gz"
+        "http://rdp.cme.msu.edu/download/current_Bacteria_unaligned.fa.gz",
+        verbosity=args.verbosity,
     )
     http_download_file(
-        "http://rdp.cme.msu.edu/download/current_Archaea_unaligned.fa.gz"
+        "http://rdp.cme.msu.edu/download/current_Archaea_unaligned.fa.gz",
+        verbosity=args.verbosity,
     )
     decompress_files(glob.glob("*gz"))
     for filename in glob.glob("current_*_unaligned.fa"):
