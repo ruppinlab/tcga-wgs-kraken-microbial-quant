@@ -100,10 +100,10 @@ biobambam2:
         outputperreadgroupsuffixS=_unmapped_s.fq.gz
 
 kraken2:
+  script_dir: 'external/kraken2/2.1.3-custom/linux-64/scripts'
   download:
     use_ftp: false
   k2:
-    script_dir: 'external/kraken2/2.1.3-custom/linux-64/scripts'
     extra: ''
     threads: all
     verbosity: 1
@@ -136,6 +136,7 @@ krakentools:
     extra: '--only-combined'
 
 bracken:
+  script_dir: 'external/bracken/3.0-fixed/linux-64/scripts'
   build:
     threads: all
   quant:
