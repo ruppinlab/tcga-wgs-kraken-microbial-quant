@@ -1,14 +1,15 @@
 # tcga-wgs-kraken-microbial-quant
 
-A Kraken2 + Bracken based pipeline for classifying and quantifying microbial
-reads from GDC TCGA WGS data. Supports Kraken2 and KrakenUniq for read
-classification. Includes the option to do a second pass Kraken2 protein
-translated search of the unclassified reads from the Kraken2 first pass
-and combining the report results before feeding into Bracken. Properly
-handles TCGA WGS merged BAMs with mixed SE and PE reads and multiple
-read lengths when needed by splitting them into read group level FASTQs
-and processing data through the pipeline at read group level before
-aggregating the Bracken count results back to GDC BAM level.
+A Kraken2 + Bracken based pipeline for classifying and quantifying
+microbial reads from GDC TCGA WGS data. Supports Kraken2 or KrakenUniq
+for read classification and HISAT2 or Bowtie2 for host filtering. Includes
+the option to do a second pass Kraken2 protein translated search of the
+unclassified reads from the Kraken2 first pass and combining the report
+results before feeding into Bracken. Properly handles TCGA WGS merged BAMs
+with mixed SE and PE reads and multiple read lengths when needed by
+splitting them into read group level FASTQs and processing data through
+the pipeline at read group level before aggregating the Bracken count
+results back to GDC BAM level.
 
 See [References](#references) for the general basis for this pipeline
 and more information.
@@ -18,9 +19,8 @@ A high-level pipeline summary:
 ```
 GDC TCGA WGS Unmapped Read BAMs ->
 Biobambam2 Unmapped Read FASTQs (Split by Read Group when BAM has mixed PE/SE or read lengths) ->
-Bowtie2 Host Filtering (with T2T-CHM13v2.0) ->
-Biobambam2 Host Filtered FASTQs ->
-Kraken2 Nucleotide Read Classification ->
+HISAT2 (or Bowtie2) Host Filtering (with T2T-CHM13v2.0) ->
+Kraken2 (or KrakenUniq) Nucleotide Read Classification ->
 Kraken2 Translated Protein Search Read Classification of Unclassified Reads ->
 KrakenTools Combine Nucleotide and Protein Reports ->
 Bracken Read Quantification ->
