@@ -706,7 +706,7 @@ def http_download_file_with_md5_check(url, local_name, verbosity):
             remote_size = int(conn.headers["Content-Length"])
             local_size = os.stat(filepath).st_size if os.path.exists(filepath) else 0
             if local_size == remote_size:
-                print(f"Already downloaded {get_abs_path(filepath)}", flush=True)
+                print(f"Already downloaded {local_name}", flush=True)
                 return True
         urllib.request.urlretrieve(url, filepath)
         if verbosity == 2:
@@ -757,12 +757,12 @@ def http_download_file(url):
         remote_size = int(conn.headers["Content-Length"])
         local_size = os.stat(local_name).st_size if os.path.exists(local_name) else 0
         if local_size == remote_size:
-            LOG.info("Already downloaded {:s}\n".format(get_abs_path(local_name)))
+            LOG.info(f"Already downloaded {local_name}\n")
             return
-    LOG.info("Beginning download of {:s}\n".format(url))
+    LOG.info(f"Beginning download of {url}\n")
     urllib.request.urlretrieve(url, local_name, reporthook=download_log(local_name))
     clear_console_line()
-    LOG.info("Saved {:s} to {:s}\n".format(local_name, os.getcwd()))
+    LOG.info(f"Saved {local_name} to {os.getcwd()}\n")
 
 
 def make_manifest_filter(file, regex):
@@ -1991,6 +1991,13 @@ def make_download_library_parser(subparsers):
         help="Avoid masking low-complexity sequences prior to\
               building; masking requires dustmasker or segmasker to be\
               installed",
+    )
+    parser.add_argument(
+        "--log",
+        type=str,
+        metavar="FILENAME",
+        default=None,
+        help="Specify a log file (default: stderr)",
     )
     parser.add_argument(
         "--verbosity",
