@@ -31,13 +31,14 @@ rule host_genome_index:
 
 rule host_filtered_fastq_pe:
     input:
-        sample=[GDC_UNMAPPED_FASTQ_R1_FILE, GDC_UNMAPPED_FASTQ_R2_FILE],
-        idx=HOST_GENOME_INDEX_DIR,
+        reads=[GDC_UNMAPPED_FASTQ_R1_FILE, GDC_UNMAPPED_FASTQ_R2_FILE],
+        dir=HOST_GENOME_INDEX_DIR,
     params:
+        idx=HOST_GENOME_INDEX_PREFIX,
         extra=lambda wc: f"{config[wc.hfmode]['align']['extra']} --seed {config['random_seed']}",
     output:
         temp(HOST_BAM_PE_FILE),
-        un_conc=[
+        unconcordant=[
             temp(HOST_FILTERED_FASTQ_R1_FILE),
             temp(HOST_FILTERED_FASTQ_R2_FILE),
         ],
@@ -50,9 +51,10 @@ rule host_filtered_fastq_pe:
 
 rule host_filtered_fastq_se:
     input:
-        sample=[GDC_UNMAPPED_FASTQ_SE_FILE],
-        idx=HOST_GENOME_INDEX_DIR,
+        reads=[GDC_UNMAPPED_FASTQ_SE_FILE],
+        dir=HOST_GENOME_INDEX_DIR,
     params:
+        idx=HOST_GENOME_INDEX_PREFIX,
         extra=lambda wc: f"{config[wc.hfmode]['align']['extra']} --seed {config['random_seed']}",
     output:
         temp(HOST_BAM_SE_FILE),

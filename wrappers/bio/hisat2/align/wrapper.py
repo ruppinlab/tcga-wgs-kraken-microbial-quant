@@ -6,10 +6,21 @@ import re
 
 from snakemake.shell import shell
 
+
+def get_format(path: str) -> str:
+    """
+    Return file format since Bowtie2 reads files that
+    could be gzip'ed (extension: .gz) or bzip2'ed (extension: .bz2).
+    """
+    if path.endswith((".gz", ".bz2")):
+        return path.split(".")[-2].lower()
+    return path.split(".")[-1].lower()
+
+
 log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
-index = snakemake.input.get("idx")
-assert index is not None, "input: idx is a required input parameter"
+index = snakemake.params.get("idx")
+assert index is not None, "params: idx is a required parameter"
 
 n = len(snakemake.input.reads)
 assert (
@@ -58,10 +69,10 @@ if unconcordant:
         isinstance(unconcordant, (list, tuple, set)) and len(unconcordant) == 2
     ), "input: unconcordant must be a list of two files"
     un_conc_groups_1 = re.split(
-        r"(?:1|2)\.(fq|fastq)(?:\.gz)?$", unconcordant[0], flags=re.IGNORECASE
+        r"(?:1|2)(\.(?:fq|fastq))(\.gz)?$", unconcordant[0], flags=re.IGNORECASE
     )
     un_conc_groups_2 = re.split(
-        r"(?:1|2)\.(fq|fastq)(?:\.gz)?$", unconcordant[1], flags=re.IGNORECASE
+        r"(?:1|2)(\.(?:fq|fastq))(\.gz)?$", unconcordant[1], flags=re.IGNORECASE
     )
     assert set(un_conc_groups_1) == set(
         un_conc_groups_2
@@ -71,7 +82,9 @@ if unconcordant:
         if un_conc_groups_1[2].lower() == ".gz"
         else "un-conc-bz2" if un_conc_groups_1[2].lower() == ".bz2" else "un-conc"
     )
-    un_conc_pat = f"{un_conc_groups_1[0]}%.{un_conc_groups_1[1]}"
+    un_conc_pat = f"{un_conc_groups_1[0]}%{un_conc_groups_1[1]}"
+    if un_conc_groups_1[2].lower() in (".gz", ".bz2"):
+        un_conc_pat = f"{un_conc_pat}{un_conc_groups_1[2]}"
     extra += f" --{un_conc_opt} {un_conc_pat} "
 
 concordant = snakemake.output.get("concordant")
@@ -80,10 +93,10 @@ if concordant:
         isinstance(concordant, (list, tuple, set)) and len(concordant) == 2
     ), "input: concordant must be a list of two files"
     al_conc_groups_1 = re.split(
-        r"(?:1|2)\.(fq|fastq)(?:\.gz)?$", concordant[0], flags=re.IGNORECASE
+        r"(?:1|2)(\.(?:fq|fastq))(\.gz)?$", concordant[0], flags=re.IGNORECASE
     )
     al_conc_groups_2 = re.split(
-        r"(?:1|2)\.(fq|fastq)(?:\.gz)?$", concordant[1], flags=re.IGNORECASE
+        r"(?:1|2)(\.(?:fq|fastq))(\.gz)?$", concordant[1], flags=re.IGNORECASE
     )
     assert set(al_conc_groups_1) == set(
         al_conc_groups_2
@@ -93,7 +106,9 @@ if concordant:
         if al_conc_groups_1[2].lower() == ".gz"
         else "al-conc-bz2" if al_conc_groups_1[2].lower() == ".bz2" else "al-conc"
     )
-    al_conc_pat = f"{al_conc_groups_1[0]}%.{al_conc_groups_1[1]}"
+    al_conc_pat = f"{al_conc_groups_1[0]}%{al_conc_groups_1[1]}"
+    if al_conc_groups_1[2].lower() in (".gz", ".bz2"):
+        al_conc_pat = f"{al_conc_pat}{al_conc_groups_1[2]}"
     extra += f" --{al_conc_opt} {al_conc_pat} "
 
 shellcmd = (
@@ -102,7 +117,7 @@ shellcmd = (
     f" {reads} "
     f" -x '{index}'"
     f" {extra}"
-    f" | samtools view -Sbh -o {snakemake.output[0]} -) "
+    f" | samtools view -Sbh -o {snakemake.output[0]} -"
     f") {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)
