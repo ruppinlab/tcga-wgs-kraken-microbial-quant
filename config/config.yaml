@@ -52,6 +52,7 @@ gdc:
   metadata:
     data_dir: data/gdc
     log_dir: logs/gdc
+    subdir: all
     file_meta_filename: gdc_file_meta.tsv
     readgrp_meta_filename: gdc_readgrp_meta.tsv
     uniq_readgrps_filename: gdc_uniq_readgrps.tsv
