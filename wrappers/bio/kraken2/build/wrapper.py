@@ -18,12 +18,6 @@ assert task in (
     "download-library",
     "build",
 ), "params: invalid task"
-if task == "download-library":
-    lib = snakemake.params.get("lib")
-    assert (
-        lib is not None
-    ), "params: lib is a required parameter when task=download-library"
-    task = f"{task} {lib}"
 
 extra = snakemake.params.get("extra", "")
 protein = snakemake.params.get("protein")
@@ -39,9 +33,16 @@ kraken2_build = (
     if task in ("download-library", "build")
     else "kraken2-build"
 )
-# workaround for interactive issue with --download-library human
-if task == "download-library human":
-    kraken2_build = f"(yes || true) | {kraken2_build}"
+
+if task == "download-library":
+    lib = snakemake.params.get("lib")
+    assert (
+        lib is not None
+    ), "params: lib is a required parameter when task=download-library"
+    task = f"{task} {lib}"
+    # workaround for interactive issue with --download-library human
+    if lib == "human":
+        kraken2_build = f"(yes || true) | {kraken2_build}"
 
 shellcmd = (
     f"{kraken2_build}"

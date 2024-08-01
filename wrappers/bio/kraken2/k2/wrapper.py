@@ -21,22 +21,26 @@ assert task in (
     "download-library",
     "build",
 ), "params: invalid/not yet supported task"
-if task == "download-library":
-    lib = snakemake.params.get("lib")
-    assert (
-        lib is not None
-    ), "params: lib is a required parameter when task=download-library"
-    task = f"{task} {lib}"
 
 extra = snakemake.params.get("extra", "")
+
+verbosity = snakemake.params.get("verbosity")
+if verbosity is not None:
+    extra = f"--verbosity {verbosity} {extra}"
+
 protein = snakemake.params.get("protein")
 if protein:
     extra = f"--protein {extra}"
 
 if task in ("download-library", "build"):
-    # workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
-    k2 = f"OMP_NUM_THREADS={snakemake.threads} {k2}"
     extra = f"--threads {snakemake.threads} {extra}"
+
+if task == "download-library":
+    lib = snakemake.params.get("lib")
+    assert (
+        lib is not None
+    ), "params: lib is a required parameter when task=download-library"
+    task = f"{task} --library {lib}"
 
 shellcmd = f"{k2} {task} --db {db} {extra} {log}"
 shellcmd = re.sub(r"\s+", " ", shellcmd)
