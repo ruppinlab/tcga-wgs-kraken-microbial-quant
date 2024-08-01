@@ -2,5 +2,6 @@ channels:
   - conda-forge
   - nodefaults
 dependencies:
-  - python=3.12
   - joblib
+  - pandas
+  - python=3.12

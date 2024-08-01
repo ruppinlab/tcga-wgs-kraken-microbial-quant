@@ -21,11 +21,13 @@ import tempfile
 import threading
 import urllib
 import urllib.error
-from urllib.error import HTTPError, ContentTooShortError
 import urllib.parse
 import urllib.request
-
+from hashlib import md5
 from joblib import delayed, Parallel
+from pathlib import Path
+
+import pandas as pd
 
 LOG = None
 SCRIPT_PATHNAME = None
@@ -696,31 +698,71 @@ def download_log(filename):
     return inner
 
 
-def http_download_file(url, local_name=None):
+def http_download_file_with_md5_check(url, local_name, verbosity):
+    filepath = os.path.abspath(local_name)
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
     try:
-        if not local_name:
-            local_name = urllib.parse.urlparse(url).path.split("/")[-1]
-        else:
-            local_name = os.path.abspath(local_name)
-            os.makedirs(os.path.dirname(local_name), exist_ok=True)
         with urllib.request.urlopen(url) as conn:
             remote_size = int(conn.headers["Content-Length"])
-            local_size = (
-                os.stat(local_name).st_size if os.path.exists(local_name) else 0
-            )
+            local_size = os.stat(filepath).st_size if os.path.exists(filepath) else 0
             if local_size == remote_size:
-                LOG.info("Already downloaded {:s}\n".format(get_abs_path(local_name)))
+                print(f"Already downloaded {get_abs_path(filepath)}", flush=True)
                 return True
-        LOG.info("Beginning download of {:s}\n".format(url))
-        urllib.request.urlretrieve(url, local_name, reporthook=download_log(local_name))
-        clear_console_line()
-        LOG.info("Saved {:s} to {:s}\n".format(local_name, os.getcwd()))
-        return True
-    except (ContentTooShortError, HTTPError) as e:
-        if os.path.exists(local_name):
-            os.remove(local_name)
-        LOG.info(f"Error: {url}: {e}")
+        urllib.request.urlretrieve(url, filepath)
+        if verbosity == 2:
+            print(f"Saved {local_name}", flush=True)
+    except (urllib.error.ContentTooShortError, urllib.error.HTTPError) as e:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+        print(f"Error: {url}: {e}", flush=True)
         return False
+    try:
+        url_obj = urllib.parse.urlparse(url)
+        md5_file_url = url_obj._replace(
+            path=os.path.join(os.path.split(url_obj.path)[0], "md5checksums.txt")
+        ).geturl()
+        md5_file = tempfile.NamedTemporaryFile()
+        urllib.request.urlretrieve(md5_file_url, md5_file.name)
+        md5_df = pd.read_csv(
+            md5_file.name,
+            sep=r"\s+",
+            header=None,
+            names=["md5", "name"],
+            engine="c",
+            low_memory=False,
+        )
+        md5_df["name"] = md5_df["name"].apply(lambda n: os.path.basename(n))
+        remote_md5 = md5_df["md5"][md5_df["name"] == os.path.basename(filepath)].values[
+            0
+        ]
+        local_md5 = md5(Path(filepath).read_bytes()).hexdigest()
+        if remote_md5 != local_md5:
+            if os.path.exists(filepath):
+                os.remove(filepath)
+            print(
+                f"MD5 checksum mismatch: {url}: {remote_md5} != {local_md5}", flush=True
+            )
+            return False
+        return True
+    except (urllib.error.ContentTooShortError, urllib.error.HTTPError) as e:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+        print(f"Error: {url}: {e}", flush=True)
+        return False
+
+
+def http_download_file(url):
+    local_name = urllib.parse.urlparse(url).path.split("/")[-1]
+    with urllib.request.urlopen(url) as conn:
+        remote_size = int(conn.headers["Content-Length"])
+        local_size = os.stat(local_name).st_size if os.path.exists(local_name) else 0
+        if local_size == remote_size:
+            LOG.info("Already downloaded {:s}\n".format(get_abs_path(local_name)))
+            return
+    LOG.info("Beginning download of {:s}\n".format(url))
+    urllib.request.urlretrieve(url, local_name, reporthook=download_log(local_name))
+    clear_console_line()
+    LOG.info("Saved {:s} to {:s}\n".format(local_name, os.getcwd()))
 
 
 def make_manifest_filter(file, regex):
@@ -753,8 +795,9 @@ def get_manifest(server, remote_path, regex):
 def check_ftp_exists(server, remote_dir, filepath):
     ftp = FTP(server)
     if not ftp.exists(urllib.parse.urljoin(remote_dir, filepath)):
-        LOG.warning(
-            "{:s} does not exist on server, skipping\n".format(remote_dir + filepath)
+        print(
+            "{:s} does not exist on server, skipping".format(remote_dir + filepath),
+            flush=True,
         )
         return False
     return True
@@ -766,6 +809,7 @@ def download_files_from_manifest(
     manifest_filename="manifest.txt",
     filepath_to_taxid_table=None,
     threads=1,
+    verbosity=1,
 ):
     filepaths, urls = [], []
     with open(manifest_filename, "r") as f:
@@ -778,7 +822,7 @@ def download_files_from_manifest(
             urls.append(url)
 
     LOG.info("Checking if manifest files exist on server...\n")
-    file_exists = Parallel(n_jobs=threads, backend="loky", verbose=1)(
+    file_exists = Parallel(n_jobs=threads, backend="loky", verbose=verbosity)(
         delayed(check_ftp_exists)(server, remote_dir, filepath)
         for filepath in filepaths
     )
@@ -790,10 +834,13 @@ def download_files_from_manifest(
     urls = [urls[i] for i in range(len(urls)) if file_exists[i]]
 
     LOG.info("Downloading manifest files...\n")
-    downloaded = Parallel(n_jobs=threads, backend="loky", verbose=1)(
-        delayed(http_download_file)(url, filepath)
+    downloaded = Parallel(
+        n_jobs=threads, backend="loky", verbose=0 if verbosity == 2 else verbosity
+    )(
+        delayed(http_download_file_with_md5_check)(url, filepath, verbosity)
         for url, filepath in zip(urls, filepaths)
     )
+    urllib.request.urlcleanup()
     filepaths = [filepaths[i] for i in range(len(filepaths)) if not downloaded[i]]
     if filepaths:
         LOG.warning(
@@ -888,6 +935,7 @@ def download_genomic_library(args):
                 "genomes/",
                 filepath_to_taxid_table=filepath_to_taxid_table,
                 threads=args.threads,
+                verbosity=args.verbosity,
             )
             seq_name_to_url_table = assign_taxid_to_sequences(
                 filepath_to_taxid_table, args.protein
@@ -905,7 +953,12 @@ def download_genomic_library(args):
         os.chdir(library_pathname)
         pat = ".faa.gz" if args.protein else ".fna.gz"
         get_manifest(NCBI_SERVER, "genomes/refseq/plasmid/", pat)
-        download_files_from_manifest(NCBI_SERVER, "genomes/refseq/plasmid/")
+        download_files_from_manifest(
+            NCBI_SERVER,
+            "genomes/refseq/plasmid/",
+            threads=args.threads,
+            verbosity=args.verbosity,
+        )
         seq_name_to_url_table = {}
         with open(library_filename, "w") as library:
             with open("manifest.txt", "r") as manifest:
@@ -1940,11 +1993,11 @@ def make_download_library_parser(subparsers):
               installed",
     )
     parser.add_argument(
-        "--log",
-        type=str,
-        metavar="FILENAME",
-        default=None,
-        help="Specify a log filename (default stderr)",
+        "--verbosity",
+        type=int,
+        metavar="INT",
+        default=1,
+        help="Level of logging verbosity = {0, 1, 2}",
     )
 
 
