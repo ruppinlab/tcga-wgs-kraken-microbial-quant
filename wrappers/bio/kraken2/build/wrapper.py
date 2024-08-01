@@ -34,7 +34,11 @@ if use_ftp:
     extra = f"--use-ftp {extra}"
 
 # workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
-kraken2_build = f"OMP_NUM_THREADS={snakemake.threads} kraken2-build"
+kraken2_build = (
+    f"OMP_NUM_THREADS={snakemake.threads} kraken2-build"
+    if task in ("download-library", "build")
+    else "kraken2-build"
+)
 # workaround for interactive issue with --download-library human
 if task == "download-library human":
     kraken2_build = f"(yes || true) | {kraken2_build}"
