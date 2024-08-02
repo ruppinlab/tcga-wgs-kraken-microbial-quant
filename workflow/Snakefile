@@ -730,13 +730,13 @@ BRACKEN_BAM_ALIQUOT_IDS = GDC_BAM_META_DF["aliquot_submitter_id"].tolist()
 
 HOST_BUILD_THREADS = (
     workflow.cores
-    if config["hisat2"]["build"]["threads"] == "all"
-    else config["hisat2"]["build"]["threads"]
+    if config[HOST_FILTER_MODE]["build"]["threads"] == "all"
+    else config[HOST_FILTER_MODE]["build"]["threads"]
 )
 HOST_ALIGN_THREADS = (
     workflow.cores
-    if config["hisat2"]["align"]["threads"] == "all"
-    else config["hisat2"]["align"]["threads"]
+    if config[HOST_FILTER_MODE]["align"]["threads"] == "all"
+    else config[HOST_FILTER_MODE]["align"]["threads"]
 )
 KRAKEN2_K2_THREADS = (
     workflow.cores
@@ -768,6 +768,11 @@ KRAKENUNIQ_CLASSIFY_THREADS = (
     if config["krakenuniq"]["classify"]["threads"] == "all"
     else config["krakenuniq"]["classify"]["threads"]
 )
+BBMAP_READLENGTH_THREADS = (
+    workflow.cores
+    if config["bbmap"]["readlength"]["threads"] == "all"
+    else config["bbmap"]["readlength"]["threads"]
+)
 BRACKEN_BUILD_THREADS = (
     workflow.cores
     if config["bracken"]["build"]["threads"] == "all"
@@ -790,7 +795,7 @@ KRAKENUNIQ_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/build")
 KRAKENUNIQ_CLASSIFY_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/krakenuniq/classify")
 BRACKEN_BUILD_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/build")
 BRACKEN_QUANT_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bracken/quant")
-READ_LENGTH_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bbmap/readlength")
+BBMAP_READLENGTH_WRAPPER = join(LOCAL_WRAPPERS_BASE_URL, "bio/bbmap/readlength")
 
 
 wildcard_constraints:

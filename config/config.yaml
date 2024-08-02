@@ -123,7 +123,7 @@ krakenuniq:
     extra: ''
     threads: all
   build:
-    extra:
+    extra: ''
     threads: all
   classify:
     extra:
@@ -134,6 +134,11 @@ krakenuniq:
 krakentools:
   combine_kreports:
     extra: '--only-combined'
+
+bbmap:
+  readlength:
+    extra: 'ignorebadquality'
+    threads: 2
 
 bracken:
   script_dir: 'external/bracken/3.0-fixed/linux-64/scripts'
