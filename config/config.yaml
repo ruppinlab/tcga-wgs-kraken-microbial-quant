@@ -146,4 +146,4 @@ bracken:
     threads: all
   quant:
     level: S
-    threshold: 0.0
+    threshold: 0
