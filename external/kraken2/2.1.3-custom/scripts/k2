@@ -811,9 +811,9 @@ def get_manifest(server, remote_path, regex):
         ftp.close()
 
 
-def check_ftp_exists(server, remote_dir, filepath):
-    ftp = FTP(server)
-    if not ftp.exists(urllib.parse.urljoin(remote_dir, filepath)):
+def check_remote_exists(server, remote_dir, filepath):
+    url = urllib.parse.urlunsplit(("https", server, remote_dir + filepath, "", ""))
+    if urllib.urlopen(url).code != 200:
         print(
             f"{remote_dir}{filepath} does not exist on server, skipping",
             flush=True,
@@ -842,7 +842,7 @@ def download_files_from_manifest(
 
     LOG.info("Checking if manifest files exist on server...\n")
     file_exists = Parallel(n_jobs=threads, backend="loky", verbose=verbosity)(
-        delayed(check_ftp_exists)(server, remote_dir, filepath)
+        delayed(check_remote_exists)(server, remote_dir, filepath)
         for filepath in filepaths
     )
     if filepath_to_taxid_table:
@@ -927,7 +927,7 @@ def download_genomic_library(args):
         if args.library == "human":
             remote_dir_name = "vertebrate_mammalian/Homo_sapiens"
         try:
-            url = "ftp://{:s}/genomes/refseq/{:s}/assembly_summary.txt".format(
+            url = "https://{:s}/genomes/refseq/{:s}/assembly_summary.txt".format(
                 NCBI_SERVER, remote_dir_name
             )
             http_download_file(url, verbosity=args.verbosity)
