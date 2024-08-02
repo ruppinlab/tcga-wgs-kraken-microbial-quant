@@ -78,8 +78,6 @@ Job stats:
 job                             count
 ----------------------------  -------
 all                                 1
-bbmap_max_read_length           13955
-bbmap_read_length_histogram     13955
 bracken_count_matrix                1
 bracken_db                          7
 bracken_merged_rg_counts           82
@@ -105,7 +103,7 @@ kraken2_nucl_read_classif_se      424
 kraken2_prot_db_library             4
 kraken2_prot_read_classif_pe    13531
 kraken2_prot_read_classif_se      424
-total                          122589
+total                           94679
 ```
 
 
