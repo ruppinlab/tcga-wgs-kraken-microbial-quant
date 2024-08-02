@@ -116,12 +116,14 @@ row.names(readgrp_meta) <- readgrp_meta$read_group_id
 readgrp_meta <- arrange(readgrp_meta, read_group_id)
 
 data_dir <- config$gdc$metadata$data_dir
+sub_dir <- config$gdc$metadata$sub_dir
 if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
+
 file_meta_filename <- config$gdc$metadata$file_meta_filename
 cat("Writing", file_meta_filename, "\n")
 write.table(
     file_meta,
-    file = paste(data_dir, file_meta_filename, sep = "/"),
+    file = paste(data_dir, sub_dir, file_meta_filename, sep = "/"),
     quote = FALSE, sep = "\t", row.names = FALSE
 )
 readgrp_meta_filename <-
@@ -129,7 +131,7 @@ readgrp_meta_filename <-
 cat("Writing", readgrp_meta_filename, "\n")
 write.table(
     readgrp_meta,
-    file = paste(data_dir, readgrp_meta_filename, sep = "/"),
+    file = paste(data_dir, sub_dir, readgrp_meta_filename, sep = "/"),
     quote = FALSE, sep = "\t", row.names = FALSE
 )
 uniq_readgrps_filename <-
@@ -137,6 +139,6 @@ uniq_readgrps_filename <-
 cat("Writing", uniq_readgrps_filename, "\n")
 write.table(
     uniq_readgrps,
-    file = paste(data_dir, uniq_readgrps_filename, sep = "/"),
+    file = paste(data_dir, sub_dir, uniq_readgrps_filename, sep = "/"),
     quote = FALSE, sep = "\t", row.names = FALSE
 )

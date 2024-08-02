@@ -30,17 +30,17 @@ LOCAL_WRAPPERS_BASE_URL = config["wrappers"]["local"]["base_url"]
 HOST_REF_NAME = config["resources"]["ref"]["name"]
 HOST_REF_FASTA_URL = config["resources"]["ref"]["fasta_url"]
 
-GDC_METADATA_DIR = config["gdc"]["metadata"]["data_dir"]
-GDC_METADATA_LOG_DIR = config["gdc"]["metadata"]["log_dir"]
+GDC_METADATA_DIR = join(
+    config["gdc"]["metadata"]["data_dir"], config["gdc"]["metadata"]["sub_dir"]
+)
+GDC_METADATA_LOG_DIR = join(
+    config["gdc"]["metadata"]["log_dir"], config["gdc"]["metadata"]["sub_dir"]
+)
 GDC_BAM_META_FILE = join(
-    GDC_METADATA_DIR,
-    config["gdc"]["metadata"]["subdir"],
-    config["gdc"]["metadata"]["file_meta_filename"],
+    GDC_METADATA_DIR, config["gdc"]["metadata"]["file_meta_filename"]
 )
 GDC_READGRP_META_FILE = join(
-    GDC_METADATA_DIR,
-    config["gdc"]["metadata"]["subdir"],
-    config["gdc"]["metadata"]["readgrp_meta_filename"],
+    GDC_METADATA_DIR, config["gdc"]["metadata"]["readgrp_meta_filename"]
 )
 
 KRAKEN2_DB_LIBS = config["resources"]["db"]["libs"]["kraken2"]["names"]
