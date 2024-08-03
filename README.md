@@ -8,17 +8,16 @@ Feature highlights:
 - Supports Kraken2 or KrakenUniq for read classification.
 - Supports HISAT2 or Bowtie2 for host filtering.
 - Automatically builds the latest MicrobialDB nucleotide and protein
-  Kraken2 databases (or KrakenUniq [nucleotide only]). MicrobialDB
+  Kraken2 databases (or for KrakenUniq nucleotide onl). MicrobialDB
   consists of archaea, bacteria, viral, human, UniVec_Core, and
   eukaryotic pathogen genomes (EuPathDBv54) with contaminants removed.
 - Includes the option to do a second pass Kraken2 protein translated
   search of the unclassified reads from the Kraken2 first pass and
   combining the report results before feeding into Bracken.
 - Properly handles TCGA WGS merged BAMs with mixed PE/SE reads and
-  multiple read lengths when needed by splitting them into read group
-  level FASTQs and processing data through the pipeline at read group
-  level before aggregating the Bracken count results back to GDC BAM
-  level.
+  multiple read lengths by splitting them into read group level FASTQs
+  and processing data through the pipeline at read group level before
+  aggregating the Bracken count results back to GDC BAM level.
 
 See [References](#references) for the general basis for this pipeline
 and more information.
@@ -43,7 +42,7 @@ Count/Abundance Matrix
 
 ## Prerequisites
 
-The project was developed under GNU Linux and MacOS and assumes the
+The project was developed under GNU Linux and MacOS X and assumes the
 use of a Unix command line shell. Both Linux and MacOS provide a
 command line shell by default. Other needed tools will be installed
 by the instructions below.
@@ -110,8 +109,8 @@ total                           94679
 ## Execution
 
 Given the compute intensive nature of this pipeline and the large
-number of jobs required to execute it we highly recommend running the
-it on an HPC cluster.
+number of jobs required to execute it we highly recommend running it
+on an HPC cluster.
 
 Set your GDC controlled access authentication token in the environment
 variable `GDC_TOKEN` or `GDC_TOKEN_FILE`, or the file `~/.gdc_token`
@@ -122,6 +121,16 @@ Run the workflow:
 ```bash
 snakemake
 ```
+
+Run the workflow on a cluster:
+
+```bash
+snakemake --workflow-profile workflow/profiles/biowulf
+```
+
+I've provided a SLURM cluster configuration for the NIH HPC cluster,
+though it is straightforward to create a Snakemake cluster config for
+your particular needs.
 
 The pipeline is configured to not require much storage, as intermediate
 files are flagged as temporary and deleted when they are no longer
