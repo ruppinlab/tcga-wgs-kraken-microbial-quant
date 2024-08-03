@@ -101,6 +101,7 @@ biobambam2:
 
 kraken2:
   script_dir: 'external/kraken2/2.1.3-custom/scripts'
+  tsearch_unclassif: true
   download:
     use_ftp: false
   k2:
@@ -108,7 +109,6 @@ kraken2:
     threads: all
     verbosity: 1
   build:
-    tsearch_unclassif: true
     extra: ''
     threads: all
   classify:
