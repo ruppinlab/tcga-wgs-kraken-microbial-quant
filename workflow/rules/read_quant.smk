@@ -85,7 +85,7 @@ rule bracken_count_matrix:
     input:
         BRACKEN_BAM_COUNT_FILES,
     params:
-        samples=BRACKEN_BAM_ALIQUOT_IDS,
+        samples=BRACKEN_BAM_IDS,
     output:
         BRACKEN_COUNT_MATRIX_FILE,
     log:

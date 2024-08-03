@@ -726,6 +726,7 @@ BRACKEN_BAM_COUNT_FILES = pd.concat(
     ],
     axis=0,
 ).tolist()
+BRACKEN_BAM_IDS = GDC_BAM_META_DF["file_id"].tolist()
 
 HOST_BUILD_THREADS = (
     workflow.cores
