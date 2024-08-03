@@ -20,7 +20,9 @@ rule gdc_unmapped_fastq_pe:
     input:
         GDC_UNMAPPED_BAM_FILE,
     params:
-        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.level == "rg" else None,
+        outdir=lambda wc: (
+            join(GDC_RESULTS_DIR, wc.bam_id, wc.level) if wc.level == "rg" else None
+        ),
         paired_end=True,
         per_readgrp=lambda wc: True if wc.level == "rg" else False,
         O=GDC_UNMAPPED_FASTQ_O1_FILE,
@@ -50,7 +52,9 @@ rule gdc_unmapped_fastq_se:
     input:
         GDC_UNMAPPED_BAM_FILE,
     params:
-        outdir=lambda wc: GDC_FILE_RESULTS_DIR if wc.level == "rg" else None,
+        outdir=lambda wc: (
+            join(GDC_RESULTS_DIR, wc.bam_id, wc.level) if wc.level == "rg" else None
+        ),
         paired_end=False,
         per_readgrp=lambda wc: True if wc.level == "rg" else False,
         extra=lambda wc: (
