@@ -94,4 +94,4 @@ rule bracken_count_matrix:
     conda:
         "../envs/pandas.yaml"
     script:
-        "../scripts/braken_count_matrix.py"
+        "../scripts/bracken_count_matrix.py"
