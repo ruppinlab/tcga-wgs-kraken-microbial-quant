@@ -10,6 +10,8 @@ rule gdc_unmapped_bam:
     message:
         "{params.url}"
     retries: config["download"]["retries"]
+    conda:
+        "../envs/samtools.yaml"
     script:
         "../scripts/url_file.py"
 

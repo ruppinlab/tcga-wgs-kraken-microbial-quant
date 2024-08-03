@@ -17,13 +17,13 @@ rule bbmap_read_length_histogram:
 
 
 rule bbmap_max_read_length:
-    conda:
-        "../envs/pandas.yaml"
     input:
         READ_LENGTH_HISTOGRAM_FILE,
     output:
         READ_LENGTH_FILE,
     log:
         READ_LENGTH_LOG,
+    conda:
+        "../envs/pandas.yaml"
     script:
         "../scripts/read_length.py"
