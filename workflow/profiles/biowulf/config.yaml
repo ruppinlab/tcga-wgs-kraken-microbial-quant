@@ -1,7 +1,7 @@
 executor: slurm
 software-deployment-method: conda
 keep-going: true
-# rerun-incomplete: true
+rerun-incomplete: true
 printshellcmds: true
 scheduler: greedy
 max-jobs-per-second: 1
