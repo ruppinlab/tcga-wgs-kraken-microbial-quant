@@ -12,11 +12,8 @@ db = snakemake.input.get("db") or snakemake.params.get("db")
 assert db is not None, "input/params: db is a required parameter"
 
 read_length = snakemake.params.get("readlen")
-if read_length is None:
-    read_length_file = snakemake.input.get("readlen")
-    assert read_length_file is not None, "input/params: readlen is a required parameter"
-    with open(read_length_file, "r") as fh:
-        read_length = re.sub(r"\D+", "", fh.readline())
+assert read_length is not None, "params: readlen is a required parameter"
+assert int(read_length) == read_length, "params: readlen must be an integer"
 
 bracken_build = snakemake.params.get("bracken_build", "bracken-build")
 
