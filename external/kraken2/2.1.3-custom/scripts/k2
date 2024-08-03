@@ -812,14 +812,16 @@ def get_manifest(server, remote_path, regex):
 
 
 def check_remote_exists(server, remote_dir, filepath):
-    url = urllib.parse.urlunsplit(("https", server, remote_dir + filepath, "", ""))
-    if urllib.request.urlopen(url).code != 200:
+    try:
+        url = urllib.parse.urlunsplit(("https", server, remote_dir + filepath, "", ""))
+        urllib.request.urlopen(url)
+        return True
+    except urllib.error.URLError as e:
         print(
-            f"{remote_dir}{filepath} does not exist on server, skipping",
+            f"{remote_dir}{filepath} download error {e}, skipping",
             flush=True,
         )
         return False
-    return True
 
 
 def download_files_from_manifest(
