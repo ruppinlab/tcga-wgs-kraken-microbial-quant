@@ -18,19 +18,6 @@ def get_format(path: str) -> str:
     return path.split(".")[-1].lower()
 
 
-bowtie2_threads = snakemake.threads - 1
-if bowtie2_threads < 1:
-    raise ValueError(
-        f"This wrapper expected at least two threads, got {snakemake.threads}"
-    )
-
-# Setting parse_threads to false since samtools performs only
-# bam compression. Thus the wrapper would use *twice* the amount
-# of threads reserved by user otherwise.
-samtools_opts = get_samtools_opts(snakemake, parse_threads=False)
-
-log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
-
 index = snakemake.params.get("idx")
 assert index is not None, "params: idx is a required parameter"
 
@@ -131,14 +118,39 @@ if concordant:
         al_conc_pat = f"{al_conc_pat}{al_conc_groups_1[2]}"
     extra += f" --{al_conc_opt} {al_conc_pat} "
 
+bowtie2_threads = snakemake.threads
+
+# Setting parse_threads to false since samtools performs only
+# bam compression. Thus the wrapper would use *twice* the amount
+# of threads reserved by user otherwise.
+samtools_opts = get_samtools_opts(snakemake, parse_threads=False)
+
+output = snakemake.output.get("output")
+if output is not None:
+    assert output.lower().endswith((".bam", ".sam")), "output: must be SAM/BAM file"
+    if output.lower().endswith(".bam"):
+        bowtie2_threads = bowtie2_threads - 1
+        if bowtie2_threads < 1:
+            raise ValueError(
+                f"Wrapper expects at least two threads, got {bowtie2_threads}"
+            )
+        output = f"| samtools view -h {samtools_opts}"
+    else:
+        output = f" -S {output}"
+else:
+    output = "1> /dev/null"
+
+log = snakemake.log_fmt_shell(
+    stdout=False if output is None else True, stderr=True, append=True
+)
+
 shellcmd = (
     f"(bowtie2"
     f" --threads {bowtie2_threads}"
-    f" {reads} "
+    f" {reads}"
     f" -x '{index}'"
     f" {extra}"
-    f" | samtools view --with-header {samtools_opts}"
-    f" -"
+    f" {output}"
     f") {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)

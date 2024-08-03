@@ -5,3 +5,4 @@ channels:
 dependencies:
   - hisat2=2.2.1
   - samtools=1.20
+  - snakemake-wrapper-utils=0.6.2

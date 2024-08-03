@@ -1,23 +1,22 @@
 __author__ = "Leandro C. Hermida"
-__email__ = "hermidalc@pitt.edu"
-__license__ = "BSD 3-Clause"
+__email__ = "leandro@leandrohermida.com"
+__license__ = "MIT"
 
 import re
 
 from snakemake.shell import shell
+from snakemake_wrapper_utils.samtools import get_samtools_opts
 
 
 def get_format(path: str) -> str:
     """
-    Return file format since Bowtie2 reads files that
+    Return file format since HISAT2 reads files that
     could be gzip'ed (extension: .gz) or bzip2'ed (extension: .bz2).
     """
     if path.endswith((".gz", ".bz2")):
         return path.split(".")[-2].lower()
     return path.split(".")[-1].lower()
 
-
-log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 index = snakemake.params.get("idx")
 assert index is not None, "params: idx is a required parameter"
@@ -111,13 +110,39 @@ if concordant:
         al_conc_pat = f"{al_conc_pat}{al_conc_groups_1[2]}"
     extra += f" --{al_conc_opt} {al_conc_pat} "
 
+hisat2_threads = snakemake.threads
+
+# Setting parse_threads to false since samtools performs only
+# bam compression. Thus the wrapper would use *twice* the amount
+# of threads reserved by user otherwise.
+samtools_opts = get_samtools_opts(snakemake, parse_threads=False)
+
+output = snakemake.output.get("output")
+if output is not None:
+    assert output.lower().endswith((".bam", ".sam")), "output: must be SAM/BAM file"
+    if output.lower().endswith(".bam"):
+        hisat2_threads = hisat2_threads - 1
+        if hisat2_threads < 1:
+            raise ValueError(
+                f"Wrapper expects at least two threads, got {hisat2_threads}"
+            )
+        output = f"| samtools view -h {samtools_opts}"
+    else:
+        output = f" -S {output}"
+else:
+    output = "1> /dev/null"
+
+log = snakemake.log_fmt_shell(
+    stdout=False if output is None else True, stderr=True, append=True
+)
+
 shellcmd = (
     f"(hisat2"
-    f" --threads {snakemake.threads}"
-    f" {reads} "
+    f" --threads {hisat2_threads}"
+    f" {reads}"
     f" -x '{index}'"
     f" {extra}"
-    f" | samtools view -Sbh -o {snakemake.output[0]} -"
+    f" {output}"
     f") {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)

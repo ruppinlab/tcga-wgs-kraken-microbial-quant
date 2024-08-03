@@ -37,7 +37,7 @@ rule host_filtered_fastq_pe:
         idx=HOST_GENOME_INDEX_PREFIX,
         extra=f"{config[HOST_FILTER_MODE]['align']['extra']} --seed {config['random_seed']}",
     output:
-        temp(HOST_BAM_PE_FILE),
+        # output=temp(HOST_BAM_PE_FILE),
         unconcordant=[
             temp(HOST_FILTERED_FASTQ_R1_FILE),
             temp(HOST_FILTERED_FASTQ_R2_FILE),
@@ -57,7 +57,7 @@ rule host_filtered_fastq_se:
         idx=HOST_GENOME_INDEX_PREFIX,
         extra=f"{config[HOST_FILTER_MODE]['align']['extra']} --seed {config['random_seed']}",
     output:
-        temp(HOST_BAM_SE_FILE),
+        # output=temp(HOST_BAM_SE_FILE),
         unaligned=temp(HOST_FILTERED_FASTQ_SE_FILE),
     log:
         HOST_FILTERED_FASTQ_SE_LOG,
