@@ -18,17 +18,17 @@ default-resources:
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
-  bowtie2_host_index:
+  host_genome_index:
     cpus_per_task: 56
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
-  bowtie2_filtered_fastq_pe:
+  host_filtered_fastq_pe:
     cpus_per_task: 56
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
-  bowtie2_filtered_fastq_se:
+  host_filtered_fastq_se:
     cpus_per_task: 56
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
