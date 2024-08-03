@@ -130,7 +130,7 @@ if output is not None:
     else:
         output = f" -S {output}"
 else:
-    output = "1> /dev/null"
+    output = "> /dev/null"
 
 log = snakemake.log_fmt_shell(
     stdout=False if output is None else True, stderr=True, append=True
