@@ -69,6 +69,7 @@ rule bracken_merged_rg_counts:
                 f"{x['read_group_id']}_counts.tsv",
             ),
             axis=1,
+            result_type="reduce",
         )
         .tolist(),
     output:
