@@ -11,10 +11,10 @@ latency-wait: 60
 jobs: 5000
 
 default-resources:
-  slurm_partition: 'ccr,norm'
+  slurm_partition: "ccr,norm"
   cpus_per_task: 2
-  mem: '8g'
-  runtime: '10-00:00:00'
+  mem: "8g"
+  runtime: "10d"
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
