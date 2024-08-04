@@ -36,12 +36,8 @@ GDC_METADATA_DIR = join(
 GDC_METADATA_LOG_DIR = join(
     config["gdc"]["metadata"]["log_dir"], config["gdc"]["metadata"]["sub_dir"]
 )
-GDC_BAM_META_FILE = join(
-    GDC_METADATA_DIR, config["gdc"]["metadata"]["file_meta_filename"]
-)
-GDC_READGRP_META_FILE = join(
-    GDC_METADATA_DIR, config["gdc"]["metadata"]["readgrp_meta_filename"]
-)
+GDC_BAM_META_FILE = join(GDC_METADATA_DIR, f"{STUDY_NAME}_file_meta.tsv")
+GDC_READGRP_META_FILE = join(GDC_METADATA_DIR, f"{STUDY_NAME}_readgrp_meta.tsv")
 
 KRAKEN2_DB_LIBS = config["resources"]["db"]["libs"]["kraken2"]["names"]
 KRAKENUNIQ_DB_LIBS = config["resources"]["db"]["libs"]["krakenuniq"]["names"]
