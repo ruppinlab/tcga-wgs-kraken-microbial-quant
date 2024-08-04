@@ -12,8 +12,6 @@ random_seed: 777
 download:
   retries: 5
 
-study: tcga_wgs
-
 resources:
   ref:
     name: T2T-CHM13v2
@@ -39,6 +37,7 @@ resources:
       readlens: [25, 35, 50, 75, 100, 125, 150]
 
 gdc:
+  study_name: tcga_wgs
   program_names: [
     'TCGA'
   ]

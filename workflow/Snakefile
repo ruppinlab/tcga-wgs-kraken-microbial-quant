@@ -19,7 +19,7 @@ RULES_DIR = "rules"
 configfile: join(CONFIG_DIR, "config.yaml")
 
 
-STUDY_NAME = config["study"]
+STUDY_NAME = config["gdc"]["study_name"]
 
 EXPAND_PARAMS = {}
 

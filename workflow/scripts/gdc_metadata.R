@@ -119,14 +119,14 @@ data_dir <- config$gdc$metadata$data_dir
 sub_dir <- config$gdc$metadata$sub_dir
 if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
 
-file_meta_filename <- paste0(config$study, "_file_meta.tsv")
+file_meta_filename <- paste0(config$gdc$study_name, "_file_meta.tsv")
 cat("Writing", file_meta_filename, "\n")
 write.table(
     file_meta,
     file = paste(data_dir, sub_dir, file_meta_filename, sep = "/"),
     quote = FALSE, sep = "\t", row.names = FALSE
 )
-readgrp_meta_filename <- paste0(config$study, "_readgrp_meta.tsv")
+readgrp_meta_filename <- paste0(config$gdc$study_name, "_readgrp_meta.tsv")
 cat("Writing", readgrp_meta_filename, "\n")
 write.table(
     readgrp_meta,
