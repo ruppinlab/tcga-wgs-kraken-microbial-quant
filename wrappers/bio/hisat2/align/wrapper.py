@@ -40,9 +40,9 @@ else:
 
 extra = snakemake.params.get("extra", "")
 if all(get_format(r) in ("fastq", "fq") for r in snakemake.input.reads):
-    extra += " -q "
+    extra += " -q"
 elif all(get_format(r) in ("fa", "mfa", "fasta") for r in snakemake.input.reads):
-    extra += " -f "
+    extra += " -f"
 
 unaligned = snakemake.output.get("unaligned")
 if unaligned:
@@ -51,7 +51,7 @@ if unaligned:
         if unaligned.endswith((".gz", ".GZ"))
         else "un-bz2" if unaligned.endswith((".bz2", ".BZ2")) else "un"
     )
-    extra += f" --{un} {unaligned} "
+    extra += f" --{un} {unaligned}"
 
 unpaired = snakemake.output.get("unpaired")
 if unpaired:
@@ -60,7 +60,7 @@ if unpaired:
         if unpaired.endswith((".gz", ".GZ"))
         else "al-bz2" if unpaired.endswith((".bz2", ".BZ2")) else "al"
     )
-    extra += f" --{al} {unpaired} "
+    extra += f" --{al} {unpaired}"
 
 unconcordant = snakemake.output.get("unconcordant")
 if unconcordant:
@@ -84,7 +84,7 @@ if unconcordant:
     un_conc_pat = f"{un_conc_groups_1[0]}%{un_conc_groups_1[1]}"
     if un_conc_groups_1[2].lower() in (".gz", ".bz2"):
         un_conc_pat = f"{un_conc_pat}{un_conc_groups_1[2]}"
-    extra += f" --{un_conc_opt} {un_conc_pat} "
+    extra += f" --{un_conc_opt} {un_conc_pat}"
 
 concordant = snakemake.output.get("concordant")
 if concordant:
@@ -108,7 +108,7 @@ if concordant:
     al_conc_pat = f"{al_conc_groups_1[0]}%{al_conc_groups_1[1]}"
     if al_conc_groups_1[2].lower() in (".gz", ".bz2"):
         al_conc_pat = f"{al_conc_pat}{al_conc_groups_1[2]}"
-    extra += f" --{al_conc_opt} {al_conc_pat} "
+    extra += f" --{al_conc_opt} {al_conc_pat}"
 
 hisat2_threads = snakemake.threads
 
@@ -148,5 +148,4 @@ shellcmd = (
 shellcmd = re.sub(r"\s+", " ", shellcmd)
 with open(snakemake.log[0], "wt") as log_fh:
     log_fh.write(f"{shellcmd}\n")
-
 shell(shellcmd)
