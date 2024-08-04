@@ -3,6 +3,11 @@
 !bin/**
 !config
 !config/config.yaml
+!data
+!data/gdc
+!data/gdc/all
+!data/gdc/all/tcga_wgs_file_meta.tsv
+!data/gdc/all/tcga_wgs_readgrp_meta.tsv
 !envs
 !envs/*
 !external
