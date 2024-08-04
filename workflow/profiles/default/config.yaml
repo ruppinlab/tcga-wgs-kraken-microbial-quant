@@ -6,4 +6,4 @@ rerun-incomplete: true
 
 set-resources:
   gdc_unmapped_bam:
-    cpus_per_task: 12
+    threads: 12
