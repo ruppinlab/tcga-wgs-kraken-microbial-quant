@@ -799,8 +799,8 @@ wildcard_constraints:
         w: "|".join(set([re.escape(str(v)) for v in l]))
         for w, l in EXPAND_PARAMS.items()
     },
-    bam_id=r"[0-9a-f\-]+",
-    rg_id=r"[0-9a-f\-]+",
+    bam_id=r"[0-9a-f\-]{36}",
+    rg_id=r"[0-9a-f\-]{36}",
     level=r"sg|rg",
     etype=r"pe|se",
 
