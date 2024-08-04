@@ -14,7 +14,8 @@ file_query <-
         cases.project.program.name %in% config$gdc$program_names &
             cases.samples.sample_type %in% config$gdc$sample_types &
             experimental_strategy == config$gdc$exp_strategy &
-            analysis.workflow_type %in% config$gdc$workflow_types
+            analysis.workflow_type %in% config$gdc$workflow_types &
+            cases.project.project_id %in% c("TCGA-LAML")
     ) %>%
     GenomicDataCommons::select(c(
         "file_name",
@@ -119,17 +120,23 @@ data_dir <- config$gdc$metadata$data_dir
 sub_dir <- config$gdc$metadata$sub_dir
 if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
 
-file_meta_filename <- paste0(config$gdc$study_name, "_file_meta.tsv")
-cat("Writing", file_meta_filename, "\n")
+file_meta_file <- paste(
+    data_dir, sub_dir, paste0(config$gdc$study_name, "_file_meta.tsv"),
+    sep = "/"
+)
+cat("Writing", file_meta_file, "\n")
 write.table(
     file_meta,
-    file = paste(data_dir, sub_dir, file_meta_filename, sep = "/"),
+    file = file_meta_file,
     quote = FALSE, sep = "\t", row.names = FALSE
 )
-readgrp_meta_filename <- paste0(config$gdc$study_name, "_readgrp_meta.tsv")
-cat("Writing", readgrp_meta_filename, "\n")
+readgrp_meta_file <- paste(
+    data_dir, sub_dir, paste0(config$gdc$study_name, "_readgrp_meta.tsv"),
+    sep = "/"
+)
+cat("Writing", readgrp_meta_file, "\n")
 write.table(
     readgrp_meta,
-    file = paste(data_dir, sub_dir, readgrp_meta_filename, sep = "/"),
+    file = readgrp_meta_file,
     quote = FALSE, sep = "\t", row.names = FALSE
 )
