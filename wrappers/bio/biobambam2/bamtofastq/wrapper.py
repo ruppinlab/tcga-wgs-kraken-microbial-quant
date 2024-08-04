@@ -41,7 +41,7 @@ if per_readgrp:
         else ("outputperreadgroupsuffixS")
     )
     for suffix_opt in suffix_opts:
-        suffix = snakemake.param.get(suffix_opt)
+        suffix = snakemake.params.get(suffix_opt)
         assert (
             suffix is not None
         ), f"params: {suffix_opt} is a required parameter when per_readgrp=True"
