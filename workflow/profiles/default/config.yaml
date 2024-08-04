@@ -3,3 +3,7 @@ printshellcmds: true
 scheduler: greedy
 rerun-incomplete: true
 # keep-going: true
+
+set-resources:
+  gdc_unmapped_bam:
+    cpus_per_task: 12

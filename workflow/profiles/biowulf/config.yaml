@@ -11,6 +11,7 @@ latency-wait: 60
 jobs: 5000
 
 default-resources:
+  slurm_account: hermidalc
   slurm_partition: "ccr,norm"
   cpus_per_task: 2
   mem: "8g"
@@ -18,6 +19,9 @@ default-resources:
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
+  gdc_unmapped_bam:
+    cpus_per_task: 12
+
   host_genome_index:
     cpus_per_task: 56
     mem: 0
@@ -49,22 +53,22 @@ set-resources:
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   kraken2_nucl_read_classif_pe:
-    cpus_per_task: 56
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   kraken2_nucl_read_classif_se:
-    cpus_per_task: 56
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   kraken2_prot_read_classif_pe:
-    cpus_per_task: 56
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   kraken2_prot_read_classif_se:
-    cpus_per_task: 56
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
@@ -84,12 +88,12 @@ set-resources:
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   krakenuniq_read_classif_pe:
-    cpus_per_task: 56
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
   krakenuniq_read_classif_se:
-    cpus_per_task: 56
+    cpus_per_task: 28
     mem: 0
     slurm_extra: "'--exclusive --gres=lscratch:100'"
 
