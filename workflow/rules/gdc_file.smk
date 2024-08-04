@@ -25,12 +25,13 @@ rule gdc_unmapped_fastq_pe:
         ),
         paired_end=True,
         per_readgrp=lambda wc: True if wc.level == "rg" else False,
-        rg_name=lambda wc: (
-            GDC_READGRP_META_DF.loc[wc.rg_id, "read_group_name"]
+        rg_meta_df=lambda wc: (
+            GDC_READGRP_META_DF.loc[GDC_READGRP_META_DF["file_id"] == wc.bam_id]
             if wc.level == "rg"
             else None
         ),
-        rg_id=lambda wc: wc.rg_id if wc.level == "rg" else None,
+        O=GDC_UNMAPPED_FASTQ_O1_FILE,
+        O2=GDC_UNMAPPED_FASTQ_O2_FILE,
         outputperreadgroupsuffixF="_unmapped_1.fq.gz",
         outputperreadgroupsuffixF2="_unmapped_2.fq.gz",
         outputperreadgroupsuffixO="_unmapped_o1.fq.gz",
@@ -50,8 +51,6 @@ rule gdc_unmapped_fastq_pe:
     output:
         F=temp(GDC_UNMAPPED_FASTQ_R1_FILE),
         F2=temp(GDC_UNMAPPED_FASTQ_R2_FILE),
-        O=temp(GDC_UNMAPPED_FASTQ_O1_FILE),
-        O2=temp(GDC_UNMAPPED_FASTQ_O2_FILE),
     log:
         GDC_UNMAPPED_FASTQ_LOG,
     wrapper:
@@ -67,12 +66,11 @@ rule gdc_unmapped_fastq_se:
         ),
         paired_end=False,
         per_readgrp=lambda wc: True if wc.level == "rg" else False,
-        rg_name=lambda wc: (
-            GDC_READGRP_META_DF.loc[wc.rg_id, "read_group_name"]
+        rg_meta_df=lambda wc: (
+            GDC_READGRP_META_DF.loc[GDC_READGRP_META_DF["file_id"] == wc.bam_id]
             if wc.level == "rg"
             else None
         ),
-        rg_id=lambda wc: wc.rg_id if wc.level == "rg" else None,
         outputperreadgroupsuffixS="_unmapped_s.fq.gz",
         extra=lambda wc: (
             (
