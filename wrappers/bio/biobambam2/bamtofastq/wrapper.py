@@ -81,10 +81,10 @@ with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as 
         shell(shellcmd)
 
 if per_readgrp:
-    for suffix in suffixes:
-        outfile = join(outputdir, rg_name, suffix)
+    for suffix_opt in suffixes.keys():
+        outfile = join(outputdir, f"{rg_name}_{suffixes[suffix_opt]}")
         if exists(outfile):
-            rename(outfile, join(outputdir, rg_id, suffix))
+            rename(outfile, join(outputdir, f"{rg_id}_{suffixes[suffix_opt]}"))
 elif paired_end:
     for outfile in (snakemake.output.O, snakemake.output.O2):
         if not exists(outfile):
