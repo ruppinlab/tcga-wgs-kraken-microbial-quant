@@ -382,7 +382,6 @@ BRACKEN_COUNT_MATRIX_FILE = join(
 BRACKEN_COUNT_MATRIX_LOG = join(
     BRACKEN_COUNT_MATRIX_LOG_DIR, f"{STUDY_NAME}_count_matrix.log"
 )
-BRACKEN_BAM_IDS = GDC_BAM_META_DF["file_id"].tolist()
 
 HOST_BUILD_THREADS = (
     workflow.cores
