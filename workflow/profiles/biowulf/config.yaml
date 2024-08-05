@@ -24,79 +24,79 @@ set-resources:
   host_genome_index:
     cpus_per_task: 56
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
 
   host_filtered_fastq_pe:
-    cpus_per_task: 56
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "16g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   host_filtered_fastq_se:
-    cpus_per_task: 56
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "16g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   kraken2_nucl_db_library:
     cpus_per_task: 28
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
 
   kraken2_prot_db_library:
     cpus_per_task: 28
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
 
   kraken2_db:
     cpus_per_task: 56
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
 
   kraken2_nucl_read_classif_pe:
-    cpus_per_task: 28
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "48g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   kraken2_nucl_read_classif_se:
-    cpus_per_task: 28
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "48g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   kraken2_prot_read_classif_pe:
-    cpus_per_task: 28
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "48g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   kraken2_prot_read_classif_se:
-    cpus_per_task: 28
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "48g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   krakenuniq_db_taxonomy:
     cpus_per_task: 28
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
 
   krakenuniq_db_library:
     cpus_per_task: 28
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
 
   krakenuniq_db:
     cpus_per_task: 56
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
 
   krakenuniq_read_classif_pe:
-    cpus_per_task: 28
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "48g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   krakenuniq_read_classif_se:
-    cpus_per_task: 28
-    mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    cpus_per_task: 8
+    mem: "48g"
+    slurm_extra: "'--gres=lscratch:100'"
 
   bracken_db:
     cpus_per_task: 56
     mem: 0
-    slurm_extra: "'--exclusive --gres=lscratch:100'"
+    slurm_extra: "'--exclusive' '--gres=lscratch:100'"
