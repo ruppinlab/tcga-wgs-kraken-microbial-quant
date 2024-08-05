@@ -18,12 +18,9 @@ assert len(bam_id) == 1, "params: rg_meta_df needs to be subset per file_id"
 bam_id = bam_id[0]
 
 per_readgrp = (
-    True
-    if rg_meta_df["is_paired_end"].nunique() > 1
-    or rg_meta_df["read_length"].nunique() > 1
-    else False
+    rg_meta_df["is_paired_end"].nunique() > 1 or rg_meta_df["read_length"].nunique() > 1
 )
-paired_end = True if rg_meta_df["is_paired_end"].all() else False
+paired_end = rg_meta_df["is_paired_end"].all()
 
 suffixes = snakemake.params.get("suffixes")
 assert suffixes is not None, "params: suffixes is a required parameter"
@@ -68,8 +65,8 @@ with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as 
             log_fh.write(f"{shellcmd}\n")
         shell(shellcmd)
 
-with open(snakemake.log[0], "at") as log_fh:
-    if per_readgrp:
+if per_readgrp:
+    with open(snakemake.log[0], "at") as log_fh:
         for _, rg in rg_meta_df.iterrows():
             for suffix_opt in suffixes:
                 outfile_src = join(
