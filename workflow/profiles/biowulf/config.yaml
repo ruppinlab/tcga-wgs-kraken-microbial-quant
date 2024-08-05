@@ -34,12 +34,12 @@ set-resources:
     mem: "16g"
 
   kraken2_nucl_db_library:
-    cpus_per_task: 28
-    mem: "32g"
+    cpus_per_task: 16
+    mem: "16g"
 
   kraken2_prot_db_library:
-    cpus_per_task: 28
-    mem: "32g"
+    cpus_per_task: 16
+    mem: "16g"
 
   kraken2_db:
     cpus_per_task: 56
@@ -62,12 +62,12 @@ set-resources:
     mem: "64g"
 
   krakenuniq_db_taxonomy:
-    cpus_per_task: 28
-    mem: "32g"
+    cpus_per_task: 16
+    mem: "16g"
 
   krakenuniq_db_library:
-    cpus_per_task: 28
-    mem: "32g"
+    cpus_per_task: 16
+    mem: "16g"
 
   krakenuniq_db:
     cpus_per_task: 56
