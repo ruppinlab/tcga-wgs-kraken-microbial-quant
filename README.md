@@ -79,7 +79,7 @@ job                             count
 all                                 1
 bracken_count_matrix                1
 bracken_db                          7
-bracken_merged_rg_counts           82
+bracken_merged_counts              82
 bracken_read_quant              13955
 eupathdb_fasta_archive              1
 eupathdb_fastas                     1
@@ -104,7 +104,6 @@ kraken2_prot_read_classif_pe    13531
 kraken2_prot_read_classif_se      424
 total                           94679
 ```
-
 
 ## Execution
 

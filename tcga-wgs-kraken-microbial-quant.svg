@@ -43,7 +43,7 @@
 <g id="node26" class="node">
 <title>25</title>
 <path fill="none" stroke="#56a2d8" stroke-width="2" d="M784,-180C784,-180 664,-180 664,-180 658,-180 652,-174 652,-168 652,-168 652,-156 652,-156 652,-150 658,-144 664,-144 664,-144 784,-144 784,-144 790,-144 796,-150 796,-156 796,-156 796,-168 796,-168 796,-174 790,-180 784,-180"/>
-<text text-anchor="middle" x="724" y="-159.5" font-family="sans" font-size="10.00">bracken_merged_rg_counts</text>
+<text text-anchor="middle" x="724" y="-159.5" font-family="sans" font-size="10.00">bracken_merged_counts</text>
 </g>
 <!-- 2&#45;&gt;25 -->
 <g id="edge37" class="edge">
