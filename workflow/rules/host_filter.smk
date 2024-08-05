@@ -2,7 +2,7 @@ rule host_genome_fasta:
     params:
         url=HOST_REF_FASTA_URL,
     output:
-        HOST_REF_FASTA_FILE,
+        temp(HOST_REF_FASTA_FILE),
     log:
         HOST_REF_FASTA_LOG,
     message:
@@ -43,7 +43,7 @@ rule host_filtered_fastq_pe:
             temp(HOST_FILTERED_FASTQ_R2_FILE),
         ],
     log:
-        HOST_FILTERED_FASTQ_PE_LOG,
+        HOST_FILTERED_FASTQ_LOG,
     threads: HOST_ALIGN_THREADS
     wrapper:
         HOST_ALIGN_WRAPPER
@@ -60,7 +60,7 @@ rule host_filtered_fastq_se:
         # output=temp(HOST_BAM_SE_FILE),
         unaligned=temp(HOST_FILTERED_FASTQ_SE_FILE),
     log:
-        HOST_FILTERED_FASTQ_SE_LOG,
+        HOST_FILTERED_FASTQ_LOG,
     threads: HOST_ALIGN_THREADS
     wrapper:
         HOST_ALIGN_WRAPPER

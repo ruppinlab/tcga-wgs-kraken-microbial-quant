@@ -19,9 +19,9 @@ rule kraken2_nucl_read_classif_pe:
             temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE),
             temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE),
         ],
-        report=KRAKEN2_NUCL_REPORT_PE_FILE,
+        report=KRAKEN2_NUCL_REPORT_FILE,
     log:
-        KRAKEN2_NUCL_CLASSIFY_PE_LOG,
+        KRAKEN2_NUCL_CLASSIFY_LOG,
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -39,9 +39,9 @@ rule kraken2_nucl_read_classif_se:
     output:
         classif=temp(KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE),
         unclassif=temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE),
-        report=KRAKEN2_NUCL_REPORT_SE_FILE,
+        report=KRAKEN2_NUCL_REPORT_FILE,
     log:
-        KRAKEN2_NUCL_CLASSIFY_SE_LOG,
+        KRAKEN2_NUCL_CLASSIFY_LOG,
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -71,9 +71,9 @@ rule kraken2_prot_read_classif_pe:
             temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE),
             temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE),
         ],
-        report=KRAKEN2_PROT_REPORT_PE_FILE,
+        report=KRAKEN2_PROT_REPORT_FILE,
     log:
-        KRAKEN2_PROT_CLASSIFY_PE_LOG,
+        KRAKEN2_PROT_CLASSIFY_LOG,
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -91,9 +91,9 @@ rule kraken2_prot_read_classif_se:
     output:
         classif=temp(KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE),
         unclassif=temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE),
-        report=KRAKEN2_PROT_REPORT_SE_FILE,
+        report=KRAKEN2_PROT_REPORT_FILE,
     log:
-        KRAKEN2_PROT_CLASSIFY_SE_LOG,
+        KRAKEN2_PROT_CLASSIFY_LOG,
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -101,11 +101,7 @@ rule kraken2_prot_read_classif_se:
 
 rule kraken2_combined_report:
     input:
-        lambda wc: (
-            [KRAKEN2_NUCL_REPORT_PE_FILE, KRAKEN2_PROT_REPORT_PE_FILE]
-            if wc.etype == "pe"
-            else [KRAKEN2_NUCL_REPORT_SE_FILE, KRAKEN2_PROT_REPORT_SE_FILE]
-        ),
+        lambda wc: [KRAKEN2_NUCL_REPORT_FILE, KRAKEN2_PROT_REPORT_FILE],
     params:
         extra=config["krakentools"]["combine_kreports"]["extra"],
     output:
@@ -137,9 +133,9 @@ rule krakenuniq_read_classif_pe:
             temp(KRAKENUNIQ_UNCLASSIF_FASTQ_R1_FILE),
             temp(KRAKENUNIQ_UNCLASSIF_FASTQ_R2_FILE),
         ],
-        report=KRAKENUNIQ_REPORT_PE_FILE,
+        report=KRAKENUNIQ_REPORT_FILE,
     log:
-        KRAKENUNIQ_CLASSIFY_PE_LOG,
+        KRAKENUNIQ_CLASSIFY_LOG,
     threads: KRAKENUNIQ_CLASSIFY_THREADS
     wrapper:
         KRAKENUNIQ_CLASSIFY_WRAPPER
@@ -157,9 +153,9 @@ rule krakenuniq_read_classif_se:
     output:
         classif=temp(KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE),
         unclassif=temp(KRAKENUNIQ_UNCLASSIF_FASTQ_SE_FILE),
-        report=KRAKENUNIQ_REPORT_SE_FILE,
+        report=KRAKENUNIQ_REPORT_FILE,
     log:
-        KRAKENUNIQ_CLASSIFY_SE_LOG,
+        KRAKENUNIQ_CLASSIFY_LOG,
     threads: KRAKENUNIQ_CLASSIFY_THREADS
     wrapper:
         KRAKENUNIQ_CLASSIFY_WRAPPER

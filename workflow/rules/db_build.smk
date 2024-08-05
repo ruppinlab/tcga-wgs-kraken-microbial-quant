@@ -138,3 +138,25 @@ rule krakenuniq_db:
     threads: KRAKENUNIQ_BUILD_THREADS
     wrapper:
         KRAKENUNIQ_BUILD_WRAPPER
+
+
+rule bracken_db:
+    input:
+        db_done=(
+            KRAKEN2_NUCL_DB_DONE_FILE
+            if KRAKEN_MODE == "kraken2"
+            else KRAKENUNIQ_DB_DONE_FILE
+        ),
+    params:
+        bracken_build=BRACKEN_BUILD_SCRIPT_PATH,
+        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+        klen=35 if KRAKEN_MODE == "kraken2" else 31,
+        ktype=KRAKEN_MODE,
+        readlen="{readlen}",
+    output:
+        touch(BRACKEN_DB_DONE_FILE),
+    log:
+        BRACKEN_DB_LOG,
+    threads: BRACKEN_BUILD_THREADS
+    wrapper:
+        BRACKEN_BUILD_WRAPPER

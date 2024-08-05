@@ -10,6 +10,9 @@ local-cores: 4
 latency-wait: 60
 jobs: 5000
 
+resources:
+  gdc_download_jobs: 10
+
 default-resources:
   slurm_account: hermidalc
   slurm_partition: "ccr,norm"
@@ -19,9 +22,6 @@ default-resources:
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
-  gdc_unmapped_bam:
-    cpus_per_task: 12
-
   host_genome_index:
     cpus_per_task: 56
     mem: 0

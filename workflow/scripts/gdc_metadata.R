@@ -116,8 +116,8 @@ readgrp_meta <- merge(readgrp_meta, num_uniq_readgrps, by = "file_id")
 row.names(readgrp_meta) <- readgrp_meta$read_group_id
 readgrp_meta <- arrange(readgrp_meta, read_group_id)
 
-data_dir <- config$gdc$metadata$data_dir
-sub_dir <- config$gdc$metadata$sub_dir
+data_dir <- config$gdc$data$dir
+sub_dir <- config$gdc$data$sub_dir
 if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
 
 file_meta_file <- paste(

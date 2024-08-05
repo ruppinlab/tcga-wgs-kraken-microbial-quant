@@ -4,6 +4,5 @@ scheduler: greedy
 rerun-incomplete: true
 # keep-going: true
 
-set-resources:
-  gdc_unmapped_bam:
-    threads: 12
+resources:
+  gdc_download_jobs: 10

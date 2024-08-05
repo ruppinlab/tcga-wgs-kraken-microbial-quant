@@ -3,62 +3,54 @@ __email__ = "leandro@leandrohermida.com"
 __license__ = "MIT"
 
 import re
-from os.path import exists, isdir, join
+from os.path import exists, join
 from tempfile import gettempdir, NamedTemporaryFile, TemporaryDirectory
 from shutil import move
 
 from snakemake.shell import shell
+from snakemake.utils import makedirs
 
-per_readgrp = snakemake.params.get("per_readgrp", False)
-paired_end = snakemake.params.get("paired_end", False)
+rg_meta_df = snakemake.params.get("rg_meta_df")
+assert rg_meta_df is not None, "params: rg_meta_df is a required parameter"
+
+bam_id = rg_meta_df["file_id"].unique()
+assert len(bam_id) == 1, "params: rg_meta_df needs to be subset per file_id"
+bam_id = bam_id[0]
+
+per_readgrp = (
+    True
+    if rg_meta_df["is_paired_end"].nunique() > 1
+    or rg_meta_df["read_length"].nunique() > 1
+    else False
+)
+paired_end = True if rg_meta_df["is_paired_end"].all() else False
+
+suffixes = snakemake.params.get("suffixes")
+assert suffixes is not None, "params: suffixes is a required parameter"
 
 extra = snakemake.params.get("extra", "")
 
 if per_readgrp:
-    outputdir = snakemake.params.get("outputdir")
-    assert (
-        outputdir is not None
-    ), "params: outputdir is a required parameter when per_readgrp=True"
-    assert isdir(outputdir), "params: outputdir must be an existing directory"
-    output = f"outputdir={outputdir}"
-    rg_meta_df = snakemake.params.get("rg_meta_df")
-    assert (
-        rg_meta_df is not None
-    ), "params: rg_meta_df is a required parameter when per_readgrp=True"
-    suffixes = {}
-    suffix_opts = (
-        [
-            "outputperreadgroupsuffixF",
-            "outputperreadgroupsuffixF2",
-            "outputperreadgroupsuffixO",
-            "outputperreadgroupsuffixO2",
-        ]
-        if paired_end
-        else ["outputperreadgroupsuffixS"]
-    )
-    for suffix_opt in suffix_opts:
-        suffix = snakemake.params.get(suffix_opt)
-        assert (
-            suffix is not None
-        ), f"params: {suffix_opt} is a required parameter when per_readgrp=True"
-        suffixes[suffix_opt] = suffix
-        extra = f" {suffix_opt}={suffix} {extra}"
-    if paired_end:
-        extra = f" collate=1 {extra}"
+    extra = f"collate=1 combs=1 {extra} outputperreadgroup=1"
+    output = f"outputdir={snakemake.output[0]}"
+    for suffix_opt in suffixes:
+        output += f" outputperreadgroupsuffix{suffix_opt}={suffixes[suffix_opt]}"
 elif paired_end:
-    output = (
-        f"F={snakemake.output.F} F2={snakemake.output.F2} "
-        f"O={snakemake.params.O} 02={snakemake.params.O2} "
-        f"> /dev/null"
-    )
-    extra = f" collate=1 {extra}"
+    extra = f"collate=1 combs=1 {extra}"
+    output = ""
+    for suffix_opt in [s for s in suffixes if s.upper() != "S"]:
+        outfile = join(snakemake.output[0], f"{bam_id}{suffixes[suffix_opt]}")
+        output += f" {suffix_opt}={outfile}"
+    output += " > /dev/null"
 else:
-    output = f"> {snakemake.output[0]}"
+    outfile = join(snakemake.output[0], f"{bam_id}{suffixes['S']}")
+    output = f"> {outfile}"
 
 log = snakemake.log_fmt_shell(
     stdout=False if paired_end or per_readgrp else True, stderr=True, append=True
 )
 
+makedirs(snakemake.output[0])
 with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as tmpdir:
     with NamedTemporaryFile(
         dir=tmpdir, prefix="bamtofastq_", delete=False, delete_on_close=False
@@ -79,13 +71,14 @@ with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as 
 with open(snakemake.log[0], "at") as log_fh:
     if per_readgrp:
         for _, rg in rg_meta_df.iterrows():
-            for suffix_opt in suffixes.keys():
+            for suffix_opt in suffixes:
                 outfile_src = join(
-                    outputdir, f"{rg['read_group_name']}{suffixes[suffix_opt]}"
+                    snakemake.output[0],
+                    f"{rg['read_group_name']}{suffixes[suffix_opt]}",
                 )
                 outfile_dst = join(
-                    outputdir, f"{rg['read_group_id']}{suffixes[suffix_opt]}"
+                    snakemake.output[0], f"{rg['read_group_id']}{suffixes[suffix_opt]}"
                 )
                 if exists(outfile_src):
                     move(outfile_src, outfile_dst)
-                    log_fh.write(f"Moved {outfile_src} -> {outfile_dst}\n")
+                    log_fh.write(f"{outfile_src} -> {outfile_dst}\n")

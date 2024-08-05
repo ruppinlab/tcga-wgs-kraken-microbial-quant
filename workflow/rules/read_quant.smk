@@ -1,25 +1,3 @@
-rule bracken_db:
-    input:
-        db_done=(
-            KRAKEN2_NUCL_DB_DONE_FILE
-            if KRAKEN_MODE == "kraken2"
-            else KRAKENUNIQ_DB_DONE_FILE
-        ),
-    params:
-        bracken_build=BRACKEN_BUILD_SCRIPT_PATH,
-        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
-        klen=35 if KRAKEN_MODE == "kraken2" else 31,
-        ktype=KRAKEN_MODE,
-        readlen="{readlen}",
-    output:
-        touch(BRACKEN_DB_DONE_FILE),
-    log:
-        BRACKEN_DB_LOG,
-    threads: BRACKEN_BUILD_THREADS
-    wrapper:
-        BRACKEN_BUILD_WRAPPER
-
-
 rule bracken_read_quant:
     input:
         report=lambda wc: (
@@ -41,9 +19,9 @@ rule bracken_read_quant:
     params:
         db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         readlen=lambda wc: int(
-            GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
-            if wc.level == "sg"
-            else GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"]
+            GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"]
+            if GDC_BAM_META_DF.loc[wc.bam_id, "num_uniq_read_groups"] > 1
+            else GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
         ),
         db_readlens=BRACKEN_DB_READ_LENGTHS,
         level=config["bracken"]["quant"]["level"],
@@ -57,36 +35,36 @@ rule bracken_read_quant:
         BRACKEN_QUANT_WRAPPER
 
 
-rule bracken_merged_rg_counts:
-    input:
-        lambda wc: GDC_READGRP_META_DF[GDC_READGRP_META_DF["file_id"] == wc.bam_id]
-        .apply(
-            lambda x: join(
-                BRACKEN_QUANT_RESULTS_DIR,
-                x["file_id"],
-                "rg",
-                "pe" if x["is_paired_end"] else "se",
-                f"{x['read_group_id']}_counts.tsv",
-            ),
-            axis=1,
-            result_type="reduce",
+def bracken_count_files(wc):
+    rg_ids, sfxs = glob_wildcards(
+        join(
+            GDC_FASTQ_RESULTS_DIR, wc.bam_id, "{rg_id}_unmapped_{sfx,(1|2|s){1}}.fq.gz"
         )
-        .tolist(),
+    )
+    return expand(
+        join(BRACKEN_QUANT_RESULTS_DIR, wc.bam_id, "{rg_id}_counts.tsv"),
+        rg_id=rg_ids,
+    )
+
+
+rule bracken_combined_counts:
+    input:
+        bracken_count_files,
     output:
-        BRACKEN_MERGED_RG_COUNT_FILE,
+        BRACKEN_COMBINED_COUNT_FILE,
     log:
-        BRACKEN_MERGED_RG_COUNT_LOG,
+        BRACKEN_COMBINED_COUNT_LOG,
     conda:
         "../envs/pandas.yaml"
     script:
-        "../scripts/braken_sum_counts.py"
+        "../scripts/braken_combined_counts.py"
 
 
 rule bracken_count_matrix:
     input:
-        BRACKEN_BAM_COUNT_FILES,
+        expand(BRACKEN_COMBINED_COUNT_FILE, **EXPAND_PARAMS),
     params:
-        samples=BRACKEN_BAM_IDS,
+        samples=EXPAND_PARAMS["bam_id"],
     output:
         BRACKEN_COUNT_MATRIX_FILE,
     log:
