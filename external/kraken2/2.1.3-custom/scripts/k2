@@ -1033,8 +1033,12 @@ def download_genomic_library(args):
         library_pathname = os.path.join(library_pathname, args.library)
         os.makedirs(library_pathname, exist_ok=True)
         os.chdir(library_pathname)
-        ftp = FTP(NCBI_SERVER)
-        ftp.download("pub/UniVec", args.library)
+        try:
+            url = "https://{:s}/pub/UniVec/{:s}".format(NCBI_SERVER, args.library)
+            http_download_file(url, verbosity=args.verbosity)
+        except urllib.error.URLError:
+            LOG.error("Error downloading {:s}, exiting\n".format(args.library))
+            sys.exit(1)
         special_taxid = 28384
         LOG.info("Adding taxonomy ID of {:d} to all sequences\n".format(special_taxid))
         with open(args.library, "r") as in_file:
