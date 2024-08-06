@@ -15,7 +15,7 @@ rule gdc_unmapped_bam:
     conda:
         "../envs/samtools.yaml"
     script:
-        "../scripts/url_file.py"
+        "../scripts/url_bam_file.py"
 
 
 checkpoint gdc_unmapped_fastqs:
