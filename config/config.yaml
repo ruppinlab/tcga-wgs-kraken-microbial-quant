@@ -74,7 +74,7 @@ hisat2:
       threads: all
     align:
       extra: ''
-      threads: all
+      threads: 4
 
 biobambam2:
   bamtofastq:
@@ -92,28 +92,28 @@ kraken2:
     use_ftp: false
   k2:
     extra: ''
-    threads: all
+    threads: 12
     verbosity: 1
   build:
     extra: ''
     threads: all
   classify:
     extra:
-      common: '--use-names'
+      common: '--use-names --report-minimizer-data'
       paired_end: ''
-    threads: all
+    threads: 8
 
 krakenuniq:
   download:
     use_rsync: true
     extra: ''
-    threads: all
+    threads: 12
   build:
     extra: ''
     threads: all
   classify:
     extra:
-      common: '--preload-size 16G'
+      common: '--preload-size 32G'
       paired_end: '--check-names'
     threads: all
 
@@ -132,4 +132,4 @@ bracken:
     threads: all
   quant:
     level: S
-    threshold: 0
+    threshold: 10
