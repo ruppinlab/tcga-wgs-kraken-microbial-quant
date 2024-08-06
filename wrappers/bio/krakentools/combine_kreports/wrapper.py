@@ -12,9 +12,9 @@ extra = snakemake.params.get("extra", "")
 
 shellcmd = (
     f"combine_kreports.py"
+    f" {extra}"
     f" --report-files {snakemake.input}"
     f" --output {snakemake.output}"
-    f" {extra}"
     f" {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)
