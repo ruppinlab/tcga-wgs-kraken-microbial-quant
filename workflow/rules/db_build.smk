@@ -75,8 +75,16 @@ rule kraken2_db:
             ),
             **EXPAND_PARAMS,
         ),
-        KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
-        KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
+        lambda wc: (
+            KRAKEN2_EUPATHDB_NUCL_LIB_IDMAP_FILE
+            if wc.k2dtype == "nucl"
+            else KRAKEN2_EUPATHDB_PROT_LIB_IDMAP_FILE
+        ),
+        lambda wc: (
+            KRAKEN2_EUPATHDB_NUCL_LIB_FASTA_FILE
+            if wc.k2dtype == "nucl"
+            else KRAKEN2_EUPATHDB_PROT_LIB_FASTA_FILE
+        ),
     params:
         db=KRAKEN2_DB_DIR,
         task="build",

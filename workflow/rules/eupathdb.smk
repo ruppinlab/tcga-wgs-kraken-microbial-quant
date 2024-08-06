@@ -1,6 +1,21 @@
+# rule eupathdb_metadata:
+#     output:
+#         EUPATHDB_METADATA_FILE,
+#     log:
+#         EUPATHDB_METADATA_LOG,
+#     conda:
+#         "../envs/eupathdb.yaml"
+#     script:
+#         "../scripts/eupathdb_metadata.R"
+
+
 rule eupathdb_fasta_archive:
     params:
-        EUPATHDB_FASTA_TGZ_URL,
+        lambda wc: (
+            EUPATHDB_NUCL_FASTA_TGZ_URL
+            if wc.k2dtype == "nucl"
+            else EUPATHDB_PROT_FASTA_TGZ_URL
+        ),
     output:
         temp(EUPATHDB_FASTA_TGZ_FILE),
     log:
@@ -23,8 +38,10 @@ rule eupathdb_fastas:
         temp(directory(EUPATHDB_FASTA_DIR)),
     log:
         EUPATHDB_FASTA_LOG,
-    shell:
-        "tar -xvzf {input} -C {params} > {log} 2>&1"
+    run:
+        shell("tar -xvzf {input} -C {params} > {log} 2>&1")
+        if wildcards.k2dtype == "nucl":
+            shell(f"mv -vf {EUPATHDB_NUCL_RESOURCES_DIR}/eupathDB54_CLEAN {output}")
 
 
 rule eupathdb_merged_fasta:
@@ -35,16 +52,18 @@ rule eupathdb_merged_fasta:
     log:
         EUPATHDB_MERGED_FASTA_LOG,
     shell:
-        "find {input} -type f -name '*.fna' -exec cat {{}} + 1> {output} 2> {log}"
+        "find {input} -type f "
+        "-regextype awk -regex '.+?\\.(fna|fasta|faa|fa)$' "
+        "-exec cat {{}} + 1> {output} 2> {log}"
 
 
-rule eupathdb_seqid2taxid_map:
+rule eupathdb_nucl_seqid2taxid_map:
     params:
-        EUPATHDB_SEQID2TAXID_MAP_URL,
+        EUPATHDB_NUCL_SEQID2TAXID_MAP_URL,
     output:
-        temp(EUPATHDB_SEQID2TAXID_MAP_FILE),
+        temp(EUPATHDB_NUCL_SEQID2TAXID_MAP_FILE),
     log:
-        EUPATHDB_SEQID2TAXID_MAP_LOG,
+        EUPATHDB_NUCL_SEQID2TAXID_MAP_LOG,
     message:
         "{params}"
     retries: config["download"]["retries"]
@@ -56,12 +75,27 @@ rule eupathdb_seqid2taxid_map:
 
 rule kraken2_eupathdb_nucl_library:
     input:
-        idmap=EUPATHDB_SEQID2TAXID_MAP_FILE,
-        fasta=EUPATHDB_MERGED_FASTA_FILE,
+        idmap=EUPATHDB_NUCL_SEQID2TAXID_MAP_FILE,
+        fasta=EUPATHDB_NUCL_MERGED_FASTA_FILE,
     output:
-        idmap=KRAKEN2_EUPATHDB_LIB_IDMAP_FILE,
-        fasta=KRAKEN2_EUPATHDB_LIB_FASTA_FILE,
+        idmap=KRAKEN2_EUPATHDB_NUCL_LIB_IDMAP_FILE,
+        fasta=KRAKEN2_EUPATHDB_NUCL_LIB_FASTA_FILE,
     log:
-        KRAKEN2_EUPATHDB_LIB_FASTA_LOG,
+        KRAKEN2_EUPATHDB_NUCL_LIB_FASTA_LOG,
     script:
-        "../scripts/k2_eupathdb_nucl_library.py"
+        "../scripts/kraken2_eupathdb_nucl_library.py"
+
+
+rule kraken2_eupathdb_prot_library:
+    input:
+        meta=EUPATHDB_METADATA_FILE,
+        fasta=EUPATHDB_PROT_MERGED_FASTA_FILE,
+    output:
+        idmap=KRAKEN2_EUPATHDB_PROT_LIB_IDMAP_FILE,
+        fasta=KRAKEN2_EUPATHDB_PROT_LIB_FASTA_FILE,
+    log:
+        KRAKEN2_EUPATHDB_PROT_LIB_FASTA_LOG,
+    conda:
+        "../envs/pandas.yaml"
+    script:
+        "../scripts/kraken2_eupathdb_prot_library.py"

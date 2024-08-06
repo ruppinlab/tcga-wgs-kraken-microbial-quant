@@ -30,9 +30,13 @@ resources:
         names: [refseq/archaea, refseq/bacteria, refseq/viral]
       custom:
           eupathdb:
-            base_url: ftp://ftp.ccb.jhu.edu/pub/data/EuPathDB54
-            fa_tgz_filename: eupathDB54_CLEAN.tar.gz
-            idmap_filename: seqid2taxid_eupathDB54.map
+            nucl:
+              base_url: ftp://ftp.ccb.jhu.edu/pub/data/EuPathDB54
+              fa_tgz_fname: eupathDB54_CLEAN.tar.gz
+              idmap_fname: seqid2taxid_eupathDB54.map
+            prot:
+              base_url: ''
+              fa_tgz_fname: eupathdb_prot.tar.gz
     bracken:
       readlens: [25, 35, 50, 75, 100, 125, 150]
 

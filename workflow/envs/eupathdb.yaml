@@ -1,0 +1,7 @@
+name: bioconductor-eupathdb
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - bioconductor-eupathdb

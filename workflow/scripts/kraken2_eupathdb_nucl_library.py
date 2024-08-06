@@ -2,9 +2,9 @@ from contextlib import redirect_stdout, redirect_stderr
 
 with open(snakemake.log[0], "wt") as log_fh:
     with redirect_stdout(log_fh), redirect_stderr(log_fh):
-        seqid2taxid_map = {}
         with open(snakemake.output.idmap, "wt") as id_ofh:
             with open(snakemake.input.idmap, "rt") as id_ifh:
+                seqid2taxid_map = {}
                 for line in id_ifh:
                     seqid, taxid = line.strip().replace(" ", "").split("\t", maxsplit=2)
                     seqid2taxid_map[seqid] = taxid
