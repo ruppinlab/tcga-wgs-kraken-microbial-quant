@@ -39,9 +39,9 @@ shellcmd = (
     f"kraken2"
     f" --db {snakemake.params.db}"
     f" --threads {snakemake.threads}"
+    f" {extra}"
     f" {output}"
     f" {report}"
-    f" {extra}"
     f" {snakemake.input.fqs}"
     f" {log}"
 )
