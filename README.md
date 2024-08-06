@@ -8,7 +8,7 @@ Feature highlights:
 - Supports Kraken2 or KrakenUniq for read classification.
 - Supports HISAT2 or Bowtie2 for host filtering.
 - Automatically builds the latest MicrobialDB nucleotide and protein
-  Kraken2 databases (or for KrakenUniq nucleotide onl). MicrobialDB
+  Kraken2 databases (or for KrakenUniq nucleotide only). MicrobialDB
   consists of archaea, bacteria, viral, human, UniVec_Core, and
   eukaryotic pathogen genomes (EuPathDBv54) with contaminants removed.
 - Includes the option to do a second pass Kraken2 protein translated
