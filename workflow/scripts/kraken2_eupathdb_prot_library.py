@@ -22,10 +22,10 @@ with open(snakemake.log[0], "wt") as log_fh:
                             organism = re.findall(fasta_organism_regex, line)
                             organism = organism[0].replace("_", " ")
                             if organism not in meta_df.index.values:
-                                skip = True
                                 if organism not in skipped_organisms:
                                     print(f"{organism} metadata not found, skipping")
                                     skipped_organisms.append(organism)
+                                skip = True
                                 continue
                             line_parts = re.split(r"\s*\|\s*", line)
                             seqid = line_parts[0].lstrip(">")
