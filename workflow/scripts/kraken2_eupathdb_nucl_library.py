@@ -14,6 +14,7 @@ with open(snakemake.log[0], "wt") as log_fh:
                     for line in fa_ifh:
                         line = line.strip()
                         if line[0] == ">":
+                            skip = False
                             seqid = (
                                 line.replace(" ", "").replace(">", "").replace("|", "")
                             )
@@ -29,4 +30,6 @@ with open(snakemake.log[0], "wt") as log_fh:
                                 )
                             else:
                                 log_fh.write(f"No taxid: {seqid}\n")
-                        fa_ofh.write(f"{line}\n")
+                                skip = True
+                        if not skip:
+                            fa_ofh.write(f"{line}\n")

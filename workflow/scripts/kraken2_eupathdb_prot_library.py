@@ -21,18 +21,20 @@ with open(snakemake.log[0], "wt") as log_fh:
                             skip = False
                             organism = re.findall(fasta_organism_regex, line)
                             organism = organism[0].replace("_", " ")
-                            if organism not in meta_df.index.values:
+                            if organism in meta_df.index.values:
+                                line_parts = re.split(r"\s*\|\s*", line)
+                                seqid = line_parts[0].lstrip(">")
+                                taxid = meta_df.loc[organism, "Species NCBI taxon ID"]
+                                id_ofh.write(
+                                    f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
+                                )
+                                line = f">kraken:taxid|{taxid}|{seqid}"
+                            else:
                                 if organism not in skipped_organisms:
-                                    print(f"{organism} metadata not found, skipping")
+                                    log_fh.write(
+                                        f"{organism} metadata not found, skipping\n"
+                                    )
                                     skipped_organisms.append(organism)
                                 skip = True
-                                continue
-                            line_parts = re.split(r"\s*\|\s*", line)
-                            seqid = line_parts[0].lstrip(">")
-                            taxid = meta_df.loc[organism, "Species NCBI taxon ID"]
-                            id_ofh.write(
-                                f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
-                            )
-                            line = f">kraken:taxid|{taxid}|{seqid}"
                         if not skip:
                             fa_ofh.write(f"{line}\n")
