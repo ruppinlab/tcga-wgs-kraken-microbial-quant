@@ -26,6 +26,7 @@ with open(snakemake.log[0], "wt") as log_fh:
                                 if organism not in skipped_organisms:
                                     print(f"{organism} metadata not found, skipping")
                                     skipped_organisms.append(organism)
+                                continue
                             line_parts = re.split(r"\s*\|\s*", line)
                             seqid = line_parts[0].lstrip(">")
                             taxid = meta_df.loc[organism, "Species NCBI taxon ID"]
