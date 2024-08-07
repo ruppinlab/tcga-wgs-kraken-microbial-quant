@@ -131,7 +131,7 @@ bbmap:
     threads: 2
 
 bracken:
-  script_dir: 'external/bracken/3.0-fixed/scripts'
+  script_dir: 'external/bracken/2.9-fixed/scripts'
   build:
     threads: all
   quant:
