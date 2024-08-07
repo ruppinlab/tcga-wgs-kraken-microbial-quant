@@ -8,7 +8,7 @@ max-jobs-per-second: 1
 max-status-checks-per-second: 1
 local-cores: 2
 latency-wait: 60
-jobs: 5000
+jobs: unlimited
 cores: all
 
 resources:
