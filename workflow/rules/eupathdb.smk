@@ -1,15 +1,15 @@
 # Bioconductor EuPathDB library doesn't produce as comprehesnive species
 # and taxonomy metadata as manual downloading from the web, metadata is
 # different and misses a lot of organisms
-rule eupathdb_metadata:
-    output:
-        EUPATHDB_METADATA_FILE,
-    log:
-        EUPATHDB_METADATA_LOG,
-    conda:
-        "../envs/eupathdb.yaml"
-    script:
-        "../scripts/eupathdb_metadata.R"
+# rule eupathdb_metadata:
+#     output:
+#         EUPATHDB_METADATA_FILE,
+#     log:
+#         EUPATHDB_METADATA_LOG,
+#     conda:
+#         "../envs/eupathdb.yaml"
+#     script:
+#         "../scripts/eupathdb_metadata.R"
 
 
 rule eupathdb_fasta_archive:
