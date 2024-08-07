@@ -8,9 +8,9 @@ fasta_organism_regex = re.compile(
 )
 with open(snakemake.log[0], "wt") as log_fh:
     with redirect_stdout(log_fh), redirect_stderr(log_fh):
-        with open(snakemake.output.idmap, "wt") as id_ofh:
-            with open(snakemake.output.fasta, "wt") as fa_ofh:
-                with open(snakemake.input.fasta, "rt") as fa_ifh:
+        with open(snakemake.input.fasta, "rt") as fa_ifh:
+            with open(snakemake.output.idmap, "wt") as id_ofh:
+                with open(snakemake.output.fasta, "wt") as fa_ofh:
                     skipped_organisms = []
                     meta_df = pd.read_csv(
                         snakemake.input.meta, sep="\t", index_col="Organism"
