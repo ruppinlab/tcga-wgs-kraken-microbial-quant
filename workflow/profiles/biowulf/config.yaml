@@ -6,9 +6,10 @@ printshellcmds: true
 scheduler: greedy
 max-jobs-per-second: 1
 max-status-checks-per-second: 1
-local-cores: 4
+local-cores: 2
 latency-wait: 60
 jobs: 5000
+cores: all
 
 resources:
   gdc_download_jobs: 24
