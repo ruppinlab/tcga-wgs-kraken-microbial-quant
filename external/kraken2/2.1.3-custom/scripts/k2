@@ -734,6 +734,8 @@ def get_remote_md5(url, filepath, retries=5, retry_wait=5):
             break
         except (urllib.error.URLError, ConnectionResetError) as e:
             print(f"Error: {url}: {e}", flush=True)
+            if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                break
             retries -= 1
             sleep(retry_wait)
     return remote_md5
@@ -754,6 +756,8 @@ def http_download_file_with_md5_check(
             break
         except (urllib.error.URLError, ConnectionResetError) as e:
             print(f"Error: {url}: {e}", flush=True)
+            if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                break
             retries -= 1
             sleep(retry_wait)
     if not remote_exists:
@@ -793,6 +797,8 @@ def http_download_file_with_md5_check(
             if os.path.exists(filepath):
                 os.remove(filepath)
             print(f"Error: {url}: {e}", flush=True)
+            if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                break
             retries -= 1
             sleep(retry_wait)
 
@@ -837,6 +843,8 @@ def http_download_file(url, verbosity=1, retries=5, retry_wait=5):
             if os.path.exists(local_name):
                 os.remove(local_name)
             print(f"Error: {url}: {e}", flush=True)
+            if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                break
             retries -= 1
             sleep(retry_wait)
 
