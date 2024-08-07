@@ -11,7 +11,7 @@ latency-wait: 60
 jobs: 5000
 
 resources:
-  gdc_download_jobs: 10
+  gdc_download_jobs: 24
 
 default-resources:
   slurm_partition: "ccr,norm"

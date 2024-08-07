@@ -5,4 +5,4 @@ rerun-incomplete: true
 cores: 16
 
 resources:
-  gdc_download_jobs: 24
+  gdc_download_jobs: 16
