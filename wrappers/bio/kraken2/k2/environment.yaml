@@ -5,5 +5,4 @@ channels:
 dependencies:
   - joblib
   - kraken2=2.1.3
-  - pandas
   - python=3.12

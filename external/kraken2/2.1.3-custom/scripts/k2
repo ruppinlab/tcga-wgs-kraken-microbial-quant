@@ -26,8 +26,7 @@ import urllib.request
 from hashlib import md5
 from joblib import delayed, Parallel
 from pathlib import Path
-
-import pandas as pd
+from time import sleep
 
 LOG = None
 SCRIPT_PATHNAME = None
@@ -711,77 +710,137 @@ def download_log(filename):
     return inner
 
 
-def http_download_file_with_md5_check(url, local_name, verbosity=1):
+def get_remote_md5(url, filepath, retries=5, retry_wait=5):
+    remote_md5 = None
+    while retries > 0:
+        try:
+            url_obj = urllib.parse.urlparse(url)
+            md5_file_url = url_obj._replace(
+                path=os.path.join(os.path.split(url_obj.path)[0], "md5checksums.txt")
+            ).geturl()
+            md5_file = tempfile.NamedTemporaryFile()
+            urllib.request.urlretrieve(md5_file_url, md5_file.name)
+            basename_md5s = {}
+            with open(md5_file.name, "rt") as fh:
+                for line in fh:
+                    line = line.strip()
+                    md5, relpath = re.split(r"\s+", line, maxsplit=1)
+                    basename_md5s[os.path.basename(relpath)] = md5
+            local_basename = os.path.basename(filepath)
+            if local_basename not in basename_md5s:
+                print(f"MD5 not in md5checksums.txt: {url}", flush=True)
+                break
+            remote_md5 = basename_md5s[local_basename]
+            break
+        except (urllib.error.URLError, ConnectionResetError) as e:
+            print(f"Error: {url}: {e}", flush=True)
+            retries -= 1
+            sleep(retry_wait)
+    return remote_md5
+
+
+def http_download_file_with_md5_check(
+    url, local_name, verbosity=1, retries=5, retry_wait=5
+):
+    start_retries = retries
+    remote_exists = False
+    file_downloaded = False
+    while retries > 0:
+        try:
+            if urllib.request.urlopen(url).code == 200:
+                remote_exists = True
+            else:
+                print(f"Remote doesn't exist {url}", flush=True)
+            break
+        except (urllib.error.URLError, ConnectionResetError) as e:
+            print(f"Error: {url}: {e}", flush=True)
+            retries -= 1
+            sleep(retry_wait)
+    if not remote_exists:
+        return (remote_exists, file_downloaded)
+
+    retries = start_retries
     filepath = os.path.abspath(local_name)
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    try:
-        with urllib.request.urlopen(url) as conn:
-            remote_size = int(conn.headers["Content-Length"])
-            local_size = os.stat(filepath).st_size if os.path.exists(filepath) else 0
-            if local_size == remote_size:
-                print(f"Already downloaded {local_name}", flush=True)
-                return True
-        urllib.request.urlretrieve(
-            url,
-            filepath,
-            reporthook=download_log(local_name) if verbosity == 2 else None,
-        )
-        if verbosity == 2:
-            print(f"Saved {local_name}", flush=True)
-    except (urllib.error.ContentTooShortError, urllib.error.HTTPError) as e:
-        if os.path.exists(filepath):
-            os.remove(filepath)
-        print(f"Error: {url}: {e}", flush=True)
-        return False
-    try:
-        url_obj = urllib.parse.urlparse(url)
-        md5_file_url = url_obj._replace(
-            path=os.path.join(os.path.split(url_obj.path)[0], "md5checksums.txt")
-        ).geturl()
-        md5_file = tempfile.NamedTemporaryFile()
-        urllib.request.urlretrieve(md5_file_url, md5_file.name)
-        md5_df = pd.read_csv(
-            md5_file.name,
-            sep=r"\s+",
-            header=None,
-            names=["md5", "name"],
-            engine="c",
-            low_memory=False,
-        )
-        md5_df["name"] = md5_df["name"].apply(lambda n: os.path.basename(n))
-        remote_md5 = md5_df["md5"][md5_df["name"] == os.path.basename(filepath)].values[
-            0
-        ]
+    remote_md5 = get_remote_md5(url, filepath, retries, retry_wait)
+    while retries > 0:
+        try:
+            if os.path.exists(filepath):
+                if remote_md5:
+                    local_md5 = md5(Path(filepath).read_bytes()).hexdigest()
+                    if local_md5 == remote_md5:
+                        print(f"Already downloaded {local_name}", flush=True)
+                        file_downloaded = True
+                        break
+                else:
+                    with urllib.request.urlopen(url) as conn:
+                        remote_size = int(conn.headers["Content-Length"])
+                        local_size = os.stat(filepath).st_size
+                        if local_size == remote_size:
+                            print(f"Already downloaded {local_name}", flush=True)
+                            file_downloaded = True
+                            break
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+            urllib.request.urlretrieve(
+                url,
+                filepath,
+                reporthook=download_log(local_name) if verbosity == 2 else None,
+            )
+            if verbosity == 2:
+                print(f"Saved {local_name}", flush=True)
+            file_downloaded = True
+            break
+        except (urllib.error.URLError, ConnectionResetError) as e:
+            if os.path.exists(filepath):
+                os.remove(filepath)
+            print(f"Error: {url}: {e}", flush=True)
+            retries -= 1
+            sleep(retry_wait)
+
+    if remote_md5:
         local_md5 = md5(Path(filepath).read_bytes()).hexdigest()
         if remote_md5 != local_md5:
             if os.path.exists(filepath):
                 os.remove(filepath)
             print(
-                f"MD5 checksum mismatch: {url}: {remote_md5} != {local_md5}", flush=True
+                f"MD5 checksum mismatch: {url}: {remote_md5} != {local_md5}",
+                flush=True,
             )
-            return False
-        return True
-    except (urllib.error.ContentTooShortError, urllib.error.HTTPError) as e:
-        if os.path.exists(filepath):
-            os.remove(filepath)
-        print(f"Error: {url}: {e}", flush=True)
-        return False
+            file_downloaded = False
+
+    return (remote_exists, file_downloaded)
 
 
-def http_download_file(url, verbosity=1):
+def http_download_file(url, verbosity=1, retries=5, retry_wait=5):
+    file_downloaded = False
     local_name = urllib.parse.urlparse(url).path.split("/")[-1]
-    with urllib.request.urlopen(url) as conn:
-        remote_size = int(conn.headers["Content-Length"])
-        local_size = os.stat(local_name).st_size if os.path.exists(local_name) else 0
-        if local_size == remote_size:
-            LOG.info(f"Already downloaded {local_name}\n")
-            return
-    LOG.info(f"Beginning download of {url}\n")
-    urllib.request.urlretrieve(
-        url, local_name, reporthook=download_log(local_name) if verbosity == 2 else None
-    )
-    clear_console_line()
-    LOG.info(f"Saved {local_name} to {os.getcwd()}\n")
+    while retries > 0:
+        try:
+            if os.path.exists(local_name):
+                with urllib.request.urlopen(url) as conn:
+                    remote_size = int(conn.headers["Content-Length"])
+                    local_size = os.stat(local_name).st_size
+                    if local_size == remote_size:
+                        LOG.info(f"Already downloaded {local_name}\n")
+                        file_downloaded = True
+                        break
+            LOG.info(f"Beginning download of {url}\n")
+            urllib.request.urlretrieve(
+                url,
+                local_name,
+                reporthook=download_log(local_name) if verbosity == 2 else None,
+            )
+            clear_console_line()
+            LOG.info(f"Saved {local_name} to {os.getcwd()}\n")
+            file_downloaded = True
+            break
+        except (urllib.error.URLError, ConnectionResetError) as e:
+            if os.path.exists(local_name):
+                os.remove(local_name)
+            print(f"Error: {url}: {e}", flush=True)
+            retries -= 1
+            sleep(retry_wait)
+
+    return file_downloaded
 
 
 def make_manifest_filter(file, regex):
@@ -811,19 +870,6 @@ def get_manifest(server, remote_path, regex):
         ftp.close()
 
 
-def check_remote_exists(server, remote_dir, filepath):
-    try:
-        url = urllib.parse.urlunsplit(("https", server, remote_dir + filepath, "", ""))
-        urllib.request.urlopen(url)
-        return True
-    except urllib.error.URLError as e:
-        print(
-            f"{remote_dir}{filepath} download error {e}, skipping",
-            flush=True,
-        )
-        return False
-
-
 def download_files_from_manifest(
     server,
     remote_dir,
@@ -841,35 +887,31 @@ def download_files_from_manifest(
             )
             filepaths.append(filepath)
             urls.append(url)
-
-    LOG.info("Checking if manifest files exist on server...\n")
-    file_exists = Parallel(n_jobs=threads, backend="loky", verbose=verbosity)(
-        delayed(check_remote_exists)(server, remote_dir, filepath)
-        for filepath in filepaths
-    )
-    if filepath_to_taxid_table:
-        for exists, filepath in zip(file_exists, filepaths):
-            if not exists:
-                del filepath_to_taxid_table[filepath]
-    filepaths = [filepaths[i] for i in range(len(filepaths)) if file_exists[i]]
-    urls = [urls[i] for i in range(len(urls)) if file_exists[i]]
-
     LOG.info("Downloading manifest files...\n")
-    downloaded = Parallel(
-        n_jobs=threads, backend="loky", verbose=0 if verbosity == 2 else verbosity
-    )(
-        delayed(http_download_file_with_md5_check)(url, filepath, verbosity)
-        for url, filepath in zip(urls, filepaths)
+    remote_exists, files_downloaded = zip(
+        *Parallel(
+            n_jobs=threads, backend="loky", verbose=0 if verbosity == 2 else verbosity
+        )(
+            delayed(http_download_file_with_md5_check)(url, filepath, verbosity)
+            for url, filepath in zip(urls, filepaths)
+        )
     )
     urllib.request.urlcleanup()
-    filepaths = [filepaths[i] for i in range(len(filepaths)) if not downloaded[i]]
+    if filepath_to_taxid_table:
+        for exists, filepath in zip(remote_exists, filepaths):
+            if not exists:
+                del filepath_to_taxid_table[filepath]
+    filepaths = [filepaths[i] for i in range(len(filepaths)) if remote_exists[i]]
+    files_downloaded = [
+        files_downloaded[i] for i in range(len(files_downloaded)) if remote_exists[i]
+    ]
+    filepaths = [filepaths[i] for i in range(len(filepaths)) if not files_downloaded[i]]
     if filepaths:
         LOG.warning(
-            "There was an issue downloading files over HTTP, falling back to FTP for remaining {} file(s).\n".format(
-                len(filepaths)
-            )
+            f"There was an issue downloading files over HTTP, falling back to FTP for "
+            f"remaining {len(filepaths)} file(s).\n"
         )
-        ftp.reconnect()
+        ftp = FTP(server)
         ftp.download(remote_dir, filepaths)
         ftp.close()
 
@@ -928,12 +970,10 @@ def download_genomic_library(args):
         remote_dir_name = args.library
         if args.library == "human":
             remote_dir_name = "vertebrate_mammalian/Homo_sapiens"
-        try:
-            url = "https://{:s}/genomes/refseq/{:s}/assembly_summary.txt".format(
-                NCBI_SERVER, remote_dir_name
-            )
-            http_download_file(url, verbosity=args.verbosity)
-        except urllib.error.URLError:
+        url = "https://{:s}/genomes/refseq/{:s}/assembly_summary.txt".format(
+            NCBI_SERVER, remote_dir_name
+        )
+        if not http_download_file(url, verbosity=args.verbosity):
             LOG.error(
                 "Error downloading assembly summary file for {:s}, exiting\n".format(
                     args.library
@@ -1033,10 +1073,8 @@ def download_genomic_library(args):
         library_pathname = os.path.join(library_pathname, args.library)
         os.makedirs(library_pathname, exist_ok=True)
         os.chdir(library_pathname)
-        try:
-            url = "https://{:s}/pub/UniVec/{:s}".format(NCBI_SERVER, args.library)
-            http_download_file(url, verbosity=args.verbosity)
-        except urllib.error.URLError:
+        url = "https://{:s}/pub/UniVec/{:s}".format(NCBI_SERVER, args.library)
+        if not http_download_file(url, verbosity=args.verbosity):
             LOG.error("Error downloading {:s}, exiting\n".format(args.library))
             sys.exit(1)
         special_taxid = 28384

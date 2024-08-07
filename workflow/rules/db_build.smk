@@ -28,8 +28,8 @@ rule kraken2_nucl_db_library:
             else False
         ),
         extra=config["kraken2"]["k2"]["extra"],
-        backend=onfig["kraken2"]["k2"]["backend"],
         verbosity=config["kraken2"]["k2"]["verbosity"],
+        backend=config["kraken2"]["k2"]["backend"],
         retries=config["download"]["retries"],
         retry_wait=config["download"]["retry_wait"],
     output:
@@ -57,8 +57,8 @@ rule kraken2_prot_db_library:
             else False
         ),
         extra=config["kraken2"]["k2"]["extra"],
-        backend=onfig["kraken2"]["k2"]["backend"],
         verbosity=config["kraken2"]["k2"]["verbosity"],
+        backend=config["kraken2"]["k2"]["backend"],
         retries=config["download"]["retries"],
         retry_wait=config["download"]["retry_wait"],
     output:
