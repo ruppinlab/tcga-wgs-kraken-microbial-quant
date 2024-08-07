@@ -733,9 +733,10 @@ def get_remote_md5(url, filepath, retries=5, retry_wait=5):
             remote_md5 = basename_md5s[local_basename]
             break
         except (urllib.error.URLError, ConnectionResetError) as e:
-            print(f"Error: {url}: {e}", flush=True)
             if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                print(f"Error: {url}: {e}", flush=True)
                 break
+            print(f"Retrying: {url}: {e}", flush=True)
             retries -= 1
             sleep(retry_wait)
     return remote_md5
@@ -755,9 +756,10 @@ def http_download_file_with_md5_check(
                 print(f"Remote doesn't exist {url}", flush=True)
             break
         except (urllib.error.URLError, ConnectionResetError) as e:
-            print(f"Error: {url}: {e}", flush=True)
             if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                print(f"Error: {url}: {e}", flush=True)
                 break
+            print(f"Retrying: {url}: {e}", flush=True)
             retries -= 1
             sleep(retry_wait)
     if not remote_exists:
@@ -796,9 +798,10 @@ def http_download_file_with_md5_check(
         except (urllib.error.URLError, ConnectionResetError) as e:
             if os.path.exists(filepath):
                 os.remove(filepath)
-            print(f"Error: {url}: {e}", flush=True)
             if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                print(f"Error: {url}: {e}", flush=True)
                 break
+            print(f"Retrying: {url}: {e}", flush=True)
             retries -= 1
             sleep(retry_wait)
 
@@ -842,9 +845,10 @@ def http_download_file(url, verbosity=1, retries=5, retry_wait=5):
         except (urllib.error.URLError, ConnectionResetError) as e:
             if os.path.exists(local_name):
                 os.remove(local_name)
-            print(f"Error: {url}: {e}", flush=True)
             if isinstance(e, urllib.error.HTTPError) and e.code == 404:
+                print(f"Error: {url}: {e}", flush=True)
                 break
+            print(f"Retrying: {url}: {e}", flush=True)
             retries -= 1
             sleep(retry_wait)
 
