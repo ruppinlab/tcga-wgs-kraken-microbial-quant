@@ -27,8 +27,11 @@ rule kraken2_nucl_db_library:
             or wc.k2nlib in config["resources"]["db"]["libs"]["kraken2"]["ftp_only"]
             else False
         ),
-        verbosity=config["kraken2"]["k2"]["verbosity"],
         extra=config["kraken2"]["k2"]["extra"],
+        backend=onfig["kraken2"]["k2"]["backend"],
+        verbosity=config["kraken2"]["k2"]["verbosity"],
+        retries=config["download"]["retries"],
+        retry_wait=config["download"]["retry_wait"],
     output:
         touch(KRAKEN2_NUCL_DB_LIB_DONE_FILE),
     log:
@@ -53,8 +56,11 @@ rule kraken2_prot_db_library:
             or wc.k2plib in config["resources"]["db"]["libs"]["kraken2"]["ftp_only"]
             else False
         ),
-        verbosity=config["kraken2"]["k2"]["verbosity"],
         extra=config["kraken2"]["k2"]["extra"],
+        backend=onfig["kraken2"]["k2"]["backend"],
+        verbosity=config["kraken2"]["k2"]["verbosity"],
+        retries=config["download"]["retries"],
+        retry_wait=config["download"]["retry_wait"],
     output:
         touch(KRAKEN2_PROT_DB_LIB_DONE_FILE),
     log:

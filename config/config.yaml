@@ -11,6 +11,7 @@ random_seed: 777
 
 download:
   retries: 5
+  retry_wait: 5
 
 resources:
   ref:
@@ -97,6 +98,7 @@ kraken2:
   k2:
     extra: ''
     threads: 12
+    backend: loky
     verbosity: 1
   build:
     extra: ''
