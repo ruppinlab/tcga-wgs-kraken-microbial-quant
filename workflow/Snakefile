@@ -9,9 +9,6 @@ from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 
-# https://github.com/snakemake/snakemake/issues/2957
-warnings.filterwarnings("ignore", category=RuntimeWarning, module="snakemake.dag")
-
 CONFIG_DIR = "config"
 DATA_DIR = "data"
 LOG_DIR = "logs"
@@ -515,9 +512,9 @@ rule all:
         # expand(GDC_UNMAPPED_FASTQ_DIR, **EXPAND_PARAMS),
         # HOST_REF_FASTA_FILE,
         # HOST_GENOME_INDEX_DIR,
-        expand(KRAKEN2_DB_TAX_DONE_FILE, **EXPAND_PARAMS),
-        expand(KRAKEN2_NUCL_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
-        expand(KRAKEN2_PROT_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
+        # expand(KRAKEN2_DB_TAX_DONE_FILE, **EXPAND_PARAMS),
+        # expand(KRAKEN2_NUCL_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
+        # expand(KRAKEN2_PROT_DB_LIB_DONE_FILE, **EXPAND_PARAMS),
         # EUPATHDB_METADATA_FILE,
         # expand(EUPATHDB_FASTA_TGZ_FILE, **EXPAND_PARAMS),
         # expand(EUPATHDB_FASTA_DIR, **EXPAND_PARAMS),
@@ -530,7 +527,7 @@ rule all:
         # expand(KRAKEN2_DB_DONE_FILE, **EXPAND_PARAMS),
         # expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
         # expand(BRACKEN_COMBINED_COUNT_FILE, **EXPAND_PARAMS),
-        # BRACKEN_COUNT_MATRIX_FILE,
+        BRACKEN_COUNT_MATRIX_FILE,
 
 
 def clean(*dirs):

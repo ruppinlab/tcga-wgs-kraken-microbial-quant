@@ -2,7 +2,7 @@ software-deployment-method: conda
 printshellcmds: true
 scheduler: greedy
 rerun-incomplete: true
-# keep-going: true
+cores: 16
 
 resources:
   gdc_download_jobs: 24
