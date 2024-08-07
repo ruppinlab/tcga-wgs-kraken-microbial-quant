@@ -5,4 +5,4 @@ rerun-incomplete: true
 # keep-going: true
 
 resources:
-  gdc_download_jobs: 10
+  gdc_download_jobs: 24
