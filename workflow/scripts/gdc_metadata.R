@@ -14,8 +14,7 @@ file_query <-
         cases.project.program.name %in% config$gdc$program_names &
             cases.samples.sample_type %in% config$gdc$sample_types &
             experimental_strategy == config$gdc$exp_strategy &
-            analysis.workflow_type %in% config$gdc$workflow_types &
-            cases.project.project_id %in% c("TCGA-LAML")
+            analysis.workflow_type %in% config$gdc$workflow_types
     ) %>%
     GenomicDataCommons::select(c(
         "file_name",
