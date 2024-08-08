@@ -17,8 +17,8 @@ resources:
 
 default-resources:
   slurm_partition: "ccr,norm"
-  cpus_per_task: 4
-  mem: "8g"
+  cpus_per_task: 2
+  mem: "4g"
   runtime: "3d"
   slurm_extra: "'--gres=lscratch:100'"
 
