@@ -5,10 +5,10 @@
 !config/config.yaml
 !data
 !data/gdc
-!data/gdc/all
-!data/gdc/primary_tumors
-!data/gdc/primary_tumors/tcga_wgs_file_meta.tsv
-!data/gdc/primary_tumors/tcga_wgs_readgrp_meta.tsv
+!data/gdc/tcga_wgs_all_file_meta.tsv
+!data/gdc/tcga_wgs_all_readgrp_meta.tsv
+!data/gdc/tcga_wgs_primary_tumors_file_meta.tsv
+!data/gdc/tcga_wgs_primary_tumors_readgrp_meta.tsv
 !envs
 !envs/*
 !external

@@ -117,11 +117,11 @@ row.names(readgrp_meta) <- readgrp_meta$read_group_id
 readgrp_meta <- arrange(readgrp_meta, read_group_id)
 
 data_dir <- config$gdc$data$dir
-sub_dir <- config$gdc$data$sub_dir
 if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
 
 file_meta_file <- paste(
-    data_dir, sub_dir, paste0(config$gdc$study_name, "_file_meta.tsv"),
+    data_dir,
+    paste0(config$gdc$study_name, config$gdc$project_name, "_file_meta.tsv"),
     sep = "/"
 )
 cat("Writing", file_meta_file, "\n")
@@ -131,7 +131,8 @@ write.table(
     quote = FALSE, sep = "\t", row.names = FALSE
 )
 readgrp_meta_file <- paste(
-    data_dir, sub_dir, paste0(config$gdc$study_name, "_readgrp_meta.tsv"),
+    data_dir,
+    paste0(config$gdc$study_name, config$gdc$project_name, "_readgrp_meta.tsv"),
     sep = "/"
 )
 cat("Writing", readgrp_meta_file, "\n")

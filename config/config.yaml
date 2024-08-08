@@ -43,6 +43,7 @@ resources:
 
 gdc:
   study_name: tcga_wgs
+  project_name: primary_tumors
   program_names: [
     'TCGA'
   ]
@@ -57,7 +58,6 @@ gdc:
   ]
   data:
     dir: data/gdc
-    sub_dir: primary_tumors
 
 host_filter:
   mode: hisat2
