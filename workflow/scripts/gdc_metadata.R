@@ -120,7 +120,9 @@ if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE, mode = "0755")
 
 file_meta_file <- paste(
     data_dir,
-    paste0(config$gdc$study_name, config$gdc$project_name, "_file_meta.tsv"),
+    paste0(
+        config$gdc$study_name, "_", config$gdc$project_name, "_file_meta.tsv"
+    ),
     sep = "/"
 )
 cat("Writing", file_meta_file, "\n")
@@ -131,7 +133,9 @@ write.table(
 )
 readgrp_meta_file <- paste(
     data_dir,
-    paste0(config$gdc$study_name, config$gdc$project_name, "_readgrp_meta.tsv"),
+    paste0(
+        config$gdc$study_name, "_", config$gdc$project_name, "_readgrp_meta.tsv"
+    ),
     sep = "/"
 )
 cat("Writing", readgrp_meta_file, "\n")
