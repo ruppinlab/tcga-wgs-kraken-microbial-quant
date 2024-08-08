@@ -20,7 +20,7 @@ with open(snakemake.log[0], "wt") as log_fh:
                         if line[0] == ">":
                             skip = False
                             organism = re.findall(fasta_organism_regex, line)
-                            organism = organism[0].replace("_", " ")
+                            organism = organism[0].strip().replace("_", " ")
                             if organism in meta_df.index.values:
                                 line_parts = re.split(r"\s*\|\s*", line)
                                 seqid = line_parts[0].lstrip(">")
