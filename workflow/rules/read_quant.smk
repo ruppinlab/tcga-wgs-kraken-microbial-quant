@@ -35,16 +35,16 @@ rule bracken_read_quant:
         BRACKEN_QUANT_WRAPPER
 
 
-def bracken_count_files(wc):
+def bracken_count_files(wildcards):
+    gdc_unmapped_fastq_dir = checkpoints.gdc_unmapped_fastqs.get(**wildcards).output[0]
     rg_ids, sfxs = glob_wildcards(
         join(
-            GDC_FASTQ_RESULTS_DIR,
-            wc.bam_id,
-            "{rg_id,[0-9a-f\-]{36}}_unmapped_{sfx,(1|2|s){1}}.fq.gz",
+            gdc_unmapped_fastq_dir,
+            "{rg_id,[0-9a-f\\-]{36}}_unmapped_{sfx,(1|2|s){1}}.fq.gz",
         )
     )
     return expand(
-        join(BRACKEN_QUANT_RESULTS_DIR, wc.bam_id, "{rg_id}_counts.tsv"),
+        join(BRACKEN_QUANT_RESULTS_DIR, wildcards.bam_id, "{rg_id}_counts.tsv"),
         rg_id=rg_ids,
     )
 
