@@ -3,6 +3,7 @@ software-deployment-method: conda
 keep-going: true
 rerun-incomplete: true
 printshellcmds: true
+nolock: true
 scheduler: greedy
 max-jobs-per-second: 1
 max-status-checks-per-second: 1
