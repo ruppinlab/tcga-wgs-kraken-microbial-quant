@@ -35,8 +35,10 @@ rule bracken_read_quant:
         BRACKEN_QUANT_WRAPPER
 
 
-def bracken_count_files(wildcards):
-    gdc_unmapped_fastq_dir = checkpoints.gdc_unmapped_fastqs.get(**wildcards).output[0]
+def bracken_rg_count_files(wildcards):
+    gdc_rg_unmapped_fastq_dir = checkpoints.gdc_rg_unmapped_fastqs.get(
+        **wildcards
+    ).output[0]
     rg_ids, sfxs = glob_wildcards(
         join(
             gdc_unmapped_fastq_dir,
@@ -44,29 +46,29 @@ def bracken_count_files(wildcards):
         )
     )
     return expand(
-        join(BRACKEN_QUANT_RESULTS_DIR, wildcards.bam_id, "{rg_id}_counts.tsv"),
+        join(BRACKEN_QUANT_RESULTS_DIR, wildcards.rg_bam_id, "{rg_id}_counts.tsv"),
         rg_id=rg_ids,
     )
 
 
-rule bracken_combined_counts:
+rule bracken_combined_rg_counts:
     input:
-        bracken_count_files,
+        bracken_rg_count_files,
     output:
-        BRACKEN_COMBINED_COUNT_FILE,
+        BRACKEN_COMBINED_RG_COUNT_FILE,
     log:
-        BRACKEN_COMBINED_COUNT_LOG,
+        BRACKEN_COMBINED_RG_COUNT_LOG,
     conda:
         "../envs/pandas.yaml"
     script:
-        "../scripts/braken_combined_counts.py"
+        "../scripts/braken_combined_rg_counts.py"
 
 
 rule bracken_count_matrix:
     input:
-        expand(BRACKEN_COMBINED_COUNT_FILE, **EXPAND_PARAMS),
+        BRACKEN_BAM_COUNT_FILES,
     params:
-        samples=EXPAND_PARAMS["bam_id"],
+        samples=BRACKEN_BAM_IDS,
     output:
         BRACKEN_COUNT_MATRIX_FILE,
     log:

@@ -13,39 +13,35 @@ from snakemake.utils import makedirs
 rg_meta_df = snakemake.params.get("rg_meta_df")
 assert rg_meta_df is not None, "params: rg_meta_df is a required parameter"
 
-bam_id = rg_meta_df["file_id"].unique()
-assert len(bam_id) == 1, "params: rg_meta_df needs to be subset per file_id"
-bam_id = bam_id[0]
-
 per_readgrp = (
     rg_meta_df["is_paired_end"].nunique() > 1 or rg_meta_df["read_length"].nunique() > 1
 )
 paired_end = rg_meta_df["is_paired_end"].all()
 
-suffixes = snakemake.params.get("suffixes")
-assert suffixes is not None, "params: suffixes is a required parameter"
-
 extra = snakemake.params.get("extra", "")
 
 if per_readgrp:
+    suffixes = snakemake.params.get("suffixes")
+    assert (
+        suffixes is not None
+    ), "params: suffixes is a required parameter when per readgroup output"
+    makedirs(snakemake.output[0])
     extra = f"collate=1 combs=1 {extra} outputperreadgroup=1"
     output = f"outputdir={snakemake.output[0]}"
     for suffix_opt in suffixes:
         output += f" outputperreadgroupsuffix{suffix_opt}={suffixes[suffix_opt]}"
 elif paired_end:
     extra = f"collate=1 combs=1 {extra}"
-    output = ""
-    for suffix_opt in [s for s in suffixes if s.upper() != "S"]:
-        outfile = join(snakemake.output[0], f"{bam_id}{suffixes[suffix_opt]}")
-        output += f" {suffix_opt}={outfile}"
-    output += " > /dev/null"
+    output = (
+        f"F={snakemake.output.F} F2={snakemake.output.F2} "
+        f"O={snakemake.params.O} 02={snakemake.params.O2} "
+        f"> /dev/null"
+    )
 else:
-    outfile = join(snakemake.output[0], f"{bam_id}{suffixes['S']}")
-    output = f"> {outfile}"
+    output = f"> {snakemake.output[0]}"
 
 log = snakemake.log_fmt_shell(stdout=False, stderr=True, append=True)
 
-makedirs(snakemake.output[0])
 with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as tmpdir:
     with NamedTemporaryFile(
         dir=tmpdir, prefix="bamtofastq_", delete=False, delete_on_close=False

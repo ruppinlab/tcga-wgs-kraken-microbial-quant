@@ -119,17 +119,99 @@ assert (
 ), "GDC auth token not found in GDC_TOKEN, GDC_TOKEN_FILE, or ~/.gdc_token"
 
 EXPAND_PARAMS["bam_id"] = GDC_BAM_META_DF["file_id"].tolist()
+EXPAND_PARAMS["sg_bam_id"] = GDC_BAM_META_DF.loc[
+    GDC_BAM_META_DF["num_uniq_read_groups"] == 1, "file_id"
+].tolist()
+EXPAND_PARAMS["rg_bam_id"] = GDC_BAM_META_DF.loc[
+    GDC_BAM_META_DF["num_uniq_read_groups"] > 1, "file_id"
+].tolist()
 
 GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
 GDC_LOG_DIR = join(LOG_DIR, "gdc")
-GDC_UNMAPPED_BAM_FILE = join(GDC_RESULTS_DIR, "bam", "{bam_id}_unmapped.bam")
-GDC_UNMAPPED_BAM_LOG = join(GDC_LOG_DIR, "bam", "{bam_id}_unmapped_bam.log")
+GDC_BAM_RESULTS_DIR = join(GDC_RESULTS_DIR, "bam")
+GDC_BAM_LOG_DIR = join(GDC_LOG_DIR, "bam")
+GDC_UNMAPPED_BAM_FILE = join(GDC_BAM_RESULTS_DIR, "{bam_id}_unmapped.bam")
+GDC_SG_UNMAPPED_BAM_FILE = join(GDC_BAM_RESULTS_DIR, "{sg_bam_id}_unmapped.bam")
+GDC_RG_UNMAPPED_BAM_FILE = join(GDC_BAM_RESULTS_DIR, "{rg_bam_id}_unmapped.bam")
+GDC_UNMAPPED_BAM_LOG = join(GDC_BAM_LOG_DIR, "{bam_id}_unmapped_bam.log")
+
 GDC_FASTQ_RESULTS_DIR = join(GDC_RESULTS_DIR, "fastq")
-GDC_UNMAPPED_FASTQ_DIR = join(GDC_FASTQ_RESULTS_DIR, "{bam_id}")
-GDC_UNMAPPED_FASTQ_R1_FILE = join(GDC_UNMAPPED_FASTQ_DIR, "{rg_id}_unmapped_1.fq.gz")
-GDC_UNMAPPED_FASTQ_R2_FILE = join(GDC_UNMAPPED_FASTQ_DIR, "{rg_id}_unmapped_2.fq.gz")
-GDC_UNMAPPED_FASTQ_SE_FILE = join(GDC_UNMAPPED_FASTQ_DIR, "{rg_id}_unmapped_s.fq.gz")
-GDC_UNMAPPED_FASTQ_LOG = join(GDC_LOG_DIR, "fastq", "{bam_id}_unmapped_fastq.log")
+GDC_FASTQ_LOG_DIR = join(GDC_LOG_DIR, "fastq")
+GDC_UNMAPPED_FASTQ_FILE_DIR = join(GDC_FASTQ_RESULTS_DIR, "{bam_id}")
+GDC_UNMAPPED_FASTQ_R1_FILE = join(
+    GDC_UNMAPPED_FASTQ_FILE_DIR, "{rg_id}_unmapped_1.fq.gz"
+)
+GDC_UNMAPPED_FASTQ_R2_FILE = join(
+    GDC_UNMAPPED_FASTQ_FILE_DIR, "{rg_id}_unmapped_2.fq.gz"
+)
+GDC_UNMAPPED_FASTQ_O1_FILE = join(
+    GDC_UNMAPPED_FASTQ_FILE_DIR, "{rg_id}_unmapped_o1.fq.gz"
+)
+GDC_UNMAPPED_FASTQ_O2_FILE = join(
+    GDC_UNMAPPED_FASTQ_FILE_DIR, "{rg_id}_unmapped_o2.fq.gz"
+)
+GDC_UNMAPPED_FASTQ_SE_FILE = join(
+    GDC_UNMAPPED_FASTQ_FILE_DIR, "{rg_id}_unmapped_s.fq.gz"
+)
+GDC_SG_UNMAPPED_FASTQ_FILE_DIR = join(GDC_FASTQ_RESULTS_DIR, "{sg_bam_id}")
+GDC_SG_UNMAPPED_FASTQ_R1_FILE = join(
+    GDC_SG_UNMAPPED_FASTQ_FILE_DIR, "{sg_bam_id}_unmapped_1.fq.gz"
+)
+GDC_SG_UNMAPPED_FASTQ_R2_FILE = join(
+    GDC_SG_UNMAPPED_FASTQ_FILE_DIR, "{sg_bam_id}_unmapped_2.fq.gz"
+)
+GDC_SG_UNMAPPED_FASTQ_O1_FILE = join(
+    GDC_SG_UNMAPPED_FASTQ_FILE_DIR, "{sg_bam_id}_unmapped_o1.fq.gz"
+)
+GDC_SG_UNMAPPED_FASTQ_O2_FILE = join(
+    GDC_SG_UNMAPPED_FASTQ_FILE_DIR, "{sg_bam_id}_unmapped_o2.fq.gz"
+)
+GDC_SG_UNMAPPED_FASTQ_SE_FILE = join(
+    GDC_SG_UNMAPPED_FASTQ_FILE_DIR, "{sg_bam_id}_unmapped_s.fq.gz"
+)
+GDC_SG_UNMAPPED_FASTQ_LOG_DIR = join(GDC_FASTQ_LOG_DIR, "{sg_bam_id}")
+GDC_SG_UNMAPPED_FASTQ_LOG = join(GDC_FASTQ_LOG_DIR, "{sg_bam_id}_unmapped_fastq.log")
+GDC_SG_UNMAPPED_FASTQ_FILES = np.hstack(
+    GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
+        lambda x: (
+            [
+                join(
+                    GDC_FASTQ_RESULTS_DIR,
+                    x["file_id"],
+                    f"{x['file_id']}_unmapped_1.fq.gz",
+                ),
+                join(
+                    GDC_FASTQ_RESULTS_DIR,
+                    x["file_id"],
+                    f"{x['file_id']}_unmapped_2.fq.gz",
+                ),
+                # join(
+                #     GDC_FASTQ_RESULTS_DIR,
+                #     x["file_id"],
+                #     f"{x['file_id']}_unmapped_o1.fq.gz",
+                # ),
+                # join(
+                #     GDC_FASTQ_RESULTS_DIR,
+                #     x["file_id"],
+                #     f"{x['file_id']}_unmapped_o2.fq.gz",
+                # ),
+            ]
+            if x["is_paired_end"]
+            else [
+                join(
+                    GDC_FASTQ_RESULTS_DIR,
+                    x["file_id"],
+                    f"{x['file_id']}_unmapped_s.fq.gz",
+                )
+            ]
+        ),
+        axis=1,
+        result_type="reduce",
+    ),
+).tolist()
+GDC_RG_UNMAPPED_FASTQ_FILE_DIR = join(GDC_FASTQ_RESULTS_DIR, "{rg_bam_id}")
+GDC_RG_UNMAPPED_FASTQ_LOG_DIR = join(GDC_FASTQ_LOG_DIR, "{rg_bam_id}")
+GDC_RG_UNMAPPED_FASTQ_LOG = join(GDC_FASTQ_LOG_DIR, "{rg_bam_id}_unmapped_fastq.log")
 
 HOST_GENOME_INDEX_DIR = join(RESOURCES_DIR, HOST_FILTER_MODE, "index")
 HOST_GENOME_LOG_DIR = join(LOG_DIR, HOST_FILTER_MODE, "index")
@@ -406,10 +488,14 @@ BRACKEN_COUNT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_counts.tsv")
 BRACKEN_REPORT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_report.tsv")
 BRACKEN_QUANT_LOG = join(BRACKEN_QUANT_FILE_LOG_DIR, "{rg_id}_quant.log")
 
-BRACKEN_COMBINED_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "combined_counts")
-BRACKEN_COMBINED_LOG_DIR = join(BRACKEN_LOG_DIR, "combined_counts")
-BRACKEN_COMBINED_COUNT_FILE = join(BRACKEN_COMBINED_RESULTS_DIR, "{bam_id}_counts.tsv")
-BRACKEN_COMBINED_COUNT_LOG = join(BRACKEN_COMBINED_LOG_DIR, "{bam_id}_counts.log")
+BRACKEN_COMBINED_RG_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "combined_rg_counts")
+BRACKEN_COMBINED_RG_LOG_DIR = join(BRACKEN_LOG_DIR, "combined_rg_counts")
+BRACKEN_COMBINED_RG_COUNT_FILE = join(
+    BRACKEN_COMBINED_RG_RESULTS_DIR, "{rg_bam_id}_counts.tsv"
+)
+BRACKEN_COMBINED_RG_COUNT_LOG = join(
+    BRACKEN_COMBINED_RG_LOG_DIR, "{rg_bam_id}_counts.log"
+)
 
 BRACKEN_COUNT_MATRIX_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "matrix")
 BRACKEN_COUNT_MATRIX_LOG_DIR = join(BRACKEN_LOG_DIR, "matrix")
@@ -419,6 +505,29 @@ BRACKEN_COUNT_MATRIX_FILE = join(
 BRACKEN_COUNT_MATRIX_LOG = join(
     BRACKEN_COUNT_MATRIX_LOG_DIR, f"{STUDY_NAME}_{PROJECT_NAME}_count_matrix.log"
 )
+BRACKEN_BAM_COUNT_FILES = pd.concat(
+    [
+        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
+            lambda x: join(
+                BRACKEN_QUANT_RESULTS_DIR,
+                x["file_id"],
+                f"{x['file_id']}_counts.tsv",
+            ),
+            axis=1,
+            result_type="reduce",
+        ),
+        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] > 1].apply(
+            lambda x: join(
+                BRACKEN_COMBINED_RG_RESULTS_DIR,
+                f"{x['file_id']}_counts.tsv",
+            ),
+            axis=1,
+            result_type="reduce",
+        ),
+    ],
+    axis=0,
+).tolist()
+BRACKEN_BAM_IDS = GDC_BAM_META_DF["file_id"].tolist()
 
 HOST_BUILD_THREADS = (
     workflow.cores
@@ -512,7 +621,8 @@ include: join(RULES_DIR, "read_quant.smk")
 rule all:
     input:
         # expand(GDC_UNMAPPED_BAM_FILE, **EXPAND_PARAMS),
-        # expand(GDC_UNMAPPED_FASTQ_DIR, **EXPAND_PARAMS),
+        # GDC_SG_UNMAPPED_FASTQ_FILES,
+        # expand(GDC_RG_UNMAPPED_FASTQ_FILE_DIR, **EXPAND_PARAMS),
         # HOST_REF_FASTA_FILE,
         # HOST_GENOME_INDEX_DIR,
         # expand(KRAKEN2_DB_TAX_DONE_FILE, **EXPAND_PARAMS),
@@ -528,7 +638,7 @@ rule all:
         # KRAKEN2_EUPATHDB_PROT_LIB_FASTA_FILE,
         # expand(KRAKEN2_DB_DONE_FILE, **EXPAND_PARAMS),
         # expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
-        # expand(BRACKEN_COMBINED_COUNT_FILE, **EXPAND_PARAMS),
+        # expand(BRACKEN_COMBINED_RG_COUNT_FILE, **EXPAND_PARAMS),
         BRACKEN_COUNT_MATRIX_FILE,
 
 

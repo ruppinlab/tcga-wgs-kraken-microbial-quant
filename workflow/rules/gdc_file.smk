@@ -18,12 +18,48 @@ rule gdc_unmapped_bam:
         "../scripts/url_bam_file.py"
 
 
-checkpoint gdc_unmapped_fastqs:
+rule gdc_sg_unmapped_fastq_pe:
     input:
-        GDC_UNMAPPED_BAM_FILE,
+        GDC_SG_UNMAPPED_BAM_FILE,
     params:
         rg_meta_df=lambda wc: GDC_READGRP_META_DF.loc[
-            GDC_READGRP_META_DF["file_id"] == wc.bam_id
+            GDC_READGRP_META_DF["file_id"] == wc.sg_bam_id
+        ],
+        O=GDC_SG_UNMAPPED_FASTQ_O1_FILE,
+        O2=GDC_SG_UNMAPPED_FASTQ_O2_FILE,
+        S=GDC_SG_UNMAPPED_FASTQ_SE_FILE,
+        extra=config["biobambam2"]["bamtofastq"]["extra"],
+    output:
+        F=temp(GDC_SG_UNMAPPED_FASTQ_R1_FILE),
+        F2=temp(GDC_SG_UNMAPPED_FASTQ_R2_FILE),
+    log:
+        GDC_SG_UNMAPPED_FASTQ_LOG,
+    wrapper:
+        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
+
+
+rule gdc_sg_unmapped_fastq_se:
+    input:
+        GDC_SG_UNMAPPED_BAM_FILE,
+    params:
+        rg_meta_df=lambda wc: GDC_READGRP_META_DF.loc[
+            GDC_READGRP_META_DF["file_id"] == wc.sg_bam_id
+        ],
+        extra=config["biobambam2"]["bamtofastq"]["extra"],
+    output:
+        temp(GDC_SG_UNMAPPED_FASTQ_SE_FILE),
+    log:
+        GDC_SG_UNMAPPED_FASTQ_LOG,
+    wrapper:
+        BIOBAMBAM2_BAMTOFASTQ_WRAPPER
+
+
+checkpoint gdc_rg_unmapped_fastqs:
+    input:
+        GDC_RG_UNMAPPED_BAM_FILE,
+    params:
+        rg_meta_df=lambda wc: GDC_READGRP_META_DF.loc[
+            GDC_READGRP_META_DF["file_id"] == wc.rg_bam_id
         ],
         suffixes={
             "F": "_unmapped_1.fq.gz",
@@ -34,8 +70,8 @@ checkpoint gdc_unmapped_fastqs:
         },
         extra=config["biobambam2"]["bamtofastq"]["extra"],
     output:
-        directory(GDC_UNMAPPED_FASTQ_DIR),
+        directory(GDC_RG_UNMAPPED_FASTQ_FILE_DIR),
     log:
-        GDC_UNMAPPED_FASTQ_LOG,
+        GDC_RG_UNMAPPED_FASTQ_LOG,
     wrapper:
         BIOBAMBAM2_BAMTOFASTQ_WRAPPER
