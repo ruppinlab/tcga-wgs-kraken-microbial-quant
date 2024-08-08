@@ -34,7 +34,7 @@ checkpoint gdc_unmapped_fastqs:
         },
         extra=config["biobambam2"]["bamtofastq"]["extra"],
     output:
-        temp(directory(GDC_UNMAPPED_FASTQ_DIR)),
+        directory(GDC_UNMAPPED_FASTQ_DIR),
     log:
         GDC_UNMAPPED_FASTQ_LOG,
     wrapper:
