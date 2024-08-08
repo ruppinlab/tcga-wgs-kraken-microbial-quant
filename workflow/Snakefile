@@ -9,6 +9,9 @@ from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 
+# https://github.com/snakemake/snakemake/issues/2957
+warnings.filterwarnings("ignore", category=RuntimeWarning, module="snakemake.dag")
+
 CONFIG_DIR = "config"
 DATA_DIR = "data"
 LOG_DIR = "logs"
