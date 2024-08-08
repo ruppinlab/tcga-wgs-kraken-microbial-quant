@@ -57,7 +57,7 @@ gdc:
   ]
   data:
     dir: data/gdc
-    sub_dir: all
+    sub_dir: primary_tumors
 
 host_filter:
   mode: hisat2
