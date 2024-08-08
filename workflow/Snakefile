@@ -90,7 +90,7 @@ HOST_REF_FASTA_LOG = join(LOG_DIR, "ref", f"download_{REF_FASTA_FILE_NAME}.log")
 
 GDC_DATA_LOG_DIR = join(LOG_DIR, "gdc", "data")
 makedirs(GDC_DATA_LOG_DIR, mode=0o755, exist_ok=True)
-GDC_DATA_LOG = join(GDC_DATA_LOG_DIR, "gdc_metadata.log")
+GDC_DATA_LOG = join(GDC_DATA_LOG_DIR, f"{STUDY_NAME}_{PROJECT_NAME}_metadata.log")
 with open(GDC_DATA_LOG, "wt") as log_fh:
     if not exists(GDC_BAM_META_FILE) or not exists(GDC_READGRP_META_FILE):
         log_fh.write("Getting GDC metadata...\n")
