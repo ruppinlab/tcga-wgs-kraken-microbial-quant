@@ -9,27 +9,29 @@ with open(snakemake.log[0], "wt") as log_fh:
                     seqid, taxid = line.strip().replace(" ", "").split("\t", maxsplit=2)
                     seqid2taxid_map[seqid] = taxid
                     id_ofh.write(f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n")
-            with open(snakemake.input.fasta, "rt") as fa_ifh:
-                with open(snakemake.output.fasta, "wt") as fa_ofh:
-                    for line in fa_ifh:
-                        line = line.strip()
-                        if line[0] == ">":
-                            skip = False
-                            seqid = (
-                                line.replace(" ", "").replace(">", "").replace("|", "")
-                            )
-                            if seqid in seqid2taxid_map:
-                                taxid = seqid2taxid_map[seqid]
-                                line = f">kraken:taxid|{taxid}|{seqid}"
-                            elif seqid.startswith("LMARLEM2494"):
-                                # fix for missing Leishmania martiniquensis LEM2494
-                                taxid = 1580590
-                                line = f">kraken:taxid|{taxid}|{seqid}"
-                                id_ofh.write(
-                                    f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
+                with open(snakemake.input.fasta, "rt") as fa_ifh:
+                    with open(snakemake.output.fasta, "wt") as fa_ofh:
+                        for line in fa_ifh:
+                            line = line.strip()
+                            if line[0] == ">":
+                                skip = False
+                                seqid = (
+                                    line.replace(" ", "")
+                                    .replace(">", "")
+                                    .replace("|", "")
                                 )
-                            else:
-                                log_fh.write(f"No taxid: {seqid}\n")
-                                skip = True
-                        if not skip:
-                            fa_ofh.write(f"{line}\n")
+                                if seqid in seqid2taxid_map:
+                                    taxid = seqid2taxid_map[seqid]
+                                    line = f">kraken:taxid|{taxid}|{seqid}"
+                                elif seqid.startswith("LMARLEM2494"):
+                                    # fix for missing Leishmania martiniquensis LEM2494
+                                    taxid = 1580590
+                                    line = f">kraken:taxid|{taxid}|{seqid}"
+                                    id_ofh.write(
+                                        f"TAXID\tkraken:taxid|{taxid}|{seqid}\t{taxid}\n"
+                                    )
+                                else:
+                                    log_fh.write(f"No taxid: {seqid}\n")
+                                    skip = True
+                            if not skip:
+                                fa_ofh.write(f"{line}\n")
