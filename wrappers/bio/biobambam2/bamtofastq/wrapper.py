@@ -43,9 +43,7 @@ else:
     outfile = join(snakemake.output[0], f"{bam_id}{suffixes['S']}")
     output = f"> {outfile}"
 
-log = snakemake.log_fmt_shell(
-    stdout=False if paired_end or per_readgrp else True, stderr=True, append=True
-)
+log = snakemake.log_fmt_shell(stdout=False, stderr=True, append=True)
 
 makedirs(snakemake.output[0])
 with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as tmpdir:
