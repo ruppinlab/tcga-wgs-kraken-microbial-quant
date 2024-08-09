@@ -45,7 +45,7 @@ set-resources:
 
   kraken2_db:
     cpus_per_task: 56
-    mem: "64g"
+    mem: "128g"
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 8
@@ -73,7 +73,7 @@ set-resources:
 
   krakenuniq_db:
     cpus_per_task: 56
-    mem: "64g"
+    mem: "128g"
 
   krakenuniq_read_classif_pe:
     cpus_per_task: 8
