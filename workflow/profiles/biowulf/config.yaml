@@ -7,7 +7,6 @@ nolock: true
 scheduler: greedy
 max-jobs-per-second: 1
 max-status-checks-per-second: 1
-local-cores: 2
 latency-wait: 60
 jobs: unlimited
 cores: all
