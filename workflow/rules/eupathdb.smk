@@ -44,7 +44,9 @@ rule eupathdb_fastas:
     run:
         shell("tar -xvzf {input} -C {params} > {log} 2>&1")
         if wildcards.k2dtype == "nucl":
-            shell(f"mv -vf {EUPATHDB_NUCL_RESOURCES_DIR}/eupathDB54_CLEAN {output}")
+            shell(
+                f"mv -vf {EUPATHDB_NUCL_RESOURCES_DIR}/eupathDB54_CLEAN {output} >> {log} 2>&1"
+            )
 
 
 rule eupathdb_merged_fasta:
