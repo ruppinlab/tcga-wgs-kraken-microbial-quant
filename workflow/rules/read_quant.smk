@@ -1,12 +1,12 @@
 rule bracken_read_quant:
     input:
         report=lambda wc: (
-            KRAKENUNIQ_REPORT_FILE
-            if KRAKEN_MODE == "krakenuniq"
+            KRAKEN2_COMBINED_REPORT_FILE
+            if KRAKEN_MODE == "kraken2" and KRAKEN2_TSEARCH_UNCLASSIF
             else (
-                KRAKEN2_COMBINED_REPORT_FILE
-                if KRAKEN_MODE == "kraken2" and KRAKEN2_TSEARCH_UNCLASSIF
-                else KRAKEN2_NUCL_REPORT_FILE
+                KRAKEN2_NUCL_REPORT_FILE
+                if KRAKEN_MODE == "kraken2"
+                else KRAKENUNIQ_REPORT_FILE
             )
         ),
         kdb_done=(
@@ -46,7 +46,9 @@ def bracken_rg_count_files(wildcards):
         )
     )
     return expand(
-        join(BRACKEN_QUANT_RESULTS_DIR, wildcards.rg_bam_id, "{rg_id}_counts.tsv"),
+        join(
+            BRACKEN_QUANT_RESULTS_DIR, wildcards.rg_bam_id, "{rg_id}_counts_{etype}.tsv"
+        ),
         rg_id=rg_ids,
     )
 
