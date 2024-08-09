@@ -44,23 +44,23 @@ set-resources:
 
   kraken2_db:
     cpus_per_task: 56
-    mem: "128g"
+    mem: "110g"
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 8
-    mem: "128g"
+    mem: "110g"
 
   kraken2_nucl_read_classif_se:
     cpus_per_task: 8
-    mem: "128g"
+    mem: "110g"
 
   kraken2_prot_read_classif_pe:
     cpus_per_task: 8
-    mem: "128g"
+    mem: "110g"
 
   kraken2_prot_read_classif_se:
     cpus_per_task: 8
-    mem: "128g"
+    mem: "110g"
 
   krakenuniq_db_taxonomy:
     cpus_per_task: 12
@@ -72,15 +72,15 @@ set-resources:
 
   krakenuniq_db:
     cpus_per_task: 56
-    mem: "128g"
+    mem: "110g"
 
   krakenuniq_read_classif_pe:
     cpus_per_task: 8
-    mem: "128g"
+    mem: "110g"
 
   krakenuniq_read_classif_se:
     cpus_per_task: 8
-    mem: "128g"
+    mem: "110g"
 
   bracken_db:
     cpus_per_task: 56
