@@ -7,6 +7,8 @@ rule bbmap_read_length_histogram_pe:
         READ_LENGTH_HISTOGRAM_FILE,
     log:
         READ_LENGTH_HISTOGRAM_LOG,
+    group:
+        "group_{bam_id}"
     threads: BBMAP_READLENGTH_THREADS
     wrapper:
         BBMAP_READLENGTH_WRAPPER
@@ -21,6 +23,8 @@ rule bbmap_read_length_histogram_se:
         READ_LENGTH_HISTOGRAM_FILE,
     log:
         READ_LENGTH_HISTOGRAM_LOG,
+    group:
+        "group_{bam_id}"
     threads: BBMAP_READLENGTH_THREADS
     wrapper:
         BBMAP_READLENGTH_WRAPPER
@@ -33,6 +37,8 @@ rule bbmap_max_read_length:
         READ_LENGTH_FILE,
     log:
         READ_LENGTH_LOG,
+    group:
+        "group_{bam_id}"
     conda:
         "../envs/pandas.yaml"
     script:

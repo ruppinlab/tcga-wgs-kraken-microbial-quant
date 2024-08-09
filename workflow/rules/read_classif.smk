@@ -23,6 +23,8 @@ rule kraken2_nucl_read_classif_pe:
         report=KRAKEN2_NUCL_REPORT_PE_FILE,
     log:
         KRAKEN2_NUCL_CLASSIFY_PE_LOG,
+    group:
+        "group_{bam_id}"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -44,6 +46,8 @@ rule kraken2_nucl_read_classif_se:
         report=KRAKEN2_NUCL_REPORT_SE_FILE,
     log:
         KRAKEN2_NUCL_CLASSIFY_SE_LOG,
+    group:
+        "group_{bam_id}"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -77,6 +81,8 @@ rule kraken2_prot_read_classif_pe:
         report=KRAKEN2_PROT_REPORT_PE_FILE,
     log:
         KRAKEN2_PROT_CLASSIFY_PE_LOG,
+    group:
+        "group_{bam_id}"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -98,6 +104,8 @@ rule kraken2_prot_read_classif_se:
         report=KRAKEN2_PROT_REPORT_SE_FILE,
     log:
         KRAKEN2_PROT_CLASSIFY_SE_LOG,
+    group:
+        "group_{bam_id}"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -112,6 +120,8 @@ rule kraken2_combined_report:
         KRAKEN2_COMBINED_REPORT_FILE,
     log:
         KRAKEN2_COMBINED_REPORT_LOG,
+    group:
+        "group_{bam_id}"
     wrapper:
         KRAKENTOOLS_COMBINE_KREPORTS_WRAPPER
 
@@ -141,6 +151,8 @@ rule krakenuniq_read_classif_pe:
         report=KRAKENUNIQ_REPORT_PE_FILE,
     log:
         KRAKENUNIQ_CLASSIFY_PE_LOG,
+    group:
+        "group_{bam_id}"
     threads: KRAKENUNIQ_CLASSIFY_THREADS
     wrapper:
         KRAKENUNIQ_CLASSIFY_WRAPPER
@@ -162,6 +174,8 @@ rule krakenuniq_read_classif_se:
         report=KRAKENUNIQ_REPORT_SE_FILE,
     log:
         KRAKENUNIQ_CLASSIFY_SE_LOG,
+    group:
+        "group_{bam_id}"
     threads: KRAKENUNIQ_CLASSIFY_THREADS
     wrapper:
         KRAKENUNIQ_CLASSIFY_WRAPPER

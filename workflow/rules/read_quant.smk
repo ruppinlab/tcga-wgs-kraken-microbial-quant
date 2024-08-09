@@ -1,3 +1,7 @@
+localrules:
+    bracken_count_matrix,
+
+
 rule bracken_read_quant:
     input:
         report=lambda wc: (
@@ -31,6 +35,8 @@ rule bracken_read_quant:
         report=BRACKEN_REPORT_FILE,
     log:
         BRACKEN_QUANT_LOG,
+    group:
+        "group_{bam_id}"
     wrapper:
         BRACKEN_QUANT_WRAPPER
 
@@ -60,6 +66,8 @@ rule bracken_combined_rg_counts:
         BRACKEN_COMBINED_RG_COUNT_FILE,
     log:
         BRACKEN_COMBINED_RG_COUNT_LOG,
+    group:
+        "group_{bam_id}"
     conda:
         "../envs/pandas.yaml"
     script:

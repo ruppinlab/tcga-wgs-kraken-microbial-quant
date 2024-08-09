@@ -676,6 +676,12 @@ include: join(RULES_DIR, "read_length.smk")
 include: join(RULES_DIR, "read_quant.smk")
 
 
+localrules:
+    all,
+    clean,
+    clean_all,
+
+
 rule all:
     input:
         # expand(GDC_UNMAPPED_BAM_FILE, **EXPAND_PARAMS),
