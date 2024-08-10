@@ -889,6 +889,7 @@ def download_files_from_manifest(
     filepath_to_taxid_table=None,
     threads=1,
     verbosity=1,
+    backend="loky",
 ):
     filepaths, urls = [], []
     with open(manifest_filename, "r") as f:
@@ -902,7 +903,7 @@ def download_files_from_manifest(
     LOG.info("Downloading manifest files...\n")
     remote_exists, files_downloaded = zip(
         *Parallel(
-            n_jobs=threads, backend="loky", verbose=0 if verbosity == 2 else verbosity
+            n_jobs=threads, backend=backend, verbose=0 if verbosity == 2 else verbosity
         )(
             delayed(http_download_file_with_md5_check)(url, filepath, verbosity)
             for url, filepath in zip(urls, filepaths)
@@ -1009,6 +1010,7 @@ def download_genomic_library(args):
                 filepath_to_taxid_table=filepath_to_taxid_table,
                 threads=args.threads,
                 verbosity=args.verbosity,
+                backend=args.backend,
             )
             seq_name_to_url_table = assign_taxid_to_sequences(
                 filepath_to_taxid_table, args.protein
@@ -1031,6 +1033,7 @@ def download_genomic_library(args):
             "genomes/refseq/plasmid/",
             threads=args.threads,
             verbosity=args.verbosity,
+            backend=args.backend,
         )
         seq_name_to_url_table = {}
         with open(library_filename, "w") as library:
@@ -2081,7 +2084,13 @@ def make_download_library_parser(subparsers):
         type=int,
         metavar="INT",
         default=1,
-        help="Level of logging verbosity = {0, 1, 2}",
+        help="Level of logging verbosity = {0,1,2} (default: 1)",
+    )
+    parser.add_argument(
+        "--backend",
+        type=str,
+        default="loky",
+        help="Joblib parallel backend = {loky, multiprocessing} (default: loky)",
     )
 
 

@@ -24,6 +24,10 @@ assert task in (
 
 extra = snakemake.params.get("extra", "")
 
+backend = snakemake.params.get("backend")
+if backend is not None:
+    extra = f"--backend {backend} {extra}"
+
 verbosity = snakemake.params.get("verbosity")
 if verbosity is not None:
     extra = f"--verbosity {verbosity} {extra}"
