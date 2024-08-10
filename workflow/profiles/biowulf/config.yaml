@@ -60,7 +60,7 @@ set-resources:
 
   bracken_db:
     cpus_per_task: 56
-    mem: "110g"
+    mem: "128g"
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 8
