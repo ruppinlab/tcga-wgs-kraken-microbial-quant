@@ -42,7 +42,23 @@ set-resources:
     cpus_per_task: 12
     mem: "8g"
 
+  krakenuniq_db_taxonomy:
+    cpus_per_task: 12
+    mem: "8g"
+
+  krakenuniq_db_library:
+    cpus_per_task: 12
+    mem: "8g"
+
   kraken2_db:
+    cpus_per_task: 56
+    mem: "110g"
+
+  krakenuniq_db:
+    cpus_per_task: 56
+    mem: "110g"
+
+  bracken_db:
     cpus_per_task: 56
     mem: "110g"
 
@@ -62,18 +78,6 @@ set-resources:
     cpus_per_task: 8
     mem: "110g"
 
-  krakenuniq_db_taxonomy:
-    cpus_per_task: 12
-    mem: "8g"
-
-  krakenuniq_db_library:
-    cpus_per_task: 12
-    mem: "8g"
-
-  krakenuniq_db:
-    cpus_per_task: 56
-    mem: "110g"
-
   krakenuniq_read_classif_pe:
     cpus_per_task: 8
     mem: "110g"
@@ -81,7 +85,3 @@ set-resources:
   krakenuniq_read_classif_se:
     cpus_per_task: 8
     mem: "110g"
-
-  bracken_db:
-    cpus_per_task: 56
-    mem: "64g"
