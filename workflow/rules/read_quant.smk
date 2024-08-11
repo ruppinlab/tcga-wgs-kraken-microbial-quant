@@ -60,13 +60,13 @@ def bracken_rg_count_files(wildcards):
     #     for e in v.keys():
     #         rg_ids.append(k)
     #         etypes.append(e)
-    # rg_ids, etypes = glob_wildcards(
-    #     join(
-    #         BRACKEN_QUANT_RESULTS_DIR,
-    #         wildcards.rg_bam_id,
-    #         "{rg_id,[0-9a-f\\-]{36}}_counts_{etype,(pe|se){1}}.tsv",
-    #     ),
-    # )
+    rg_ids, etypes = glob_wildcards(
+        join(
+            BRACKEN_QUANT_RESULTS_DIR,
+            wildcards.rg_bam_id,
+            "{rg_id,[0-9a-f\\-]{36}}_counts_{etype,(pe|se){1}}.tsv",
+        ),
+    )
     return expand(
         join(
             BRACKEN_QUANT_RESULTS_DIR, wildcards.rg_bam_id, "{rg_id}_counts_{etype}.tsv"
