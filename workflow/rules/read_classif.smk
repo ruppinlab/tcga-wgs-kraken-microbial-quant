@@ -113,7 +113,7 @@ rule kraken2_prot_read_classif_se:
 
 rule kraken2_combined_report:
     input:
-        lambda wc: [KRAKEN2_NUCL_REPORT_FILE, KRAKEN2_PROT_REPORT_FILE],
+        [KRAKEN2_NUCL_REPORT_FILE, KRAKEN2_PROT_REPORT_FILE],
     params:
         extra=config["krakentools"]["combine_kreports"]["extra"],
     output:
