@@ -36,7 +36,7 @@ rule bracken_read_quant:
     log:
         BRACKEN_QUANT_LOG,
     group:
-        "{bam_id}"
+        "{rg_id}"
     wrapper:
         BRACKEN_QUANT_WRAPPER
 
