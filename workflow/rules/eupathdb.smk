@@ -28,8 +28,8 @@ rule eupathdb_fasta_archive:
     message:
         "{params}"
     retries: config["download"]["retries"]
-    group:
-        "eupathdb"
+    # group:
+    #     "eupathdb"
     conda:
         "../envs/wget.yaml"
     shell:
@@ -45,8 +45,8 @@ rule eupathdb_fastas:
         temp(directory(EUPATHDB_FASTA_DIR)),
     log:
         EUPATHDB_FASTA_LOG,
-    group:
-        "eupathdb"
+    # group:
+    #     "eupathdb"
     run:
         shell("tar -xvzf {input} -C {params} > {log} 2>&1")
         if wildcards.k2dtype == "nucl":
@@ -62,8 +62,8 @@ rule eupathdb_merged_fasta:
         temp(EUPATHDB_MERGED_FASTA_FILE),
     log:
         EUPATHDB_MERGED_FASTA_LOG,
-    group:
-        "eupathdb"
+    # group:
+    #     "eupathdb"
     shell:
         "find {input} -type f "
         "-regextype awk -regex '.+?\\.(fna|fasta|faa|fa)$' "
@@ -80,8 +80,8 @@ rule eupathdb_nucl_seqid2taxid_map:
     message:
         "{params}"
     retries: config["download"]["retries"]
-    group:
-        "eupathdb"
+    # group:
+    #     "eupathdb"
     conda:
         "../envs/wget.yaml"
     shell:
@@ -97,8 +97,8 @@ rule kraken2_eupathdb_nucl_library:
         fasta=KRAKEN2_EUPATHDB_NUCL_LIB_FASTA_FILE,
     log:
         KRAKEN2_EUPATHDB_NUCL_LIB_FASTA_LOG,
-    group:
-        "eupathdb"
+    # group:
+    #     "eupathdb"
     script:
         "../scripts/kraken2_eupathdb_nucl_library.py"
 
@@ -112,8 +112,8 @@ rule kraken2_eupathdb_prot_library:
         fasta=KRAKEN2_EUPATHDB_PROT_LIB_FASTA_FILE,
     log:
         KRAKEN2_EUPATHDB_PROT_LIB_FASTA_LOG,
-    group:
-        "eupathdb"
+    # group:
+    #     "eupathdb"
     conda:
         "../envs/pandas.yaml"
     script:
