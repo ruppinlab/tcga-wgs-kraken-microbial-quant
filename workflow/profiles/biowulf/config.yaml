@@ -40,7 +40,7 @@ set-resources:
 
   kraken2_prot_db_library:
     cpus_per_task: 12
-    mem: "32g"
+    mem: "48g"
 
   krakenuniq_db_taxonomy:
     cpus_per_task: 12
