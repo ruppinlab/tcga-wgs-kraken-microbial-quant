@@ -18,7 +18,7 @@ default-resources:
   slurm_partition: "ccr,norm"
   cpus_per_task: 2
   mem: "8g"
-  runtime: "2d"
+  runtime: "1d"
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
@@ -36,11 +36,11 @@ set-resources:
 
   kraken2_nucl_db_library:
     cpus_per_task: 12
-    mem: "32g"
+    mem: "16g"
 
   kraken2_prot_db_library:
     cpus_per_task: 12
-    mem: "48g"
+    mem: "16g"
 
   krakenuniq_db_taxonomy:
     cpus_per_task: 12
@@ -48,7 +48,7 @@ set-resources:
 
   krakenuniq_db_library:
     cpus_per_task: 12
-    mem: "32g"
+    mem: "16g"
 
   kraken2_db:
     cpus_per_task: 56
@@ -60,7 +60,7 @@ set-resources:
 
   bracken_db:
     cpus_per_task: 56
-    mem: "128g"
+    mem: "120g"
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 8
