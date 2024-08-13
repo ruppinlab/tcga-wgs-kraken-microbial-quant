@@ -7,7 +7,7 @@ dependencies:
   - bioconductor-genomicdatacommons
   - numpy
   - pandas
-  - snakemake=8.16
+  - snakemake=8.17
   - snakemake-executor-plugin-slurm
   - r-dplyr
   - r-yaml
