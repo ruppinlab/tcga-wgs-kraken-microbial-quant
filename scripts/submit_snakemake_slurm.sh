@@ -9,7 +9,7 @@ done
 i=1
 SNAKEMAKE_OPTS=()
 while [[ $i -le $# ]]; do
-    elif [[ ${!i} == "--sbatch-opts="* ]]; then
+    if [[ ${!i} == "--sbatch-opts="* ]]; then
         SBATCH_OPTS=${!i#*=}
     elif [[ ${!i} == "--sbatch-opts" ]]; then
         i=$((i + 1))
