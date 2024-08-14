@@ -17,22 +17,20 @@ resources:
 default-resources:
   slurm_partition: "ccr,norm"
   cpus_per_task: 2
-  mem: "8g"
+  mem: "6g"
   runtime: "1d"
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
   host_genome_index:
     cpus_per_task: 28
-    mem: "32g"
+    mem: "8g"
 
   host_filtered_fastq_pe:
-    cpus_per_task: 4
-    mem: "16g"
+    mem: "8g"
 
   host_filtered_fastq_se:
-    cpus_per_task: 4
-    mem: "16g"
+    mem: "8g"
 
   kraken2_nucl_db_library:
     cpus_per_task: 12
