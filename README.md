@@ -25,15 +25,15 @@ and more information.
 A high-level pipeline summary:
 
 ```
-GDC TCGA WGS Unmapped Read BAMs
-Biobambam2 Unmapped Read FASTQs (split by read group when BAM has mixed PE/SE or read lengths)
-HISAT2 (or Bowtie2) Host Filtering (with T2T-CHM13v2.0)
-Kraken2 (or KrakenUniq) Nucleotide Read Classification (with MicrobialDB)
-Kraken2 Translated Search Read Classification of Unclassified Reads (with protein MicrobialDB)
-KrakenTools Combine Nucleotide and Protein Reports
-Bracken Read Quantification
-Aggregate Read Group Level Bracken Counts/Abundances
-Count/Abundance Data Matrix
+1) GDC TCGA WGS Unmapped Read BAMs
+2) Biobambam2 Unmapped Read FASTQs (split by read group when BAM has mixed PE/SE or read lengths)
+3) HISAT2 (or Bowtie2) Host Filtering (with T2T-CHM13v2.0)
+4) Kraken2 (or KrakenUniq) Nucleotide Read Classification (with MicrobialDB)
+5) Kraken2 Translated Search Read Classification of Unclassified Reads (with protein MicrobialDB)
+6) KrakenTools Combine Nucleotide and Protein Reports
+7) Bracken Read Quantification
+8) Aggregate Read Group Level Bracken Counts/Abundances
+9) Count/Abundance Data Matrix
 ```
 
 ## Workflow
@@ -107,7 +107,7 @@ kraken2_prot_read_classif_se        21
 total                            75570
 ```
 
-- Note: the Snakemake pipeline uses a `checkpoint` because we do not know
+- Note: this Snakemake workflow uses a `checkpoint` because we do not know
 ahead of time how many read group level unmapped read FASTQs will be
 generated from unmapped read GDC BAMs. So the dry run job stats above do
 not reflect these additional jobs determined at runtime and re-evaluation
@@ -129,13 +129,13 @@ so the pipeline can get the token.
 Run the workflow:
 
 ```bash
-snakemake
+./scripts/run_snakemake.sh
 ```
 
 Run the workflow on a cluster:
 
 ```bash
-snakemake --workflow-profile workflow/profiles/biowulf
+./scripts/submit_snakemake_slurm.sh --workflow-profile workflow/profiles/biowulf
 ```
 
 I've provided a SLURM cluster configuration for the NIH HPC cluster,
@@ -144,10 +144,10 @@ your particular needs.
 
 The pipeline is configured to not require much storage, as intermediate
 files are flagged as temporary and deleted when they are no longer
-needed as the pipeline is running, except for Kraken2 classification and
-Bracken quantification results. If you would like to keep intermediate
+needed as the pipeline is running, except for the Kraken2 classification
+and Bracken quantification results. If you would like to keep intermediate
 files for other uses, specifiy the `--notemp` snakemake option in the
-execution command above.
+workflow run command above.
 
 ## References
 
