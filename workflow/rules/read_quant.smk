@@ -57,7 +57,7 @@ def bracken_rg_count_files(wildcards):
             rg_id2etype[rg_id] = {}
         rg_id2etype[rg_id]["pe" if sfx in ("1", "2") else "se"] = True
     rg_ids, etypes = [], []
-    for k, v in rg_id2etype.items():
+    for k in rg_id2etype.keys():
         for e in v.keys():
             rg_ids.append(k)
             etypes.append(e)
