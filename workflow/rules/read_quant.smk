@@ -35,8 +35,8 @@ rule bracken_read_quant:
         report=BRACKEN_REPORT_FILE,
     log:
         BRACKEN_QUANT_LOG,
-    group:
-        "{rg_id}"
+    # group:
+    #     "{rg_id}"
     wrapper:
         BRACKEN_QUANT_WRAPPER
 
@@ -78,8 +78,8 @@ rule bracken_combined_rg_counts:
         BRACKEN_COMBINED_RG_COUNT_FILE,
     log:
         BRACKEN_COMBINED_RG_COUNT_LOG,
-    group:
-        "{bam_id}"
+    # group:
+    #     "{bam_id}"
     conda:
         "../envs/pandas.yaml"
     script:

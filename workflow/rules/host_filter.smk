@@ -44,8 +44,8 @@ rule host_filtered_fastq_pe:
         ],
     log:
         HOST_FILTERED_FASTQ_LOG,
-    group:
-        "{rg_id}"
+    # group:
+    #     "{rg_id}"
     threads: HOST_ALIGN_THREADS
     wrapper:
         HOST_ALIGN_WRAPPER
@@ -63,8 +63,8 @@ rule host_filtered_fastq_se:
         unaligned=temp(HOST_FILTERED_FASTQ_SE_FILE),
     log:
         HOST_FILTERED_FASTQ_LOG,
-    group:
-        "{rg_id}"
+    # group:
+    #     "{rg_id}"
     threads: HOST_ALIGN_THREADS
     wrapper:
         HOST_ALIGN_WRAPPER
