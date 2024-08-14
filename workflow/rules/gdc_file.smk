@@ -12,8 +12,8 @@ rule gdc_unmapped_bam:
     resources:
         gdc_download_jobs=1,
     retries: config["download"]["retries"]
-    group:
-        "{bam_id}"
+    # group:
+    #     "{bam_id}"
     conda:
         "../envs/samtools.yaml"
     script:
@@ -36,8 +36,8 @@ rule gdc_sg_unmapped_fastq_pe:
         F2=temp(GDC_SG_UNMAPPED_FASTQ_R2_FILE),
     log:
         GDC_SG_UNMAPPED_FASTQ_LOG,
-    group:
-        "{bam_id}"
+    # group:
+    #     "{sg_bam_id}"
     wrapper:
         BIOBAMBAM2_BAMTOFASTQ_WRAPPER
 
@@ -54,8 +54,8 @@ rule gdc_sg_unmapped_fastq_se:
         temp(GDC_SG_UNMAPPED_FASTQ_SE_FILE),
     log:
         GDC_SG_UNMAPPED_FASTQ_LOG,
-    group:
-        "{bam_id}"
+    # group:
+    #     "{sg_bam_id}"
     wrapper:
         BIOBAMBAM2_BAMTOFASTQ_WRAPPER
 
@@ -79,7 +79,7 @@ checkpoint gdc_rg_unmapped_fastqs:
         directory(GDC_RG_UNMAPPED_FASTQ_FILE_DIR),
     log:
         GDC_RG_UNMAPPED_FASTQ_LOG,
-    group:
-        "{bam_id}"
+    # group:
+    #     "{rg_bam_id}"
     wrapper:
         BIOBAMBAM2_BAMTOFASTQ_WRAPPER
