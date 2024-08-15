@@ -32,7 +32,7 @@ KTYPE=kraken2
 DB_ONLY=0
 
 VERSION="2.9"
-while getopts "k:l:d:x:t:y:v:o" OPTION
+while getopts "k:l:d:x:t:y:vo" OPTION
     do
         case $OPTION in
             t)

@@ -18,7 +18,7 @@ rule bracken_read_quant:
             if KRAKEN_MODE == "kraken2"
             else KRAKENUNIQ_DB_DONE_FILE
         ),
-        bdb_done=expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
+        bdb_done=expand(BRACKEN_DB_KMER_DISTR_DONE_FILE, **EXPAND_PARAMS),
         # readlen=READ_LENGTH_FILE,
     params:
         db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,

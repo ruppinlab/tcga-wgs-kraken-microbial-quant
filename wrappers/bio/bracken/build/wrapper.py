@@ -11,8 +11,7 @@ log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 db = snakemake.input.get("db") or snakemake.params.get("db")
 assert db is not None, "input/params: db is a required parameter"
 
-ktype = snakemake.params.get("ktype")
-assert ktype is not None, "params: ktype is a required parameter"
+ktype = snakemake.params.get("ktype", "kraken2")
 assert ktype in (
     "kraken",
     "kraken2",
@@ -21,8 +20,7 @@ assert ktype in (
 
 klen = snakemake.params.get("klen", 35 if ktype == "kraken2" else 31)
 
-read_length = snakemake.params.get("readlen")
-assert read_length is not None, "params: readlen is a required parameter"
+read_length = snakemake.params.get("readlen", 100)
 assert re.search(r"^\d+$", str(read_length)), "params: readlen must be an integer"
 
 db_only = snakemake.params.get("db_only", False)

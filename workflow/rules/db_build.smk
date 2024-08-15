@@ -166,7 +166,6 @@ rule bracken_db_kraken_classif:
         db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         klen=35 if KRAKEN_MODE == "kraken2" else 31,
         ktype=KRAKEN_MODE,
-        readlen="{readlen}",
         db_only=True,
     output:
         touch(BRACKEN_DB_KRAKEN_CLASSIF_DONE_FILE),
