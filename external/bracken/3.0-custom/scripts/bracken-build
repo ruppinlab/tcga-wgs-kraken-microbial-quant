@@ -49,16 +49,16 @@ while getopts "k:l:d:x:t:y:v" OPTION
             x)
                 KINSTALL=$OPTARG
                 ;;
-            y) 
+            y)
                 KTYPE=$OPTARG
                 ;;
-            v) 
+            v)
                 echo bracken-build.sh v${VERSION}
                 exit 0
                 ;;
             \?)
                 echo "Usage: bracken_build -v -k KMER_LEN -l READ_LEN -d MY_DB -x K_INSTALLATION -y K_TYPE -t THREADS"
-                echo "  -v             Echoes the current software version and exits" 
+                echo "  -v             Echoes the current software version and exits"
                 echo "  KMER_LEN       kmer length used to build the kraken database (default: 35)"
                 echo "  THREADS        the number of threads to use when running kraken classification and the bracken scripts"
                 echo "  READ_LEN       read length to get all classifications for (default: 100)"
@@ -108,7 +108,7 @@ if [ "$KINSTALL" == "" ]; then
         exit
     fi
 else
-    #user specified location of kraken installation 
+    #user specified location of kraken installation
     if [[ "$KINSTALL" =~ [^/]$ ]]
     then
         KINSTALL="$KINSTALL/"
@@ -186,7 +186,7 @@ else
         #database.kraken not found, must create
         echo "      >> ${KINSTALL}kraken --db $DATABASE --threads ${THREADS} $filenames > $DATABASE/database.kraken.tmp"
         ${KINSTALL}kraken --db $DATABASE --threads ${THREADS} $filenames > $DATABASE/database.kraken.tmp
-    fi 
+    fi
     if [ $? -eq 0 ]
     then
         mv $DATABASE/database.kraken.tmp $DATABASE/database.kraken
