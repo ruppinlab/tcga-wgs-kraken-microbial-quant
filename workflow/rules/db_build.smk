@@ -154,7 +154,7 @@ rule krakenuniq_db:
         KRAKENUNIQ_BUILD_WRAPPER
 
 
-rule bracken_db:
+rule bracken_db_kraken_classif:
     input:
         db_done=(
             KRAKEN2_NUCL_DB_DONE_FILE
@@ -167,10 +167,29 @@ rule bracken_db:
         klen=35 if KRAKEN_MODE == "kraken2" else 31,
         ktype=KRAKEN_MODE,
         readlen="{readlen}",
+        db_only=True,
     output:
-        touch(BRACKEN_DB_DONE_FILE),
+        touch(BRACKEN_DB_KRAKEN_CLASSIF_DONE_FILE),
     log:
-        BRACKEN_DB_LOG,
+        BRACKEN_DB_KRAKEN_CLASSIF_LOG,
+    threads: BRACKEN_BUILD_THREADS
+    wrapper:
+        BRACKEN_BUILD_WRAPPER
+
+
+rule bracken_db_kmer_distr:
+    input:
+        db_done=BRACKEN_DB_KRAKEN_CLASSIF_DONE_FILE,
+    params:
+        bracken_build=BRACKEN_BUILD_SCRIPT_PATH,
+        db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+        klen=35 if KRAKEN_MODE == "kraken2" else 31,
+        ktype=KRAKEN_MODE,
+        readlen="{readlen}",
+    output:
+        touch(BRACKEN_DB_KMER_DISTR_DONE_FILE),
+    log:
+        BRACKEN_DB_KMER_DISTR_LOG,
     threads: BRACKEN_BUILD_THREADS
     wrapper:
         BRACKEN_BUILD_WRAPPER

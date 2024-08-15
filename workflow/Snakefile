@@ -524,10 +524,19 @@ READ_LENGTH_LOG = join(READ_LENGTH_FILE_LOG_DIR, "{rg_id}_length_{etype}.log")
 BRACKEN_RESULTS_DIR = join(RESULTS_DIR, "bracken")
 BRACKEN_LOG_DIR = join(LOG_DIR, "bracken")
 BRACKEN_DB_LOG_DIR = join(BRACKEN_LOG_DIR, "db")
-BRACKEN_DB_LOG = join(BRACKEN_DB_LOG_DIR, "bracken_db_{readlen}.log")
-BRACKEN_DB_DONE_FILE = join(
+BRACKEN_DB_KRAKEN_CLASSIF_LOG = join(
+    BRACKEN_DB_LOG_DIR, "bracken_db_kraken_classif.log"
+)
+BRACKEN_DB_KRAKEN_CLASSIF_DONE_FILE = join(
     KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
-    "bracken_db_{readlen}.done",
+    "bracken_db_kraken_classif.done",
+)
+BRACKEN_DB_KMER_DISTR_LOG = join(
+    BRACKEN_DB_LOG_DIR, "bracken_db_kmer_distr_{readlen}.log"
+)
+BRACKEN_DB_KMER_DISTR_DONE_FILE = join(
+    KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
+    "bracken_db_kmer_distr_{readlen}.done",
 )
 
 BRACKEN_QUANT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "quant")
@@ -693,7 +702,8 @@ rule all:
         # KRAKEN2_EUPATHDB_PROT_LIB_IDMAP_FILE,
         # KRAKEN2_EUPATHDB_PROT_LIB_FASTA_FILE,
         # expand(KRAKEN2_DB_DONE_FILE, **EXPAND_PARAMS),
-        # expand(BRACKEN_DB_DONE_FILE, **EXPAND_PARAMS),
+        # BRACKEN_DB_KRAKEN_CLASSIF_DONE_FILE,
+        # expand(BRACKEN_DB_KMER_DISTR_DONE_FILE, **EXPAND_PARAMS),
         # expand(BRACKEN_COMBINED_RG_COUNT_FILE, **EXPAND_PARAMS),
         BRACKEN_COUNT_MATRIX_FILE,
 

@@ -11,19 +11,33 @@ log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 db = snakemake.input.get("db") or snakemake.params.get("db")
 assert db is not None, "input/params: db is a required parameter"
 
+ktype = snakemake.params.get("ktype")
+assert ktype is not None, "params: ktype is a required parameter"
+assert ktype in (
+    "kraken",
+    "kraken2",
+    "krakenuniq",
+), "params: ktype invalid must = kraken | kraken2 | krakenuniq"
+
+klen = snakemake.params.get("klen", 35 if ktype == "kraken2" else 31)
+
 read_length = snakemake.params.get("readlen")
 assert read_length is not None, "params: readlen is a required parameter"
 assert re.search(r"^\d+$", str(read_length)), "params: readlen must be an integer"
+
+db_only = snakemake.params.get("db_only", False)
+db_only = "-o" if db_only else ""
 
 bracken_build = snakemake.params.get("bracken_build", "bracken-build")
 
 shellcmd = (
     f"{bracken_build}"
     f" -d {db}"
-    f" -k {snakemake.params.klen}"
+    f" -k {klen}"
     f" -l {read_length}"
-    f" -y {snakemake.params.ktype}"
+    f" -y {ktype}"
     f" -t {snakemake.threads}"
+    f" {db_only}"
     f" {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)
