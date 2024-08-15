@@ -4,22 +4,22 @@ rule kraken2_nucl_read_classif_pe:
         db_done=KRAKEN2_NUCL_DB_DONE_FILE,
     params:
         db=KRAKEN2_NUCL_DB_DIR,
-        # output="-",
+        output="-",
         paired_end=True,
         extra=(
             f"{config['kraken2']['classify']['extra']['paired_end']} "
             f"{config['kraken2']['classify']['extra']['common']}"
         ),
     output:
-        classif=[
-            temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R1_FILE),
-            temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R2_FILE),
-        ],
+        # classif=[
+        #     temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R1_FILE),
+        #     temp(KRAKEN2_NUCL_CLASSIF_FASTQ_R2_FILE),
+        # ],
         unclassif=[
             temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE),
             temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE),
         ],
-        output=KRAKEN2_NUCL_OUTPUT_PE_FILE,
+        # output=KRAKEN2_NUCL_OUTPUT_PE_FILE,
         report=KRAKEN2_NUCL_REPORT_PE_FILE,
     log:
         KRAKEN2_NUCL_CLASSIFY_PE_LOG,
@@ -36,13 +36,13 @@ rule kraken2_nucl_read_classif_se:
         db_done=KRAKEN2_NUCL_DB_DONE_FILE,
     params:
         db=KRAKEN2_NUCL_DB_DIR,
-        # output="-",
+        output="-",
         paired_end=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
     output:
-        classif=temp(KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE),
+        # classif=temp(KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE),
         unclassif=temp(KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE),
-        output=KRAKEN2_NUCL_OUTPUT_SE_FILE,
+        # output=KRAKEN2_NUCL_OUTPUT_SE_FILE,
         report=KRAKEN2_NUCL_REPORT_SE_FILE,
     log:
         KRAKEN2_NUCL_CLASSIFY_SE_LOG,
@@ -62,22 +62,22 @@ rule kraken2_prot_read_classif_pe:
         db_done=KRAKEN2_PROT_DB_DONE_FILE,
     params:
         db=KRAKEN2_PROT_DB_DIR,
-        # output="-",
+        output="-",
         paired_end=True,
         extra=(
             f"{config['kraken2']['classify']['extra']['paired_end']} "
             f"{config['kraken2']['classify']['extra']['common']}"
         ),
     output:
-        classif=[
-            temp(KRAKEN2_PROT_CLASSIF_FASTQ_R1_FILE),
-            temp(KRAKEN2_PROT_CLASSIF_FASTQ_R2_FILE),
-        ],
+        # classif=[
+        #     temp(KRAKEN2_PROT_CLASSIF_FASTQ_R1_FILE),
+        #     temp(KRAKEN2_PROT_CLASSIF_FASTQ_R2_FILE),
+        # ],
         unclassif=[
             temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE),
             temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE),
         ],
-        output=KRAKEN2_PROT_OUTPUT_PE_FILE,
+        # output=KRAKEN2_PROT_OUTPUT_PE_FILE,
         report=KRAKEN2_PROT_REPORT_PE_FILE,
     log:
         KRAKEN2_PROT_CLASSIFY_PE_LOG,
@@ -94,13 +94,13 @@ rule kraken2_prot_read_classif_se:
         db_done=KRAKEN2_PROT_DB_DONE_FILE,
     params:
         db=KRAKEN2_PROT_DB_DIR,
-        # output="-",
+        output="-",
         paired_end=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
     output:
-        classif=temp(KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE),
+        # classif=temp(KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE),
         unclassif=temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE),
-        output=KRAKEN2_PROT_OUTPUT_SE_FILE,
+        # output=KRAKEN2_PROT_OUTPUT_SE_FILE,
         report=KRAKEN2_PROT_REPORT_SE_FILE,
     log:
         KRAKEN2_PROT_CLASSIFY_SE_LOG,
@@ -133,22 +133,22 @@ rule krakenuniq_read_classif_pe:
         db_done=KRAKENUNIQ_DB_DONE_FILE,
     params:
         db=KRAKENUNIQ_DB_DIR,
-        # output="off",
+        output="off",
         paired_end=True,
         extra=(
             f"{config['krakenuniq']['classify']['extra']['paired_end']} "
             f"{config['krakenuniq']['classify']['extra']['common']}"
         ),
     output:
-        classif=[
-            temp(KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE),
-            temp(KRAKENUNIQ_CLASSIF_FASTQ_R2_FILE),
-        ],
+        # classif=[
+        #     temp(KRAKENUNIQ_CLASSIF_FASTQ_R1_FILE),
+        #     temp(KRAKENUNIQ_CLASSIF_FASTQ_R2_FILE),
+        # ],
         unclassif=[
             temp(KRAKENUNIQ_UNCLASSIF_FASTQ_R1_FILE),
             temp(KRAKENUNIQ_UNCLASSIF_FASTQ_R2_FILE),
         ],
-        output=KRAKENUNIQ_OUTPUT_PE_FILE,
+        # output=KRAKENUNIQ_OUTPUT_PE_FILE,
         report=KRAKENUNIQ_REPORT_PE_FILE,
     log:
         KRAKENUNIQ_CLASSIFY_PE_LOG,
@@ -165,13 +165,13 @@ rule krakenuniq_read_classif_se:
         db_done=KRAKENUNIQ_DB_DONE_FILE,
     params:
         db=KRAKENUNIQ_DB_DIR,
-        # output="off",
+        output="off",
         paired_end=False,
         extra=config["krakenuniq"]["classify"]["extra"]["common"],
     output:
-        classif=temp(KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE),
+        # classif=temp(KRAKENUNIQ_CLASSIF_FASTQ_SE_FILE),
         unclassif=temp(KRAKENUNIQ_UNCLASSIF_FASTQ_SE_FILE),
-        output=KRAKENUNIQ_OUTPUT_SE_FILE,
+        # output=KRAKENUNIQ_OUTPUT_SE_FILE,
         report=KRAKENUNIQ_REPORT_SE_FILE,
     log:
         KRAKENUNIQ_CLASSIFY_SE_LOG,
