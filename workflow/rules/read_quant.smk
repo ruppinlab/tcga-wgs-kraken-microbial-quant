@@ -83,7 +83,7 @@ rule bracken_combined_rg_counts:
     conda:
         "../envs/pandas.yaml"
     script:
-        "../scripts/braken_combined_rg_counts.py"
+        "../scripts/braken_combined_counts.py"
 
 
 rule bracken_count_matrix:
