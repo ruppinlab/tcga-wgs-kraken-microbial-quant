@@ -27,10 +27,12 @@ set-resources:
     mem: "8g"
 
   host_filtered_fastq_pe:
-    mem: "8g"
+    cpus_per_task: 4
+    mem: "6g"
 
   host_filtered_fastq_se:
-    mem: "8g"
+    cpus_per_task: 4
+    mem: "6g"
 
   kraken2_nucl_db_library:
     cpus_per_task: 12
