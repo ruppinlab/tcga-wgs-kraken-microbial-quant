@@ -27,6 +27,8 @@ db_only = snakemake.params.get("db_only", False)
 db_only = "-o" if db_only else ""
 
 bracken_build = snakemake.params.get("bracken_build", "bracken-build")
+# workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
+bracken_build = f"OMP_NUM_THREADS={snakemake.threads} && {bracken_build}"
 
 shellcmd = (
     f"{bracken_build}"

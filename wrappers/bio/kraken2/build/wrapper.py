@@ -29,7 +29,7 @@ if use_ftp:
 
 # workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
 kraken2_build = (
-    f"OMP_NUM_THREADS={snakemake.threads} kraken2-build"
+    f"OMP_NUM_THREADS={snakemake.threads} && kraken2-build"
     if task in ("download-library", "build")
     else "kraken2-build"
 )
