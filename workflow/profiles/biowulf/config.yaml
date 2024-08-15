@@ -17,75 +17,75 @@ resources:
 default-resources:
   slurm_partition: "ccr,norm"
   cpus_per_task: 2
-  mem: "6g"
+  mem: "6G"
   runtime: "1d"
   slurm_extra: "'--gres=lscratch:100'"
 
 set-resources:
   host_genome_index:
     cpus_per_task: 28
-    mem: "8g"
+    mem: "8G"
 
   host_filtered_fastq_pe:
     cpus_per_task: 4
-    mem: "6g"
+    mem: "6G"
 
   host_filtered_fastq_se:
     cpus_per_task: 4
-    mem: "6g"
+    mem: "6G"
 
   kraken2_nucl_db_library:
     cpus_per_task: 12
-    mem: "16g"
+    mem: "16G"
 
   kraken2_prot_db_library:
     cpus_per_task: 12
-    mem: "16g"
+    mem: "16G"
 
   krakenuniq_db_taxonomy:
     cpus_per_task: 12
-    mem: "8g"
+    mem: "8G"
 
   krakenuniq_db_library:
     cpus_per_task: 12
-    mem: "16g"
+    mem: "16G"
 
   kraken2_db:
     cpus_per_task: 56
-    mem: "110g"
+    mem: "110G"
 
   krakenuniq_db:
     cpus_per_task: 56
-    mem: "110g"
+    mem: "110G"
 
   bracken_db_kraken_classif:
     cpus_per_task: 56
-    mem: "120g"
+    mem: "120G"
 
   bracken_db_kmer_distr:
     cpus_per_task: 56
-    mem: "120g"
+    mem: "120G"
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 8
-    mem: "110g"
+    mem: "110G"
 
   kraken2_nucl_read_classif_se:
     cpus_per_task: 8
-    mem: "110g"
+    mem: "110G"
 
   kraken2_prot_read_classif_pe:
     cpus_per_task: 8
-    mem: "110g"
+    mem: "110G"
 
   kraken2_prot_read_classif_se:
     cpus_per_task: 8
-    mem: "110g"
+    mem: "110G"
 
   krakenuniq_read_classif_pe:
     cpus_per_task: 8
-    mem: "110g"
+    mem: "110G"
 
   krakenuniq_read_classif_se:
     cpus_per_task: 8
-    mem: "110g"
+    mem: "110G"
