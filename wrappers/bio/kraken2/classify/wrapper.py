@@ -35,8 +35,11 @@ extra = snakemake.params.get("extra", "")
 if paired_end:
     extra = f"--paired {extra}"
 
+# workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
+kraken2 = f"OMP_NUM_THREADS={snakemake.threads} kraken2"
+
 shellcmd = (
-    f"kraken2"
+    f"{kraken2}"
     f" --db {snakemake.params.db}"
     f" --threads {snakemake.threads}"
     f" {extra}"
