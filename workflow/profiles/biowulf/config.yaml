@@ -60,11 +60,11 @@ set-resources:
 
   bracken_db_kraken_classif:
     cpus_per_task: 56
-    mem: "120G"
+    mem: "150G"
 
   bracken_db_kmer_distr:
     cpus_per_task: 56
-    mem: "120G"
+    mem: "150G"
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 8
