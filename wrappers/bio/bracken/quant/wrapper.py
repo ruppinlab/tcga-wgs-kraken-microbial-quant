@@ -19,7 +19,7 @@ else:
     read_length = snakemake.params.get("readlen")
 
 assert read_length is not None, "input/params: readlen is a required parameter"
-assert int(read_length) == read_length, "input/params: readlen must be an integer"
+assert re.search(r"^\d+$", read_length), "params: readlen must be an integer"
 
 db_read_lengths = snakemake.params.get("db_readlens")
 assert db_read_lengths is not None, "params: db_readlens is a required parameter"
