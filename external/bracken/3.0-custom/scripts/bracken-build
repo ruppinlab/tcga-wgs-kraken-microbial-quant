@@ -29,9 +29,10 @@ DATABASE=""
 KRAKEN="kraken"
 KINSTALL=""
 KTYPE=kraken2
+DB_ONLY=0
 
 VERSION="2.9"
-while getopts "k:l:d:x:t:y:v" OPTION
+while getopts "k:l:d:x:t:y:v:o" OPTION
     do
         case $OPTION in
             t)
@@ -56,9 +57,13 @@ while getopts "k:l:d:x:t:y:v" OPTION
                 echo bracken-build.sh v${VERSION}
                 exit 0
                 ;;
+            o)
+                DB_ONLY=1
+                ;;
             \?)
-                echo "Usage: bracken_build -v -k KMER_LEN -l READ_LEN -d MY_DB -x K_INSTALLATION -y K_TYPE -t THREADS"
+                echo "Usage: bracken_build -v -o -k KMER_LEN -l READ_LEN -d MY_DB -x K_INSTALLATION -y K_TYPE -t THREADS"
                 echo "  -v             Echoes the current software version and exits"
+                echo "  -o             create Kraken database only and exit"
                 echo "  KMER_LEN       kmer length used to build the kraken database (default: 35)"
                 echo "  THREADS        the number of threads to use when running kraken classification and the bracken scripts"
                 echo "  READ_LEN       read length to get all classifications for (default: 100)"
@@ -76,6 +81,7 @@ echo "       read length = $READ_LEN"
 echo "       database    = $DATABASE"
 echo "       threads     = $THREADS"
 echo "       kraken type = $KTYPE"
+echo "       db only     = $DB_ONLY"
 if [[ "$DATABASE" =~ "/"$ ]]
 then
     DATABASE=${DATABASE:0:-1}
@@ -198,6 +204,7 @@ else
     fi
 
 fi
+[ $DB_ONLY -eq 1 ] && exit
 #Generate databaseXmers.kmer_distrib
 #DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 DIR=`dirname $(realpath $0 || echo $0)`
