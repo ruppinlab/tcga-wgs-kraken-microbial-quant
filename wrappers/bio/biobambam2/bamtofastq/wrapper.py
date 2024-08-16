@@ -10,14 +10,8 @@ from shutil import move
 from snakemake.shell import shell
 from snakemake.utils import makedirs
 
-rg_meta_df = snakemake.params.get("rg_meta_df")
-assert rg_meta_df is not None, "params: rg_meta_df is a required parameter"
-
-per_readgrp = (
-    rg_meta_df["is_paired_end"].nunique() > 1 or rg_meta_df["read_length"].nunique() > 1
-)
-paired_end = rg_meta_df["is_paired_end"].all()
-
+per_readgrp = snakemake.params.get("per_readgrp", False)
+paired_end = snakemake.params.get("paired_end", False)
 extra = snakemake.params.get("extra", "")
 
 if per_readgrp:

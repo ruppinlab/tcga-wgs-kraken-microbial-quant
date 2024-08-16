@@ -24,9 +24,8 @@ rule gdc_sg_unmapped_fastq_pe:
     input:
         GDC_SG_UNMAPPED_BAM_FILE,
     params:
-        rg_meta_df=lambda wc: GDC_READGRP_META_DF.loc[
-            GDC_READGRP_META_DF["file_id"] == wc.sg_bam_id
-        ],
+        per_readgrp=False,
+        paired_end=True,
         O=GDC_SG_UNMAPPED_FASTQ_O1_FILE,
         O2=GDC_SG_UNMAPPED_FASTQ_O2_FILE,
         S=GDC_SG_UNMAPPED_FASTQ_SE_FILE,
@@ -46,9 +45,8 @@ rule gdc_sg_unmapped_fastq_se:
     input:
         GDC_SG_UNMAPPED_BAM_FILE,
     params:
-        rg_meta_df=lambda wc: GDC_READGRP_META_DF.loc[
-            GDC_READGRP_META_DF["file_id"] == wc.sg_bam_id
-        ],
+        per_readgrp=False,
+        paired_end=False,
         extra=config["biobambam2"]["bamtofastq"]["extra"],
     output:
         temp(GDC_SG_UNMAPPED_FASTQ_SE_FILE),
@@ -64,9 +62,7 @@ checkpoint gdc_rg_unmapped_fastqs:
     input:
         GDC_RG_UNMAPPED_BAM_FILE,
     params:
-        rg_meta_df=lambda wc: GDC_READGRP_META_DF.loc[
-            GDC_READGRP_META_DF["file_id"] == wc.rg_bam_id
-        ],
+        per_readgrp=True,
         suffixes={
             "F": "_unmapped_1.fq.gz",
             "F2": "_unmapped_2.fq.gz",
