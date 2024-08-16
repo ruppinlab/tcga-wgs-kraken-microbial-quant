@@ -1,7 +1,3 @@
-localrules:
-    bracken_count_matrix,
-
-
 rule bracken_read_quant:
     input:
         report=lambda wc: (
