@@ -10,8 +10,10 @@ log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 extra = snakemake.params.get("extra", "")
 
+combine_kreports = snakemake.params.get("combine_kreports", "combine_kreports.py")
+
 shellcmd = (
-    f"combine_kreports.py"
+    f"{combine_kreports}"
     f" {extra}"
     f" --report-files {snakemake.input}"
     f" --output {snakemake.output}"

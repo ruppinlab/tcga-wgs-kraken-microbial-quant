@@ -116,6 +116,7 @@ rule kraken2_combined_report:
         KRAKEN2_NUCL_REPORT_FILE,
         KRAKEN2_PROT_REPORT_FILE,
     params:
+        combine_kreports=KRAKENTOOLS_COMBINE_KREPORTS_SCRIPT_PATH,
         extra=config["krakentools"]["combine_kreports"]["extra"],
     output:
         KRAKEN2_COMBINED_REPORT_FILE,
