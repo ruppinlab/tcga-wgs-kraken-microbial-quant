@@ -12,7 +12,10 @@ for count_file in snakemake.input:
     count_df = pd.read_csv(
         count_file, sep="\t", header=0, index_col=use_cols[0], usecols=use_cols
     )[use_cols[1:]]
-    count_sum_df = pd.concat([count_sum_df, count_df], axis=0).groupby(level=0).sum()
+    if not count_df.empty:
+        count_sum_df = (
+            pd.concat([count_sum_df, count_df], axis=0).groupby(level=0).sum()
+        )
 
 count_sum_df.index.name = use_cols[0]
 count_sum_df = count_sum_df.astype(int)
