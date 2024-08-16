@@ -79,6 +79,7 @@ KRAKENTOOLS_COMBINE_KREPORTS_SCRIPT_PATH = abspath(
 BRACKEN_BUILD_SCRIPT_PATH = abspath(
     join(config["bracken"]["script_dir"], "bracken-build")
 )
+BRACKEN_QUANT_SCRIPT_PATH = abspath(join(config["bracken"]["script_dir"], "bracken"))
 
 EXPAND_PARAMS["k2dtype"] = KRAKEN2_DB_TYPES
 EXPAND_PARAMS["k2nlib"] = KRAKEN2_DB_LIBS

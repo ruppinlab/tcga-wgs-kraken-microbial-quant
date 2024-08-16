@@ -21,6 +21,7 @@ rule bracken_read_quant:
         bdb_done=expand(BRACKEN_DB_KMER_DISTR_DONE_FILE, **EXPAND_PARAMS),
         # readlen=READ_LENGTH_FILE,
     params:
+        bracken=BRACKEN_QUANT_SCRIPT_PATH,
         db=KRAKEN2_NUCL_DB_DIR if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_DB_DIR,
         readlen=lambda wc: int(
             GDC_READGRP_META_DF.loc[wc.rg_id, "read_length"]

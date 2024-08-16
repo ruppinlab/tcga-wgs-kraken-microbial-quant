@@ -30,8 +30,10 @@ read_length = max([l for l in db_read_lengths if int(read_length) >= int(l)])
 level = snakemake.params.get("level", "S")
 threshold = snakemake.params.get("threshold", 0.0)
 
+bracken = snakemake.params.get("bracken", "bracken")
+
 shellcmd = (
-    f"bracken"
+    f"{bracken}"
     f" -d {db}"
     f" -i {snakemake.input.report}"
     f" -o {snakemake.output.counts}"

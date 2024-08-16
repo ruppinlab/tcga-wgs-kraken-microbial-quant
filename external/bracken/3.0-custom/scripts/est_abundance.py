@@ -487,9 +487,9 @@ def main():
         # new_all_reads = float(added_reads)
         sum_all_reads += new_all_reads
 
-    if sum_all_reads == 0:
-        sys.stderr.write("Error: no reads found. Please check your Kraken report\n")
-        exit(1)
+    # if sum_all_reads == 0:
+    #     sys.stderr.write("Error: no reads found. Please check your Kraken report\n")
+    #     exit(1)
     # Print for each classification level:
     #   - name, taxonomy ID, taxonomy level
     #   - kraken assigned reads, added reads, estimated reads, and fraction total reads
@@ -503,6 +503,10 @@ def main():
         + "new_est_reads\t"
         + "fraction_total_reads\n"
     )
+    if sum_all_reads == 0:
+        sys.stderr.write(
+            "Kraken report with no classified reads, writing empty Bracken output file\n"
+        )
     for taxid in lvl_taxids:
         [name, all_reads, lvl_reads, added_reads] = lvl_taxids[taxid]
         # Count up all added reads + all_reads already at the level
@@ -600,13 +604,14 @@ def main():
         r_file = open(new_report + "_bracken_" + abundance_lvl + extension, "w")
     else:
         r_file = open(args.report_new, "w")
-    # r_file.write(unclassified_line)
-    # r_file.write("%0.2f\t" % (float(u_reads)/float(total_reads)*100))
-    # r_file.write("%i\t" % u_reads)
-    # r_file.write("%i\t" % u_reads)
-    # r_file.write("U\t0\tunclassified\n")
+    if sum_all_reads == 0:
+        r_file.write(unclassified_line)
+        # r_file.write("%0.2f\t" % (float(u_reads) / float(total_reads) * 100))
+        # r_file.write("%i\t" % u_reads)
+        # r_file.write("%i\t" % u_reads)
+        # r_file.write("U\t0\tunclassified\n")
     # For each current parent node, print to file
-    curr_nodes = [root_node]
+    curr_nodes = [root_node] if isinstance(root_node, Tree) else []
     while len(curr_nodes) > 0:
         curr_node = curr_nodes.pop(0)
         # For each child node, add to list of nodes to evaluate
