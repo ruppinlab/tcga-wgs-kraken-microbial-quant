@@ -124,8 +124,8 @@ krakenuniq:
     threads: all
 
 krakentools:
+  script_dir: 'external/krakentools/1.2-custom/scripts'
   combine_kreports:
-    script_dir: 'external/krakentools/1.2-custom/scripts'
     extra: '--only-combined'
 
 bbmap:

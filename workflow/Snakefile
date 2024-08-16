@@ -73,7 +73,7 @@ HOST_FILTER_MODE = config["host_filter"]["mode"]
 KRAKEN_MODE = config["read_classif"]["mode"]
 
 KRAKENTOOLS_COMBINE_KREPORTS_SCRIPT_PATH = abspath(
-    join(config["krakentools"]["combine_kreports"]["script_dir"], "combine_kreports.py")
+    join(config["krakentools"]["script_dir"], "combine_kreports.py")
 )
 
 BRACKEN_BUILD_SCRIPT_PATH = abspath(
