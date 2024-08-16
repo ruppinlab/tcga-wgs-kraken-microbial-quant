@@ -29,7 +29,11 @@ rule bracken_read_quant:
         ),
         db_readlens=BRACKEN_DB_READ_LENGTHS,
         level=config["bracken"]["quant"]["level"],
-        threshold=config["bracken"]["quant"]["threshold"],
+        threshold=lambda wc: (
+            0
+            if GDC_BAM_META_DF.loc[wc.bam_id, "num_uniq_read_groups"] > 1
+            else config["bracken"]["quant"]["threshold"]
+        ),
     output:
         counts=BRACKEN_COUNT_FILE,
         report=BRACKEN_REPORT_FILE,
