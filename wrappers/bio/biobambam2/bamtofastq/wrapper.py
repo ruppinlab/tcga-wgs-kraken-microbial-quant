@@ -15,10 +15,23 @@ paired_end = snakemake.params.get("paired_end", False)
 extra = snakemake.params.get("extra", "")
 
 if per_readgrp:
+    readgrp_names = snakemake.params.get("readgrp_names")
+    assert (
+        readgrp_names is not None
+    ), "params: readgrp_names is a required parameter when per_readgrp=True"
+    readgrp_ids = snakemake.params.get("readgrp_ids")
+    assert (
+        readgrp_ids is not None
+    ), "params: readgrp_ids is a required parameter when per_readgrp=True"
+    assert (
+        isinstance(readgrp_names, (list, tuple))
+        and isinstance(readgrp_ids, (list, tuple))
+        and len(readgrp_names) == len(readgrp_ids)
+    ), "params: readgrp_names and readgrp_ids must be lists of same length"
     suffixes = snakemake.params.get("suffixes")
     assert (
         suffixes is not None
-    ), "params: suffixes is a required parameter when per readgroup output"
+    ), "params: suffixes is a required parameter when per_readgrp=True"
     makedirs(snakemake.output[0])
     extra = f"collate=1 combs=1 {extra} outputperreadgroup=1"
     output = f"outputdir={snakemake.output[0]}"
@@ -55,14 +68,13 @@ with TemporaryDirectory(dir=snakemake.resources.get("tmpdir", gettempdir())) as 
 
 if per_readgrp:
     with open(snakemake.log[0], "at") as log_fh:
-        for _, rg in rg_meta_df.iterrows():
+        for rg_name, rg_id in zip(readgrp_names, readgrp_ids):
             for suffix_opt in suffixes:
                 outfile_src = join(
-                    snakemake.output[0],
-                    f"{rg['read_group_name']}{suffixes[suffix_opt]}",
+                    snakemake.output[0], f"{rg_name}{suffixes[suffix_opt]}"
                 )
                 outfile_dst = join(
-                    snakemake.output[0], f"{rg['read_group_id']}{suffixes[suffix_opt]}"
+                    snakemake.output[0], f"{rg_id}{suffixes[suffix_opt]}"
                 )
                 if exists(outfile_src):
                     move(outfile_src, outfile_dst)
