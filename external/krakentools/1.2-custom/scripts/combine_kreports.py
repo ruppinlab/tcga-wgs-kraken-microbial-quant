@@ -340,7 +340,7 @@ def main():
             o_file.write("%i\t" % u_reads[i])
     o_file.write("U\t0\tunclassified\n")
     # Print for all remaining reads
-    all_nodes = [root_node]
+    all_nodes = [root_node] if isinstance(root_node, Tree) else []
     curr_node = -1
     curr_lvl = 0
     prev_node = -1
