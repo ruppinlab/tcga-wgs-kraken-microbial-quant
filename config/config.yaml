@@ -124,7 +124,7 @@ krakenuniq:
     threads: all
 
 krakentools:
-  script_dir: 'external/krakentools/1.2-custom/scripts'
+  script_dir: 'external/krakentools/1.2-custom'
   combine_kreports:
     extra: '--only-combined'
 
@@ -134,7 +134,7 @@ bbmap:
     threads: 2
 
 bracken:
-  script_dir: 'external/bracken/3.0-custom/scripts'
+  script_dir: 'external/bracken/3.0-custom'
   build:
     threads: all
   quant:
