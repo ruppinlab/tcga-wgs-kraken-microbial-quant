@@ -72,6 +72,10 @@ EUPATHDB_PROT_FASTA_TGZ_FILENAME = config["resources"]["db"]["libs"]["custom"][
 HOST_FILTER_MODE = config["host_filter"]["mode"]
 KRAKEN_MODE = config["read_classif"]["mode"]
 
+KRAKENTOOLS_COMBINE_KREPORTS_SCRIPT_PATH = abspath(
+    join(config["krakentools"]["combine_kreports"]["script_dir"], "combine_kreports.py")
+)
+
 BRACKEN_BUILD_SCRIPT_PATH = abspath(
     join(config["bracken"]["script_dir"], "bracken-build")
 )
