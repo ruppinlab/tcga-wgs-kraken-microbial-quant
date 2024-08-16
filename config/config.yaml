@@ -105,7 +105,7 @@ kraken2:
     threads: all
   classify:
     extra:
-      common: '--use-names --report-minimizer-data'
+      common: '--use-names --report-minimizer-data --confidence 0.1'
       paired_end: ''
     threads: 8
 
