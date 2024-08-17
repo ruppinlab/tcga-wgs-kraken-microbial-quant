@@ -73,10 +73,10 @@ rule kraken2_prot_read_classif_pe:
         #     temp(KRAKEN2_PROT_CLASSIF_FASTQ_R1_FILE),
         #     temp(KRAKEN2_PROT_CLASSIF_FASTQ_R2_FILE),
         # ],
-        unclassif=[
-            temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE),
-            temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE),
-        ],
+        # unclassif=[
+        #     temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R1_FILE),
+        #     temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_R2_FILE),
+        # ],
         # output=KRAKEN2_PROT_OUTPUT_PE_FILE,
         report=KRAKEN2_PROT_REPORT_PE_FILE,
     log:
@@ -99,7 +99,7 @@ rule kraken2_prot_read_classif_se:
         extra=config["kraken2"]["classify"]["extra"]["common"],
     output:
         # classif=temp(KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE),
-        unclassif=temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE),
+        # unclassif=temp(KRAKEN2_PROT_UNCLASSIF_FASTQ_SE_FILE),
         # output=KRAKEN2_PROT_OUTPUT_SE_FILE,
         report=KRAKEN2_PROT_REPORT_SE_FILE,
     log:
