@@ -27,11 +27,11 @@ set-resources:
     mem: "8G"
 
   host_filtered_fastq_pe:
-    cpus_per_task: 4
+    cpus_per_task: 2
     mem: "6G"
 
   host_filtered_fastq_se:
-    cpus_per_task: 4
+    cpus_per_task: 2
     mem: "6G"
 
   kraken2_nucl_db_library:
@@ -67,27 +67,27 @@ set-resources:
     mem: "80G"
 
   kraken2_nucl_read_classif_pe:
-    cpus_per_task: 8
+    cpus_per_task: 4
     mem: "110G"
 
   kraken2_nucl_read_classif_se:
-    cpus_per_task: 8
+    cpus_per_task: 4
     mem: "110G"
 
   kraken2_prot_read_classif_pe:
-    cpus_per_task: 8
+    cpus_per_task: 4
     mem: "110G"
 
   kraken2_prot_read_classif_se:
-    cpus_per_task: 8
+    cpus_per_task: 4
     mem: "110G"
 
   krakenuniq_read_classif_pe:
-    cpus_per_task: 8
+    cpus_per_task: 4
     mem: "110G"
 
   krakenuniq_read_classif_se:
-    cpus_per_task: 8
+    cpus_per_task: 4
     mem: "110G"
 
   bracken_count_matrix:

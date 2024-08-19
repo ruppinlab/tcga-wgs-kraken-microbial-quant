@@ -79,7 +79,7 @@ hisat2:
       threads: all
     align:
       extra: ''
-      threads: 4
+      threads: 2
 
 biobambam2:
   bamtofastq:
@@ -107,7 +107,7 @@ kraken2:
     extra:
       common: '--use-names --report-minimizer-data --confidence 0.1'
       paired_end: ''
-    threads: 8
+    threads: 4
 
 krakenuniq:
   download:
