@@ -71,7 +71,6 @@ unclassified reads:
 
 ```bash
 $ snakemake --dry-run
-
 Building DAG of jobs...
 Job stats:
 job                              count
@@ -79,7 +78,8 @@ job                              count
 all                                  1
 bracken_combined_rg_counts          82
 bracken_count_matrix                 1
-bracken_db                           7
+bracken_db_kmer_distr                7
+bracken_db_kraken_classif            1
 bracken_read_quant               10756
 eupathdb_fasta_archive               1
 eupathdb_fastas                      2
@@ -104,7 +104,7 @@ kraken2_nucl_read_classif_se        21
 kraken2_prot_db_library              4
 kraken2_prot_read_classif_pe     10735
 kraken2_prot_read_classif_se        21
-total                            75570
+total                            75571
 ```
 
 - Note: this Snakemake workflow uses a `checkpoint` because we do not know
