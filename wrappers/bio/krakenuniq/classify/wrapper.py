@@ -25,13 +25,16 @@ report = snakemake.output.get("report")
 if report is not None:
     report = f"--report-file {report}"
 
+db = snakemake.input.get("db") or snakemake.params.get("db")
+assert db is not None, "input/params: db is a required parameter"
+
 extra = snakemake.params.get("extra", "")
 if paired_end:
     extra = f"--paired {extra}"
 
 shellcmd = (
     f"krakenuniq"
-    f" --db {snakemake.params.db}"
+    f" --db {db}"
     f" --threads {snakemake.threads}"
     f" {extra}"
     f" {output}"
