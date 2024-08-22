@@ -11,7 +11,7 @@ Feature highlights:
   Kraken2 databases (for KrakenUniq nucleotide only). MicrobialDB
   consists of archaea, bacteria, viral, human, UniVec_Core, and
   eukaryotic pathogen genomes (EuPathDBv54) with contaminants removed.
-- Includes the (by default enabled) option to do a second pass Kraken2
+- Includes the (default enabled) option to do a second pass Kraken2
   protein translated search of the unclassified reads from the Kraken2
   first pass and combining the report results before feeding into Bracken.
 - Properly handles TCGA WGS merged BAMs with mixed PE/SE reads and
@@ -108,13 +108,14 @@ total                            75571
 ```
 
 - Note: this Snakemake workflow uses a `checkpoint` because we do not know
-ahead of time how many read group level unmapped read FASTQs will be
-generated from unmapped read GDC BAMs. So the dry run job stats above do
-not reflect these additional jobs determined at runtime and re-evaluation
-of the workflow DAG. As of GDC Data Release v40 there were `82` mixed PE/SE
-or mixed read length TCGA BAMs resulting in `3,199` additional read group
-level FASTQs, a total number of FASTQs processed through the pipeline of
-`13,955`, and `94,679` total jobs.
+ahead of time how many read group level unmapped read FASTQs need to be
+generated from mixed PE/SE or mixed read length unmapped read GDC BAMs.
+Therefore the dry run job stats above do not reflect these additional jobs
+determined dynamically at runtime and re-evaluation of the workflow DAG.
+As of GDC Data Release v40 there were `82` mixed PE/SE or mixed read length
+TCGA BAMs requiring splitting into `3,198` read group level FASTQs,
+resulting in a total `13,954` FASTQs processed through the pipeline and
+`94,679` total jobs.
 
 ## Execution
 
