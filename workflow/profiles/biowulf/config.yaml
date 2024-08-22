@@ -7,7 +7,7 @@ nolock: true
 scheduler: greedy
 max-jobs-per-second: 1
 max-status-checks-per-second: 1
-latency-wait: 60
+latency-wait: 120
 jobs: unlimited
 cores: all
 
@@ -17,79 +17,79 @@ resources:
 default-resources:
   slurm_partition: "ccr,norm"
   cpus_per_task: 2
-  mem: "6G"
-  runtime: "1d"
-  slurm_extra: "'--gres=lscratch:100'"
+  mem: 6144
+  runtime: "8h"
+  slurm_extra: "'--gres=lscratch:200'"
 
 set-resources:
   host_genome_index:
     cpus_per_task: 28
-    mem: "8G"
+    mem: 8192
 
   host_filtered_fastq_pe:
     cpus_per_task: 2
-    mem: "6G"
+    mem: 6144
 
   host_filtered_fastq_se:
     cpus_per_task: 2
-    mem: "6G"
+    mem: 6144
 
   kraken2_nucl_db_library:
     cpus_per_task: 12
-    mem: "16G"
+    mem: 16384
 
   kraken2_prot_db_library:
     cpus_per_task: 12
-    mem: "16G"
+    mem: 16384
+    runtime: "1d"
 
   krakenuniq_db_taxonomy:
     cpus_per_task: 12
-    mem: "8G"
+    mem: 8192
 
   krakenuniq_db_library:
     cpus_per_task: 12
-    mem: "16G"
+    mem: 16384
+    runtime: "1d"
 
   kraken2_db:
     cpus_per_task: 56
-    mem: "110G"
+    mem: 112640
+    runtime: "1d"
 
   krakenuniq_db:
     cpus_per_task: 56
-    mem: "110G"
+    mem: 112640
+    runtime: "1d"
 
   bracken_db_kraken_classif:
     cpus_per_task: 56
-    mem: "200G"
+    mem: 204800
 
   bracken_db_kmer_distr:
     cpus_per_task: 56
-    mem: "80G"
+    mem: 81920
 
   kraken2_nucl_read_classif_pe:
-    cpus_per_task: 4
-    mem: "110G"
+    cpus_per_task: 2
+    mem: 112640
 
   kraken2_nucl_read_classif_se:
-    cpus_per_task: 4
-    mem: "110G"
+    cpus_per_task: 2
+    mem: 112640
 
   kraken2_prot_read_classif_pe:
-    cpus_per_task: 4
-    mem: "110G"
+    cpus_per_task: 2
+    mem: 112640
 
   kraken2_prot_read_classif_se:
-    cpus_per_task: 4
-    mem: "110G"
+    cpus_per_task: 2
+    mem: 112640
 
   krakenuniq_read_classif_pe:
-    cpus_per_task: 4
-    mem: "110G"
+    cpus_per_task: 2
+    mem: 112640
 
   krakenuniq_read_classif_se:
-    cpus_per_task: 4
-    mem: "110G"
-
-  bracken_count_matrix:
     cpus_per_task: 2
-    mem: "80G"
+    mem: 112640
