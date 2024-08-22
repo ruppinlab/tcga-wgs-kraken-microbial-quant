@@ -38,6 +38,10 @@ extra = snakemake.params.get("extra", "")
 if paired_end:
     extra = f"--paired {extra}"
 
+memory_mapping = snakemake.params.get("memory_mapping", False)
+if memory_mapping:
+    extra = f"--memory-mapping {extra}"
+
 # workaround for snakemake bug *_NUM_THREADS env vars not passed to wrapper shell()
 kraken2 = f"OMP_NUM_THREADS={snakemake.threads} && kraken2"
 

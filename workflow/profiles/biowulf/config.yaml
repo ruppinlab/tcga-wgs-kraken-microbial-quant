@@ -17,79 +17,83 @@ resources:
 default-resources:
   slurm_partition: "ccr,norm"
   cpus_per_task: 2
-  mem: 6144
+  mem_mb: 6144
   runtime: "8h"
   slurm_extra: "'--gres=lscratch:200'"
 
 set-resources:
   host_genome_index:
     cpus_per_task: 28
-    mem: 8192
+    mem_mb: 8192
 
   host_filtered_fastq_pe:
     cpus_per_task: 2
-    mem: 6144
+    mem_mb: 6144
 
   host_filtered_fastq_se:
     cpus_per_task: 2
-    mem: 6144
+    mem_mb: 6144
 
   kraken2_nucl_db_library:
     cpus_per_task: 12
-    mem: 16384
+    mem_mb: 16384
 
   kraken2_prot_db_library:
     cpus_per_task: 12
-    mem: 16384
+    mem_mb: 16384
     runtime: "1d"
 
   krakenuniq_db_taxonomy:
     cpus_per_task: 12
-    mem: 8192
+    mem_mb: 8192
 
   krakenuniq_db_library:
     cpus_per_task: 12
-    mem: 16384
+    mem_mb: 16384
     runtime: "1d"
 
   kraken2_db:
     cpus_per_task: 56
-    mem: 112640
+    mem_mb: 112640
     runtime: "1d"
+
+  kraken2_svc_db:
+    cpus_per_task: 1
+    mem_mb: 100
 
   krakenuniq_db:
     cpus_per_task: 56
-    mem: 112640
+    mem_mb: 112640
     runtime: "1d"
 
   bracken_db_kraken_classif:
     cpus_per_task: 56
-    mem: 204800
+    mem_mb: 204800
 
   bracken_db_kmer_distr:
     cpus_per_task: 56
-    mem: 81920
+    mem_mb: 81920
 
   kraken2_nucl_read_classif_pe:
     cpus_per_task: 2
-    mem: 112640
+    mem_mb: 112640
 
   kraken2_nucl_read_classif_se:
     cpus_per_task: 2
-    mem: 112640
+    mem_mb: 112640
 
   kraken2_prot_read_classif_pe:
     cpus_per_task: 2
-    mem: 112640
+    mem_mb: 112640
 
   kraken2_prot_read_classif_se:
     cpus_per_task: 2
-    mem: 112640
+    mem_mb: 112640
 
   krakenuniq_read_classif_pe:
     cpus_per_task: 2
-    mem: 112640
+    mem_mb: 112640
 
   krakenuniq_read_classif_se:
     cpus_per_task: 2
-    mem: 112640
+    mem_mb: 112640

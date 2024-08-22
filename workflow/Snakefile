@@ -47,6 +47,7 @@ KRAKENUNIQ_DB_LIBS = config["resources"]["db"]["libs"]["krakenuniq"]["names"]
 BRACKEN_DB_READ_LENGTHS = config["resources"]["db"]["bracken"]["readlens"]
 
 KRAKEN_DB_BASEDIR = config["resources"]["db"]["base_dir"]
+KRAKEN_DB_SVC_DIR = config["resources"]["db"]["svc_dir"]
 KRAKEN_DB_NAME = config["resources"]["db"]["name"]
 
 KRAKEN2_K2_SCRIPT_PATH = abspath(join(config["kraken2"]["script_dir"], "k2"))
@@ -334,6 +335,12 @@ KRAKEN2_EUPATHDB_PROT_LIB_IDMAP_FILE = join(
 )
 KRAKEN2_EUPATHDB_PROT_LIB_FASTA_LOG = join(EUPATHDB_PROT_LOG_DIR, "library_faa.log")
 KRAKEN2_EUPATHDB_PROT_LIB_IDMAP_LOG = join(EUPATHDB_PROT_LOG_DIR, "prelim_map.log")
+
+KRAKEN2_SVC_DB_BASEDIR = join(KRAKEN_DB_SVC_DIR, KRAKEN_DB_NAME)
+KRAKEN2_SVC_DB_DIR = join(KRAKEN2_SVC_DB_BASEDIR, "{k2dtype}")
+KRAKEN2_NUCL_SVC_DB_DIR = join(KRAKEN2_SVC_DB_BASEDIR, "nucl")
+KRAKEN2_PROT_SVC_DB_DIR = join(KRAKEN2_SVC_DB_BASEDIR, "prot")
+KRAKEN2_SVC_DB_LOG = join(KRAKEN2_DB_LOG_DIR, "kraken2_svc_db.log")
 
 KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR = join(
     KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "nucl"
@@ -733,3 +740,21 @@ rule clean:
 rule clean_all:
     run:
         clean(RESOURCES_DIR, RESULTS_DIR, LOG_DIR)
+
+
+onsuccess:
+    if exists(KRAKEN2_SVC_DB_BASEDIR):
+        print(f"Removing Kraken2 service DBs: {KRAKEN2_SVC_DB_BASEDIR}")
+        shell(
+            f"if [ -d '{KRAKEN2_SVC_DB_BASEDIR}' ]; then "
+            f"rm -rvf '{KRAKEN2_SVC_DB_BASEDIR}'; fi"
+        )
+
+
+onerror:
+    if exists(KRAKEN2_SVC_DB_BASEDIR):
+        print(f"Removing Kraken2 service DBs: {KRAKEN2_SVC_DB_BASEDIR}")
+        shell(
+            f"if [ -d '{KRAKEN2_SVC_DB_BASEDIR}' ]; then "
+            f"rm -rvf '{KRAKEN2_SVC_DB_BASEDIR}'; fi"
+        )

@@ -22,6 +22,7 @@ resources:
   db:
     name: MicrobialDB
     base_dir: resources/kraken2/db
+    svc_dir: /dev/shm
     libs:
       kraken2:
         names: [archaea, bacteria, viral, human, UniVec_Core]
@@ -110,7 +111,7 @@ kraken2:
     extra:
       common: '--use-names --report-minimizer-data --confidence 0.1'
       paired_end: ''
-    threads: 4
+    threads: 2
 
 krakenuniq:
   download:
@@ -122,7 +123,7 @@ krakenuniq:
     threads: all
   classify:
     extra:
-      common: '--preload-size 32G'
+      common: '--preload-size 100G'
       paired_end: '--check-names'
     threads: all
 
