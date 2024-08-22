@@ -136,7 +136,7 @@ Run the workflow:
 Run the workflow on a cluster:
 
 ```bash
-./scripts/submit_snakemake_slurm.sh --workflow-profile workflow/profiles/biowulf
+./scripts/run_snakemake_slurm.sh --workflow-profile workflow/profiles/biowulf
 ```
 
 I've provided a SLURM cluster configuration for the NIH HPC cluster,
