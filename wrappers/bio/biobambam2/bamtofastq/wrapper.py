@@ -3,6 +3,7 @@ __email__ = "leandro@leandrohermida.com"
 __license__ = "MIT"
 
 import re
+from os import remove
 from os.path import exists, join
 from tempfile import gettempdir, NamedTemporaryFile, TemporaryDirectory
 from shutil import move
@@ -28,6 +29,10 @@ if per_readgrp:
         and isinstance(readgrp_ids, (list, tuple))
         and len(readgrp_names) == len(readgrp_ids)
     ), "params: readgrp_names and readgrp_ids must be lists of same length"
+    excl_readgrp_ids = snakemake.params.get("excl_readgrp_ids", [])
+    assert isinstance(
+        excl_readgrp_ids, (list, tuple)
+    ), "params: excl_readgrp_ids must be list-like"
     suffixes = snakemake.params.get("suffixes")
     assert (
         suffixes is not None
@@ -79,3 +84,6 @@ if per_readgrp:
                 if exists(outfile_src):
                     move(outfile_src, outfile_dst)
                     log_fh.write(f"{outfile_src} -> {outfile_dst}\n")
+                    if excl_readgrp_ids and rg_id in excl_readgrp_ids:
+                        remove(outfile_dst)
+                        log_fh.write(f"Removed/excluded {outfile_dst}\n")

@@ -56,6 +56,9 @@ gdc:
   workflow_types: [
     'BWA with Mark Duplicates and BQSR'
   ]
+  excl_readgrp_ids: [
+    '4872c463-31ec-4b62-8324-bee0ccdc9bdf'
+  ]
   data:
     dir: data/gdc
 
