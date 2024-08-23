@@ -3,6 +3,7 @@ rule kraken2_svc_db:
         KRAKEN2_DB_DONE_FILE,
     params:
         db=KRAKEN2_DB_DIR,
+        slurm_dir=config["resources"]["db"]["svc"]["slurm_dir"],
     output:
         temp(directory(KRAKEN2_SVC_DB_DIR)),
     log:
@@ -12,13 +13,16 @@ rule kraken2_svc_db:
     shell:
         """
         if [[ -v SLURM_JOB_ID ]]; then
-            [[ -d /lscratch ]] && SCRATCH_DIR=/lscratch || SCRATCH_DIR=/scratch
+            if [[ ! -d "{params.slurm_dir}/$SLURM_JOB_ID" ]]; then
+                echo "{params.slurm_dir}/$SLURM_JOB_ID doesn't exist" > log 2>&1
+                exit 1
+            fi
             SERVICE_DB_DIR=$SCRATCH_DIR/$SLURM_JOB_ID/{params.db}
         else
             SERVICE_DB_DIR={output[0]}
         fi
         if [[ -d "$SERVICE_DB_DIR" ]]; then
-            echo "$SERVICE_DB_DIR exists" > log 2>&1
+            echo "$SERVICE_DB_DIR already exists!" > log 2>&1
             exit 1
         fi
         mkdir -pv $SERVICE_DB_DIR > {log} 2>&1
@@ -91,10 +95,10 @@ rule kraken2_prot_read_classif_pe:
             KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE,
             KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE,
         ],
-        db_done=KRAKEN2_PROT_DB_DONE_FILE,
-        # db=KRAKEN2_PROT_SVC_DB_DIR,
+        # db_done=KRAKEN2_PROT_DB_DONE_FILE,
+        db=KRAKEN2_PROT_SVC_DB_DIR,
     params:
-        db=KRAKEN2_PROT_DB_DIR,
+        # db=KRAKEN2_PROT_DB_DIR,
         output="-",
         paired_end=True,
         memory_mapping=True,
@@ -125,10 +129,10 @@ rule kraken2_prot_read_classif_pe:
 rule kraken2_prot_read_classif_se:
     input:
         fqs=KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE,
-        db_done=KRAKEN2_PROT_DB_DONE_FILE,
-        # db=KRAKEN2_PROT_SVC_DB_DIR,
+        # db_done=KRAKEN2_PROT_DB_DONE_FILE,
+        db=KRAKEN2_PROT_SVC_DB_DIR,
     params:
-        db=KRAKEN2_PROT_DB_DIR,
+        # db=KRAKEN2_PROT_DB_DIR,
         output="-",
         paired_end=False,
         memory_mapping=True,

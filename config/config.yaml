@@ -22,7 +22,9 @@ resources:
   db:
     name: MicrobialDB
     base_dir: resources/kraken2/db
-    svc_dir: /dev/shm
+    svc:
+      local_dir: /dev/shm
+      slurm_dir: /lscratch
     libs:
       kraken2:
         names: [archaea, bacteria, viral, human, UniVec_Core]

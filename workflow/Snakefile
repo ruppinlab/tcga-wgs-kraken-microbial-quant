@@ -47,7 +47,7 @@ KRAKENUNIQ_DB_LIBS = config["resources"]["db"]["libs"]["krakenuniq"]["names"]
 BRACKEN_DB_READ_LENGTHS = config["resources"]["db"]["bracken"]["readlens"]
 
 KRAKEN_DB_BASEDIR = config["resources"]["db"]["base_dir"]
-KRAKEN_DB_SVC_DIR = config["resources"]["db"]["svc_dir"]
+KRAKEN_DB_SVC_DIR = config["resources"]["db"]["svc"]["local_dir"]
 KRAKEN_DB_NAME = config["resources"]["db"]["name"]
 
 KRAKEN2_K2_SCRIPT_PATH = abspath(join(config["kraken2"]["script_dir"], "k2"))
