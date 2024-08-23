@@ -20,5 +20,5 @@ for count_file, sample_name in zip(count_files, sample_names):
 count_matrix_df.index.name = use_cols[0]
 count_matrix_df = count_matrix_df.infer_objects().fillna(0)
 count_matrix_df = count_matrix_df.astype(int)
-# count_matrix_df.sort_index(inplace=True)
+count_matrix_df.sort_index(inplace=True)
 count_matrix_df.to_csv(snakemake.output[0], sep="\t")
