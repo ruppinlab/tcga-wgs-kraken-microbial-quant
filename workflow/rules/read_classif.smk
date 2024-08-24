@@ -3,13 +3,12 @@ rule kraken2_svc_db:
         KRAKEN2_DB_DONE_FILE,
     params:
         db=KRAKEN2_DB_DIR,
-        slurm_dir=config["resources"]["db"]["svc"]["slurm_dir"],
     output:
         temp(directory(KRAKEN2_SVC_DB_DIR)),
     log:
         KRAKEN2_SVC_DB_LOG,
-    group:
-        "kraken2_{k2dtype}_classif"
+    # group:
+    #     "kraken2_{k2dtype}_classif"
     shell:
         """
         if [[ -v SLURM_JOB_ID ]]; then
@@ -33,13 +32,13 @@ rule kraken2_svc_db:
 rule kraken2_nucl_read_classif_pe:
     input:
         fqs=[HOST_FILTERED_FASTQ_R1_FILE, HOST_FILTERED_FASTQ_R2_FILE],
-        # db_done=KRAKEN2_NUCL_DB_DONE_FILE,
-        db=KRAKEN2_NUCL_SVC_DB_DIR,
+        db_done=KRAKEN2_NUCL_DB_DONE_FILE,
+        # db=KRAKEN2_NUCL_SVC_DB_DIR,
     params:
-        # db=KRAKEN2_NUCL_DB_DIR,
+        db=KRAKEN2_NUCL_DB_DIR,
         output="-",
         paired_end=True,
-        memory_mapping=True,
+        memory_mapping=False,
         extra=(
             f"{config['kraken2']['classify']['extra']['paired_end']} "
             f"{config['kraken2']['classify']['extra']['common']}"
@@ -57,8 +56,8 @@ rule kraken2_nucl_read_classif_pe:
         report=KRAKEN2_NUCL_REPORT_PE_FILE,
     log:
         KRAKEN2_NUCL_CLASSIFY_PE_LOG,
-    group:
-        "kraken2_{k2dtype}_classif"
+    # group:
+    #     "kraken2_{k2dtype}_classif"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -67,13 +66,13 @@ rule kraken2_nucl_read_classif_pe:
 rule kraken2_nucl_read_classif_se:
     input:
         fqs=HOST_FILTERED_FASTQ_SE_FILE,
-        # db_done=KRAKEN2_NUCL_DB_DONE_FILE,
-        db=KRAKEN2_NUCL_SVC_DB_DIR,
+        db_done=KRAKEN2_NUCL_DB_DONE_FILE,
+        # db=KRAKEN2_NUCL_SVC_DB_DIR,
     params:
-        # db=KRAKEN2_NUCL_DB_DIR,
+        db=KRAKEN2_NUCL_DB_DIR,
         output="-",
         paired_end=False,
-        memory_mapping=True,
+        memory_mapping=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
     output:
         # classif=temp(KRAKEN2_NUCL_CLASSIF_FASTQ_SE_FILE),
@@ -82,8 +81,8 @@ rule kraken2_nucl_read_classif_se:
         report=KRAKEN2_NUCL_REPORT_SE_FILE,
     log:
         KRAKEN2_NUCL_CLASSIFY_SE_LOG,
-    group:
-        "kraken2_{k2dtype}_classif"
+    # group:
+    #     "kraken2_{k2dtype}_classif"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -95,13 +94,13 @@ rule kraken2_prot_read_classif_pe:
             KRAKEN2_NUCL_UNCLASSIF_FASTQ_R1_FILE,
             KRAKEN2_NUCL_UNCLASSIF_FASTQ_R2_FILE,
         ],
-        # db_done=KRAKEN2_PROT_DB_DONE_FILE,
-        db=KRAKEN2_PROT_SVC_DB_DIR,
+        db_done=KRAKEN2_PROT_DB_DONE_FILE,
+        # db=KRAKEN2_PROT_SVC_DB_DIR,
     params:
-        # db=KRAKEN2_PROT_DB_DIR,
+        db=KRAKEN2_PROT_DB_DIR,
         output="-",
         paired_end=True,
-        memory_mapping=True,
+        memory_mapping=False,
         extra=(
             f"{config['kraken2']['classify']['extra']['paired_end']} "
             f"{config['kraken2']['classify']['extra']['common']}"
@@ -119,8 +118,8 @@ rule kraken2_prot_read_classif_pe:
         report=KRAKEN2_PROT_REPORT_PE_FILE,
     log:
         KRAKEN2_PROT_CLASSIFY_PE_LOG,
-    group:
-        "kraken2_{k2dtype}_classif"
+    # group:
+    #     "kraken2_{k2dtype}_classif"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER
@@ -129,13 +128,13 @@ rule kraken2_prot_read_classif_pe:
 rule kraken2_prot_read_classif_se:
     input:
         fqs=KRAKEN2_NUCL_UNCLASSIF_FASTQ_SE_FILE,
-        # db_done=KRAKEN2_PROT_DB_DONE_FILE,
-        db=KRAKEN2_PROT_SVC_DB_DIR,
+        db_done=KRAKEN2_PROT_DB_DONE_FILE,
+        # db=KRAKEN2_PROT_SVC_DB_DIR,
     params:
-        # db=KRAKEN2_PROT_DB_DIR,
+        db=KRAKEN2_PROT_DB_DIR,
         output="-",
         paired_end=False,
-        memory_mapping=True,
+        memory_mapping=False,
         extra=config["kraken2"]["classify"]["extra"]["common"],
     output:
         # classif=temp(KRAKEN2_PROT_CLASSIF_FASTQ_SE_FILE),
@@ -144,8 +143,8 @@ rule kraken2_prot_read_classif_se:
         report=KRAKEN2_PROT_REPORT_SE_FILE,
     log:
         KRAKEN2_PROT_CLASSIFY_SE_LOG,
-    group:
-        "kraken2_{k2dtype}_classif"
+    # group:
+    #     "kraken2_{k2dtype}_classif"
     threads: KRAKEN2_CLASSIFY_THREADS
     wrapper:
         KRAKEN2_CLASSIFY_WRAPPER

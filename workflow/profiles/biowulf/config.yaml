@@ -11,6 +11,9 @@ latency-wait: 120
 jobs: unlimited
 cores: all
 
+# default-storage-provider: fs
+# remote-job-local-storage-prefix: /lscratch/\$SLURM_JOB_ID
+
 resources:
   gdc_download_jobs: 24
 

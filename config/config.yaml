@@ -24,7 +24,6 @@ resources:
     base_dir: resources/kraken2/db
     svc:
       local_dir: /dev/shm
-      slurm_dir: /lscratch
     libs:
       kraken2:
         names: [archaea, bacteria, viral, human, UniVec_Core]
@@ -77,7 +76,7 @@ bowtie2:
       threads: all
     align:
       extra: ''
-      threads: all
+      threads: 2
 
 hisat2:
     build:
@@ -119,7 +118,7 @@ krakenuniq:
   download:
     use_rsync: true
     extra: ''
-    threads: 12
+    threads: 2
   build:
     extra: ''
     threads: all
