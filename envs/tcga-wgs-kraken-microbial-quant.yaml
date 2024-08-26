@@ -9,5 +9,6 @@ dependencies:
   - pandas
   - snakemake=8.16
   - snakemake-executor-plugin-slurm
+  - snakemake-storage-plugin-fs
   - r-dplyr
   - r-yaml

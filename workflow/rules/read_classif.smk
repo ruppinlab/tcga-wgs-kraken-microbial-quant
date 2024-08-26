@@ -3,6 +3,7 @@ rule kraken2_svc_db:
         KRAKEN2_DB_DONE_FILE,
     params:
         db=KRAKEN2_DB_DIR,
+        remote_dir=config["resources"]["db"]["svc"]["remote_dir"],
     output:
         temp(directory(KRAKEN2_SVC_DB_DIR)),
     log:
@@ -12,8 +13,8 @@ rule kraken2_svc_db:
     shell:
         """
         if [[ -v SLURM_JOB_ID ]]; then
-            if [[ ! -d "{params.slurm_dir}/$SLURM_JOB_ID" ]]; then
-                echo "{params.slurm_dir}/$SLURM_JOB_ID doesn't exist" > log 2>&1
+            if [[ ! -d "{params.remote_dir}/$SLURM_JOB_ID" ]]; then
+                echo "{params.remote_dir}/$SLURM_JOB_ID doesn't exist" > log 2>&1
                 exit 1
             fi
             SERVICE_DB_DIR=$SCRATCH_DIR/$SLURM_JOB_ID/{params.db}

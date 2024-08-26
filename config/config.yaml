@@ -24,6 +24,7 @@ resources:
     base_dir: resources/kraken2/db
     svc:
       local_dir: /dev/shm
+      remote_dir: /lscratch
     libs:
       kraken2:
         names: [archaea, bacteria, viral, human, UniVec_Core]
