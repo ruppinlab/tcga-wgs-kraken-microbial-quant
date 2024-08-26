@@ -99,3 +99,7 @@ set-resources:
   krakenuniq_read_classif_se:
     cpus_per_task: 2
     mem_mb: 112640
+
+  bracken_read_quant:
+    cpus_per_task: 1
+    mem_mb: 2048
