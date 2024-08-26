@@ -127,13 +127,13 @@ assert (
     GDC_TOKEN is not None
 ), "GDC auth token not found in GDC_TOKEN, GDC_TOKEN_FILE, or ~/.gdc_token"
 
-EXPAND_PARAMS["bam_id"] = GDC_BAM_META_DF["file_id"].tolist()
+EXPAND_PARAMS["bam_id"] = GDC_BAM_META_DF["file_id"].to_list()
 EXPAND_PARAMS["sg_bam_id"] = GDC_BAM_META_DF.loc[
     GDC_BAM_META_DF["num_uniq_read_groups"] == 1, "file_id"
-].tolist()
+].to_list()
 EXPAND_PARAMS["rg_bam_id"] = GDC_BAM_META_DF.loc[
     GDC_BAM_META_DF["num_uniq_read_groups"] > 1, "file_id"
-].tolist()
+].to_list()
 
 GDC_RESULTS_DIR = join(RESULTS_DIR, "gdc")
 GDC_LOG_DIR = join(LOG_DIR, "gdc")

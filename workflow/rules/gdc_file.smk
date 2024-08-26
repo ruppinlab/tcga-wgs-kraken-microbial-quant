@@ -59,10 +59,10 @@ checkpoint gdc_rg_unmapped_fastqs:
         per_readgrp=True,
         readgrp_names=lambda wc: GDC_READGRP_META_DF.loc[
             GDC_READGRP_META_DF["file_id"] == wc.rg_bam_id, "read_group_name"
-        ].tolist(),
+        ].to_list(),
         readgrp_ids=lambda wc: GDC_READGRP_META_DF.loc[
             GDC_READGRP_META_DF["file_id"] == wc.rg_bam_id, "read_group_id"
-        ].tolist(),
+        ].to_list(),
         excl_readgrp_ids=config["gdc"]["excl_readgrp_ids"],
         suffixes={
             "F": "_unmapped_1.fq.gz",
