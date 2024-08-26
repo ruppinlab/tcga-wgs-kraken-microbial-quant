@@ -1,6 +1,6 @@
-# Bioconductor EuPathDB library doesn't produce as comprehesnive species
-# and taxonomy metadata as manual downloading from the web, metadata is
-# different and misses a lot of organisms
+# Bioconductor EuPathDB library doesn't produce as comprehensive species
+# and taxonomy metadata as manually downloading the data from eupathdb.org
+# download interface, is different and misses a lot of organisms
 # rule eupathdb_metadata:
 #     output:
 #         EUPATHDB_METADATA_FILE,
