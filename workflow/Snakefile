@@ -576,29 +576,23 @@ BRACKEN_COUNT_MATRIX_FILE = join(
 BRACKEN_COUNT_MATRIX_LOG = join(
     BRACKEN_COUNT_MATRIX_LOG_DIR, f"{STUDY_NAME}_{PROJECT_NAME}_count_matrix.log"
 )
-BRACKEN_BAM_COUNT_FILES = pd.concat(
-    [
-        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] == 1].apply(
-            lambda x: join(
-                BRACKEN_QUANT_RESULTS_DIR,
-                x["file_id"],
-                f"{x['file_id']}_counts_{'pe' if x['is_paired_end'] else 'se'}.tsv",
-            ),
-            axis=1,
-            result_type="reduce",
-        ),
-        GDC_BAM_META_DF[GDC_BAM_META_DF["num_uniq_read_groups"] > 1].apply(
-            lambda x: join(
-                BRACKEN_COMBINED_RG_RESULTS_DIR,
-                f"{x['file_id']}_counts.tsv",
-            ),
-            axis=1,
-            result_type="reduce",
-        ),
-    ],
-    axis=0,
-).tolist()
-BRACKEN_BAM_IDS = GDC_BAM_META_DF["file_id"].tolist()
+BRACKEN_BAM_COUNT_FILES = GDC_BAM_META_DF.apply(
+    lambda x: (
+        join(
+            BRACKEN_QUANT_RESULTS_DIR,
+            x["file_id"],
+            f"{x['file_id']}_counts_{'pe' if x['is_paired_end'] else 'se'}.tsv",
+        )
+        if x["num_uniq_read_groups"] == 1
+        else join(
+            BRACKEN_COMBINED_RG_RESULTS_DIR,
+            f"{x['file_id']}_counts.tsv",
+        )
+    ),
+    axis=1,
+    result_type="reduce",
+).to_list()
+BRACKEN_BAM_IDS = GDC_BAM_META_DF["file_id"].to_list()
 
 HOST_BUILD_THREADS = (
     workflow.cores
