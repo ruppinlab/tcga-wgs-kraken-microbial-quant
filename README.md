@@ -115,7 +115,7 @@ determined dynamically at runtime and re-evaluation of the workflow DAG.
 As of GDC Data Release v40 there were `82` mixed PE/SE or mixed read length
 TCGA BAMs requiring splitting into `3,198` read group level FASTQs,
 resulting in a total `13,954` FASTQs processed through the pipeline and
-`94,679` total jobs.
+`94,673` total jobs.
 
 ## Execution
 
