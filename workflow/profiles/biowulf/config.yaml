@@ -102,4 +102,4 @@ set-resources:
 
   bracken_read_quant:
     cpus_per_task: 1
-    mem_mb: 2048
+    mem_mb: 1024
