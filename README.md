@@ -113,9 +113,9 @@ generated from mixed PE/SE or mixed read length unmapped read GDC BAMs.
 Therefore the dry run job stats above do not reflect these additional jobs
 determined dynamically at runtime and re-evaluation of the workflow DAG.
 As of GDC Data Release v40 there were `82` mixed PE/SE or mixed read length
-TCGA BAMs requiring splitting into `3,198` read group level FASTQs,
-resulting in a total `13,954` FASTQs processed through the pipeline and
-`94,673` total jobs.
+TCGA BAMs requiring splitting into `3,197` read group level FASTQs,
+resulting in a total `13,953` FASTQs processed through the pipeline and
+`94,667` total jobs.
 
 ## Execution
 
