@@ -111,7 +111,7 @@ kraken2:
     threads: all
   classify:
     extra:
-      common: '--use-names --report-minimizer-data --confidence 0.1'
+      common: '--use-names --report-minimizer-data --confidence 0.05 --minimum-hit-groups 3'
       paired_end: ''
     threads: 2
 
@@ -146,5 +146,5 @@ bracken:
   quant:
     level: S
     threshold:
-      sg: 10
+      sg: 0
       rg: 0
