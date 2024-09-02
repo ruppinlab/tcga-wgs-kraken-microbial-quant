@@ -136,7 +136,9 @@ Run the workflow:
 Run the workflow on a cluster:
 
 ```bash
-./scripts/run_snakemake_slurm.sh --workflow-profile workflow/profiles/biowulf
+./scripts/run_snakemake_slurm.sh \
+--workflow-profile workflow/profiles/biowulf \
+--sbatch-opts="--time=3-00:00:00 --cpus-per-task=2 --mem=6144"
 ```
 
 I've provided a SLURM cluster configuration for the NIH HPC cluster,

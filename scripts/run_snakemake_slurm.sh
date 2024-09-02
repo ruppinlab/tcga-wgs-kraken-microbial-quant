@@ -27,9 +27,6 @@ mkdir -p $PROJECT_DIR/logs
 
 SBATCH_CMD="sbatch \
 --chdir=$PROJECT_DIR \
---time=4-00:00:00 \
---cpus-per-task=2 \
---mem=6144 \
 --output=$PROJECT_DIR/logs/run_snakemake_%j.log \
 $SBATCH_OPTS \
 $SCRIPT_DIR/run_snakemake.sh ${SNAKEMAKE_OPTS[@]}"
