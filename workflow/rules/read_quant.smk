@@ -81,6 +81,7 @@ rule bracken_combined_rg_counts:
         BRACKEN_COMBINED_RG_COUNT_FILE,
     log:
         BRACKEN_COMBINED_RG_COUNT_LOG,
+    localrule: True
     conda:
         "../envs/pandas.yaml"
     script:
@@ -96,6 +97,7 @@ rule bracken_count_matrix:
         BRACKEN_COUNT_MATRIX_FILE,
     log:
         BRACKEN_COUNT_MATRIX_LOG,
+    localrule: True
     conda:
         "../envs/pandas.yaml"
     script:

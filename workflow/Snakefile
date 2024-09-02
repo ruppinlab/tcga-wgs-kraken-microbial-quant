@@ -683,13 +683,8 @@ include: join(RULES_DIR, "read_length.smk")
 include: join(RULES_DIR, "read_quant.smk")
 
 
-localrules:
-    all,
-    clean,
-    clean_all,
-
-
 rule all:
+    localrule: True
     input:
         # expand(GDC_UNMAPPED_BAM_FILE, **EXPAND_PARAMS),
         # GDC_SG_UNMAPPED_FASTQ_FILES,
@@ -727,11 +722,13 @@ def clean(*dirs):
 
 
 rule clean:
+    localrule: True
     run:
         clean(RESULTS_DIR, LOG_DIR)
 
 
 rule clean_all:
+    localrule: True
     run:
         clean(RESOURCES_DIR, RESULTS_DIR, LOG_DIR)
 
