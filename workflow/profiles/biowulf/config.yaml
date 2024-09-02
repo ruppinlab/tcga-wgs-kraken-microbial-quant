@@ -5,8 +5,7 @@ rerun-incomplete: true
 printshellcmds: true
 nolock: true
 scheduler: greedy
-max-jobs-per-second: 1
-max-status-checks-per-second: 0.01
+max-status-checks-per-second: 1/60
 latency-wait: 120
 jobs: unlimited
 cores: all
