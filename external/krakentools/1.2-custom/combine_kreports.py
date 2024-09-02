@@ -269,14 +269,14 @@ def main():
                 level_id = map_lvls[level_id]
             # Total reads
             # XXX: workaround for our special use case combining a pair of nucl and prot
-            # XXX: classif files so we don't double count unclassified reads from prot
+            # XXX: get total reads only from nucl
             if count_samples == 1:
                 total_reads[0] += level_reads
             total_reads[count_samples] = level_reads
             # Unclassified
             if level_id == "U" or taxid == "0":
-                # XXX: workaround here as well
-                if count_samples == 1:
+                # XXX: workaround here too get total unclassified only from prot
+                if count_samples == num_samples:
                     u_reads[0] += level_reads
                 u_reads[count_samples] = level_reads
                 continue
