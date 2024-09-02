@@ -268,16 +268,21 @@ def main():
             if level_id in map_lvls:
                 level_id = map_lvls[level_id]
             # Total reads
-            total_reads[0] += level_reads
+            # XXX: workaround for our special use case combining a pair of nucl and prot
+            # XXX: classif files so we don't double count unclassified reads from prot
+            if count_samples == 1:
+                total_reads[0] += level_reads
             total_reads[count_samples] = level_reads
             # Unclassified
             if level_id == "U" or taxid == "0":
-                u_reads[0] += level_reads
+                # XXX: workaround here as well
+                if count_samples == 1:
+                    u_reads[0] += level_reads
                 u_reads[count_samples] = level_reads
                 continue
             # Tree Root
             if taxid == "1":
-                if count_samples == 1:
+                if count_samples == 1 or not isinstance(root_node, Tree):
                     root_node = Tree(name, taxid, level_num, "R", 0, 0)
                     taxid2node[taxid] = root_node
                 root_node.add_reads(count_samples, all_reads, level_reads)
