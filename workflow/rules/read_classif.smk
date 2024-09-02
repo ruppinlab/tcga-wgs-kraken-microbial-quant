@@ -162,8 +162,7 @@ rule kraken2_combined_report:
         KRAKEN2_COMBINED_REPORT_FILE,
     log:
         KRAKEN2_COMBINED_REPORT_LOG,
-    group:
-        "kraken2_classif"
+    localrule: True
     wrapper:
         KRAKENTOOLS_COMBINE_KREPORTS_WRAPPER
 

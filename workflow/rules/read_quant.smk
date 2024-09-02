@@ -38,8 +38,7 @@ rule bracken_read_quant:
         report=BRACKEN_REPORT_FILE,
     log:
         BRACKEN_QUANT_LOG,
-    group:
-        "bracken_quant"
+    localrule: True
     wrapper:
         BRACKEN_QUANT_WRAPPER
 
