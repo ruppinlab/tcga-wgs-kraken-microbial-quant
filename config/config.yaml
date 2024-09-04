@@ -144,7 +144,7 @@ bracken:
   build:
     threads: all
   quant:
-    level: S
+    levels: [species, genus]
     threshold:
       sg: 0
       rg: 0

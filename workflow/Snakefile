@@ -551,42 +551,52 @@ BRACKEN_DB_KMER_DISTR_DONE_FILE = join(
     "bracken_db_kmer_distr_{readlen}.done",
 )
 
+EXPAND_PARAMS["level"] = config["bracken"]["quant"]["levels"]
+
 BRACKEN_QUANT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "quant")
 BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant")
 BRACKEN_QUANT_FILE_RESULTS_DIR = join(BRACKEN_QUANT_RESULTS_DIR, "{bam_id}")
 BRACKEN_QUANT_FILE_LOG_DIR = join(BRACKEN_QUANT_LOG_DIR, "{bam_id}")
-BRACKEN_COUNT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_counts_{etype}.tsv")
-BRACKEN_REPORT_FILE = join(BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_report_{etype}.tsv")
-BRACKEN_QUANT_LOG = join(BRACKEN_QUANT_FILE_LOG_DIR, "{rg_id}_quant_{etype}.log")
+BRACKEN_COUNT_FILE = join(
+    BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_{level}_counts_{etype}.tsv"
+)
+BRACKEN_REPORT_FILE = join(
+    BRACKEN_QUANT_FILE_RESULTS_DIR, "{rg_id}_{level}_report_{etype}.tsv"
+)
+BRACKEN_QUANT_LOG = join(
+    BRACKEN_QUANT_FILE_LOG_DIR, "{rg_id}_{level}_quant_{etype}.log"
+)
 
 BRACKEN_COMBINED_RG_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "combined_rg_counts")
 BRACKEN_COMBINED_RG_LOG_DIR = join(BRACKEN_LOG_DIR, "combined_rg_counts")
 BRACKEN_COMBINED_RG_COUNT_FILE = join(
-    BRACKEN_COMBINED_RG_RESULTS_DIR, "{rg_bam_id}_counts.tsv"
+    BRACKEN_COMBINED_RG_RESULTS_DIR, "{rg_bam_id}_{level}_counts.tsv"
 )
 BRACKEN_COMBINED_RG_COUNT_LOG = join(
-    BRACKEN_COMBINED_RG_LOG_DIR, "{rg_bam_id}_counts.log"
+    BRACKEN_COMBINED_RG_LOG_DIR, "{rg_bam_id}_{level}_counts.log"
 )
 
 BRACKEN_COUNT_MATRIX_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "matrix")
 BRACKEN_COUNT_MATRIX_LOG_DIR = join(BRACKEN_LOG_DIR, "matrix")
 BRACKEN_COUNT_MATRIX_FILE = join(
-    BRACKEN_COUNT_MATRIX_RESULTS_DIR, f"{STUDY_NAME}_{PROJECT_NAME}_count_matrix.tsv"
+    BRACKEN_COUNT_MATRIX_RESULTS_DIR,
+    f"{STUDY_NAME}_{PROJECT_NAME}_{{level}}_count_matrix.tsv",
 )
 BRACKEN_COUNT_MATRIX_LOG = join(
-    BRACKEN_COUNT_MATRIX_LOG_DIR, f"{STUDY_NAME}_{PROJECT_NAME}_count_matrix.log"
+    BRACKEN_COUNT_MATRIX_LOG_DIR,
+    f"{STUDY_NAME}_{PROJECT_NAME}_{{level}}_count_matrix.log",
 )
 BRACKEN_BAM_COUNT_FILES = GDC_BAM_META_DF.apply(
     lambda x: (
         join(
             BRACKEN_QUANT_RESULTS_DIR,
             x["file_id"],
-            f"{x['file_id']}_counts_{'pe' if x['is_paired_end'] else 'se'}.tsv",
+            f"{x['file_id']}_{{level}}_counts_{'pe' if x['is_paired_end'] else 'se'}.tsv",
         )
         if x["num_uniq_read_groups"] == 1
         else join(
             BRACKEN_COMBINED_RG_RESULTS_DIR,
-            f"{x['file_id']}_counts.tsv",
+            f"{x['file_id']}_{{level}}_counts.tsv",
         )
     ),
     axis=1,
@@ -706,7 +716,7 @@ rule all:
         # BRACKEN_DB_KRAKEN_CLASSIF_DONE_FILE,
         # expand(BRACKEN_DB_KMER_DISTR_DONE_FILE, **EXPAND_PARAMS),
         # expand(BRACKEN_COMBINED_RG_COUNT_FILE, **EXPAND_PARAMS),
-        BRACKEN_COUNT_MATRIX_FILE,
+        expand(BRACKEN_COUNT_MATRIX_FILE, **EXPAND_PARAMS),
 
 
 def clean(*dirs):

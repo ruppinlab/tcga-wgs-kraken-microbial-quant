@@ -25,7 +25,33 @@ rule bracken_read_quant:
             else GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
         ),
         db_readlens=BRACKEN_DB_READ_LENGTHS,
-        level=config["bracken"]["quant"]["level"],
+        level=lambda wc: [
+            (
+                "S"
+                if wc.level == "species"
+                else (
+                    "G"
+                    if wc.level == "genus"
+                    else (
+                        "F"
+                        if wc.level == "family"
+                        else (
+                            "O"
+                            if wc.level == "order"
+                            else (
+                                "C"
+                                if wc.level == "class"
+                                else (
+                                    "P"
+                                    if wc.level == "phylum"
+                                    else "K" if wc.level == "kingdom" else "D"
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        ],
         threshold=lambda wc: config["bracken"]["quant"]["threshold"][
             (
                 "rg"
@@ -65,11 +91,14 @@ def bracken_rg_count_files(wildcards):
             etypes.append(e)
     return expand(
         join(
-            BRACKEN_QUANT_RESULTS_DIR, wildcards.rg_bam_id, "{rg_id}_counts_{etype}.tsv"
+            BRACKEN_QUANT_RESULTS_DIR,
+            wildcards.rg_bam_id,
+            "{rg_id}_{level}_counts_{etype}.tsv",
         ),
         zip,
         rg_id=rg_ids,
         etype=etypes,
+        level=wildcards.level,
     )
 
 
