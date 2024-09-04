@@ -44,7 +44,15 @@ rule bracken_read_quant:
                                 else (
                                     "P"
                                     if wc.level == "phylum"
-                                    else "K" if wc.level == "kingdom" else "D"
+                                    else (
+                                        "K"
+                                        if wc.level == "kingdom"
+                                        else (
+                                            "D"
+                                            if wc.level in ("domain", "superkingdom")
+                                            else "S"
+                                        )
+                                    )
                                 )
                             )
                         )
