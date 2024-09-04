@@ -25,33 +25,31 @@ rule bracken_read_quant:
             else GDC_BAM_META_DF.loc[wc.bam_id, "read_length"]
         ),
         db_readlens=BRACKEN_DB_READ_LENGTHS,
-        level=lambda wc: [
-            (
-                "S"
-                if wc.level == "species"
+        level=lambda wc: (
+            "S"
+            if wc.level == "species"
+            else (
+                "G"
+                if wc.level == "genus"
                 else (
-                    "G"
-                    if wc.level == "genus"
+                    "F"
+                    if wc.level == "family"
                     else (
-                        "F"
-                        if wc.level == "family"
+                        "O"
+                        if wc.level == "order"
                         else (
-                            "O"
-                            if wc.level == "order"
+                            "C"
+                            if wc.level == "class"
                             else (
-                                "C"
-                                if wc.level == "class"
+                                "P"
+                                if wc.level == "phylum"
                                 else (
-                                    "P"
-                                    if wc.level == "phylum"
+                                    "K"
+                                    if wc.level == "kingdom"
                                     else (
-                                        "K"
-                                        if wc.level == "kingdom"
-                                        else (
-                                            "D"
-                                            if wc.level in ("domain", "superkingdom")
-                                            else "S"
-                                        )
+                                        "D"
+                                        if wc.level in ("domain", "superkingdom")
+                                        else "S"
                                     )
                                 )
                             )
@@ -59,7 +57,7 @@ rule bracken_read_quant:
                     )
                 )
             )
-        ],
+        ),
         threshold=lambda wc: config["bracken"]["quant"]["threshold"][
             (
                 "rg"
