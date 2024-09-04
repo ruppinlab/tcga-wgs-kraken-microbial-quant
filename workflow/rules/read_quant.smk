@@ -99,12 +99,11 @@ def bracken_rg_count_files(wildcards):
         join(
             BRACKEN_QUANT_RESULTS_DIR,
             wildcards.rg_bam_id,
-            "{rg_id}_{level}_counts_{etype}.tsv",
+            f"{{rg_id}}_{wildcards.level}_counts_{{etype}}.tsv",
         ),
         zip,
         rg_id=rg_ids,
         etype=etypes,
-        level=wildcards.level,
     )
 
 
