@@ -7,8 +7,8 @@
 !data/gdc
 !data/gdc/tcga_wgs_all_file_meta.tsv
 !data/gdc/tcga_wgs_all_readgrp_meta.tsv
-!data/gdc/tcga_wgs_primary_tumors_file_meta.tsv
-!data/gdc/tcga_wgs_primary_tumors_readgrp_meta.tsv
+!data/gdc/tcga_wgs_primary_tumor_file_meta.tsv
+!data/gdc/tcga_wgs_primary_tumor_readgrp_meta.tsv
 !envs
 !envs/*
 !external

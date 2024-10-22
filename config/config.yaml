@@ -46,7 +46,7 @@ resources:
 
 gdc:
   study_name: tcga_wgs
-  project_name: primary_tumors
+  project_name: primary_tumor
   program_names: [
     'TCGA'
   ]
@@ -146,5 +146,5 @@ bracken:
   quant:
     levels: [species, genus]
     threshold:
-      sg: 0
+      sg: 10
       rg: 0
