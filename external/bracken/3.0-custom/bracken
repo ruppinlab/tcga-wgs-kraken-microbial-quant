@@ -8,7 +8,7 @@
 #
 #Bracken is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
-#the Free Software Foundation; either version 3 of the license, or 
+#the Free Software Foundation; either version 3 of the license, or
 #(at your option) any later version.
 #
 #This program is distributed in the hope that it will be useful,
@@ -32,7 +32,7 @@ LEVEL="S"
 
 VERSION="2.9"
 while getopts "t:i:o:r:d:w:l:v" OPTION
-    do 
+    do
         case $OPTION in
             t)
                 THRESHOLD=$OPTARG
@@ -52,19 +52,19 @@ while getopts "t:i:o:r:d:w:l:v" OPTION
             o)
                 OUTPUT=$OPTARG
                 ;;
-            w) 
+            w)
                 OUTREPORT=$OPTARG
                 ;;
-            v) 
+            v)
                 echo Bracken v${VERSION}
                 exit 0
                 ;;
             \?)
                 echo "Usage: bracken -v -d MY_DB -i INPUT -o OUTPUT -w OUTREPORT -r READ_LEN -l LEVEL -t THRESHOLD"
-                echo "  -v             Echoes the current software version and exits" 
-                echo "  MY_DB          location of Kraken database" 
+                echo "  -v             Echoes the current software version and exits"
+                echo "  MY_DB          location of Kraken database"
                 echo "  INPUT          Kraken REPORT file to use for abundance estimation"
-                echo "  OUTPUT         file name for Bracken default output" 
+                echo "  OUTPUT         file name for Bracken default output"
                 echo "  OUTREPORT      New Kraken REPORT output file with Bracken read estimates"
                 echo "  READ_LEN       read length to get all classifications for (default: 100)"
                 echo "  LEVEL          level to estimate abundance at [options: D,P,C,O,F,G,S,S1,etc] (default: S)"
@@ -81,26 +81,26 @@ then
 fi
 #Check if Kraken database exists
 echo " >> Checking for Valid Options..."
-if [ -d $DATABASE ] 
-then 
+if [ -d $DATABASE ]
+then
     #Directory exists, check for databaseXmers.kmer_distrib
-    if [ ! -f $DATABASE/database${READ_LEN}mers.kmer_distrib ] 
+    if [ ! -f $DATABASE/database${READ_LEN}mers.kmer_distrib ]
     then
         echo " ERROR: ${DATABASE}/database${READ_LEN}mers.kmer_distrib does not exist"
-        echo "        Run bracken-build to generate the kmer distribution file." 
+        echo "        Run bracken-build to generate the kmer distribution file."
         exit
     fi
-else 
+else
     echo " ERROR: Kraken database ${DATABASE} does not exist"
-    exit 
+    exit
 fi
 #DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 DIR=`dirname $(realpath $0 || echo $0)`
 #cd $DIR
-echo " >> Running Bracken " 
-#Check to make sure input file exists 
+echo " >> Running Bracken "
+#Check to make sure input file exists
 if [ -f ${INPUT} ]
-then 
+then
     if [[ "${OUTREPORT}" = "" ]]
     then
         echo "      >> python src/est_abundance.py -i ${INPUT} -o ${OUTPUT} -k $DATABASE/database${READ_LEN}mers.kmer_distrib -l ${LEVEL} -t ${THRESHOLD}"
@@ -119,9 +119,9 @@ then
             -t ${THRESHOLD}
     fi
 else
-    echo "  ERROR: Input file ${INPUT} does not exist" 
+    echo "  ERROR: Input file ${INPUT} does not exist"
     echo "         If running kraken v1.0, run kraken-report"
-    echo "         If running kraken v2.0, run kraken2 with the --report flag" 
+    echo "         If running kraken v2.0, run kraken2 with the --report flag"
     exit
 fi
-echo "  Bracken complete." 
+echo "  Bracken complete."
