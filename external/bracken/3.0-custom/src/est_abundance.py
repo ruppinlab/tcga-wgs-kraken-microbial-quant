@@ -155,6 +155,10 @@ def process_kraken_report(curr_str):
     # Extract relevant information
     all_reads = int(split_str[1])
     level_reads = int(split_str[2])
+    # Minimizer data
+    if len(split_str) == 8:
+        level_kmers = int(split_str[3])
+        level_uniq_kmers = int(split_str[4])
     # Account for krakenuniq
     try:
         taxid = int(split_str[-3])
@@ -188,7 +192,20 @@ def process_kraken_report(curr_str):
             break
     # Determine which level based on number of spaces
     level_num = int(spaces / 2)
-    return [name, taxid, level_num, level_type, all_reads, level_reads]
+    return (
+        [
+            name,
+            taxid,
+            level_num,
+            level_type,
+            all_reads,
+            level_reads,
+            level_kmers,
+            level_uniq_kmers,
+        ]
+        if len(split_str) == 8
+        else [name, taxid, level_num, level_type, all_reads, level_reads]
+    )
 
 
 # check_report_file
@@ -267,6 +284,16 @@ def main():
         to a classification for that classification to be considered in the\
         final abundance estimation.",
     )
+    parser.add_argument(
+        "-k",
+        "--kmer-cover",
+        "--kmer-coverage",
+        dest="kmer_coverage",
+        required=False,
+        default=0,
+        help="Minimum kmer coverage fraction from minimizer data for that\
+        classification to be considered in the final abundance estimation.",
+    )
     args = parser.parse_args()
 
     # Start program
@@ -323,7 +350,19 @@ def main():
         report_vals = process_kraken_report(line)
         if len(report_vals) < 5:
             continue
-        [name, taxid, level_num, level_id, all_reads, level_reads] = report_vals
+        if len(report_vals) == 8:
+            [
+                name,
+                taxid,
+                level_num,
+                level_id,
+                all_reads,
+                level_reads,
+                level_kmers,
+                level_uniq_kmers,
+            ] = report_vals
+        else:
+            [name, taxid, level_num, level_id, all_reads, level_reads] = report_vals
         total_reads += level_reads
         # Skip unclassified
         if (level_id == "U") or (name == "unclassified"):
@@ -356,8 +395,11 @@ def main():
         # Desired level for abundance estimation or below
         if level_id == args.level:
             n_lvl_total += 1
-            # Account for threshold at level
-            if all_reads < int(args.thresh):
+            # Account for threshold and possibly kmer coverage at level
+            if all_reads < int(args.thresh) or (
+                len(report_vals) == 8
+                and (level_uniq_kmers / level_kmers) < args.kmer_coverage
+            ):
                 n_lvl_del += 1
                 ignored_reads += all_reads
                 last_taxid = -1
@@ -525,7 +567,8 @@ def main():
 
     # Print to screen
     print("BRACKEN SUMMARY (Kraken report: %s)" % args.in_file)
-    print("    >>> Threshold: %i " % int(args.thresh))
+    print("    >>> Count threshold: %i " % int(args.thresh))
+    print("    >>> Kmer coverage threshold: %f" % args.kmer_coverage)
     print("    >>> Number of %s in sample: %i " % (abundance_lvl, n_lvl_total))
     print(
         "\t  >> Number of %s with reads > threshold: %i " % (abundance_lvl, n_lvl_est)
