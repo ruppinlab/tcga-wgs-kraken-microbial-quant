@@ -145,7 +145,7 @@ bracken:
     threads: all
   quant:
     levels: [species, genus]
-    threshold:
+    count_thres:
       sg: 10
       rg: 0
-    kmer_threshold: 1000
+    kmer_thres: 1000

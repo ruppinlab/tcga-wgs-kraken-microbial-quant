@@ -28,8 +28,8 @@ assert db_read_lengths is not None, "params: db_readlens is a required parameter
 read_length = max([l for l in db_read_lengths if int(read_length) >= int(l)])
 
 level = snakemake.params.get("level", "S")
-threshold = snakemake.params.get("threshold", 10)
-kmer_threshold = snakemake.params.get("kmer_threshold", 0)
+count_thres = snakemake.params.get("count_thres", 10)
+kmer_thres = snakemake.params.get("kmer_thres", 0)
 
 bracken = snakemake.params.get("bracken", "bracken")
 
@@ -41,8 +41,8 @@ shellcmd = (
     f" -w {snakemake.output.report}"
     f" -r {read_length}"
     f" -l {level}"
-    f" -t {threshold}"
-    f" -k {kmer_threshold}"
+    f" -t {count_thres}"
+    f" -k {kmer_thres}"
     f" {log}"
 )
 shellcmd = re.sub(r"\s+", " ", shellcmd)

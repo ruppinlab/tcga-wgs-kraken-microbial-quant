@@ -58,14 +58,14 @@ rule bracken_read_quant:
                 )
             )
         ),
-        threshold=lambda wc: config["bracken"]["quant"]["threshold"][
+        count_thres=lambda wc: config["bracken"]["quant"]["thres"][
             (
                 "rg"
                 if GDC_BAM_META_DF.loc[wc.bam_id, "num_uniq_read_groups"] > 1
                 else "sg"
             )
         ],
-        kmer_threshold=config["bracken"]["quant"]["kmer_threshold"],
+        kmer_thres=config["bracken"]["quant"]["kmer_thres"],
     output:
         counts=BRACKEN_COUNT_FILE,
         report=BRACKEN_REPORT_FILE,
