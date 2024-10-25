@@ -148,3 +148,4 @@ bracken:
     threshold:
       sg: 10
       rg: 0
+    kmer_threshold: 1000

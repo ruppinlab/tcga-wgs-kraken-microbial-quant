@@ -65,6 +65,7 @@ rule bracken_read_quant:
                 else "sg"
             )
         ],
+        kmer_threshold=config["bracken"]["quant"]["kmer_threshold"],
     output:
         counts=BRACKEN_COUNT_FILE,
         report=BRACKEN_REPORT_FILE,
