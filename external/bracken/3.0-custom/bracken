@@ -28,7 +28,7 @@ OUTREPORT=""
 DATABASE=""
 READ_LEN=100
 THRESHOLD=10
-KMER_COVERAGE=0
+KMER_THRESHOLD=0
 LEVEL="S"
 
 VERSION="2.9"
@@ -39,7 +39,7 @@ while getopts "t:i:o:r:d:w:l:v" OPTION
                 THRESHOLD=$OPTARG
                 ;;
             k)
-                KMER_COVERAGE=$OPTARG
+                KMER_THRESHOLD=$OPTARG
                 ;;
             r)
                 READ_LEN=$OPTARG
@@ -64,7 +64,7 @@ while getopts "t:i:o:r:d:w:l:v" OPTION
                 exit 0
                 ;;
             \?)
-                echo "Usage: bracken -v -d MY_DB -i INPUT -o OUTPUT -w OUTREPORT -r READ_LEN -l LEVEL -t THRESHOLD -k KMER_COVERAGE"
+                echo "Usage: bracken -v -d MY_DB -i INPUT -o OUTPUT -w OUTREPORT -r READ_LEN -l LEVEL -t THRESHOLD -k KMER_THRESHOLD"
                 echo "  -v             Echoes the current software version and exits"
                 echo "  MY_DB          location of Kraken database"
                 echo "  INPUT          Kraken REPORT file to use for abundance estimation"
@@ -73,7 +73,7 @@ while getopts "t:i:o:r:d:w:l:v" OPTION
                 echo "  READ_LEN       read length to get all classifications for (default: 100)"
                 echo "  LEVEL          level to estimate abundance at [options: D,P,C,O,F,G,S,S1,etc] (default: S)"
                 echo "  THRESHOLD      number of reads required PRIOR to abundance estimation to perform reestimation (default: 10)"
-                echo "  KMER_COVERAGE  kmer coverage fraction required PRIOR to abudnance estimation (default: 0)"
+                echo "  KMER_THRESHOLD numbber of unique k-mers required PRIOR to abundance estimation (default: 0)"
                 echo
                 exit
                 ;;
@@ -108,22 +108,22 @@ if [ -f ${INPUT} ]
 then
     if [[ "${OUTREPORT}" = "" ]]
     then
-        echo "      >> python src/est_abundance.py -i ${INPUT} -o ${OUTPUT} -k $DATABASE/database${READ_LEN}mers.kmer_distrib -l ${LEVEL} -t ${THRESHOLD} -k ${KMER_COVERAGE}""
+        echo "      >> python src/est_abundance.py -i ${INPUT} -o ${OUTPUT} -k $DATABASE/database${READ_LEN}mers.kmer_distrib -l ${LEVEL} -t ${THRESHOLD} -k ${KMER_THRESHOLD}""
         python $DIR/src/est_abundance.py -i ${INPUT} \
             -o ${OUTPUT} \
             -k $DATABASE/database${READ_LEN}mers.kmer_distrib \
             -l ${LEVEL} \
             -t ${THRESHOLD} \
-            -k ${KMER_COVERAGE}
+            -k ${KMER_THRESHOLD}
     else
-        echo "      >> python src/est_abundance.py -i ${INPUT} -o ${OUTPUT} -k $DATABASE/database${READ_LEN}mers.kmer_distrib -l ${LEVEL} -t ${THRESHOLD} -k ${KMER_COVERAGE}"
+        echo "      >> python src/est_abundance.py -i ${INPUT} -o ${OUTPUT} -k $DATABASE/database${READ_LEN}mers.kmer_distrib -l ${LEVEL} -t ${THRESHOLD} -k ${KMER_THRESHOLD}"
         python $DIR/src/est_abundance.py -i ${INPUT} \
             -o ${OUTPUT} \
             --out-report ${OUTREPORT} \
             -k $DATABASE/database${READ_LEN}mers.kmer_distrib \
             -l ${LEVEL} \
             -t ${THRESHOLD} \
-            -k ${KMER_COVERAGE}
+            -k ${KMER_THRESHOLD}
 
     fi
 else

@@ -286,13 +286,14 @@ def main():
     )
     parser.add_argument(
         "-k",
-        "--kmer-cover",
-        "--kmer-coverage",
-        dest="kmer_coverage",
+        "--kmer-thres",
+        "--kmer-threshold",
+        dest="kmer",
         required=False,
         default=0,
-        help="Minimum kmer coverage fraction from minimizer data for that\
-        classification to be considered in the final abundance estimation.",
+        help="Threshold number of unique k-mers kraken must assign to a\
+        classification for that classification to be considered in the\
+        final abundance estimation.",
     )
     args = parser.parse_args()
 
@@ -395,10 +396,9 @@ def main():
         # Desired level for abundance estimation or below
         if level_id == args.level:
             n_lvl_total += 1
-            # Account for threshold and possibly kmer coverage at level
+            # Account for threshold or possibly unique kmer threshold at level
             if all_reads < int(args.thresh) or (
-                len(report_vals) == 8
-                and (level_uniq_kmers / level_kmers) < args.kmer_coverage
+                len(report_vals) == 8 and level_uniq_kmers < int(args.kmer_threshold)
             ):
                 n_lvl_del += 1
                 ignored_reads += all_reads
@@ -568,26 +568,26 @@ def main():
     # Print to screen
     print("BRACKEN SUMMARY (Kraken report: %s)" % args.in_file)
     print("    >>> Count threshold: %i " % int(args.thresh))
-    print("    >>> Kmer coverage threshold: %f" % args.kmer_coverage)
+    print("    >>> Unique k-mer threshold: %f" % args.kmer_threshold)
     print("    >>> Number of %s in sample: %i " % (abundance_lvl, n_lvl_total))
     print(
-        "\t  >> Number of %s with reads > threshold: %i " % (abundance_lvl, n_lvl_est)
+        "\t  >> Number of %s with reads > thresholds: %i " % (abundance_lvl, n_lvl_est)
     )
     print(
-        "\t  >> Number of %s with reads < threshold: %i " % (abundance_lvl, n_lvl_del)
+        "\t  >> Number of %s with reads < thresholds: %i " % (abundance_lvl, n_lvl_del)
     )
     print("    >>> Total reads in sample: %i" % total_reads)
     print(
-        "\t  >> Total reads kept at %s level (reads > threshold): %i"
+        "\t  >> Total reads kept at %s level (reads > thresholds): %i"
         % (abundance_lvl, kept_reads)
     )
     print(
-        "\t  >> Total reads discarded (%s reads < threshold): %i"
+        "\t  >> Total reads discarded (%s reads < thresholds): %i"
         % (abundance_lvl, ignored_reads)
     )
     print("\t  >> Reads distributed: %i" % distributed_reads)
     print(
-        "\t  >> Reads not distributed (eg. no %s above threshold): %i"
+        "\t  >> Reads not distributed (eg. no %s above thresholds): %i"
         % (abundance_lvl, nondistributed_reads)
     )
     print("\t  >> Unclassified reads: %i" % u_reads)
