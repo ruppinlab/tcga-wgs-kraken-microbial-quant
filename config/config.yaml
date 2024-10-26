@@ -145,7 +145,7 @@ bracken:
     threads: all
   quant:
     levels: [species, genus]
-    count_thres:
+    read_thres:
       sg: 10
       rg: 0
     kmer_thres: 1000

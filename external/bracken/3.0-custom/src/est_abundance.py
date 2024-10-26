@@ -285,10 +285,10 @@ def main():
         final abundance estimation.",
     )
     parser.add_argument(
-        "-k",
-        "--kmer-thres",
-        "--kmer-threshold",
-        dest="kmer",
+        "-m",
+        "--kmer_thresh",
+        "--kmer_threshold",
+        dest="kmer_thresh",
         required=False,
         default=0,
         help="Threshold number of unique k-mers kraken must assign to a\
@@ -398,7 +398,7 @@ def main():
             n_lvl_total += 1
             # Account for threshold or possibly unique kmer threshold at level
             if all_reads < int(args.thresh) or (
-                len(report_vals) == 8 and level_uniq_kmers < int(args.kmer_threshold)
+                len(report_vals) == 8 and level_uniq_kmers < int(args.kmer_thresh)
             ):
                 n_lvl_del += 1
                 ignored_reads += all_reads
@@ -568,7 +568,7 @@ def main():
     # Print to screen
     print("BRACKEN SUMMARY (Kraken report: %s)" % args.in_file)
     print("    >>> Count threshold: %i " % int(args.thresh))
-    print("    >>> Unique k-mer threshold: %f" % args.kmer_threshold)
+    print("    >>> Unique k-mer threshold: %i" % int(args.kmer_thresh))
     print("    >>> Number of %s in sample: %i " % (abundance_lvl, n_lvl_total))
     print(
         "\t  >> Number of %s with reads > thresholds: %i " % (abundance_lvl, n_lvl_est)

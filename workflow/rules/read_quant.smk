@@ -1,13 +1,7 @@
 rule bracken_read_quant:
     input:
-        report=lambda wc: (
-            KRAKEN2_COMBINED_REPORT_FILE
-            if KRAKEN_MODE == "kraken2" and KRAKEN2_TSEARCH_UNCLASSIF
-            else (
-                KRAKEN2_NUCL_REPORT_FILE
-                if KRAKEN_MODE == "kraken2"
-                else KRAKENUNIQ_REPORT_FILE
-            )
+        report=(
+            KRAKEN2_REPORT_FILE if KRAKEN_MODE == "kraken2" else KRAKENUNIQ_REPORT_FILE
         ),
         kdb_done=(
             KRAKEN2_NUCL_DB_DONE_FILE
@@ -58,7 +52,7 @@ rule bracken_read_quant:
                 )
             )
         ),
-        count_thres=lambda wc: config["bracken"]["quant"]["thres"][
+        read_thres=lambda wc: config["bracken"]["quant"]["read_thres"][
             (
                 "rg"
                 if GDC_BAM_META_DF.loc[wc.bam_id, "num_uniq_read_groups"] > 1
@@ -74,6 +68,21 @@ rule bracken_read_quant:
     localrule: True
     wrapper:
         BRACKEN_QUANT_WRAPPER
+
+
+rule bracken_combined_np_counts:
+    input:
+        BRACKEN_NUCL_COUNT_FILE,
+        BRACKEN_PROT_COUNT_FILE,
+    output:
+        BRACKEN_COMBINED_NP_COUNT_FILE,
+    log:
+        BRACKEN_COMBINED_NP_COUNT_LOG,
+    localrule: True
+    conda:
+        "../envs/pandas.yaml"
+    script:
+        "../scripts/bracken_combined_counts.py"
 
 
 def bracken_rg_count_files(wildcards):
@@ -98,7 +107,7 @@ def bracken_rg_count_files(wildcards):
             etypes.append(e)
     return expand(
         join(
-            BRACKEN_QUANT_RESULTS_DIR,
+            BRACKEN_COMBINED_NP_RESULTS_DIR,
             wildcards.rg_bam_id,
             f"{{rg_id}}_{wildcards.level}_counts_{{etype}}.tsv",
         ),

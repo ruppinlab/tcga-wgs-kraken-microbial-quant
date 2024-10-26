@@ -342,6 +342,9 @@ KRAKEN2_NUCL_SVC_DB_DIR = join(KRAKEN2_SVC_DB_BASEDIR, "nucl")
 KRAKEN2_PROT_SVC_DB_DIR = join(KRAKEN2_SVC_DB_BASEDIR, "prot")
 KRAKEN2_SVC_DB_LOG = join(KRAKEN2_DB_LOG_DIR, "kraken2_svc_db.log")
 
+KRAKEN2_CLASSIFY_RESULTS_DIR = join(
+    KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "{k2dtype}"
+)
 KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR = join(
     KRAKEN2_RESULTS_DIR, "classify", KRAKEN_DB_NAME, "nucl"
 )
@@ -356,6 +359,11 @@ KRAKEN2_PROT_CLASSIFY_LOG_DIR = join(
 )
 
 EXPAND_PARAMS["etype"] = ["pe", "se"]
+
+KRAKEN2_CLASSIFY_FILE_RESULTS_DIR = join(KRAKEN2_CLASSIFY_RESULTS_DIR, "{bam_id}")
+KRAKEN2_REPORT_FILE = join(
+    KRAKEN2_CLASSIFY_FILE_RESULTS_DIR, "{rg_id}_report_{etype}.tsv"
+)
 
 KRAKEN2_NUCL_CLASSIFY_FILE_RESULTS_DIR = join(
     KRAKEN2_NUCL_CLASSIFY_RESULTS_DIR, "{bam_id}"
@@ -553,8 +561,10 @@ BRACKEN_DB_KMER_DISTR_DONE_FILE = join(
 
 EXPAND_PARAMS["level"] = config["bracken"]["quant"]["levels"]
 
-BRACKEN_QUANT_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "quant")
-BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant")
+BRACKEN_QUANT_RESULTS_DIR = join(
+    BRACKEN_RESULTS_DIR, "quant", KRAKEN_DB_NAME, "{k2dtype}"
+)
+BRACKEN_QUANT_LOG_DIR = join(BRACKEN_LOG_DIR, "quant", KRAKEN_DB_NAME, "{k2dtype}")
 BRACKEN_QUANT_FILE_RESULTS_DIR = join(BRACKEN_QUANT_RESULTS_DIR, "{bam_id}")
 BRACKEN_QUANT_FILE_LOG_DIR = join(BRACKEN_QUANT_LOG_DIR, "{bam_id}")
 BRACKEN_COUNT_FILE = join(
@@ -565,6 +575,32 @@ BRACKEN_REPORT_FILE = join(
 )
 BRACKEN_QUANT_LOG = join(
     BRACKEN_QUANT_FILE_LOG_DIR, "{rg_id}_{level}_quant_{etype}.log"
+)
+
+BRACKEN_NUCL_QUANT_RESULTS_DIR = join(
+    BRACKEN_RESULTS_DIR, "quant", KRAKEN_DB_NAME, "nucl"
+)
+BRACKEN_PROT_QUANT_RESULTS_DIR = join(
+    BRACKEN_RESULTS_DIR, "quant", KRAKEN_DB_NAME, "prot"
+)
+BRACKEN_NUCL_QUANT_FILE_RESULTS_DIR = join(BRACKEN_NUCL_QUANT_RESULTS_DIR, "{bam_id}")
+BRACKEN_NUCL_COUNT_FILE = join(
+    BRACKEN_NUCL_QUANT_FILE_RESULTS_DIR, "{rg_id}_{level}_counts_{etype}.tsv"
+)
+BRACKEN_PROT_QUANT_FILE_RESULTS_DIR = join(BRACKEN_PROT_QUANT_RESULTS_DIR, "{bam_id}")
+BRACKEN_PROT_COUNT_FILE = join(
+    BRACKEN_PROT_QUANT_FILE_RESULTS_DIR, "{rg_id}_{level}_counts_{etype}.tsv"
+)
+
+BRACKEN_COMBINED_NP_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "combined_np_counts")
+BRACKEN_COMBINED_NP_LOG_DIR = join(BRACKEN_LOG_DIR, "combined_np_counts")
+BRACKEN_COMBINED_NP_FILE_RESULTS_DIR = join(BRACKEN_COMBINED_NP_RESULTS_DIR, "{bam_id}")
+BRACKEN_COMBINED_NP_FILE_LOG_DIR = join(BRACKEN_COMBINED_NP_LOG_DIR, "{bam_id}")
+BRACKEN_COMBINED_NP_COUNT_FILE = join(
+    BRACKEN_COMBINED_NP_FILE_RESULTS_DIR, "{rg_id}_{level}_counts_{etype}.tsv"
+)
+BRACKEN_COMBINED_NP_COUNT_LOG = join(
+    BRACKEN_COMBINED_NP_FILE_LOG_DIR, "{rg_id}_{level}_counts_{etype}.log"
 )
 
 BRACKEN_COMBINED_RG_RESULTS_DIR = join(BRACKEN_RESULTS_DIR, "combined_rg_counts")
@@ -589,7 +625,7 @@ BRACKEN_COUNT_MATRIX_LOG = join(
 BRACKEN_BAM_COUNT_FILES = GDC_BAM_META_DF.apply(
     lambda x: (
         join(
-            BRACKEN_QUANT_RESULTS_DIR,
+            BRACKEN_COMBINED_NP_RESULTS_DIR,
             x["file_id"],
             f"{x['file_id']}_{{level}}_counts_{'pe' if x['is_paired_end'] else 'se'}.tsv",
         )
