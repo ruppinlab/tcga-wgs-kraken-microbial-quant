@@ -151,22 +151,6 @@ rule kraken2_prot_read_classif_se:
         KRAKEN2_CLASSIFY_WRAPPER
 
 
-rule kraken2_combined_report:
-    input:
-        KRAKEN2_NUCL_REPORT_FILE,
-        KRAKEN2_PROT_REPORT_FILE,
-    params:
-        combine_kreports=KRAKENTOOLS_COMBINE_KREPORTS_SCRIPT_PATH,
-        extra=config["krakentools"]["combine_kreports"]["extra"],
-    output:
-        KRAKEN2_COMBINED_REPORT_FILE,
-    log:
-        KRAKEN2_COMBINED_REPORT_LOG,
-    localrule: True
-    wrapper:
-        KRAKENTOOLS_COMBINE_KREPORTS_WRAPPER
-
-
 rule krakenuniq_read_classif_pe:
     input:
         fqs=[HOST_FILTERED_FASTQ_R1_FILE, HOST_FILTERED_FASTQ_R2_FILE],
