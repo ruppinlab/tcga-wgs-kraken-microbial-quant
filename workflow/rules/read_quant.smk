@@ -52,14 +52,20 @@ rule bracken_read_quant:
                 )
             )
         ),
-        read_thres=lambda wc: config["bracken"]["quant"]["read_thres"][
+        read_thres=lambda wc: config["bracken"]["quant"]["read_thres"][wc.k2dtype][
             (
                 "rg"
                 if GDC_BAM_META_DF.loc[wc.bam_id, "num_uniq_read_groups"] > 1
                 else "sg"
             )
         ],
-        kmer_thres=config["bracken"]["quant"]["kmer_thres"],
+        kmer_thres=lambda wc: config["bracken"]["quant"]["kmer_thres"][wc.k2dtype][
+            (
+                "rg"
+                if GDC_BAM_META_DF.loc[wc.bam_id, "num_uniq_read_groups"] > 1
+                else "sg"
+            )
+        ],
     output:
         counts=BRACKEN_COUNT_FILE,
         report=BRACKEN_REPORT_FILE,
@@ -74,6 +80,8 @@ rule bracken_combined_np_counts:
     input:
         BRACKEN_NUCL_COUNT_FILE,
         BRACKEN_PROT_COUNT_FILE,
+    params:
+        np_pair=True,
     output:
         BRACKEN_COMBINED_NP_COUNT_FILE,
     log:

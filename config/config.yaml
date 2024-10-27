@@ -146,6 +146,16 @@ bracken:
   quant:
     levels: [species, genus]
     read_thres:
-      sg: 10
-      rg: 0
-    kmer_thres: 1000
+      nucl:
+        sg: 10
+        rg: 0
+      prot:
+        sg: 0
+        rg: 0
+    kmer_thres:
+      nucl:
+        sg: 1000
+        rg: 0
+      prot:
+        sg: 0
+        rg: 0
