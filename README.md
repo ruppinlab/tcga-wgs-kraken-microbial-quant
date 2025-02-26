@@ -60,7 +60,14 @@ In principle, the workflow can be adapted to any system for which
 
 The raw counts for each sample by each genus will be found in
 
-results/bracken/matrix/tcga_wgs_primary_tumor_genus_count_matrix.tsv
+`results/bracken/matrix/tcga_wgs_primary_tumor_genus_count_matrix.tsv`
+
+## Post-processing
+
+The directory `manuscript_code_and_data` contains code for
+post-processing the `tcga_wgs_primary_tumor_genus_count_matrix.tsv`
+and producing tables of raw counts and CPM data.  See README.md file
+in the subdirectory for instructions.
 
 ## References
 
