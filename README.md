@@ -30,8 +30,8 @@ Obtain the project source and create a conda environment with the tools
 needed to run the project:
 
 ```bash
-git clone https://github.com/hermidalc/tcga-wgs-kraken-microbial-quant.git
-cd tcga-wgs-kraken-microbial-quant
+unzip MITTv1.0.0.zip
+cd MITTv1.0.0
 mamba env create -f envs/tcga-wgs-kraken-microbial-quant.yaml
 mamba activate tcga-wgs-kraken-microbial-quant
 ```

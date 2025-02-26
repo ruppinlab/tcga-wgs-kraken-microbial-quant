@@ -1,7 +1,7 @@
 # Code and Data
 
 Code to post-process the output of MITT (microbes in tumor traces)
-and reproduce the data and figures published in 
+and reproduce the tables and figures published in 
 
     Gertz et al. A revised estimation of microbial abundances in the Tumor
     Cancer Genome Atlas.
@@ -31,10 +31,10 @@ the output files as given without running the scripts.
 ## Prerequiste libraries
 
 Install the following libraries using the `install.packages` function.
-
-     c('assert', 'dendextend', 'janitor', 'pheatmap', 'plotrix',
-       'readxl', 'tidyverse', 'vegan')
-
+```
+c('assert', 'dendextend', 'janitor', 'pheatmap', 
+'plotrix', 'readxl', 'tidyverse', 'vegan')
+```
 ## Post-processing reads
 
 Run the R markdown file `process_pipeline_output.Rmd`.  The pipeline
@@ -67,9 +67,9 @@ and `tcga_wgs_primary_tumor_file_meta.tsv`.  It produces Figures 1B,
 in this archive. 
 
 Some differences in the bitwise content (changes in metadata) are
-expected each time the figures are generated.  It is not an error that
-the output of the script are not bitwise identical to the files in the
-archive.
+expected each time the figures are generated.  It is not an error
+that the output of the script are not bitwise identical to the files
+in the archive.
 
 The final figures presented in the manuscript were subject to
 noncontroversial manual cosmetic changes.
@@ -90,4 +90,5 @@ genera and the evidence, if any, from the database search that each
 genus has been observed in human.
 
 Hand curation by literature search is beyond the scope of this code;
-see the manuscript and Tables S2 and S3 for the result of hand curation.
+see the manuscript and Tables S2 and S3 for the result of hand
+curation.
