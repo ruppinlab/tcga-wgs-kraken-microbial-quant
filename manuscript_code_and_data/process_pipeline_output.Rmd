@@ -1,0 +1,80 @@
+---
+title: "Initial Analysis Normalized"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+date: "2024-10-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(assert)
+```
+
+Load the total reads for each sample
+```{r}
+total_reads <- read_tsv("total_reads.tsv") %>%
+  select(-index_files) %>%
+  deframe()
+```
+
+Load the genus x sample read count data and remove any reads mapped to human.
+
+```{r}
+genus_count_df <- read_tsv("tcga_wgs_primary_tumor_genus_count_matrix.tsv")
+genus_count_df <- genus_count_df %>% filter(name != "Homo")
+```
+
+Convert data to a matrix, the first 3 columns are metadata
+```{r}
+genus_counts <- as.matrix(genus_count_df[, c(-1, -2, -3)])
+rownames(genus_counts) <- genus_count_df[[1]]
+```
+
+Every row (genus) has at least one count.
+```{r}
+assert(sum(rowSums(genus_counts) == 0) == 0)
+```
+
+Normalize the counts to CPM
+```{r}
+genus_cpm <- genus_counts
+for (sample in colnames(genus_cpm)) {
+  genus_cpm[, sample] <- 1000000 * genus_cpm[, sample] / total_reads[sample]
+}
+```
+
+Filter the counts to have a total of at least 10
+```{r}
+filtered_counts <- genus_counts
+filtered_counts[genus_counts < 10] <- 0
+filtered_cpm <- genus_cpm
+filtered_cpm[genus_counts < 10] <- 0
+```
+
+Remove any rows that may have become all zero.
+
+```{r}
+inonzero_counts = rowSums(filtered_counts) > 0
+filtered_counts <- filtered_counts[inonzero_counts, ]
+filtered_cpm <- filtered_cpm[inonzero_counts, ]
+```
+
+Write the resulting tables.
+
+```{r}
+filtered_cpm %>%
+  as_tibble(rownames = "genus") %>%
+  write_tsv("S1_filtered_cpm.tsv")
+filtered_counts %>%
+  as_tibble(rownames = "genus") %>%
+  write_tsv("S4_filtered_counts.tsv")
+genus_counts %>%
+  as_tibble(rownames = "genus") %>%
+  write_tsv("S5_raw_counts.tsv")
+genus_cpm %>%
+  as_tibble(rownames = "genus") %>%
+  write_tsv("S6_raw_cpm.tsv")
+```

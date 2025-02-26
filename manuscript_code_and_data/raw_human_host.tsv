@@ -1,0 +1,474 @@
+genus	count	evidence
+Cutibacterium	4237	Bartlett;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Pseudomonas	1501	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Prevotella	866	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Bacteroides	787	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Streptomyces	681	Bartlett;MGNIFY/gut;WIS
+Escherichia	606	Bartlett;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Streptococcus	600	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Corynebacterium	561	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Selenomonas	539	Bartlett;UNITN;MGNIFY/oral;WIS
+Porphyromonas	478	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Campylobacter	471	Bartlett;UNITN;MGNIFY/gut;WIS
+Phocaeicola	454	Bartlett;MGNIFY/gut;MGNIFY/oral
+Bradyrhizobium	451	UNITN;MGNIFY/gut;WIS
+Alistipes	441	Bartlett;UNITN;MGNIFY/gut;WIS
+Parabacteroides	440	Bartlett;UNITN;MGNIFY/gut;WIS
+Schaalia	432	Not found
+Faecalibacterium	408	UNITN;MGNIFY/gut;WIS
+Bifidobacterium	392	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Segatella	388	Not found
+Clostridium	385	Bartlett;UNITN;MGNIFY/gut;WIS
+Neisseria	362	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Treponema	342	Bartlett;UNITN;MGNIFY/oral;WIS
+Veillonella	313	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Rothia	304	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Plasmodium	296	Not found
+Ralstonia	286	Bartlett;MGNIFY/gut;WIS
+Collinsella	273	Bartlett;UNITN;MGNIFY/gut;WIS
+Haemophilus	268	Bartlett;UNITN;MGNIFY/gut;WIS
+Fusobacterium	259	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Mediterraneibacter	253	MGNIFY/gut
+Bacillus	248	Bartlett;MGNIFY/gut;WIS
+Sphingomonas	243	Bartlett;UNITN;MGNIFY/gut;WIS
+Rhodococcus	238	Bartlett;WIS
+Burkholderia	237	Bartlett;WIS
+Capnocytophaga	232	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Actinomyces	218	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Eggerthella	208	Bartlett;UNITN;MGNIFY/gut;WIS
+Eikenella	205	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Flavobacterium	200	Bartlett;MGNIFY/gut;WIS
+Flavonifractor	200	UNITN;MGNIFY/gut;WIS
+Stenotrophomonas	200	Bartlett;MGNIFY/gut;WIS
+Tannerella	199	Bartlett;UNITN;MGNIFY/oral;WIS
+Staphylococcus	198	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Akkermansia	195	UNITN;MGNIFY/gut;WIS
+Odoribacter	193	Bartlett;MGNIFY/gut;WIS
+Micrococcus	192	Bartlett;UNITN;MGNIFY/gut;WIS
+Variovorax	191	WIS
+Brucella	187	Bartlett
+Enterocloster	184	MGNIFY/gut
+Malassezia	183	Not found
+Ruthenibacterium	183	MGNIFY/gut
+Klebsiella	168	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Lachnoclostridium	159	UNITN;MGNIFY/gut
+Acinetobacter	156	Bartlett;MGNIFY/gut;MGNIFY/vaginal;WIS
+Achromobacter	152	Bartlett;MGNIFY/gut;WIS
+Acanthamoeba	147	Not found
+Vescimonas	145	Not found
+Methylobacterium	143	Bartlett;MGNIFY/gut;WIS
+Hoylesella	142	Not found
+Roseburia	141	UNITN;MGNIFY/gut;WIS
+Hungatella	136	Bartlett;UNITN;MGNIFY/gut
+Alcaligenes	134	Bartlett;WIS
+Paenibacillus	134	Bartlett;MGNIFY/gut;WIS
+Aggregatibacter	130	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Sutterella	128	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Aspergillus	127	Not found
+Brevundimonas	124	Bartlett;UNITN;WIS
+Limosilactobacillus	121	MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Hemileia	118	Not found
+Sphingobium	115	WIS
+Fretibacterium	114	Bartlett;MGNIFY/oral
+Solobacterium	113	Bartlett;UNITN;WIS
+Blautia	110	UNITN;MGNIFY/gut;WIS
+Olsenella	110	UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Butyricimonas	108	Bartlett;UNITN;MGNIFY/gut;WIS
+Leishmania	105	Not found
+Desulfovibrio	103	Bartlett;UNITN;MGNIFY/gut;WIS
+Phascolarctobacterium	101	UNITN;MGNIFY/gut;WIS
+Dialister	99	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Lactobacillus	98	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Vibrio	98	Bartlett;MGNIFY/gut;WIS
+Enterobacter	97	Bartlett;MGNIFY/gut;WIS
+Rhizobium	97	Bartlett;UNITN;WIS
+Diaphorobacter	95	WIS
+Dorea	92	UNITN;MGNIFY/gut;WIS
+Roseolovirus	92	Not found
+Leptotrichia	91	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Paracoccus	91	Bartlett;WIS
+Acidovorax	86	Bartlett;MGNIFY/gut;WIS
+Stomatobaculum	83	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Simiaoa	80	Not found
+Parvimonas	78	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Gemella	76	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Chryseobacterium	74	Bartlett;MGNIFY/gut;WIS
+Mogibacterium	72	Bartlett;UNITN;MGNIFY/oral;WIS
+Stutzerimonas	72	Not found
+Agathobacter	71	MGNIFY/gut
+Lachnoanaerobaculum	71	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Intestinimonas	67	MGNIFY/gut
+Enterococcus	66	Bartlett;MGNIFY/gut;MGNIFY/vaginal;WIS
+Citrobacter	65	Bartlett;MGNIFY/gut;WIS
+Coprococcus	65	UNITN;MGNIFY/gut;WIS
+Chromera	64	Not found
+Kingella	60	Bartlett;UNITN;WIS
+Microbacterium	60	Bartlett;UNITN;MGNIFY/vaginal;WIS
+Filifactor	57	Bartlett;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Trichomonas	57	Not found
+Trypanosoma	57	Not found
+Lancefieldella	54	MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Mobiluncus	54	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Granulicatella	53	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Helicobacter	52	Bartlett;MGNIFY/gut;WIS
+Pyramidobacter	52	Bartlett;MGNIFY/gut;MGNIFY/vaginal;WIS
+Subdoligranulum	50	UNITN;WIS
+Anaerotruncus	48	UNITN;MGNIFY/gut;WIS
+Comamonas	45	Bartlett;MGNIFY/gut;WIS
+Paraprevotella	45	MGNIFY/gut;WIS
+Adlercreutzia	43	UNITN;MGNIFY/gut
+Oscillibacter	43	Bartlett;UNITN;MGNIFY/gut;WIS
+Coprobacter	42	MGNIFY/gut
+Gardnerella	42	Bartlett;WIS
+Mesorhizobium	42	WIS
+Rhizophagus	42	Not found
+Arachnia	41	MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Duodenibacillus	41	MGNIFY/gut
+Kocuria	39	Bartlett;MGNIFY/gut;WIS
+Nocardioides	39	WIS
+Roseateles	39	WIS
+Sphingopyxis	39	WIS
+Anaerostipes	38	Bartlett;UNITN;MGNIFY/gut;WIS
+Lawsonibacter	35	MGNIFY/gut
+Dietzia	34	Bartlett;WIS
+Eimeria	34	Not found
+Hammondia	34	Not found
+Morganella	34	Bartlett;MGNIFY/gut;WIS
+Hydrogenophaga	33	WIS
+Delftia	32	Bartlett;WIS
+Gordonibacter	32	Bartlett;MGNIFY/gut
+Saccharomyces	32	Not found
+Novosphingobium	31	WIS
+Mycobacterium	30	Bartlett;MGNIFY/gut;WIS
+Pusillibacter	30	Not found
+Cardiobacterium	29	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;WIS
+Cupriavidus	29	Bartlett;MGNIFY/gut;WIS
+Dermacoccus	29	Bartlett;WIS
+Moraxella	29	Bartlett;UNITN;MGNIFY/oral;WIS
+Ligilactobacillus	28	MGNIFY/gut;MGNIFY/vaginal
+Massilia	28	Bartlett;WIS
+Candida	26	Not found
+Cellulosimicrobium	26	Bartlett;WIS
+Rhodopseudomonas	26	WIS
+Serratia	26	Bartlett;MGNIFY/gut;WIS
+Acidaminococcus	25	Bartlett;UNITN;MGNIFY/gut;WIS
+Aeromonas	25	Bartlett;MGNIFY/gut;WIS
+Brevibacterium	25	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Piscinibacter	25	Not found
+Ruminococcus	25	Bartlett;UNITN;MGNIFY/gut;WIS
+Xanthomonas	25	WIS
+Methylorubrum	24	Not found
+Simplexvirus	24	Not found
+Janthinobacterium	23	WIS
+Lacticaseibacillus	23	MGNIFY/gut;MGNIFY/oral
+Peptoniphilus	23	Bartlett;UNITN;WIS
+Puccinia	23	Not found
+Fusarium	22	Not found
+Trueperella	22	Bartlett;WIS
+Entamoeba	21	Not found
+Morococcus	21	Not found
+Mycolicibacterium	21	Not found
+Shinella	21	WIS
+Dysosmobacter	20	MGNIFY/gut
+Polaribacter	20	WIS
+Anaerobutyricum	19	MGNIFY/gut
+Lautropia	19	UNITN;MGNIFY/oral;WIS
+Phytophthora	19	Not found
+Gordonia	18	Bartlett;WIS
+Bosea	16	WIS
+Curtobacterium	16	Bartlett;WIS
+Finegoldia	16	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Intestinibacillus	16	Not found
+Megasphaera	16	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Metamycoplasma	16	Bartlett;MGNIFY/gut;MGNIFY/vaginal
+Shewanella	16	Bartlett;WIS
+Spiroplasma	16	Bartlett;WIS
+Cryptosporidium	15	Not found
+Caulobacter	14	UNITN;MGNIFY/gut;WIS
+Jonquetella	14	Bartlett;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Lawsonella	14	Bartlett;UNITN;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Ottowia	14	MGNIFY/oral
+Pauljensenia	14	MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal
+Candidatus Nanosynbacter	13	Not found
+Dermabacter	13	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Janibacter	13	Bartlett;UNITN;WIS
+Paraburkholderia	13	Not found
+Pseudoalteromonas	13	WIS
+Roseomonas	13	Bartlett;WIS
+Thomasclavelia	13	Not found
+Winkia	13	MGNIFY/gut;MGNIFY/vaginal
+Eubacterium	12	Bartlett;UNITN;MGNIFY/gut;WIS
+Gleimia	12	MGNIFY/gut;MGNIFY/vaginal
+Legionella	12	Bartlett;WIS
+Micromonospora	12	WIS
+Aquabacterium	11	WIS
+Caldimonas	11	WIS
+Naegleria	11	Not found
+Abiotrophia	10	Bartlett;UNITN;MGNIFY/oral;WIS
+Actinotignum	10	Bartlett;MGNIFY/vaginal
+Aquincola	10	Not found
+Edhazardia	10	Not found
+Hydrogenophilus	10	WIS
+Sarcocystis	10	Not found
+Agrobacterium	9	Bartlett;WIS
+Anaerococcus	9	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Barnesiella	9	MGNIFY/gut;WIS
+Blastomyces	9	Not found
+Cloacibacillus	9	UNITN;MGNIFY/gut;WIS
+Desulfobulbus	9	MGNIFY/oral
+Fannyhessea	9	MGNIFY/gut;MGNIFY/vaginal
+Flintibacter	9	Not found
+Lactococcus	9	Bartlett;MGNIFY/gut;WIS
+Pahexavirus	9	Not found
+Pseudoxanthomonas	9	Bartlett;UNITN;WIS
+Sphingobacterium	9	Bartlett;WIS
+Wujia	9	Not found
+Lactiplantibacillus	8	MGNIFY/gut
+Longicatena	8	MGNIFY/gut
+Mycoplasma	8	Bartlett;UNITN;WIS
+Nostoc	8	WIS
+Parolsenella	8	MGNIFY/gut
+Pasteurella	8	Bartlett
+Pseudoglutamicibacter	8	MGNIFY/vaginal
+Tardiphaga	8	Not found
+Agathobaculum	7	MGNIFY/gut
+Alicycliphilus	7	Not found
+Amycolatopsis	7	Bartlett
+Bordetella	7	Bartlett;WIS
+Brachybacterium	7	Bartlett;UNITN;MGNIFY/vaginal;WIS
+Buchnera	7	WIS
+Fenollaria	7	Bartlett;MGNIFY/gut;MGNIFY/vaginal
+Pantoea	7	Bartlett;MGNIFY/gut;WIS
+Pedobacter	7	WIS
+Penicillium	7	Not found
+Propionibacterium	7	Bartlett;MGNIFY/gut;MGNIFY/oral;WIS
+Proteus	7	Bartlett;MGNIFY/gut;MGNIFY/vaginal;WIS
+Pseudoduganella	7	Not found
+Scrofimicrobium	7	Not found
+Amygdalobacter	6	Not found
+Cryptobacterium	6	Bartlett;MGNIFY/oral
+Ezakiella	6	MGNIFY/gut;MGNIFY/vaginal
+Lysinibacillus	6	Bartlett;UNITN;MGNIFY/gut;WIS
+Mageeibacillus	6	MGNIFY/vaginal
+Mastadenovirus	6	Not found
+Monocercomonoides	6	Not found
+Qipengyuania	6	Not found
+Sellimonas	6	MGNIFY/gut
+Tenacibaculum	6	Not found
+Azospirillum	5	WIS
+Berryella	5	MGNIFY/vaginal
+Butyrivibrio	5	MGNIFY/oral;WIS
+Christensenella	5	MGNIFY/gut
+Devosia	5	WIS
+Erythrobacter	5	WIS
+Hymenobacter	5	WIS
+Lacrimispora	5	MGNIFY/gut
+Nocardia	5	Bartlett;WIS
+Priestia	5	Not found
+Rhodoferax	5	WIS
+Acetobacter	4	Bartlett;UNITN;WIS
+Aerococcus	4	Bartlett;MGNIFY/vaginal;WIS
+Altererythrobacter	4	WIS
+Atopobium	4	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Cellulomonas	4	Bartlett;MGNIFY/gut;WIS
+Cenococcum	4	Not found
+Eponavirus	4	Not found
+Geobacillus	4	WIS
+Giardia	4	Not found
+Herbaspirillum	4	Bartlett;WIS
+Leptospira	4	Bartlett;UNITN;WIS
+Leucobacter	4	WIS
+Lymphocryptovirus	4	Not found
+Lysobacter	4	WIS
+Methanomethylophilus	4	MGNIFY/gut
+Mucilaginibacter	4	WIS
+Neobacillus	4	MGNIFY/gut
+Nonagvirus	4	Not found
+Peribacillus	4	MGNIFY/gut
+Porphyrobacter	4	WIS
+Rahnella	4	Bartlett;MGNIFY/gut;WIS
+Raoultella	4	Bartlett;MGNIFY/gut;WIS
+Salmonella	4	Bartlett;MGNIFY/gut;WIS
+Simonsiella	4	Not found
+Sordaria	4	Not found
+Sphaerotilus	4	Not found
+Varibaculum	4	Bartlett;UNITN;MGNIFY/gut;MGNIFY/vaginal;WIS
+Agrococcus	3	WIS
+Arcobacter	3	Bartlett;WIS
+Arthrobacter	3	Bartlett;WIS
+Azospira	3	WIS
+Blastomonas	3	WIS
+Blattabacterium	3	WIS
+Brigitvirus	3	Not found
+Clostridioides	3	Bartlett;MGNIFY/gut
+Croceibacterium	3	Not found
+Croceicoccus	3	WIS
+Desulfomicrobium	3	Bartlett;WIS
+Erwinia	3	Bartlett;WIS
+Faecalibacillus	3	MGNIFY/gut
+Geodermatophilus	3	WIS
+Glutamicibacter	3	Not found
+Halomonas	3	Bartlett;WIS
+Ideonella	3	Not found
+Kagunavirus	3	Not found
+Limnobacter	3	WIS
+Luteimonas	3	WIS
+Methylibium	3	WIS
+Mycoplasmopsis	3	Bartlett;MGNIFY/gut;MGNIFY/vaginal
+Nakaseomyces	3	Not found
+Neurospora	3	Not found
+Oligella	3	Bartlett;MGNIFY/vaginal;WIS
+Parascardovia	3	MGNIFY/gut;MGNIFY/oral;WIS
+Parasphingorhabdus	3	Not found
+Pedococcus	3	Not found
+Phenylobacterium	3	WIS
+Polymorphobacter	3	Not found
+Providencia	3	Bartlett;MGNIFY/gut;WIS
+Psychrobacter	3	Bartlett;WIS
+Rhizobacter	3	Not found
+Rhizorhabdus	3	Not found
+Rubrivivax	3	WIS
+Rubrobacter	3	WIS
+Saccharopolyspora	3	Bartlett;WIS
+Schleiferilactobacillus	3	MGNIFY/gut
+Shigella	3	Bartlett
+Sneathia	3	Bartlett;MGNIFY/gut;MGNIFY/vaginal;WIS
+Sphingorhabdus	3	WIS
+Sphingosinicella	3	Not found
+Sphingosinithalassobacter	3	Not found
+Stakelama	3	Not found
+Thauera	3	WIS
+Thermophilibacter	3	Not found
+Tsuneonella	3	Not found
+Ureaplasma	3	Bartlett;MGNIFY/gut;MGNIFY/vaginal;WIS
+Vitrella	3	Not found
+Weissella	3	Bartlett;MGNIFY/gut;WIS
+Actinoplanes	2	WIS
+Afonbuvirus	2	Not found
+Anncaliia	2	Not found
+Aureimonas	2	Bartlett;WIS
+Aurodevirus	2	Not found
+Azotobacter	2	WIS
+Blastococcus	2	MGNIFY/gut;WIS
+Caenibius	2	Not found
+Candidatus Minimicrobia	2	Not found
+Carjivirus	2	Not found
+Catenibacterium	2	UNITN;MGNIFY/gut;WIS
+Cloacibacterium	2	MGNIFY/oral;WIS
+Conchiformibius	2	WIS
+Cystoisospora	2	Not found
+Dechloromonas	2	WIS
+Edwardsiella	2	Bartlett;MGNIFY/gut
+Frigoribacterium	2	WIS
+Hafnia	2	Bartlett;MGNIFY/gut;WIS
+Halopseudomonas	2	Not found
+Inhella	2	Not found
+Kosakonia	2	Bartlett;MGNIFY/gut
+Lachnospira	2	MGNIFY/gut;WIS
+Leclercia	2	Bartlett;MGNIFY/gut;WIS
+Leuconostoc	2	Bartlett;MGNIFY/gut;WIS
+Liquorilactobacillus	2	Not found
+Mailhella	2	MGNIFY/gut
+Meiothermus	2	WIS
+Melampsora	2	Not found
+Mixta	2	MGNIFY/gut
+Parafannyhessea	2	Not found
+Phikmvvirus	2	Not found
+Phycomyces	2	Not found
+Ramlibacter	2	WIS
+Raoultibacter	2	MGNIFY/gut
+Rathayibacter	2	WIS
+Sashavirus	2	Not found
+Scardovia	2	Bartlett;MGNIFY/gut;MGNIFY/oral;WIS
+Sodaliphilus	2	MGNIFY/gut;MGNIFY/vaginal
+Sodalis	2	Bartlett
+Sulfurimonas	2	WIS
+Tardibacter	2	Not found
+Telluria	2	Not found
+Tepidimonas	2	Bartlett;WIS
+Tessaracoccus	2	WIS
+Yersinia	2	Bartlett;MGNIFY/gut
+Actinomadura	1	Bartlett;WIS
+Actinomycetospora	1	WIS
+Acutalibacter	1	MGNIFY/gut
+Aedoeadaptatus	1	Not found
+Afipia	1	Bartlett;MGNIFY/gut;WIS
+Agromyces	1	WIS
+Aliarcobacter	1	MGNIFY/gut
+Alphatrevirus	1	Not found
+Arcanobacterium	1	Bartlett
+Azoarcus	1	WIS
+Azonexus	1	MGNIFY/gut;MGNIFY/oral
+Bartonella	1	Bartlett;WIS
+Brooklawnia	1	WIS
+Bulleidia	1	Bartlett;MGNIFY/gut;MGNIFY/oral;MGNIFY/vaginal;WIS
+Caballeronia	1	Not found
+Chitinophaga	1	Bartlett;WIS
+Chromobacterium	1	Bartlett;WIS
+Cohcovirus	1	Not found
+Cronobacter	1	Bartlett;MGNIFY/gut;WIS
+Cryptococcus	1	Not found
+Deinococcus	1	WIS
+Dolosigranulum	1	Bartlett
+Draconibacterium	1	Not found
+Dyella	1	Bartlett
+Eleftheria	1	Not found
+Emergencia	1	MGNIFY/gut
+Empedobacter	1	Bartlett;WIS
+Exiguobacterium	1	Bartlett;MGNIFY/gut;WIS
+Ferribacterium	1	WIS
+Friedmanniella	1	WIS
+Fructilactobacillus	1	MGNIFY/gut
+Gequatrovirus	1	Not found
+Globisporangium	1	Not found
+Gluconobacter	1	WIS
+Goslarvirus	1	Not found
+Gulosibacter	1	MGNIFY/vaginal
+Harrisonburgvirus	1	Not found
+Histoplasma	1	Not found
+Intestinibacter	1	UNITN;MGNIFY/gut
+Kehishuvirus	1	Not found
+Kerstersia	1	Bartlett;WIS
+Kitasatospora	1	WIS
+Kluyvera	1	Bartlett;MGNIFY/gut;WIS
+Kluyveromyces	1	Not found
+Kytococcus	1	Bartlett;WIS
+Leptothrix	1	WIS
+Mammaliicoccus	1	Not found
+Massilistercora	1	MGNIFY/gut
+Megamonas	1	Bartlett;UNITN;MGNIFY/gut;WIS
+Melaminivora	1	Not found
+Methanosarcina	1	Not found
+Methyloversatilis	1	WIS
+Microlunatus	1	WIS
+Microvirga	1	MGNIFY/gut;WIS
+Modestobacter	1	WIS
+Ndongobacter	1	Not found
+Ornithobacterium	1	WIS
+Oxalobacter	1	UNITN;MGNIFY/gut;WIS
+Pandoraea	1	Bartlett
+Paracidovorax	1	Not found
+Parasphingopyxis	1	Not found
+Pectobacterium	1	WIS
+Pelagerythrobacter	1	Not found
+Photobacterium	1	Bartlett;WIS
+Plesiomonas	1	Bartlett;MGNIFY/gut;WIS
+Polaromonas	1	WIS
+Prochlorococcus	1	WIS
+Pseudoleptotrichia	1	MGNIFY/oral
+Quatrionicoccus	1	Not found
+Rhodobacter	1	WIS
+Serinicoccus	1	WIS
+Shouchella	1	Not found
+Skermanella	1	UNITN;WIS
+Skunavirus	1	Not found
+Spirosoma	1	WIS
+Tequatrovirus	1	Not found
+Thermus	1	WIS
+Thiomonas	1	Not found
+Turicibacter	1	Bartlett;MGNIFY/gut;WIS
+Turicimonas	1	MGNIFY/gut
+Webervirus	1	Not found
+Wohlfahrtiimonas	1	Bartlett
+Xanthobacter	1	WIS
+Xylophilus	1	Not found

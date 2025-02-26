@@ -1,0 +1,210 @@
+---
+title: "Untitled"
+output: html_document
+date: "2025-02-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(assert)
+library(vegan)
+library(pheatmap)
+library(plotrix)
+```
+
+```{r}
+genus_cpm_df <- read_tsv("S1_filtered_cpm.tsv")
+genus_cpm <- as.matrix(genus_cpm_df[, -1])
+rownames(genus_cpm) <- genus_cpm_df[[1]]
+```
+
+```{r}
+meta <- read_tsv("tcga_wgs_primary_tumor_file_meta.tsv", show_col_types = FALSE)
+```
+
+Sum the *CPM* values for all genera.
+
+```{r}
+genus_count <- rowSums(genus_cpm) %>%
+  enframe(name = "genus", value = "count") %>%
+  arrange(desc(count)) %>%
+  mutate(genus = factor(genus, levels = genus))
+```
+
+## Figure 1A
+Pie chart of fractions of the top 10 genera, the rest classified as "Other"
+```{r}
+pie_chart_df <- rbind(
+  genus_count[1:10, ],
+  tibble(
+    genus = "Other",
+    count = sum(genus_count$count[11:nrow(genus_count)])
+  )
+) %>%
+  rename(Genus = genus)
+figure_1B <- ggplot(
+  data = pie_chart_df,
+  aes(
+    x = "", y = round(100 * count / sum(count), digits = 1),
+    fill = Genus
+  )
+) +
+  geom_col() +
+  coord_polar(theta = "y") +
+  theme_void() +
+  theme(
+    legend.text = element_text(size = 18),
+    legend.title = element_text(size = 20)
+  ) +
+  xlab("Fraction of Reads per Genus") +
+  ylab("Total Normalized Reads") +
+  scale_fill_viridis_d(option = "C")
+print(figure_1B)
+```
+
+Compute mean and standard error of the CPM read counts over all cancer types.
+```{r}
+avg_project_genera <- double()
+sd_project_genera <- double()
+total_samples <- double()
+for (project in sort(unique(meta$project_id))) {
+  these_ids <- meta %>%
+    filter(project == project_id) %>%
+    pull(file_id)
+  this_mat <- genus_cpm[, colnames(genus_cpm) %in% these_ids]
+  total_samples[[project]] <- ncol(this_mat)
+  avg_project_genera[[project]] <- mean(colSums(this_mat > 0))
+  sd_project_genera[[project]] <- std.error(colSums(this_mat > 0))
+}
+```
+
+Plot the mean and standard error of CPM read counts as a bar chart.
+```{r}
+mean_genera_df <- tibble(
+  project = names(avg_project_genera),
+  genera = avg_project_genera,
+  sd_genera = sd_project_genera,
+  lower = pmax(0, avg_project_genera - sd_project_genera),
+  upper = avg_project_genera + sd_project_genera
+) %>% arrange(genera)
+mean_genera_df$project <- factor(mean_genera_df$project, levels = rev(mean_genera_df$project))
+mean_genera_plot <- ggplot(
+  data = mean_genera_df,
+  aes(x = project, y = genera, fill = project)
+) +
+  scale_fill_manual(values = rep(c("darkgrey", "lightblue"), 33)) +
+  geom_col(show.legend = FALSE) +
+  geom_errorbar(aes(
+    ymin = lower,
+    ymax = upper,
+  )) +
+  theme_classic() +
+  xlab("TCGA Project") +
+  ylab("Genera") +
+  ggtitle("Mean Genera Per Sample")  +
+  theme(axis.text = element_text(size=18), axis.text.x = element_text(size = 12, angle=90, vjust = 0.5, hjust=1),
+        axis.title=element_text(size=20),
+        plot.title = element_text(size=24))  
+print(mean_genera_plot)
+```
+Pool the CPM normalized sample reads by project.
+```{r}
+result <- list()
+for (project in sort(unique(meta$project_id))) {
+  these_ids <- meta %>%
+    filter(project == project_id) %>%
+    pull(file_id)
+  result[[project]] <-
+    genus_cpm[, colnames(genus_cpm) %in% these_ids, drop = FALSE] %>% rowSums()
+}
+project_mat <- do.call(rbind, result)
+rownames(project_mat) <- names(result)
+```
+
+
+Calculate and plot the Simpson diversity.
+```{r}
+simpson_diversity <- diversity(project_mat, index = "simpson") %>%
+  sort(decreasing = FALSE)
+
+data <- tibble(
+  project = rev(names(simpson_diversity)),
+  simpson = rev(simpson_diversity)
+)
+data$project <- factor(data$project, levels = data$project)
+simpson_index_plot <- ggplot(
+  data = data,
+  aes(x = project, y = simpson, fill = project)
+) +
+  scale_fill_manual(values = rep(c("darkgrey", "lightblue"), 33)) +
+  geom_col(show.legend = FALSE) +
+  theme_classic() +
+  xlab("TCGA Project") +
+  ylab("Simpson Index") +
+  ggtitle("Microbiome Diversity Simpson Index") +
+  theme(axis.text = element_text(size=18), axis.text.x = element_text(size = 12,  angle=90, vjust = 0.5, hjust=1),
+        axis.title=element_text(size=20),
+        plot.title = element_text(size=24)) 
+print(simpson_index_plot)
+```
+Plot on a log scale the mean CPM for the top 20 genera across samples in the cancer type.
+Cancer types are sorted by mean microbial CPM per sample.
+```{r}
+abundant_genera = genus_count[1:20,]
+mean_cpm = rowSums(project_mat) / total_samples
+mean_cpm = sort(mean_cpm, decreasing=TRUE)
+pm = project_mat / total_samples
+pm = pm[names(mean_cpm),as.character(abundant_genera$genus)]
+```
+
+```{r, fig.width=10, fig.height=9}
+pheatmap(t(log10(pm+1)), cluster_cols=FALSE,  treeheight_col = 0, treeheight_row = 0,fontsize = 16, cellwidth = 16, angle_col=90)
+```
+
+Plotting the Marista-Horn heatmap, though we won't use it directly, but rather just
+take the dendrogram.  I cannot find a way to *not* plot the full heatmap.
+
+```{r}
+distance <- vegdist(project_mat, "horn")
+horn_heatmap = pheatmap(as.matrix(distance),
+    clustering_distance_rows = distance,
+    clustering_distance_cols = distance, treeheight_col = 0,
+    treeheight_row = 0, fontsize = 9,
+    main = "Morisita-Horn (abundance) similariy between TCGA projects"
+)
+```
+
+But now that we have generated the heatmap, we may plot the dendrogram.
+```{r, fig.width=9,fig.height=8.1}
+library(dendextend)
+
+dendrogram <- horn_heatmap[[1]] %>%
+ as.dendrogram() %>%
+ set("branches_k_color", k=4) %>%
+ set("branches_lwd", 3) %>%
+ set("labels_cex", 1.1)
+
+dendrogram %>% plot( horiz=F)
+```
+
+Write the figure files.
+```{r}
+pdf('figure1B.pdf')
+print(figure_1B)
+dev.off()
+pdf('figure2A.pdf')
+print(mean_genera_plot)
+dev.off()
+pdf('figure2B.pdf')
+print(simpson_index_plot)
+dev.off()
+# Just replot the heatmap.
+pdf('figure2C.pdf', width=10, height=9)
+pheatmap(t(log10(pm+1)), cluster_cols=FALSE,  treeheight_col = 0, treeheight_row = 0,fontsize = 16, cellwidth = 16, angle_col=90)
+dev.off()
+pdf('figure2D.pdf', width=9, height=8.1)
+plot(dendrogram, horiz=F)
+dev.off()
+```
+

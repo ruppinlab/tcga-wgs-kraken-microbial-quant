@@ -1,0 +1,219 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-11-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+library(janitor)
+```
+
+This script assumes files will be saved in the following directory structure
+microbial_databases
+├── Bartlett
+│   └── bacteria_human_pathogens.xlsx
+├── MGNIFY
+│   ├── gut
+│   │   └── genomes-all_metadata.tsv
+│   ├── oral
+│   │   └── genomes-all_metadata.tsv
+│   └── vaginal
+│       └── genomes-all_metadata.tsv
+├── UNITN
+│   └── 1-s2.0-S0092867419300017-mmc4.xlsx
+└── WIS
+    ├── TableS4.txt
+    └── aay9189_TableS4.xlsx
+
+
+[Bartlett]
+Bartlett A, Padfield D, Lear L, Bendall R, Vos M. A comprehensive list of 
+bacterial pathogens infecting humans. Microbiology (Reading). 2022 Dec;168(12). 
+doi: 10.1099/mic.0.001269. PMID: 36748702. 
+
+Supplemental data file bacteria_human_pathogens.xlsx
+
+[MGNIFY]
+Lorna Richardson, Ben Allen, Germana Baldi, Martin Beracochea, 
+Maxwell L Bileschi, Tony Burdett, Josephine Burgin, Juan Caballero-Pérez, 
+Guy Cochrane, Lucy J Colwell, Tom Curtis, Alejandra Escobar-Zepeda, 
+Tatiana A Gurbich, Varsha Kale, Anton Korobeynikov, Shriya Raj, 
+Alexander B Rogers, Ekaterina Sakharova, Santiago Sanchez, Darren J Wilkinson, 
+Robert D Finn, MGnify: the microbiome sequence data analysis resource in 2023, 
+Nucleic Acids Research, Volume 51, Issue D1, 6 January 2023, Pages D753–D759, 
+https://doi.org/10.1093/nar/gkac1080
+
+Data downloaded from 
+https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/
+for the human-gut (v2.0.2), human-oral (v1.0.1) and human-vaginal (v1.0) 
+subdirectories. Download the files `genomes-all_metadata.tsv`.
+
+[UNITN] 
+Pasolli E, Asnicar F, Manara S, Zolfo M, Karcher N, Armanini F, Beghini F,
+Manghi P, Tett A, Ghensi P, Collado MC, Rice BL, DuLong C, Morgan XC, Golden CD,
+Quince C, Huttenhower C, Segata N. Extensive Unexplored Human Microbiome 
+Diversity Revealed by Over 150,000 Genomes from Metagenomes Spanning Age, 
+Geography, and Lifestyle. Cell. 2019 Jan 24;176(3):649-662.e20. 
+doi: 10.1016/j.cell.2019.01.001. Epub 2019 Jan 17. 
+PMID: 30661755; PMCID: PMC6349461.
+
+Supplementary Table S4 filename 1-s2.0-S0092867419300017-mmc4.xlsx
+
+
+[WIS]
+Nejman D, Livyatan I, Fuks G, Gavert N, Zwang Y, Geller LT, Rotter-Maskowitz A,
+Weiser R, Mallel G, Gigi E, Meltser A, Douglas GM, Kamer I, Gopalakrishnan V, 
+Dadosh T, Levin-Zaidman S, Avnet S, Atlan T, Cooper ZA, Arora R, Cogdill AP, 
+Khan MAW, Ologun G, Bussi Y, Weinberger A, Lotan-Pompan M, Golani O, Perry G, 
+Rokah M, Bahar-Shany K, Rozeman EA, Blank CU, Ronai A, Shaoul R, Amit A, 
+Dorfman T, Kremer R, Cohen ZR, Harnof S, Siegal T, Yehuda-Shnaidman E, 
+Gal-Yam EN, Shapira H, Baldini N, Langille MGI, Ben-Nun A, Kaufman B, Nissan A, 
+Golan T, Dadiani M, Levanon K, Bar J, Yust-Katz S, Barshack I, Peeper DS, 
+Raz DJ, Segal E, Wargo JA, Sandbank J, Shental N, Straussman R. 
+The human tumor microbiome is composed of tumor type-specific intracellular 
+bacteria. Science. 2020 May 29;368(6494):973-980. doi: 10.1126/science.aay9189. 
+PMID: 32467386; PMCID: PMC7757858.
+
+Supplemental Table 4 File aay9189_TableS4.xlsx, first worksheet, save as text 
+file TableS4.txt (the Excel file will not read cleanly into R).
+
+Conditionally append a database name if that database serves as evidence of
+a genus being seen in human.
+
+```{r}
+maybe_append <- function(evidence, dataset, found) {
+  ifelse(found,
+    ifelse(evidence == 'Not found', dataset, paste(evidence, dataset, sep=';')),
+    evidence)
+}
+```
+
+```{r}
+mat_df = read_tsv('S1_filtered_cpm.tsv')
+mat = mat_df[,-1]
+rownames(mat) = mat_df[[1]]
+```
+
+```{r}
+samples_infected = rowSums(mat != 0) %>% 
+  enframe(name='genus', value = 'count') %>%
+  arrange(count) %>%
+  mutate(evidence='Not found')
+```
+
+```{r}
+bacterial = read_excel(
+  'microbial_databases/Bartlett/bacteria_human_pathogens.xlsx',
+  sheet=6
+)
+```
+
+```{r}
+samples_infected = samples_infected %>%
+  arrange(desc(count)) %>%
+  mutate(evidence=ifelse(genus %in% bacterial$genus, 'Bartlett', evidence))
+```
+
+```{r}
+unitn = read_excel(
+  'microbial_databases/UNITN/1-s2.0-S0092867419300017-mmc4.xlsx', sheet=1) %>%
+  clean_names() %>%
+  filter(level_of_estimated_taxonomy == 'Genus') %>%
+  mutate(genus = str_replace(estimated_taxonomy, '.*g__', ''))
+```
+
+```{r}
+samples_infected = samples_infected %>%
+  mutate(evidence = maybe_append(evidence, 'UNITN', genus %in% unitn$genus))
+```
+
+```{r}
+gut = read_tsv('microbial_databases/MGNIFY/gut/genomes-all_metadata.tsv',
+               show_col_types=FALSE) %>% 
+  mutate(genus=str_extract(Lineage, 'g__[^;]*;')) %>%
+  mutate(genus=str_replace(genus, 'g__','')) %>%
+  mutate(genus=str_replace(genus, ';',''))
+```
+
+```{r}
+samples_infected = samples_infected %>%
+  mutate(evidence = maybe_append(evidence, 'MGNIFY/gut', genus %in% gut$genus))
+```
+
+```{r}
+oral = read_tsv('microbial_databases/MGNIFY/oral/genomes-all_metadata.tsv',
+                show_col_types = FALSE) %>% 
+  mutate(genus=str_extract(Lineage, 'g__[^;]*;')) %>%
+  mutate(genus=str_replace(genus, 'g__','')) %>%
+  mutate(genus=str_replace(genus, ';',''))
+```
+
+```{r}
+samples_infected = samples_infected %>%
+  mutate(evidence = maybe_append(evidence, 'MGNIFY/oral', genus %in% oral$genus))
+```
+
+
+```{r}
+vaginal = read_tsv('microbial_databases/MGNIFY/vaginal/genomes-all_metadata.tsv',
+                   show_col_types = FALSE) %>% 
+  mutate(genus=str_extract(Lineage, 'g__[^;]*;')) %>%
+  mutate(genus=str_replace(genus, 'g__','')) %>%
+  mutate(genus=str_replace(genus, ';',''))
+```
+
+```{r}
+samples_infected = samples_infected %>%
+  mutate(evidence = maybe_append(evidence, 'MGNIFY/vaginal', genus %in% vaginal$genus))
+```
+
+Reading the WIS data.
+
+```{r}
+wis = read_tsv('microbial_databases/WIS/TableS4.txt', show_col_types = FALSE) %>%
+  clean_names()
+```
+Note that read_tsv *correctly* notes a problem with row 3
+column 9 (all other data in the column is blank, so read_tsv cannot determine the
+data type).  This problem does not affect downstream analysis.
+
+```{r}
+problems(wis)
+```
+
+Consider those genera in the WIS set that could possibly match an infected sample
+
+```{r}
+wis_candidates = wis[wis[[7]] %in% samples_infected$genus,] 
+```
+
+Subset on those candidates possibly passing filters; filters were calculated
+by the curators of the WIS data.
+
+```{r}
+passing_filters = function(cand) {
+  critical_cols = seq(14,74,5)
+  passing = rep(FALSE, nrow(cand))
+  for (col in critical_cols) {
+    these_passing = cand[[col]] == 1 | cand[[col]] == 'NR'
+    passing = passing | these_passing
+  }
+  passing
+}
+```
+
+```{r}
+genera_wis = unique(wis_candidates[passing_filters(wis_candidates), 7, drop=TRUE])
+```
+
+```{r}
+samples_infected = samples_infected %>%
+  mutate(evidence = maybe_append(evidence, 'WIS', genus %in% genera_wis))
+```
+
+```{r}
+write_tsv(samples_infected, 'raw_human_host.tsv')
+```
