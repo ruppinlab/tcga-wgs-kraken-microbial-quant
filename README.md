@@ -1,4 +1,4 @@
-# MITT (microbes in tumor traces)
+# MAIT (Microbial Abundance In Tumors)
 
 A Kraken2 + Bracken based pipeline for classifying and quantifying
 microbial reads from GDC TCGA WGS data.
@@ -30,8 +30,8 @@ Obtain the project source and create a conda environment with the tools
 needed to run the project:
 
 ```bash
-unzip MITTv1.0.0.zip
-cd MITTv1.0.0
+unzip MAITv1.0.0.zip
+cd MAITv1.0.0
 mamba env create -f envs/tcga-wgs-kraken-microbial-quant.yaml
 mamba activate tcga-wgs-kraken-microbial-quant
 ```

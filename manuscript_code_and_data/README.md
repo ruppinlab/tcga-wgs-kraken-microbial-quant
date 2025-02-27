@@ -1,19 +1,19 @@
 # Code and Data
 
-Code to post-process the output of MITT (microbes in tumor traces)
+Code to post-process the output of MAIT (Microbial Abundance In Tumors)
 and reproduce the tables and figures published in 
 
     Gertz et al. A revised estimation of microbial abundances in the Tumor
     Cancer Genome Atlas.
 
-Because MITT is a long-running pipeline, but scripts for
+Because MAIT is a long-running pipeline, but scripts for
 post-processing might be independently useful, we provide the output
-file produced in our run of MITT and used in our manuscript as
+file produced in our run of MAIT and used in our manuscript as
 
      tcga_wgs_primary_tumor_genus_count_matrix.tsv
 
 To run the post-processing using a different raw count matrix, simply
-replace this file with the output of MITT.
+replace this file with the output of MAIT.
 
 The code is provided as R markdown (.Rmd) files that are most
 conveniently run using Rstudio

@@ -1,4 +1,4 @@
-# MITT (microbes in tumor traces)
+# MAIT (Microbial Abundance In Tumors)
 
 A Kraken2 + Bracken based pipeline for classifying and quantifying
 microbial reads from GDC TCGA WGS data.
