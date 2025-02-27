@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Identify Human Host"
 output: html_document
 date: "2024-11-08"
 ---
@@ -11,32 +11,35 @@ library(tidyverse)
 library(janitor)
 ```
 
+## Download Input Data
+
 This script assumes files will be saved in the following directory structure
 microbial_databases
-├── Bartlett
-│   └── bacteria_human_pathogens.xlsx
-├── MGNIFY
-│   ├── gut
-│   │   └── genomes-all_metadata.tsv
-│   ├── oral
-│   │   └── genomes-all_metadata.tsv
-│   └── vaginal
-│       └── genomes-all_metadata.tsv
-├── UNITN
-│   └── 1-s2.0-S0092867419300017-mmc4.xlsx
-└── WIS
-    ├── TableS4.txt
-    └── aay9189_TableS4.xlsx
+```{verbatim}
+   ├── Bartlett
+   │   └── bacteria_human_pathogens.xlsx
+   ├── MGNIFY
+   │   ├── gut
+   │   │   └── genomes-all_metadata.tsv
+   │   ├── oral
+   │   │   └── genomes-all_metadata.tsv
+   │   └── vaginal
+   │       └── genomes-all_metadata.tsv
+   ├── UNITN
+   │   └── 1-s2.0-S0092867419300017-mmc4.xlsx
+   └── WIS
+       ├── TableS4.txt
+       └── aay9189_TableS4.xlsx
+```
 
-
-[Bartlett]
+### Bartlett
 Bartlett A, Padfield D, Lear L, Bendall R, Vos M. A comprehensive list of 
 bacterial pathogens infecting humans. Microbiology (Reading). 2022 Dec;168(12). 
 doi: 10.1099/mic.0.001269. PMID: 36748702. 
 
 Supplemental data file bacteria_human_pathogens.xlsx
 
-[MGNIFY]
+### MGNIFY
 Lorna Richardson, Ben Allen, Germana Baldi, Martin Beracochea, 
 Maxwell L Bileschi, Tony Burdett, Josephine Burgin, Juan Caballero-Pérez, 
 Guy Cochrane, Lucy J Colwell, Tom Curtis, Alejandra Escobar-Zepeda, 
@@ -51,7 +54,7 @@ https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/
 for the human-gut (v2.0.2), human-oral (v1.0.1) and human-vaginal (v1.0) 
 subdirectories. Download the files `genomes-all_metadata.tsv`.
 
-[UNITN] 
+### UNITN
 Pasolli E, Asnicar F, Manara S, Zolfo M, Karcher N, Armanini F, Beghini F,
 Manghi P, Tett A, Ghensi P, Collado MC, Rice BL, DuLong C, Morgan XC, Golden CD,
 Quince C, Huttenhower C, Segata N. Extensive Unexplored Human Microbiome 
@@ -63,7 +66,7 @@ PMID: 30661755; PMCID: PMC6349461.
 Supplementary Table S4 filename 1-s2.0-S0092867419300017-mmc4.xlsx
 
 
-[WIS]
+### WIS
 Nejman D, Livyatan I, Fuks G, Gavert N, Zwang Y, Geller LT, Rotter-Maskowitz A,
 Weiser R, Mallel G, Gigi E, Meltser A, Douglas GM, Kamer I, Gopalakrishnan V, 
 Dadosh T, Levin-Zaidman S, Avnet S, Atlan T, Cooper ZA, Arora R, Cogdill AP, 
@@ -77,128 +80,153 @@ The human tumor microbiome is composed of tumor type-specific intracellular
 bacteria. Science. 2020 May 29;368(6494):973-980. doi: 10.1126/science.aay9189. 
 PMID: 32467386; PMCID: PMC7757858.
 
-Supplemental Table 4 File aay9189_TableS4.xlsx, first worksheet, save as text 
-file TableS4.txt (the Excel file will not read cleanly into R).
+Supplemental Table 4 File aay9189_TableS4.xlsx, second worksheet, save as tab-delimited text 
+to the file TableS4.txt (the Excel file will not read cleanly into R, but the single sheet will).
 
 Conditionally append a database name if that database serves as evidence of
 a genus being seen in human.
 
+## Search Databases
+
 ```{r}
 maybe_append <- function(evidence, dataset, found) {
   ifelse(found,
-    ifelse(evidence == 'Not found', dataset, paste(evidence, dataset, sep=';')),
-    evidence)
+    ifelse(evidence == "Not found", dataset, paste(evidence, dataset, sep = ";")),
+    evidence
+  )
 }
 ```
 
-```{r}
-mat_df = read_tsv('S1_filtered_cpm.tsv')
-mat = mat_df[,-1]
-rownames(mat) = mat_df[[1]]
-```
+Load the filtered CPM data.
 
 ```{r}
-samples_infected = rowSums(mat != 0) %>% 
-  enframe(name='genus', value = 'count') %>%
+mat_df <- read_tsv("S1_filtered_cpm.tsv", show_col_types = FALSE)
+mat <- as.matrix(mat_df[, -1])
+rownames(mat) <- mat_df[[1]]
+```
+
+For each genus, count the number of samples with nonzero abundance.
+
+```{r}
+samples_infected <- rowSums(mat != 0) %>%
+  enframe(name = "genus", value = "count") %>%
   arrange(count) %>%
-  mutate(evidence='Not found')
+  mutate(evidence = "Not found")
 ```
 
+### Bartlett
+
+Read the Bartlett data.
+
 ```{r}
-bacterial = read_excel(
-  'microbial_databases/Bartlett/bacteria_human_pathogens.xlsx',
-  sheet=6
+bacterial <- read_excel(
+  "microbial_databases/Bartlett/bacteria_human_pathogens.xlsx",
+  sheet = 6
 )
 ```
 
+Add a new column indicating whether the genus was found in the Bartlett data.
+
 ```{r}
-samples_infected = samples_infected %>%
+samples_infected <- samples_infected %>%
   arrange(desc(count)) %>%
-  mutate(evidence=ifelse(genus %in% bacterial$genus, 'Bartlett', evidence))
+  mutate(evidence = ifelse(genus %in% bacterial$genus, "Bartlett", evidence))
 ```
 
+### UNITN
+
 ```{r}
-unitn = read_excel(
-  'microbial_databases/UNITN/1-s2.0-S0092867419300017-mmc4.xlsx', sheet=1) %>%
+unitn <- read_excel(
+  "microbial_databases/UNITN/1-s2.0-S0092867419300017-mmc4.xlsx",
+  sheet = 1
+) %>%
   clean_names() %>%
-  filter(level_of_estimated_taxonomy == 'Genus') %>%
-  mutate(genus = str_replace(estimated_taxonomy, '.*g__', ''))
+  filter(level_of_estimated_taxonomy == "Genus") %>%
+  mutate(genus = str_replace(estimated_taxonomy, ".*g__", ""))
+```
+
+If the genus was found in UNITN, append that to the evidence.
+
+```{r}
+samples_infected <- samples_infected %>%
+  mutate(evidence = maybe_append(evidence, "UNITN", genus %in% unitn$genus))
+```
+
+### MGNIFY
+
+For each of gut, oral and vaginal, search the database to see if the genus is present.
+If it is present, append the database name to the evidence.
+
+```{r}
+gut <- read_tsv("microbial_databases/MGNIFY/gut/genomes-all_metadata.tsv",
+  show_col_types = FALSE
+) %>%
+  mutate(genus = str_extract(Lineage, "g__[^;]*;")) %>%
+  mutate(genus = str_replace(genus, "g__", "")) %>%
+  mutate(genus = str_replace(genus, ";", ""))
 ```
 
 ```{r}
-samples_infected = samples_infected %>%
-  mutate(evidence = maybe_append(evidence, 'UNITN', genus %in% unitn$genus))
+samples_infected <- samples_infected %>%
+  mutate(evidence = maybe_append(evidence, "MGNIFY/gut", genus %in% gut$genus))
 ```
 
 ```{r}
-gut = read_tsv('microbial_databases/MGNIFY/gut/genomes-all_metadata.tsv',
-               show_col_types=FALSE) %>% 
-  mutate(genus=str_extract(Lineage, 'g__[^;]*;')) %>%
-  mutate(genus=str_replace(genus, 'g__','')) %>%
-  mutate(genus=str_replace(genus, ';',''))
+oral <- read_tsv("microbial_databases/MGNIFY/oral/genomes-all_metadata.tsv",
+  show_col_types = FALSE
+) %>%
+  mutate(genus = str_extract(Lineage, "g__[^;]*;")) %>%
+  mutate(genus = str_replace(genus, "g__", "")) %>%
+  mutate(genus = str_replace(genus, ";", ""))
 ```
 
 ```{r}
-samples_infected = samples_infected %>%
-  mutate(evidence = maybe_append(evidence, 'MGNIFY/gut', genus %in% gut$genus))
-```
-
-```{r}
-oral = read_tsv('microbial_databases/MGNIFY/oral/genomes-all_metadata.tsv',
-                show_col_types = FALSE) %>% 
-  mutate(genus=str_extract(Lineage, 'g__[^;]*;')) %>%
-  mutate(genus=str_replace(genus, 'g__','')) %>%
-  mutate(genus=str_replace(genus, ';',''))
-```
-
-```{r}
-samples_infected = samples_infected %>%
-  mutate(evidence = maybe_append(evidence, 'MGNIFY/oral', genus %in% oral$genus))
+samples_infected <- samples_infected %>%
+  mutate(evidence = maybe_append(evidence, "MGNIFY/oral", genus %in% oral$genus))
 ```
 
 
 ```{r}
-vaginal = read_tsv('microbial_databases/MGNIFY/vaginal/genomes-all_metadata.tsv',
-                   show_col_types = FALSE) %>% 
-  mutate(genus=str_extract(Lineage, 'g__[^;]*;')) %>%
-  mutate(genus=str_replace(genus, 'g__','')) %>%
-  mutate(genus=str_replace(genus, ';',''))
+vaginal <- read_tsv("microbial_databases/MGNIFY/vaginal/genomes-all_metadata.tsv",
+  show_col_types = FALSE
+) %>%
+  mutate(genus = str_extract(Lineage, "g__[^;]*;")) %>%
+  mutate(genus = str_replace(genus, "g__", "")) %>%
+  mutate(genus = str_replace(genus, ";", ""))
 ```
 
 ```{r}
-samples_infected = samples_infected %>%
-  mutate(evidence = maybe_append(evidence, 'MGNIFY/vaginal', genus %in% vaginal$genus))
+samples_infected <- samples_infected %>%
+  mutate(evidence = maybe_append(evidence, "MGNIFY/vaginal", genus %in% vaginal$genus))
 ```
 
-Reading the WIS data.
+### WIS
+
+Read the WIS data.  The WIS data is not formated as a standard table, so this action
+will report providing new names for the columns.
 
 ```{r}
-wis = read_tsv('microbial_databases/WIS/TableS4.txt', show_col_types = FALSE) %>%
+wis <- read_tsv("microbial_databases/WIS/TableS4.txt", show_col_types = FALSE) %>%
   clean_names()
 ```
-Note that read_tsv *correctly* notes a problem with row 3
-column 9 (all other data in the column is blank, so read_tsv cannot determine the
-data type).  This problem does not affect downstream analysis.
+
+Consider those genera in the WIS set that could possibly match an infected sample.  Implicitly
+take only the parts of the spreadsheet that have a genus name in column 7.
 
 ```{r}
-problems(wis)
-```
-
-Consider those genera in the WIS set that could possibly match an infected sample
-
-```{r}
-wis_candidates = wis[wis[[7]] %in% samples_infected$genus,] 
+wis_candidates <- wis[wis[[7]] %in% samples_infected$genus, ]
 ```
 
 Subset on those candidates possibly passing filters; filters were calculated
-by the curators of the WIS data.
+by the curators of the WIS data.  The contents of several columns, specifically 
+9:21 indicate whether a genus passed filters in some tissue sample.
 
 ```{r}
 passing_filters = function(cand) {
-  critical_cols = seq(14,74,5)
+  critical_cols = 9:21
   passing = rep(FALSE, nrow(cand))
   for (col in critical_cols) {
-    these_passing = cand[[col]] == 1 | cand[[col]] == 'NR'
+    these_passing = cand[[col]] == 1
     passing = passing | these_passing
   }
   passing
@@ -206,14 +234,16 @@ passing_filters = function(cand) {
 ```
 
 ```{r}
-genera_wis = unique(wis_candidates[passing_filters(wis_candidates), 7, drop=TRUE])
+genera_wis <- unique(wis_candidates[passing_filters(wis_candidates), 7, drop = TRUE])
 ```
 
 ```{r}
-samples_infected = samples_infected %>%
-  mutate(evidence = maybe_append(evidence, 'WIS', genus %in% genera_wis))
+samples_infected <- samples_infected %>%
+  mutate(evidence = maybe_append(evidence, "WIS", genus %in% genera_wis))
 ```
 
+### Save the result
+
 ```{r}
-write_tsv(samples_infected, 'raw_human_host.tsv')
+write_tsv(samples_infected, "raw_human_host.tsv")
 ```

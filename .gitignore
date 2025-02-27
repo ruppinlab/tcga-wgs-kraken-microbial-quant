@@ -30,3 +30,4 @@
 !.snakemake-workflow-catalog.yaml
 !.test
 !.test/data
+.Rproj.user
