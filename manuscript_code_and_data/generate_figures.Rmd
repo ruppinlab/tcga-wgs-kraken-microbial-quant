@@ -11,14 +11,17 @@ library(assert)
 library(vegan)
 library(pheatmap)
 library(plotrix)
+library(dendextend)
 ```
 
+Read the CPM filtered data.  Rows are genus columns are sample.
 ```{r}
-genus_cpm_df <- read_tsv("S1_filtered_cpm.tsv")
+genus_cpm_df <- read_tsv("S1_filtered_cpm.tsv", show_col_types=FALSE)
 genus_cpm <- as.matrix(genus_cpm_df[, -1])
 rownames(genus_cpm) <- genus_cpm_df[[1]]
 ```
 
+Read metadata, so that one may associate samples with their cancer type.
 ```{r}
 meta <- read_tsv("tcga_wgs_primary_tumor_file_meta.tsv", show_col_types = FALSE)
 ```
@@ -32,7 +35,7 @@ genus_count <- rowSums(genus_cpm) %>%
   mutate(genus = factor(genus, levels = genus))
 ```
 
-## Figure 1A
+## Figure 1B
 Pie chart of fractions of the top 10 genera, the rest classified as "Other"
 ```{r}
 pie_chart_df <- rbind(
@@ -62,6 +65,8 @@ figure_1B <- ggplot(
   scale_fill_viridis_d(option = "C")
 print(figure_1B)
 ```
+
+## Figure 2A
 
 Compute mean and standard error of the CPM read counts over all cancer types.
 ```{r}
@@ -108,7 +113,11 @@ mean_genera_plot <- ggplot(
         plot.title = element_text(size=24))  
 print(mean_genera_plot)
 ```
+
+## Figure 2B
+
 Pool the CPM normalized sample reads by project.
+
 ```{r}
 result <- list()
 for (project in sort(unique(meta$project_id))) {
@@ -121,7 +130,6 @@ for (project in sort(unique(meta$project_id))) {
 project_mat <- do.call(rbind, result)
 rownames(project_mat) <- names(result)
 ```
-
 
 Calculate and plot the Simpson diversity.
 ```{r}
@@ -148,6 +156,9 @@ simpson_index_plot <- ggplot(
         plot.title = element_text(size=24)) 
 print(simpson_index_plot)
 ```
+
+## Figure 2C
+
 Plot on a log scale the mean CPM for the top 20 genera across samples in the cancer type.
 Cancer types are sorted by mean microbial CPM per sample.
 ```{r}
@@ -162,7 +173,10 @@ pm = pm[names(mean_cpm),as.character(abundant_genera$genus)]
 pheatmap(t(log10(pm+1)), cluster_cols=FALSE,  treeheight_col = 0, treeheight_row = 0,fontsize = 16, cellwidth = 16, angle_col=90)
 ```
 
-Plotting the Marista-Horn heatmap, though we won't use it directly, but rather just
+## Figure 2D
+
+Our goal is to plot a dedrogram clustering cancer types by Morista-Horn similarity. Here we plot
+a Marista-Horn heatmap, though we won't use the heatmap directly, but rather just
 take the dendrogram.  I cannot find a way to *not* plot the full heatmap.
 
 ```{r}
@@ -177,8 +191,6 @@ horn_heatmap = pheatmap(as.matrix(distance),
 
 But now that we have generated the heatmap, we may plot the dendrogram.
 ```{r, fig.width=9,fig.height=8.1}
-library(dendextend)
-
 dendrogram <- horn_heatmap[[1]] %>%
  as.dendrogram() %>%
  set("branches_k_color", k=4) %>%
@@ -199,7 +211,7 @@ dev.off()
 pdf('figure2B.pdf')
 print(simpson_index_plot)
 dev.off()
-# Just replot the heatmap.
+# Just replot the heatmap using the same input data and parameters.
 pdf('figure2C.pdf', width=10, height=9)
 pheatmap(t(log10(pm+1)), cluster_cols=FALSE,  treeheight_col = 0, treeheight_row = 0,fontsize = 16, cellwidth = 16, angle_col=90)
 dev.off()

@@ -1,8 +1,8 @@
 ---
 title: "Initial Analysis Normalized"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
   word_document: default
 date: "2024-10-30"
 ---
@@ -13,32 +13,37 @@ library(tidyverse)
 library(assert)
 ```
 
-Load the total reads for each sample
+Load the total reads for each sample.
 ```{r}
-total_reads <- read_tsv("total_reads.tsv") %>%
+total_reads <- read_tsv("total_reads.tsv", col_types = cols(
+  file_id = col_character(),
+  total_reads = col_double(),
+  index_files = col_character()
+)) %>%
   select(-index_files) %>%
   deframe()
 ```
 
-Load the genus x sample read count data and remove any reads mapped to human.
+Load the genus by sample read count data and remove any reads mapped to human.
 
 ```{r}
-genus_count_df <- read_tsv("tcga_wgs_primary_tumor_genus_count_matrix.tsv")
+genus_count_df <- read_tsv("tcga_wgs_primary_tumor_genus_count_matrix.tsv",
+                           show_col_types=FALSE)
 genus_count_df <- genus_count_df %>% filter(name != "Homo")
 ```
 
-Convert data to a matrix, the first 3 columns are metadata
+Convert data to a matrix; the first 3 columns are metadata.
 ```{r}
 genus_counts <- as.matrix(genus_count_df[, c(-1, -2, -3)])
 rownames(genus_counts) <- genus_count_df[[1]]
 ```
 
-Every row (genus) has at least one count.
+Assert that every row (genus) has at least one count.
 ```{r}
 assert(sum(rowSums(genus_counts) == 0) == 0)
 ```
 
-Normalize the counts to CPM
+Normalize the counts to CPM.
 ```{r}
 genus_cpm <- genus_counts
 for (sample in colnames(genus_cpm)) {
@@ -46,7 +51,7 @@ for (sample in colnames(genus_cpm)) {
 }
 ```
 
-Filter the counts to have a total of at least 10
+Filter the counts to have a total of at least 10.
 ```{r}
 filtered_counts <- genus_counts
 filtered_counts[genus_counts < 10] <- 0
@@ -57,7 +62,7 @@ filtered_cpm[genus_counts < 10] <- 0
 Remove any rows that may have become all zero.
 
 ```{r}
-inonzero_counts = rowSums(filtered_counts) > 0
+inonzero_counts <- rowSums(filtered_counts) > 0
 filtered_counts <- filtered_counts[inonzero_counts, ]
 filtered_cpm <- filtered_cpm[inonzero_counts, ]
 ```
