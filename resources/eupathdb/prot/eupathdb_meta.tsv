@@ -1,0 +1,786 @@
+Organism	Is Reference Strain	Species	Species NCBI taxon ID	Strain	Strain NCBI taxon ID	Chromosomes	Supercontigs	Contigs	Genome Source	Genome Version/Assembly ID	Structural Annotation Source	Structural Annotation Version	EC#	Genes	GO terms	Non Protein coding genes	Orthologs	Protein coding genes	Pseudogenes
+Edhazardia aedis USNM 41457	yes	Edhazardia aedis	70536	USNM 41457	1003232	0	0	1429	GenBank	GCA_000230595.3	GenBank	Aug 05, 2015	234	4262	2063	72	4190	4190	2
+Kluyveromyces marxianus DMKU3-1042	yes	Kluyveromyces marxianus	4911	DMKU3-1042	1003335	8	0	0	INSDC	GCF_001417885.1	RefSeq	Oct 23, 2017	731	5151	4142	210	4941	4941	0
+Aspergillus luchuensis IFO 4308	no	Aspergillus luchuensis	1069201	IFO 4308	1033177	0	146	1016	GenBank	GCA_000239835.2	GenBank	Oct 2, 2015	925	11755	8211	267	11488	11488	0
+Epichloe glyceriae E277	yes	Epichloe glyceriae	79591	E277	1035635	0	0	3076	INSDC	GCA_000225285.2	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Aspergillus versicolor CBS 583.65	yes	Aspergillus versicolor	46472	CBS 583.65	1036611	0	51	0	GenBank	GCA_001890125.1	GenBank	Dec 07, 2016	1617	13364	9346	142	13222	13222	0
+Aspergillus sydowii CBS 593.65	yes	Aspergillus sydowii	75750	CBS 593.65	1036612	0	97	0	GenBank	GCA_001890705.1	GenBank	Dec 08, 2016	1617	13717	9355	138	13579	13579	0
+Nosema apis BRL 01	yes	Nosema apis	35231	BRL 01	1037528	0	554	0	INSDC	GCA_000447185.1	GenBank	Mar 22, 2015	171	2764	1433	0	2764	2764	0
+Trypanosoma vivax Y486	yes	Trypanosoma vivax	5699	Y486	1055687	11	0	8279	GenBank	GCA_000227375.1	GeneDB	Jun 06, 2016	708	12050	6449	1038	11012	11012	382
+Trypanosoma congolense IL3000	yes	Trypanosoma congolense	5692	IL3000	1068625	11	0	2828	GenBank	GCA_000227395.2	GeneDB	Jun 06, 2016	150	11792	7479	537	11255	11255	330
+Pneumocystis murina B123	yes	Pneumocystis murina	263815	B123	1069680	0	20	0	INSDC	GCA_000349005.2	GenBank	Dec 13, 2016	511	3675	3011	52	3623	3623	0
+Aspergillus wentii DTO 134E9	yes	Aspergillus wentii	5066	DTO 134E9	1073089	0	27	0	GenBank	GCA_001890725.1	GenBank	Dec 08, 2016	1495	12659	8535	224	12435	12435	0
+Penicilliopsis zonata CBS 506.65	yes	Penicilliopsis zonata	41063	CBS 506.65	1073090	0	246	0	GenBank	GCA_001890105.1	GenBank	Dec 08, 2016	1274	10027	6960	158	9869	9869	3
+Toxoplasma gondii ARI	no	Toxoplasma gondii	5811	ARI	1074872	0	2723	0	GenBank	GCA_000250965.2	GenBank	Mar 14, 2016	1607	10148	5773	190	9958	9958	0
+Toxoplasma gondii COUG	no	Toxoplasma gondii	5811	COUG	1074873	0	105	4075	GenBank	GCA_000338675.2	GenBank	Nov 07, 2017	1612	10042	5829	173	9869	9869	0
+Entamoeba nuttalli P19	yes	Entamoeba nuttalli	412467	P19	1076696	0	5233	0	GenBank	GCF_000257125.1	GenBank	Mar 18, 2015	490	6193	3865	6	6187	6187	0
+Pyronema omphalodes CBS 100304	yes	Pyronema omphalodes	337075	CBS 100304	1076935	0	260	0	INSDC	GCA_024516155.1	GenBank	Aug 03, 2022	N/A	11633	5013	694	10939	10939	0
+Fusarium odoratissimum NRRL 54006	no	Fusarium odoratissimum	2502994	NRRL 54006	1089451	0	418	0	GenBank	GCA_000260195.2	GenBank	Mar 23, 2015	1677	16975	10224	341	16634	16634	7
+Fusarium oxysporum f. sp. melonis 26406	no	Fusarium oxysporum	5507	f. sp. melonis 26406	1089452	0	1146	0	GenBank	GCA_000260495.2	GenBank	Dec 24, 2017	1823	20033	11249	372	19661	19661	0
+Phytophthora sojae strain P6497	yes	Phytophthora sojae	67593	strain P6497	1094619	0	82	0	GenBank	GCA_000149755.2	GenBank	Mar 14, 2015	1551	28142	9258	1653	26489	26489	3
+Taphrina deformans PYCC 5710	yes	Taphrina deformans	5011	PYCC 5710	1097556	0	394	0	INSDC	GCA_000312925.2	GenBank	May 01, 2013	590	4680	3482	17	4663	4663	7
+Claviceps purpurea 20.1	yes	Claviceps purpurea	5111	20.1	1111077	0	191	0	INSDC	GCA_000347355.1	GenBank	2013-04-15	916	8979	5729	156	8823	8823	45
+Plasmodium cynomolgi strain B	no	Plasmodium cynomolgi	5827	strain B	1120755	14	1649	0	GenBank	GCA_000321355.1	GenBank	Sep 19, 2012	449	5776	3274	60	5716	5716	0
+Macrophomina phaseolina MS6	yes	Macrophomina phaseolina	35725	MS6	1126212	0	1506	0	INSDC	GCA_000302655.1	GenBank	Oct 03, 2012	1076	14712	8620	906	13806	13806	453
+Toxoplasma gondii GAB2-2007-GAL-DOM2	no	Toxoplasma gondii	5811	GAB2-2007-GAL-DOM2	1130820	0	2481	0	GenBank	GCA_000325525.2	GenBank	Aug 13, 2014	1503	9296	5433	160	9136	9136	0
+Toxoplasma gondii TgCatPRC2	no	Toxoplasma gondii	5811	TgCatPRC2	1130821	0	3060	0	GenBank	GCA_000256725.2	GenBank	Mar 23, 2016	527	10300	5945	179	10121	10121	0
+Babesia microti strain RI	yes	Babesia microti	5868	strain RI	1133968	4	0	0	GenBank	GCA_000691945.2	GenBank	Jul 12, 2017	721	3685	2365	84	3601	3601	0
+Pleurotus ostreatus PC15	yes	Pleurotus ostreatus	5322	PC15	1137138	0	12	0	INSDC	GCA_000697685.1	GenBank	2014-06-05	1007	12460	7248	164	12296	12296	3
+Pleurotus ostreatus PC9	no	Pleurotus ostreatus	5322	PC9	1137139	0	16	0	INSDC	GCF_014466165.1	RefSeq	Oct 28, 2020	1036	11897	7314	186	11711	11711	0
+Aspergillus luchuensis CBS 106.47	yes	Aspergillus luchuensis	1069201	CBS 106.47	1137211	0	100	0	GenBank	GCA_001890685.1	GenBank	Dec 12, 2016	1505	13784	8661	282	13502	13502	0
+Anncaliia algerae Undeen	no	Anncaliia algerae	723287	Undeen	1150868	0	0	8427	GenBank	GCA_000313815.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Saprolegnia diclina VS20	yes	Saprolegnia diclina	112098	VS20	1156394	0	390	0	GenBank	GCA_000281045.1	GenBank	Mar 19, 2015	1364	17448	11145	89	17359	17359	0
+Hortaea werneckii EXF-2000	yes	Hortaea werneckii	91943	EXF-2000	1157616	0	628	0	INSDC	GCA_002127715.1	GenBank	May 11, 2017	1776	15649	11803	29	15620	15620	0
+Aspergillus glaucus CBS 516.65	yes	Aspergillus glaucus	41413	CBS 516.65	1160497	0	82	0	GenBank	GCA_001890805.1	GenBank	Dec 12, 2016	1341	11429	7365	175	11254	11254	0
+Chromera velia CCMP2878	yes	Chromera velia	505693	CCMP2878	1169474	0	5963	0	GenBank	GCA_018398765.1	PainLab	May 19, 2021	909	30596	12693	0	30596	30596	0
+Vitrella brassicaformis CCMP3155	yes	Vitrella brassicaformis	1169539	CCMP3155	1169540	0	1064	0	GenBank	GCA_001179505.1	PainLab	May 15, 2014	1433	23412	10988	165	23247	23247	165
+Penicillium digitatum Pd1	yes	Penicillium digitatum	36651	Pd1	1170230	0	53	0	INSDC	GCF_000315645.1	RefSeq	Nov 18, 2015	N/A	8946	6188	0	8946	8946	0
+Encephalitozoon romaleae SJ-2008	yes	Encephalitozoon romaleae	571949	SJ-2008	1178016	13	0	0	GenBank	GCA_000280035.2	GenBank	Oct 1, 2014	239	1883	1311	52	1831	1831	1
+Cladophialophora psammophila CBS 110553	yes	Cladophialophora psammophila	1182553	CBS 110553	1182543	0	123	0	INSDC	GCA_000585535.1	GenBank	Mar 05, 2014	1053	13421	9325	0	13421	13421	0
+Cladophialophora yegresii CBS 114405	yes	Cladophialophora yegresii	470704	CBS 114405	1182544	0	8	0	INSDC	GCA_000585515.1	GenBank	Mar 05, 2014	972	10118	6996	0	10118	10118	0
+Exophiala aquamarina CBS 119918	yes	Exophiala aquamarina	1033840	CBS 119918	1182545	0	151	0	INSDC	GCA_000709125.1	GenBank	Jun 16, 2014	1073	13118	9403	0	13118	13118	0
+Trichosporon asahii var. asahii CBS 2479	yes	Trichosporon asahii	82508	var. asahii CBS 2479	1186058	0	77	0	INSDC	GCA_000293215.1	GenBank	Mar 19, 2015	676	8834	4997	523	8311	8311	0
+Toxoplasma gondii CtCo5	no	Toxoplasma gondii	5811	CtCo5	1194599	0	0	6177	GenBank	GCA_000278365.1	GenBank	Jul 17, 2012	N/A	N/A	N/A	0	N/A	0	0
+Verticillium dahliae JR2	yes	Verticillium dahliae	27337	JR2	1202531	8	0	0	INSDC	GCA_000400815.2	Ensembl	Aug 29, 2014	N/A	11637	5901	211	11391	11426	0
+Leishmania aethiopica L147	yes	Leishmania aethiopica	5667	L147	1206056	36	124	0	GenBank	GCA_000444285.2	GeneDB	Dec 16, 2014	43	8722	4030	189	8533	8533	189
+Leishmania tropica L590	yes	Leishmania tropica	5666	L590	1206058	36	124	0	GenBank	GCA_000410715.1	GeneDB	Dec 16, 2014	59	8938	4050	114	8824	8824	0
+Trypanosoma cruzi Tula cl2	no	Trypanosoma cruzi	5693	Tula cl2	1206070	0	1780	43931	GenBank	GCA_000365225.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Toxoplasma gondii RH-88	no	Toxoplasma gondii	5811	RH-88	1208370	13	183	0	INSDC	GCA_013099955.1	GenBank	May 15, 2020	459	8654	3600	338	8316	8316	0
+Pneumocystis jirovecii SE8	yes	Pneumocystis jirovecii	42068	SE8	1209962	0	328	0	GenBank	GCA_000333975.2	GenBank	Dec 13, 2012	544	3752	2712	217	3535	3535	0
+Cyphellophora europaea CBS 101466	yes	Cyphellophora europaea	293227	CBS 101466	1220924	0	19	0	GenBank	GCA_000365145.2	GenBank	Mar 21, 2015	1361	11153	7701	59	11094	11094	0
+Mucor circinelloides 1006PhL	yes	Mucor circinelloides	36080	1006PhL	1220926	0	470	0	GenBank	GCA_000401635.1	GenBank	Mar 22, 2015	1423	12410	8319	183	12227	12227	2
+Pythium aphanidermatum DAOM BR444	yes	Pythium aphanidermatum	65070	DAOM BR444	1223555	0	1774	0	GenBank	GCA_000387445.2	Ensembl	Mar 02, 2016	749	12363	6409	58	12305	12305	0
+Pythium arrhenomanes ATCC 12531	yes	Pythium arrhenomanes	82932	ATCC 12531	1223556	0	10972	0	GenBank	GCA_000387505.2	Ensembl	Mar 02, 2016	759	13857	6943	52	13805	13805	0
+Globisporangium irregulare DAOM BR486	yes	Globisporangium irregulare	36331	DAOM BR486	1223557	0	5887	0	GenBank	GCA_000387425.2	Ensembl	Mar 02, 2016	774	13869	6997	65	13804	13804	0
+Globisporangium iwayamae DAOM BR242034	yes	Globisporangium iwayamae	115417	DAOM BR242034	1223558	0	11542	0	GenBank	GCA_000387465.2	MSU	2014-08-11	754	14874	6977	0	14874	14874	0
+Globisporangium ultimum var. sporangiiferum BR650	no	Globisporangium ultimum	2052682	var. sporangiiferum BR650	1223559	0	5482	0	GenBank	GCA_000387525.2	MSU	2014-08-11	714	14086	6293	0	14086	14086	0
+Phytopythium vexans DAOM BR484	yes	Phytopythium vexans	907947	DAOM BR484	1223560	0	3685	0	GenBank	GCA_000387545.2	MSU	2014-08-11	739	11991	6546	34	11957	11957	0
+Fusarium proliferatum ET1	yes	Fusarium proliferatum	948311	ET1	1227346	0	0	32	GenBank	GCA_900067095.1	GenBank	Dec 6, 2016	1663	16509	10411	366	16143	16143	0
+Fusarium oxysporum f. sp. cubense race 1	no	Fusarium oxysporum	5507	f. sp. cubense race 1	1229664	0	1341	0	GenBank	GCA_000350345.1	GenBank	Mar 21, 2015	1604	15626	10503	188	15438	15438	188
+Malassezia sympodialis ATCC 42132	yes	Malassezia sympodialis	76777	ATCC 42132	1230383	8	0	0	INSDC	GCA_900149145.1	GenBank	Jan 10, 2017	629	4618	3601	143	4475	4475	0
+Plasmodium inui San Antonio 1	yes	Plasmodium inui	52288	San Antonio 1	1237626	0	323	0	GenBank	GCA_000524495.1	GenBank	Jan 31, 2014	472	5879	3299	47	5832	5832	0
+Anncaliia algerae PRA109	yes	Anncaliia algerae	723287	PRA109	1240240	0	7113	0	GenBank	GCA_000385855.2	GenBank	May 6, 2014	326	5330	2206	85	5245	5245	0
+Emmonsia crescens UAMH 3008	yes	Emmonsia crescens	73230	UAMH 3008	1247875	0	1734	0	INSDC	GCA_001008285.1	GenBank	May 15, 2015	901	9558	5879	114	9444	9444	0
+Acanthamoeba castellanii str. Neff	yes	Acanthamoeba castellanii	5755	str. Neff	1257118	0	384	0	GenBank	GCA_000313135.1	GenBank	Feb 09, 2022	1024	15659	9737	682	14977	14977	682
+Ophiostoma piceae UAMH 11346	yes	Ophiostoma piceae	61273	UAMH 11346	1262450	0	45	0	INSDC	GCA_000410735.1	GenBank	Mar 22, 2015	908	8884	6464	0	8884	8884	0
+Lichtheimia corymbifera JMRC:FSU:9682	yes	Lichtheimia corymbifera	42458	JMRC:FSU:9682	1263082	0	209	0	INSDC	GCA_000723665.1	GenBank	Sep 24, 2014	1072	12379	8157	97	12282	12282	0
+Plasmodium vivax Sal-1	no	Plasmodium vivax	5855	Sal-1	126793	14	0	2733	GenBank	GCA_000002415.2	GeneDB	Jun 18, 2015	867	5665	3719	135	5530	5530	56
+Blumeria graminis f. sp. tritici 96224	yes	Blumeria graminis	34373	f. sp. tritici 96224	1268274	12	0	0	INSDC	GCA_900519115.1	RefSeq	2019-08-27	7	8470	3658	123	8347	8347	122
+Plasmodium cynomolgi strain M	yes	Plasmodium cynomolgi	5827	strain M	1274352	14	0	40	GenBank	GCA_900180395.1	Sanger	Oct 23, 2017	293	6831	2438	763	6068	6068	597
+Metarhizium anisopliae ARSEF 549	yes	Metarhizium anisopliae	5530	ARSEF 549	1276135	0	74	0	INSDC	GCA_000814975.1	GenBank	Jan 06, 2015	968	10891	7972	0	10891	10891	0
+Zymoseptoria tritici ST99CH_3D1	no	Zymoseptoria tritici	1047171	ST99CH_3D1	1276537	21	0	0	INSDC	GCA_900184105.1	GenBank	Jun 17, 2020	1	11991	5888	0	11991	11991	0
+Cladophialophora carrionii CBS 160.54	no	Cladophialophora carrionii	86049	CBS 160.54	1279043	0	19	0	INSDC	GCA_000365165.2	GenBank	Dec 13, 2013	947	10428	7298	55	10373	10373	8
+Fusarium fujikuroi IMI 58289	yes	Fusarium fujikuroi	5127	IMI 58289	1279085	12	0	0	GenBank	GCA_900079805.1	GenBank	Jan 12, 2016	1627	15099	9754	286	14813	14813	0
+Stachybotrys chartarum IBT 40293	yes	Stachybotrys chartarum	74722	IBT 40293	1280524	0	2342	0	INSDC	GCA_000732565.1	GenBank	Jul 23, 2014	3	11453	6386	0	11453	11453	0
+Anncaliia algerae PRA339	no	Anncaliia algerae	723287	PRA339	1288291	0	431	0	GenBank	GCA_000385875.2	GenBank	May 6, 2014	229	3661	1616	63	3598	3598	0
+Cryptococcus depauperatus CBS 7841	yes	Cryptococcus depauperatus	5208	CBS 7841	1295531	0	68	0	INSDC	GCA_001720195.1	GenBank	Sep 06, 2016	693	6687	4510	150	6537	6537	1
+Cryptococcus depauperatus CBS 7855	no	Cryptococcus depauperatus	5208	CBS 7855	1295532	0	41	0	INSDC	GCA_001720245.1	GenBank	Sep 06, 2016	711	6521	4472	148	6373	6373	0
+Leishmania panamensis MHOM/COL/81/L13	yes	Leishmania panamensis	5679	MHOM/COL/81/L13	1295824	36	820	0	GenBank	GCA_000340495.1	GeneDB	Dec 16, 2014	62	8778	3930	113	8665	8665	0
+Leishmania braziliensis MHOM/BR/75/M2903	no	Leishmania braziliensis	5660	MHOM/BR/75/M2903	1295825	35	709	0	GenBank	GCA_000340355.2	GeneDB	Dec 16, 2014	56	9379	3768	110	9261	9269	0
+Kwoniella bestiolae CBS 10118	yes	Kwoniella bestiolae	324769	CBS 10118	1296100	0	12	0	GenBank	GCA_000512585.2	GenBank	Jul 20, 2016	943	9270	5698	137	9133	9133	0
+Cryptococcus gattii EJB2	no	Cryptococcus gattii VGI	37769	EJB2	1296103	0	282	0	GenBank	GCA_000835745.1	GenBank	Feb 17, 2015	875	6908	4693	145	6763	6763	0
+Cryptococcus gattii VGIV IND107	no	Cryptococcus gattii VGIV	1859121	IND107	1296105	0	34	0	GenBank	GCA_000835755.1	GenBank	Feb 17, 2015	854	6843	4586	147	6696	6696	0
+Cryptococcus gattii NT-10	no	Cryptococcus gattii VGI	37769	NT10	1296108	0	226	0	GenBank	GCA_000935105.1	GenBank	Mar 5, 2015	564	6987	3920	243	6744	6744	0
+Cryptococcus gattii CA1873	no	Cryptococcus gattii VGIII	552467	CA1873	1296111	0	33	0	GenBank	GCA_000855695.1	GenBank	Feb 17, 2015	553	6782	3838	148	6634	6634	0
+Kwoniella heveanensis CBS 569	yes	Kwoniella heveanensis	89924	CBS 569	1296119	0	242	0	GenBank	GCA_000507425.3	GenBank	Jul 20, 2016	917	8002	5312	131	7871	7871	0
+Kwoniella dejecticola CBS 10117	yes	Kwoniella dejecticola	324770	CBS 10117	1296121	0	13	0	GenBank	GCA_000512565.2	GenBank	Jun 22, 2016	935	8724	5586	122	8602	8602	0
+Kwoniella mangroviensis CBS 8507	yes	Kwoniella mangrovensis	463800	CBS8507	1296122	0	62	0	INSDC	GCA_000507465.3	GenBank	2016-07-20	N/A	8555	4548	133	8422	8422	5
+Mastigamoeba balamuthi ATCC 30984	yes	Mastigamoeba balamuthi	108607	ATCC 30984	1313166	0	1925	0	INSDC	GCA_902651635.1	TachezyLab	May 05, 2021	41	14696	7574	0	14696	14696	0
+Lentinus tigrinus ALCF2SS1-7	yes	Lentinus tigrinus	5365	ALCF2SS1-7	1328758	0	207	0	INSDC	GCA_003813185.1	GenBank	Nov 21, 2018	1094	15670	8553	301	15369	15369	11
+Aspergillus niger ATCC 13496	no	Aspergillus niger	5061	ATCC 13496	1353008	0	133	0	GenBank	GCA_003344705.1	GenBank	Jul 31, 2018	1508	12468	8475	274	12194	12194	1
+Ordospora colligata OC4	yes	Ordospora colligata	174685	OC4	1354746	0	0	15	GenBank	GCA_000803265.1	GenBank	Dec 17, 2014	204	1879	1265	59	1820	1820	0
+Encephalitozoon cuniculi EcunIII-L	no	Encephalitozoon cuniculi	6035	EcunIII-L	1355160	15	0	0	GenBank	GCA_001078035.1	GenBank	Jul 15, 2015	124	1896	1077	62	1834	1834	11
+Spraguea lophii 42_110	yes	Spraguea lophii	51541	42_110	1358809	0	0	1392	GenBank	GCA_000430065.1	GenBank	Sep 12, 2013	229	2596	1605	97	2499	2499	44
+Plasmodium falciparum HB3	no	Plasmodium falciparum	5833	HB3	137071	14	0	12	GenBank	GCA_900631985.1	Sanger	Apr 20, 2018	1070	5461	2958	275	5186	5186	141
+Aspergillus campestris IBT 28561	yes	Aspergillus campestris	41068	IBT 28561	1392248	0	0	62	GenBank	GCA_002847485.1	GenBank	Dec. 27, 2017	1289	9929	6965	173	9756	9756	8
+Aspergillus steynii IBT 23096	yes	Aspergillus steynii	306088	IBT 23096	1392250	0	0	37	GenBank	GCA_002849105.1	GenBank	Dec. 30, 2017	1523	13430	9053	235	13195	13195	14
+Aspergillus novofumigatus IBT 16806	yes	Aspergillus novofumigatus	340412	IBT 16806	1392255	0	0	62	GenBank	GCA_002847465.1	GenBank	Dec. 27, 2017	1414	11729	7884	197	11532	11532	15
+Aspergillus ochraceoroseus IBT 24754	yes	Aspergillus ochraceoroseus	138278	IBT 24754	1392256	0	0	34	GenBank	GCA_002846915.2	GenBank	Apr 16, 2018	1166	9070	6156	153	8917	8917	7
+Cryptococcus neoformans var. neoformans XL280	no	Cryptococcus neoformans	5207	var. neoformans XL280	1396488	5	32	0	INSDC	GCA_002216205.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Sporothrix schenckii 1099-18	yes	Sporothrix schenckii	29908	1099-18	1397361	0	0	15	GenBank	GCA_000961545.1	GenBank	Mar 24, 2015	1167	10434	6524	141	10293	10293	0
+Sporothrix brasiliensis 5110	yes	Sporothrix brasiliensis	545650	5110	1398154	0	0	12	GenBank	GCA_000820605.1	GenBank	Jan 16, 2015	1135	9231	6244	140	9091	9091	0
+Pneumocystis jirovecii RU7	no	Pneumocystis jirovecii	42068	RU7	1408657	0	70	0	INSDC	GCA_001477535.1	GenBank	Dec 22, 2015	N/A	3811	2971	50	3761	3761	0
+Pneumocystis carinii B80	yes	Pneumocystis carinii	4754	B80	1408658	0	62	0	INSDC	GCF_001477545.1	RefSeq	Aug 28, 2017	503	3695	3014	49	3646	3646	0
+Trypanosoma cruzi Dm28c 2014	no	Trypanosoma cruzi	5693	Dm28c 2014	1416333	0	0	1210	GenBank	GCA_000496795.1	GenBank	Nov 13, 2013	533	11398	5883	50	11348	11348	0
+Fonsecaea pedrosoi CBS 271.37	yes	Fonsecaea pedrosoi	40355	CBS 271.37	1442368	0	11	0	GenBank	GCA_000835455.1	GenBank	Feb 23, 2015	1396	12573	8604	46	12527	12527	0
+Rhinocladiella mackenziei CBS 650.93	yes	Rhinocladiella mackenziei	86056	CBS 650.93	1442369	0	17	0	INSDC	GCA_000835555.1	GenBank	2015-02-23	981	11418	7823	36	11382	11382	3
+Cladophialophora bantiana CBS 173.52	yes	Cladophialophora bantiana	89940	CBS 173.52	1442370	0	60	0	INSDC	GCA_000835475.1	GenBank	Feb 23, 2015	1026	12817	8516	55	12762	12762	4
+Fonsecaea multimorphosa CBS 102226	yes	Fonsecaea multimorphosa	979981	CBS 102226	1442371	0	67	0	INSDC	GCA_000836435.1	GenBank	Feb 25, 2015	N/A	12405	8476	36	12369	12369	1
+Emergomyces pasteurianus Ep9510	yes	Emergomyces pasteurianus	1955774	Ep9510	1447872	0	1643	0	INSDC	GCA_001883825.1	GenBank	Nov 18, 2016	900	9078	5731	128	8950	8950	12
+Aspergillus eucalypticola CBS 122712	yes	Aspergillus eucalypticola	1340029	CBS 122712	1448314	0	131	0	INSDC	GCA_003184535.1	GenBank	Jun 04, 2018	1145	12207	8455	274	11933	11933	4
+Aspergillus uvarum CBS 121591	yes	Aspergillus uvarum	446911	CBS 121591	1448315	0	172	0	INSDC	GCA_003184745.1	GenBank	Jun 12, 2018	1124	12347	8366	333	12014	12014	4
+Aspergillus ibericus CBS 121593	yes	Aspergillus ibericus	301854	CBS 121593	1448316	0	116	0	INSDC	GCA_003184845.1	GenBank	Jun 22, 2018	1	11989	8144	309	11680	11680	5
+Aspergillus sclerotiicarbonarius CBS 121057	yes	Aspergillus sclerotiicarbonarius	487660	CBS 121057	1448318	0	166	0	INSDC	GCA_003184635.1	GenBank	Jun 12, 2018	N/A	12893	8691	324	12569	12569	4
+Aspergillus fijiensis CBS 313.89	yes	Aspergillus fijiensis	1191702	CBS 313.89	1448319	0	149	0	INSDC	GCA_003184825.1	GenBank	Jun 22, 2018	N/A	12336	6993	318	12018	12018	3
+Aspergillus ellipticus CBS 707.79	yes	Aspergillus ellipticus	41066	CBS 707.79	1448320	0	518	0	INSDC	GCA_003184645.1	GenBank	Jun 12, 2018	1	13179	8471	297	12882	12882	4
+Aspergillus heteromorphus CBS 117.55	yes	Aspergillus heteromorphus	51019	CBS 117.55	1448321	0	205	0	INSDC	GCA_003184545.1	GenBank	Jun 04, 2018	1046	11436	7495	306	11130	11130	1
+Aspergillus homomorphus CBS 101889	yes	Aspergillus homomorphus	319626	CBS 101889	1450537	0	152	0	INSDC	GCA_003184865.1	GenBank	Jun 22, 2018	1089	11663	7905	302	11361	11361	1
+Theileria equi strain WA	yes	Theileria equi	5872	strain WA	1537102	2	8	0	GenBank	GCA_000342415.1	GenBank	Aug 21, 2014	829	5397	2772	68	5329	5329	3
+Cryptosporidium sp. chipmunk LX-2015	yes	Cryptosporidium sp.	90962	chipmunk LX-2015	1603071	0	0	853	GenBank	GCA_000831705.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles gambiae PEST	yes	Anopheles gambiae	7165	PEST	180454	7	145	0	INSDC	GCA_000005575.2	VectorBase	AgamP4.14	541	13845	10726	738	13107	13107	9
+Nematocida ironsii ERTm5	yes	Nematocida ironsii	1927920	ERTm5	1805481	0	186	0	INSDC	GCA_001642415.1	GenBank	May 11, 2016	N/A	2709	1678	0	2709	2709	0
+Giardia Assemblage A isolate WB	no	Giardia Assemblage A	5741	isolate WB	184922	5	73	133	GenBank	GCA_000002435.1	GenBank	Mar 10, 2010	475	9747	3396	80	5901	9667	2
+Trypanosoma brucei brucei TREU927	yes	Trypanosoma brucei	5691	brucei TREU927	185431	16	0	115	GenBank	GCA_000002445.1	GeneDB	Nov 01, 2020	1143	11764	8688	2104	9660	9660	1475
+Amphiamblys sp. WSBS2006	yes	unclassified Amphiamblys	2641285	WSBS2006	1866961	0	0	1727	GenBank	GCA_001875675.1	GenBank	Nov 10, 2016	270	3695	1689	53	3642	3642	5
+Cryptococcus neoformans var. neoformans JEC21	yes	Cryptococcus neoformans	5207	var. neoformans JEC21	214684	14	0	0	GenBank	GCA_000091045.1	GenBank	Jun 16, 2016	950	7004	5382	372	6632	6632	238
+Coccidioides posadasii C735 delta SOWgp	no	Coccidioides posadasii	199306	C735 delta SOWgp	222929	0	55	0	GenBank	GCA_000151335.1	JCVI	Jun 17, 2009	1414	7255	5432	26	7229	7229	0
+Chaetothyriales sp. CBS 132003	yes	Chaetothyriales sp.	1715222	CBS 132003	2249419	0	118	0	INSDC	GCA_003709865.1	GenBank	Nov 02, 2018	N/A	5727	4398	0	5727	5727	0
+Aspergillus nidulans FGSC A4	yes	Aspergillus nidulans	162425	FGSC A4	227321	8	0	0	GenBank	GCA_000149205.2	AspGD	Oct 04, 2015	1194	10988	10670	276	10712	10712	64
+Fusarium graminearum PH-1	yes	Fusarium graminearum	5518	PH-1	229533	4	1	0	GenBank	GCA_900044135.1	HammondKosackLab	Jan 25, 2017	914	14145	8977	2	14143	14143	2
+Cryptococcus neoformans var. grubii H99	no	Cryptococcus neoformans	5207	var. grubii H99	235443	14	0	0	GenBank	GCA_000149245.3	GenBank	Apr 01, 2015	575	8338	5119	1363	6975	6975	0
+Candida albicans SC5314	yes	Candida albicans	5476	SC5314	237561	8	0	0	GenBank	GCA_000182965.3	CGD	A22-s07-m01-r59	23	6468	6062	256	6212	6212	9
+Ustilago maydis 521	yes	Ustilago maydis	5270	521	237631	23	4	0	GenBank	GCA_000328475.2	GenBank	Jun 02, 2017	959	6910	5336	145	6765	6765	0
+Coprinopsis cinerea okayama7#130	yes	Coprinopsis cinerea	5346	okayama7#130	240176	0	67	0	GenBank	GCA_000182895.1	Broad	3	1286	13657	7570	301	13356	13356	0
+Pyricularia oryzae 70-15	yes	Pyricularia oryzae	318829	70-15	242507	7	46	0	GenBank	GCA_000002495.2	GenBank	Mar 31, 2016	1367	13184	7526	359	12825	12825	131
+Rhizopus delemar RA 99-880	yes	Rhizopus delemar	936053	RA 99-880	246409	0	81	0	GenBank	GCA_000149305.1	GenBank	Mar 23, 2015	1561	17703	9237	244	17459	17459	0
+Coccidioides immitis RS	yes	Coccidioides immitis	5501	RS	246410	0	6	0	GenBank	GCA_000149335.2	Broad	3	1107	9905	5759	148	9757	9757	0
+Microsporidium sp. FI-F-10	yes	Microsporidium sp.	1844323	FI-F-10	2732488	0	22	0	INSDC	GCA_021821965.1	GenBank	Feb 01, 2022	N/A	1877	1022	51	1826	1826	0
+Phanerochaete chrysosporium RP-78	yes	Phanerochaete chrysosporium	5306	RP-78	273507	0	232	0	GenBank	GCA_000167175.1	JGI	2.2	849	13602	5990	0	13602	13602	0
+Cryptococcus neoformans var. neoformans B-3501A	no	Cryptococcus neoformans	5207	var. neoformans B-3501A	283643	14	0	0	GenBank	GCA_000149385.1	GenBank	Mar 21, 2015	954	6608	4842	108	6500	6500	0
+Kluyveromyces lactis NRRL Y-1140	yes	Kluyveromyces lactis	28985	NRRL Y-1140	284590	6	0	0	INSDC	GCA_000002515.1	GenBank	2015-02-27	539	5389	3558	313	5076	5076	33
+Yarrowia lipolytica CLIB122	yes	Yarrowia lipolytica	4952	CLIB122	284591	6	0	0	GenBank	GCA_000002525.1	GenBank	Feb 27, 2015	870	7223	5220	775	6448	6448	136
+Debaryomyces hansenii CBS767	yes	Debaryomyces hansenii	4959	CBS767	284592	7	0	0	INSDC	GCA_000006445.2	GenBank	Feb 27, 2015	888	6698	4777	426	6272	6272	129
+Nakaseomyces glabratus CBS 138	yes	Nakaseomyces glabratus	5478	CBS 138	284593	13	0	0	GenBank	GCA_000002545.2	CGD	s02-m07-r27	968	5615	5293	322	5293	5293	18
+Schizosaccharomyces pombe 972h-	yes	Schizosaccharomyces pombe	4896	972h-	284812	3	2	0	GenBank	GCA_000002945.2	PomBase	Apr 12, 2016	1541	6995	5134	1857	5138	5138	28
+Encephalitozoon cuniculi GB-M1	yes	Encephalitozoon cuniculi	6035	GB-M1	284813	11	0	0	GenBank	GCA_000091225.2	GenBank	Feb 27, 2015	284	2126	1357	33	2093	2093	0
+Porospora cf. gigantea B	no	Porospora gigantea	947097	B	2853592	0	933	0	INSDC	GCA_019968985.1	GenBank	Sep 14, 2021	N/A	5361	2353	0	5361	5361	0
+Porospora cf. gigantea A	yes	Porospora gigantea	947097	A	2853593	0	787	0	INSDC	GCA_019968955.1	GenBank	Sep 14, 2021	N/A	5270	2311	0	5270	5270	0
+Acanthamoeba sp. SK_2022c	no	Acanthamoeba sp.	5756	SK_2022c	2919603	0	20778	0	INSDC	GCA_027944975.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba sp. SK_2022b	no	Acanthamoeba sp.	5756	SK_2022b	2919604	0	1790	0	INSDC	GCA_027943245.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba sp. SK_2022a	no	Acanthamoeba sp.	5756	SK_2022a	2919605	0	2108	0	INSDC	GCA_027943295.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Entamoeba histolytica HM-1:IMSS	yes	Entamoeba histolytica	5759	HM-1:IMSS	294381	0	1496	0	GenBank	GCA_000208925.2	JCVI	Nov 27, 2009	693	8333	4664	132	8201	8201	105
+Meyerozyma guilliermondii ATCC 6260	yes	Meyerozyma guilliermondii	4929	ATCC 6260	294746	0	9	0	INSDC	GCA_000149425.1	GenBank	Mar 23, 2015	807	6062	4671	142	5920	5920	6
+Candida tropicalis MYA-3404	yes	Candida tropicalis	5482	MYA-3404	294747	0	23	0	GenBank	GCA_000006335.3	GenBank	Mar 12, 2015	950	6441	5128	187	6254	6254	0
+Candida albicans WO-1	no	Candida albicans	5476	WO-1	294748	0	16	0	GenBank	GCA_000149445.2	CGD	Dec 11, 2013	933	6160	4934	0	6160	6160	0
+Cryptococcus gattii VGII R265	yes	Cryptococcus gattii VGII	1859096	R265	294750	14	0	0	GenBank	GCA_002954075.1	GenBank	Dec 17, 2020	379	6705	4428	281	6424	6424	66
+Chaetomium globosum CBS 148.51	yes	Chaetomium globosum	38033	CBS 148.51	306901	0	21	0	INSDC	GCA_000143365.1	GenBank	Mar 23, 2015	1003	11232	6688	184	11048	11048	2
+Clavispora lusitaniae ATCC 42720	yes	Clavispora lusitaniae	36911	ATCC 42720	306902	0	9	0	GenBank	GCA_000003835.1	GenBank	Mar 23, 2015	894	6153	4716	217	5936	5936	0
+Plasmodium chabaudi chabaudi	yes	Plasmodium chabaudi	5825	chabaudi	31271	14	0	0	GenBank	GCA_900002335.2	GeneDB	Sep 01, 2020	798	5371	3722	172	5199	5199	23
+Parastagonospora nodorum SN15	yes	Parastagonospora nodorum	13684	SN15	321614	23	0	0	INSDC	GCA_016801405.1	GenBank	Feb 02, 2021	1122	17580	8833	132	17448	17448	13
+Aspergillus fumigatus Af293	yes	Aspergillus fumigatus	746128	Af293	330879	8	0	0	GenBank	GCA_000002655.1	AspGD	Sep 27, 2015	907	10130	9828	290	9840	9840	1
+Aspergillus fischeri NRRL 181	yes	Aspergillus fischeri	36630	NRRL 181	331117	0	163	0	GenBank	GCA_000149645.4	GenBank	Jul 14, 2016	1196	10668	8054	278	10390	10390	26
+Botrytis cinerea B05.10	yes	Botrytis cinerea	40559	B05.10	332648	18	0	0	GenBank	GCA_000143535.4	Ensembl	Dec. 7, 2017	788	12073	7538	366	11707	11707	4
+Aspergillus flavus NRRL3357	yes	Aspergillus flavus	5059	NRRL3357	332952	0	282	0	GenBank	GCA_000006275.3	GenBank	Sep 28, 2020	119	14313	9102	0	14313	14313	0
+Theileria parva strain Muguga	yes	Theileria parva	5875	strain Muguga	333668	2	6	0	GenBank	GCA_000165365.1	GenBank	Jun 11, 2020	1	4129	1873	78	4051	4051	0
+Fusarium verticillioides 7600	yes	Fusarium verticillioides	117187	7600	334819	11	10	0	GenBank	GCA_000149555.1	GenBank	Mar 11, 2015	1626	16240	9677	371	15869	15869	0
+Zymoseptoria tritici IPO323	yes	Zymoseptoria tritici	1047171	IPO323	336722	21	0	0	GenBank	GCA_000219625.1	StukenbrockLab	Jul 01, 2015	780	11839	6293	13	11826	11826	13
+Uncinocarpus reesii 1704	yes	Uncinocarpus reesii	33188	1704	336963	0	44	0	GenBank	GCA_000003515.2	GenBank	Mar 23, 2015	808	7856	5242	96	7760	7760	0
+Histoplasma capsulatum NAm1	no	Histoplasma capsulatum	5037	NAm1	339724	0	276	0	GenBank	GCA_000149585.1	GenBank	Mar 23, 2015	1085	9402	5433	89	9313	9313	0
+Aspergillus terreus NIH2624	yes	Aspergillus terreus	33178	NIH2624	341663	0	26	0	GenBank	GCA_000149615.1	GenBank	Mar 23, 2015	1541	10551	7441	150	10401	10401	0
+Aspergillus clavatus NRRL 1	yes	Aspergillus clavatus	5057	NRRL 1	344612	0	143	0	GenBank	GCA_000002715.1	GenBank	Jan 02, 2013	1339	9428	7117	287	9141	9141	24
+Leishmania major strain Friedlin	yes	Leishmania major	5664	strain Friedlin	347515	36	0	0	GenBank	GCA_000002725.2	GeneDB	May 28, 2016	1080	9378	5626	1071	8307	8307	95
+Dictyostelium discoideum AX4	yes	Dictyostelium discoideum	44689	AX4	352472	7	33	0	INSDC	GCF_000004695.1	RefSeq	Jan 29, 2010	10	13963	9372	672	13291	13291	163
+Plasmodium yoelii yoelii 17XNL	no	Plasmodium yoelii	5861	yoelii 17XNL	352914	0	0	5617	GenBank	GCA_000003085.2	GenBank	Sep 1, 2005	470	7774	2256	50	7724	7724	0
+Cryptosporidium hominis TU502	yes	Cryptosporidium hominis	237895	TU502	353151	0	0	1422	GenBank	GCA_000006425.1	GenBank	Oct 17, 2004	184	3956	1678	70	3886	3886	0
+Cryptosporidium parvum Iowa II	yes	Cryptosporidium parvum	5807	Iowa II	353152	8	0	0	GenBank	GCA_000165345.1	KissingerLab	Feb 27, 2018	446	4020	2404	79	3941	3941	0
+Trypanosoma cruzi strain CL Brener	no	Trypanosoma cruzi	5693	strain CL Brener	353153	0	0	29407	GenBank	GCA_000209065.1	GeneDB	Dec 07, 2015	10	3397	738	2153	1244	1244	891
+Theileria annulata strain Ankara	yes	Theileria annulata	5874	strain Ankara	353154	4	0	0	GenBank	GCA_000003225.1	GenBank	Feb 02, 2015	519	3796	1822	1	3795	3795	1
+Plasmodium falciparum 3D7	yes	Plasmodium falciparum	5833	3D7	36329	14	0	0	GenBank	GCA_000002765.3	GeneDB	Sep 01, 2020	1220	5720	4481	402	5318	5318	158
+Trypanosoma cruzi strain Esmeraldo	no	Trypanosoma cruzi	5693	strain Esmeraldo	366581	0	796	15007	GenBank	GCA_000327425.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Neurospora crassa OR74A	yes	Neurospora crassa	5141	OR74A	367110	7	13	0	GenBank	GCA_000182925.2	GenBank	Mar 23, 2015	1284	10591	7092	833	9758	9758	2
+Cryptococcus gattii WM276	yes	Cryptococcus gattii VGI	37769	WM276	367775	14	0	0	GenBank	GCA_000185945.1	GenBank	Oct 01, 2014	881	6580	4708	15	6565	6565	15
+Entamoeba dispar SAW760	yes	Entamoeba dispar	46681	SAW760	370354	0	3312	0	GenBank	GCA_000209125.2	JCVI	Nov 27, 2009	2072	8748	5277	4	8744	8744	4
+Entamoeba invadens IP1	yes	Entamoeba invadens	33085	IP1	370355	0	1144	0	GenBank	GCA_000330505.1	GenBank	Mar 19, 2015	1486	12007	6188	10	11997	11997	10
+Lodderomyces elongisporus NRRL YB-4239	yes	Lodderomyces elongisporus	36914	NRRL YB-4239	379508	0	27	0	INSDC	GCA_000149685.1	GenBank	Jul 14, 2016	785	5908	4470	109	5799	5799	1
+Aspergillus niger ATCC 1015	no	Aspergillus niger	5061	ATCC 1015	380704	0	24	0	GenBank	GCA_000230395.2	JGI	4	977	11910	7569	6	11904	11904	6
+Pseudocercospora fijiensis CIRAD86	yes	Pseudocercospora fijiensis	1873960	CIRAD86	383855	0	56	0	INSDC	GCA_000340215.1	GenBank	Mar 19, 2015	N/A	13131	7356	66	13065	13065	18
+Ascosphaera apis ARSEF 7405	yes	Ascosphaera apis	5105	ARSEF 7405	392613	0	82	0	INSDC	GCA_001636715.1	GenBank	May 2, 2016	799	6442	4727	0	6442	6442	0
+Coccidioides immitis H538.4	no	Coccidioides immitis	5501	H538.4	396776	0	553	0	GenBank	GCA_000149815.1	GenBank	Jul 10, 2015	2	10724	5611	186	10538	10538	2
+Schizosaccharomyces japonicus yFS275	yes	Schizosaccharomyces japonicus	4897	yFS275	402676	0	32	0	GenBank	GCA_000149845.2	GenBank	Mar 23, 2015	823	5232	4793	346	4886	4886	0
+Batrachochytrium dendrobatidis JEL423	yes	Batrachochytrium dendrobatidis	109871	JEL423	403673	0	69	0	GenBank	GCA_000149865.1	GenBank	May 16, 2016	761	8763	5411	133	8630	8630	0
+Phytophthora infestans T30-4	yes	Phytophthora infestans	4787	T30-4	403677	0	4921	0	GenBank	GCA_000142945.1	GenBank	Mar 12, 2015	1467	19344	10026	1547	17797	17797	381
+Coccidioides immitis RMSCC 2394	no	Coccidioides immitis	5501	RMSCC 2394	404692	0	23	0	GenBank	GCA_000149895.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Trichomonas vaginalis G3	no	Trichomonas vaginalis	5722	G3	412133	0	64764	0	GenBank	GCA_000002825.1	JCarltonLab	Sep 12, 2014	1901	98611	16296	4356	94255	94255	3220
+Trichoderma virens Gv29-8	yes	Trichoderma virens	29875	Gv29-8	413071	0	0	93	GenBank	GCA_000170995.2	GenBank	Nov 29, 2011	1428	12405	8238	0	12405	12405	0
+Eimeria tenella strain Houghton	no	Eimeria tenella	5802	strain Houghton	413949	0	4664	0	GenBank	GCA_000499545.1	GenBank	Nov 5, 2013	432	8634	2981	37	8597	8597	0
+Puccinia graminis f. sp. tritici CRL 75-36-700-3	yes	Puccinia graminis	5297	f. sp. tritici CRL 75-36-700-3	418459	0	392	0	GenBank	GCA_000149925.1	GenBank	Mar 11, 2015	1093	16309	6785	509	15800	15800	0
+Leishmania braziliensis MHOM/BR/75/M2904	yes	Leishmania braziliensis	5660	MHOM/BR/75/M2904	420245	36	0	103	GenBank	GCA_000002845.2	GeneDB	May 28, 2016	1038	8493	5848	317	8176	8176	178
+Aspergillus niger CBS 513.88	yes	Aspergillus niger	5061	CBS 513.88	425011	0	19	0	GenBank	GCA_000002855.2	AspGD	Sep 14, 2015	3236	14403	14031	346	14057	14057	16
+Malassezia restricta CBS 7877	no	Malassezia restricta	76775	CBS 7877	425264	9	0	0	INSDC	GCA_003691605.1	GenBank	Oct 29, 2018	1265	4155	3402	59	4096	4096	0
+Malassezia globosa CBS 7966	yes	Malassezia globosa	76773	CBS 7966	425265	0	67	0	GenBank	GCA_000181695.1	GenBank	Nov 02, 2007	1	4286	3424	0	4286	4286	0
+Fusarium oxysporum f. sp. lycopersici 4287	yes	Fusarium oxysporum	5507	f. sp. lycopersici 4287	426428	15	70	0	GenBank	GCA_000149955.2	GenBank	Aug 20, 2015	1868	21354	11657	429	20925	20925	0
+Trypanosoma rangeli SC58	yes	Trypanosoma rangeli	5698	SC58	429131	0	0	7433	GenBank	GCA_000492115.1	GenBank	Oct 30, 2013	564	7475	4625	0	7475	7475	0
+Trichoderma reesei QM6a	yes	Trichoderma reesei	51453	QM6a	431241	0	77	0	GenBank	GCA_000167675.2	Apollo	Nov 01, 2021	949	9138	6470	7	9131	9131	7
+Globisporangium ultimum DAOM BR144	yes	Globisporangium ultimum	2052682	DAOM BR144	431595	0	975	0	GenBank	GCA_000143045.1	Ensembl	Mar 02, 2016	1243	15430	9301	140	15290	15290	0
+Toxoplasma gondii VEG	no	Toxoplasma gondii	5811	VEG	432359	14	1290	0	GenBank	GCA_000150015.2	GenBank	Nov 19, 2013	1341	8563	5046	153	8410	8410	0
+Leishmania infantum JPCM5	yes	Leishmania infantum	5671	JPCM5	435258	36	0	0	GenBank	GCA_900500625.2	RequenaLab	Jul 13, 2018	1247	8748	4854	221	8527	8527	64
+Cryptosporidium muris RN66	yes	Cryptosporidium muris	5808	RN66	441375	0	84	0	GenBank	GCF_000006515.1	GenBank	Mar 11, 2015	699	3981	2696	47	3934	3934	4
+Talaromyces stipitatus ATCC 10500	yes	Talaromyces stipitatus	28564	ATCC 10500	441959	0	820	0	GenBank	GCA_000003125.1	GenBank	Mar 11, 2015	1734	12629	8566	146	12483	12483	13
+Talaromyces marneffei ATCC 18224	yes	Talaromyces marneffei	37727	ATCC 18224	441960	0	452	0	GenBank	GCA_000001985.1	GenBank	Mar 11, 2015	1341	10194	7416	145	10049	10049	4
+Coccidioides posadasii str. Silveira	yes	Coccidioides posadasii	199306	str. Silveira	443226	0	54	0	GenBank	GCA_000170175.2	GenBank	2015-03-13	1079	10379	5746	154	10225	10225	0
+Histoplasma capsulatum G186AR	no	Histoplasma capsulatum	5037	G186AR	447093	6	0	0	GenBank	GCA_017355575.1	GenBank	Mar 15, 2021	N/A	12743	4572	3281	9462	9462	0
+Histoplasma capsulatum G217B	yes	Histoplasma capsulatum	5037	G217B	447094	0	11	0	GenBank	GCA_017607445.1	GenBank	Mar 29, 2021	N/A	12363	5526	3148	9215	9215	0
+Blastomyces dermatitidis ATCC 26199	no	Blastomyces dermatitidis	5039	ATCC 26199	447095	0	3282	0	INSDC	GCA_000166155.1	GenBank	2015-03-13	887	9560	5745	380	9180	9180	232
+Aspergillus fumigatus A1163	no	Aspergillus fumigatus	746128	A1163	451804	0	55	0	GenBank	GCA_000150145.1	AspGD	Dec 16, 2013	1431	10106	7441	199	9907	9907	19
+Coccidioides posadasii RMSCC 3488	no	Coccidioides posadasii	199306	RMSCC 3488	454284	0	6	0	GenBank	GCA_000150055.1	GenBank	Jun 29, 2015	1069	10016	5605	119	9897	9897	0
+Coccidioides immitis RMSCC 3703	no	Coccidioides immitis	5501	RMSCC 3703	454286	0	286	0	GenBank	GCA_000150085.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Coccidioides posadasii RMSCC 2133	no	Coccidioides posadasii	199306	RMSCC 2133	469470	0	53	0	GenBank	GCA_000150185.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Coccidioides posadasii RMSCC 3700	no	Coccidioides posadasii	199306	RMSCC 3700	469471	0	241	0	GenBank	GCA_000150215.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Coccidioides posadasii CPA 0001	no	Coccidioides posadasii	199306	CPA 0001	469472	0	255	0	GenBank	GCA_000150245.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Enterocytozoon bieneusi H348	yes	Enterocytozoon bieneusi	31281	H348	481877	0	3	1730	GenBank	GCA_000209485.1	GenBank	Jan 13, 2009	506	3806	2075	174	3632	3632	3
+Paracoccidioides brasiliensis Pb03	yes	Paracoccidioides brasiliensis	121759	Pb03	482561	0	65	0	GenBank	GCA_000150475.2	GenBank	Nov 13, 2014	1047	8548	5181	121	8427	8427	0
+Schizosaccharomyces octosporus yFS286	yes	Schizosaccharomyces octosporus	4899	yFS286	483514	0	5	0	GenBank	GCA_000150505.2	GenBank	Mar 23, 2015	830	5355	4380	361	4994	4994	0
+Babesia bovis T2Bo	yes	Babesia bovis	5865	T2Bo	484906	3	3	0	GenBank	GCA_000165395.2	GenBank	May 26, 2021	384	3980	1858	24	3956	3956	0
+Coccidioides posadasii RMSCC 1037	no	Coccidioides posadasii	199306	RMSCC 1037	490065	0	633	0	GenBank	GCA_000150555.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Coccidioides posadasii RMSCC 1038	no	Coccidioides posadasii	199306	RMSCC 1038	490066	0	551	0	GenBank	GCA_000150585.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Coccidioides posadasii CPA 0020	no	Coccidioides posadasii	199306	CPA 0020	490068	0	620	0	GenBank	GCA_000150615.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Coccidioides posadasii CPA 0066	no	Coccidioides posadasii	199306	CPA 0066	490069	0	473	0	GenBank	GCA_000150645.1	GenBank	2015-07-13	N/A	N/A	N/A	0	N/A	0	0
+Penicillium rubens Wisconsin 54-1255	yes	Penicillium rubens	1108849	Wisconsin 54-1255	500485	0	49	0	GenBank	GCA_000226395.1	Ensembl	Feb 01, 2015	1442	14021	7794	1464	12557	12557	1125
+Paracoccidioides lutzii Pb01	yes	Paracoccidioides lutzii	1048829	Pb01	502779	0	110	0	GenBank	GCA_000150705.2	GenBank	Nov 03, 2014	1054	8953	5348	127	8826	8826	0
+Paracoccidioides brasiliensis Pb18	no	Paracoccidioides brasiliensis	121759	Pb18	502780	0	57	0	GenBank	GCA_000150735.2	GenBank	Oct 24, 2014	1051	8522	5232	132	8390	8390	0
+Toxoplasma gondii GT1	no	Toxoplasma gondii	5811	GT1	507601	14	0	2034	GenBank	GCA_000149715.2	GenBank	Jul 19, 2013	1332	8637	4903	177	8460	8460	0
+Toxoplasma gondii ME49	yes	Toxoplasma gondii	5811	ME49	508771	14	2248	0	GenBank	GCF_000006565.2	Apollo	Jul 01, 2023	1313	8778	5005	638	8140	8140	24
+Aspergillus oryzae RIB40	yes	Aspergillus oryzae	5062	RIB40	510516	8	0	3	GenBank	GCA_000184455.3	AspGD	Oct 04, 2015	1653	12364	12066	274	12090	12090	3
+Neurospora tetrasperma FGSC 2508	yes	Neurospora tetrasperma	40127	FGSC 2508	510951	0	81	0	GenBank	GCA_000213175.1	GenBank	Mar 13, 2015	1121	10380	5932	0	10380	10380	0
+Neurospora discreta FGSC 8579	yes	Neurospora discreta	29879	FGSC 8579	510953	0	176	0	JGI	1	JGI	1	N/A	10345	4246	397	9948	9948	4
+Podospora anserina S mat+	yes	Podospora anserina	2587412	S mat+	515849	0	33	0	INSDC	GCA_000226545.1	GenBank	Aug 21, 2013	958	10888	6989	370	10518	10518	9
+Nannizzia gypsea CBS 118893	yes	Nannizzia gypsea	63402	CBS 118893	535722	0	18	0	INSDC	GCA_000150975.2	GenBank	Jul 26, 2016	955	9029	6004	108	8921	8921	0
+Histoplasma capsulatum H88	no	Histoplasma capsulatum	5037	H88	544711	6	0	0	GenBank	GCA_017310615.1	GenBank	Mar 09, 2021	794	12289	5468	2977	9312	9312	0
+Histoplasma capsulatum H143	no	Histoplasma capsulatum	5037	H143	544712	0	48	0	GenBank	GCA_000151035.1	GenBank	Jul 24, 2016	996	9796	5461	249	9547	9547	0
+Microsporum canis CBS 113480	yes	Microsporum canis	63405	CBS 113480	554155	0	16	0	INSDC	GCA_000151145.1	GenBank	Jul 26, 2016	944	8847	6036	82	8765	8765	1
+Saccharomyces cerevisiae S288C	yes	Saccharomyces cerevisiae	4932	S288C	559292	16	0	0	GenBank	GCA_000146045.2	SGD	Jul 12, 2013	1776	6350	5895	443	5907	5907	18
+Blastomyces dermatitidis ER-3	yes	Blastomyces dermatitidis	5039	ER-3	559297	0	25	0	INSDC	GCA_000003525.2	GenBank	Jun 02, 2016	1092	10081	5730	326	9755	9755	194
+Blastomyces gilchristii SLH14081	yes	Blastomyces gilchristii	1681229	SLH14081	559298	0	100	0	INSDC	GCA_000003855.2	GenBank	Jun 02, 2016	1091	10148	5806	456	9692	9692	306
+Trichophyton rubrum CBS 118892	yes	Trichophyton rubrum	5551	CBS 118892	559305	0	35	0	INSDC	GCA_000151425.1	GenBank	Mar 12, 2015	847	8713	5536	97	8616	8616	1
+Hyaloperonospora arabidopsidis Emoy2	yes	Hyaloperonospora arabidopsidis	272952	Emoy2	559515	0	3044	0	GenBank	GCA_000173235.2	Ensembl	Mar 02, 2016	1029	14267	6179	285	13982	13982	0
+Trichophyton equinum CBS 127.97	yes	Trichophyton equinum	63418	CBS 127.97	559882	0	123	0	INSDC	GCA_000151175.1	GenBank	Jul 26, 2016	870	8785	5720	109	8676	8676	6
+Neospora caninum Liverpool	yes	Neospora caninum	29176	Liverpool	572307	14	0	52	GenBank	GCA_000208865.2	GenBank	Feb 27, 2015	623	7266	4441	154	7112	7112	10
+Plasmodium falciparum 7G8	no	Plasmodium falciparum	5833	7G8	57266	14	0	1	Sanger	Apr 20, 2018	Sanger	Apr 20, 2018	1070	5505	3095	322	5183	5183	161
+Plasmodium falciparum Dd2	no	Plasmodium falciparum	5833	Dd2	57267	14	0	0	GenBank	GCA_900632045.1	Sanger	Apr 20, 2018	1079	5461	2740	252	5209	5209	118
+Thermothelomyces thermophilus ATCC 42464	yes	Thermothelomyces thermophilus	78579	ATCC 42464	573729	7	0	0	INSDC	GCA_000226095.1	GenBank	Sep 02, 2014	1189	9292	6070	195	9097	9097	3
+Candida dubliniensis CD36	yes	Candida dubliniensis	42374	CD36	573826	8	0	0	INSDC	GCA_000026945.1	GenBank	Feb 27, 2015	1415	6095	4638	235	5860	5860	123
+Candida parapsilosis CDC317	yes	Candida parapsilosis	5480	CDC317	578454	8	0	0	GenBank	GCA_000182765.2	CGD	s01-m03-r30	936	5984	5837	147	5837	5837	26
+Tremella mesenterica DSM 1558	yes	Tremella mesenterica	5217	DSM 1558	578456	0	45	0	GenBank	GCA_000271645.1	GenBank	Mar 18, 2015	556	8309	4088	1	8308	8308	1
+Schizophyllum commune H4-8	yes	Schizophyllum commune	5334	H4-8	578458	0	25	0	INSDC	GCA_000143185.2	GenBank	Aug 05, 2022	7	16467	7403	280	16187	16187	1
+Nosema ceranae BRL01	yes	Nosema ceranae	40302	BRL01	578460	0	0	5465	GenBank	GCA_000182985.1	GenBank	Jun 9, 2009	210	2678	1191	618	2060	2060	554
+Nosema bombycis CQ1	yes	Nosema bombycis	27978	CQ1	578461	0	1607	0	GenBank	GCA_000383075.1	GenBank	Mar 21, 2015	316	4468	2446	0	4468	4468	0
+Allomyces macrogynus ATCC 38327	yes	Allomyces macrogynus	28583	ATCC 38327	578462	0	101	0	GenBank	GCA_000151295.1	GenBank	Jul 31, 2015	1989	19333	11948	535	18798	18798	0
+Plasmodium berghei ANKA	yes	Plasmodium berghei	5821	ANKA	5823	14	0	5	GenBank	GCA_900002375.2	GeneDB	Sep 01, 2020	792	5254	3681	309	4945	4945	132
+Plasmodium falciparum NF54	no	Plasmodium falciparum	5833	NF54	5843	0	28	0	INSDC	GCA_009761475.1	N/A	N/A	59	5609	3479	336	5273	5273	229
+Plasmodium knowlesi strain H	yes	Plasmodium knowlesi	5850	strain H	5851	14	0	148	GenBank	GCA_000006355.3	GeneDB	Sep 01, 2020	839	5502	3733	174	5328	5328	12
+Giardia Assemblage B isolate GS	no	Giardia Assemblage B	9100000002	isolate GS	598745	0	0	2931	GenBank	GCA_000182405.1	GenBank	Jul 13, 2009	189	4562	2571	92	4470	4470	0
+Aspergillus carbonarius ITEM 5010	yes	Aspergillus carbonarius	40993	ITEM 5010	602072	0	829	0	GenBank	GCA_001990825.1	GenBank	Feb 15, 2017	1504	11735	8002	260	11475	11475	0
+Puccinia triticina 1-1 BBBD Race 1	yes	Puccinia triticina	208348	1-1 BBBD Race 1	630390	0	0	14818	GenBank	GCA_000151525.2	GenBank	Jun 06, 2016	1127	15692	6277	814	14878	14878	0
+Gaeumannomyces tritici R3-111a-1	yes	Gaeumannomyces tritici	36779	R3-111a-1	644352	0	513	0	INSDC	GCA_000145635.1	GenBank	Mar 13, 2015	1006	14749	7746	291	14458	14458	80
+Magnaporthiopsis poae ATCC 64411	yes	Magnaporthiopsis poae	148304	ATCC 64411	644358	0	205	0	INSDC	GCA_000193285.1	GenBank	Jun 17, 2015	858	12363	6856	200	12163	12163	9
+Colletotrichum graminicola M1.001	yes	Colletotrichum graminicola	31870	M1.001	645133	0	653	0	INSDC	GCA_000149035.1	GenBank	Jul 24, 2016	1119	12400	8131	380	12020	12020	1
+Spizellomyces punctatus DAOM BR117	yes	Spizellomyces punctatus	109760	DAOM BR117	645134	0	38	0	GenBank	GCA_000182565.2	GenBank	Jul 29, 2015	1096	9169	6333	219	8950	8950	0
+Trichophyton tonsurans CBS 112818	yes	Trichophyton tonsurans	34387	CBS 112818	647933	0	110	0	INSDC	GCA_000151455.1	GenBank	Jul 24, 2016	887	8625	5781	104	8521	8521	4
+Hamiltosporidium tvaerminnensis OER-3-3	no	Hamiltosporidium tvaerminnensis	1176355	OER-3-3	657448	0	0	41786	GenBank	GCA_000180835.1	GenBank	Apr 28, 2012	N/A	N/A	N/A	0	N/A	0	0
+Pseudogymnoascus destructans 20631-21	yes	Pseudogymnoascus destructans	655981	20631-21	658429	0	1846	0	INSDC	GCA_000184105.1	GenBank	Mar 13, 2015	847	9225	5668	150	9075	9075	2
+Giardia Assemblage E isolate P15	no	Giardia Assemblage E	9100000003	isolate P15	658858	0	0	820	GenBank	GCA_000182665.1	GenBank	Oct 05, 2010	193	5159	2947	152	5007	5007	60
+Fusarium oxysporum f. sp. conglutinans Fo5176	no	Fusarium oxysporum	5507	f. sp. conglutinans Fo5176	660025	15	4	0	INSDC	GCA_014154955.1	GenBank	Aug 11, 2020	7	17912	10428	0	17912	17912	0
+Fusarium oxysporum Fo47	no	Fusarium oxysporum	5507	Fo47	660027	0	124	0	GenBank	GCA_000271705.2	GenBank	Aug 11, 2014	1793	18556	10912	365	18191	18191	0
+Fusarium oxysporum NRRL 32931	no	Fusarium oxysporum	5507	NRRL 32931	660029	0	168	0	GenBank	GCA_000271745.2	GenBank	Mar 18, 2015	1692	17642	8578	362	17280	17280	7
+Fusarium vanettenii 77-13-4	yes	Fusarium vanettenii	2747968	77-13-4	660122	0	209	0	INSDC	GCA_000151355.1	GenBank	Jul 24, 2016	1288	15708	10340	0	15708	15708	0
+Sclerotinia sclerotiorum 1980 UF-70	yes	Sclerotinia sclerotiorum	5180	1980 UF-70	665079	16	0	0	GenBank	GCA_001857865.1	GenBank	Oct 31, 2016	1242	11368	7328	238	11130	11130	0
+Trypanosoma brucei gambiense DAL972	no	Trypanosoma brucei	5691	gambiense DAL972	679716	11	0	0	GenBank	GCA_000210295.1	GeneDB	May 28, 2016	791	8082	6502	225	7857	7857	131
+Aspergillus aculeatus ATCC 16872	yes	Aspergillus aculeatus	5053	ATCC 16872	690307	0	660	0	GenBank	GCA_001890905.1	GenBank	Dec 08, 2016	1459	11165	7861	322	10843	10843	0
+Saprolegnia parasitica CBS 223.65	yes	Saprolegnia parasitica	101203	CBS 223.65	695850	0	1442	0	GenBank	GCA_000151545.2	GenBank	Mar 23, 2015	1440	20435	12261	314	20121	20121	25
+Naegleria gruberi strain NEG-M	yes	Naegleria gruberi	5762	strain NEG-M	744533	0	784	0	INSDC	GCA_000004985.1	INSDC	Dec 23, 2009	1012	16620	7555	911	15709	15709	3
+Rhizophagus irregularis DAOM 181602=DAOM 197198	yes	Rhizophagus irregularis	588596	DAOM 181602=DAOM 197198	747089	33	0	0	GenBank	GCA_020716725.1	GenBank	Dec 02, 2021	N/A	26634	10313	89	26545	26545	0
+Melampsora larici-populina 98AG31	yes	Melampsora larici-populina	203908	98AG31	747676	0	462	0	GenBank	GCA_000204055.1	GenBank	Mar 13, 2015	1105	16380	6198	8	16372	16372	8
+Mucor lusitanicus CBS 277.49	yes	Mucor lusitanicus	29924	CBS 277.49	747725	0	21	0	GenBank	GCA_001638945.1	GenBank	May 6, 2016	N/A	11936	8137	229	11707	11707	1
+Colletotrichum higginsianum IMI 349063	yes	Colletotrichum higginsianum	80884	IMI 349063	759273	11	14	0	INSDC	GCA_001672515.1	GenBank	Jun 21, 2016	1187	14651	9508	0	14651	14651	0
+Phytophthora parasitica INRA-310	yes	Phytophthora parasitica	4792	INRA-310	761204	0	708	0	GenBank	GCA_000247585.2	GenBank	Mar 23, 2015	1435	23240	10599	119	23121	23121	0
+Phycomyces blakesleeanus NRRL 1555(-)	yes	Phycomyces blakesleeanus	4837	NRRL 1555(-)	763407	0	80	0	GenBank	GCA_001638985.2	GenBank	May 9, 2016	2	16850	8806	308	16542	16542	0
+Phytophthora capsici LT1534	yes	Phytophthora capsici	4784	LT1534	763924	0	782	0	INSDC	GCA_016618375.1	GenBank	Jan 12, 2021	5	28579	10194	5206	23373	23373	0
+Aspergillus brasiliensis CBS 101740	yes	Aspergillus brasiliensis	319629	CBS 101740	767769	0	103	0	GenBank	GCA_001889945.1	GenBank	Dec 08, 2016	1492	13263	8673	274	12989	12989	0
+Aspergillus tubingensis CBS 134.48	yes	Aspergillus tubingensis	5068	CBS 134.48	767770	0	33	0	GenBank	GCA_001890745.1	GenBank	Dec 07, 2016	1509	12592	8332	274	12318	12318	0
+Sordaria macrospora k-hell	yes	Sordaria macrospora	5147	k-hell	771870	0	1212	0	GenBank	GCF_000182805.3	RefSeq	Apr 11, 2018	N/A	10407	6386	575	9832	9832	117
+Cenococcum geophilum 1.58	yes	Cenococcum geophilum	5570	1.58	794803	0	268	0	GenBank	GCA_001692895.1	GenBank	Jul 26, 2016	790	14745	6380	38	14707	14707	0
+Exophiala dermatitidis NIH/UT8656	yes	Exophiala dermatitidis	5970	NIH/UT8656	858893	0	10	0	INSDC	GCA_000230625.1	GenBank	Mar 17, 2015	1180	9356	6540	71	9285	9285	0
+Leishmania major strain LV39c5	no	Leishmania major	5664	strain LV39c5	860569	36	773	0	GenBank	GCA_000331345.1	GeneDB	Jan 16, 2015	78	9101	4139	130	8971	8971	0
+Leishmania major strain SD 75.1	no	Leishmania major	5664	strain SD 75.1	860570	0	36	0	GenBank	GCA_000250755.2	GeneDB	Jan 16, 2015	77	8931	4187	113	8818	8818	0
+Theileria orientalis strain Shintoku	yes	Theileria orientalis	68886	strain Shintoku	869250	4	0	0	GenBank	GCA_000740895.1	GenBank	Sep 6, 2012	368	4058	2429	56	4002	4002	0
+Encephalitozoon intestinalis ATCC 50506	yes	Encephalitozoon intestinalis	58839	ATCC 50506	876142	11	0	0	GenBank	GCA_000146465.1	GenBank	Oct 1, 2014	241	2011	1323	72	1939	1939	0
+Epichloe festucae Fl1	yes	Epichloe festucae	35717	Fl1	877507	7	0	0	INSDC	GCA_003814445.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Nematocida parisii ERTm1	yes	Nematocida parisii	586133	ERTm1	881290	0	65	0	GenBank	GCA_000250985.1	GenBank	Mar 18, 2015	214	2724	1593	63	2661	2661	0
+Entamoeba histolytica DS4-868	no	Entamoeba histolytica	5759	DS4-868	885310	0	1177	0	INSDC	GCA_018466815.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Entamoeba histolytica KU27	no	Entamoeba histolytica	5759	KU27	885311	0	1796	0	GenBank	GCA_000338855.1	GenBank	Mar 19, 2015	607	7469	4678	14	7455	7455	0
+Entamoeba histolytica KU48	no	Entamoeba histolytica	5759	KU48	885312	0	1168	0	INSDC	GCA_019059535.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Entamoeba histolytica KU50	no	Entamoeba histolytica	5759	KU50	885313	0	1063	0	INSDC	GCA_020283535.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Entamoeba histolytica HM-3:IMSS	no	Entamoeba histolytica	5759	HM-3:IMSS	885315	0	1880	0	GenBank	GCA_000346345.1	GenBank	Mar 20, 2015	556	7362	4398	4	7358	7358	1
+Entamoeba histolytica HM-1:IMSS-A	no	Entamoeba histolytica	5759	HM-1:IMSS-A	885318	0	1685	0	GenBank	GCA_000365475.1	GenBank	Mar 21, 2015	512	6328	3964	3	6325	6325	3
+Entamoeba histolytica HM-1:IMSS-B	no	Entamoeba histolytica	5759	HM-1:IMSS-B	885319	0	1938	0	GenBank	GCA_000344925.1	GenBank	Mar 19, 2015	519	6301	3936	0	6301	6301	0
+Albugo laibachii Nc14	yes	Albugo laibachii	653948	Nc14	890382	0	3827	0	Ensembl	Mar 02, 2016	Ensembl	Mar 02, 2016	837	14629	5570	180	13805	14449	644
+Encephalitozoon hellem ATCC 50504	yes	Encephalitozoon hellem	27973	ATCC 50504	907965	12	0	0	GenBank	GCA_000277815.3	GenBank	Oct 01, 2014	242	2006	1328	78	1928	1928	0
+Albugo candida 2VRR	yes	Albugo candida	65357	2VRR	911350	0	252	0	Saskatchewan	2014-05-13	Saskatchewan	2014-05-13	N/A	15896	4485	72	15824	15824	4
+Trypanosoma cruzi JR cl. 4	no	Trypanosoma cruzi	5693	JR cl. 4	914063	0	560	14752	GenBank	GCA_000331405.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Leishmania mexicana MHOM/GT/2001/U1103	yes	Leishmania mexicana	5665	MHOM/GT/2001/U1103	929439	34	0	554	GenBank	GCA_000234665.4	GeneDB	May 28, 2016	683	8677	6180	533	8144	8144	102
+Toxoplasma gondii VAND	no	Toxoplasma gondii	5811	VAND	933077	0	2137	0	GenBank	GCA_000224845.2	GenBank	Aug 15, 2014	1542	9426	5556	171	9255	9255	0
+Toxoplasma gondii RUB	no	Toxoplasma gondii	5811	RUB	935652	0	2424	0	GenBank	GCA_000224805.2	GenBank	Aug 13, 2014	1652	10213	5930	186	10027	10027	0
+Nematocida parisii ERTm3	no	Nematocida parisii	586133	ERTm3	935791	0	53	0	GenBank	GCA_000190615.1	GenBank	Mar 13, 2015	213	2788	1594	62	2726	2726	0
+Toxoplasma gondii MAS	no	Toxoplasma gondii	5811	MAS	943118	0	2180	0	GenBank	GCA_000224865.2	GenBank	Aug 15, 2014	1663	10176	5967	171	10005	10005	0
+Toxoplasma gondii p89	no	Toxoplasma gondii	5811	p89	943119	0	2150	0	GenBank	GCA_000224885.2	GenBank	Aug 13, 2014	1630	9874	5801	173	9701	9701	0
+Toxoplasma gondii TgCATBr9	no	Toxoplasma gondii	5811	TgCATBr9	943120	0	2452	0	GenBank	GCA_000224825.2	GenBank	Apr 20, 2018	1243	10007	5850	173	9834	9834	0
+Toxoplasma gondii TgCATBr5	no	Toxoplasma gondii	5811	TgCATBr5	943121	0	0	6995	GenBank	GCA_000259835.1	GenBank	Aug 26, 2011	N/A	N/A	N/A	0	N/A	0	0
+Toxoplasma gondii CAST	no	Toxoplasma gondii	5811	CAST	943122	0	2656	0	GenBank	GCA_000256705.2	GenBank	Dec 04, 2018	1541	9697	5667	200	9497	9497	0
+Toxoplasma gondii FOU	no	Toxoplasma gondii	5811	FOU	943167	0	2869	0	GenBank	GCA_000224905.2	GenBank	Aug 13, 2014	1682	10297	6009	180	10117	10117	0
+Vavraia culicis subsp. floridensis	yes	Vavraia culicis	103449	subsp. floridensis	948595	0	379	0	GenBank	GCA_000192795.1	GenBank	Mar 13, 2015	229	2825	1564	52	2773	2773	0
+Leishmania donovani BPK282A1	yes	Leishmania donovani	5661	BPK282A1	981087	36	0	0	GenBank	GCA_000227135.2	GeneDB	May 28, 2016	190	8135	5913	166	7969	7969	54
+Cordyceps militaris CM01	no	Cordyceps militaris	73501	CM01	983644	0	32	0	INSDC	GCA_000225605.1	GenBank	Mar 14, 2015	N/A	9651	6818	0	9651	9651	0
+Plenodomus lingam JN3	yes	Plenodomus lingam	5022	JN3	985895	0	76	0	INSDC	GCA_000230375.1	GenBank	Feb 19, 2013	N/A	12609	6784	0	12609	12609	0
+Encephalitozoon cuniculi EC1	no	Encephalitozoon cuniculi	6035	EC1	986730	12	0	0	GenBank	GCA_000221285.2	ubc	Sep 29, 2011	122	1898	1074	51	1847	1847	0
+Encephalitozoon cuniculi EC2	no	Encephalitozoon cuniculi	6035	EC2	989654	16	0	0	GenBank	GCA_000221265.2	ubc	Sep 29, 2011	124	1902	1074	51	1851	1851	0
+Encephalitozoon cuniculi EC3	no	Encephalitozoon cuniculi	6035	EC3	989655	15	0	0	GenBank	GCA_000221245.2	ubc	Sep 29, 2011	124	1898	1077	53	1845	1845	2
+Vittaforma corneae ATCC 50505	yes	Vittaforma corneae	42399	ATCC 50505	993615	0	220	0	GenBank	GCA_000231115.1	GenBank	Mar 17, 2015	215	2293	1442	54	2239	2239	0
+Sporisorium reilianum SRZ2	yes	Sporisorium reilianum	72558	SRZ2	999809	23	0	21	GenBank	GCA_000230245.1	GenBank	Feb 27, 2015	923	6791	4886	118	6673	6673	0
+Aedes aegypti Aag2	no	Aedes aegypti	7159	Aag2	N/A	0	3752	0	INSDC	GCA_021653915.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Aedes aegypti LVP_AGWG	yes	Aedes aegypti	7159	LVP_AGWG	N/A	3	2306	0	INSDC	GCA_002204515.1	VectorBase	AaegL5.3	1499	19804	11097	5086	14718	14718	382
+Aedes albopictus C6/36 cell line	no	Aedes albopictus	7160	C6/36 cell line	N/A	0	2434	0	INSDC	GCF_001876365.2	RefSeq	Feb 03, 2017	614	38743	18412	10105	28638	28638	885
+Aedes albopictus Foshan FPA	yes	Aedes albopictus	7160	Foshan FPA	N/A	0	2196	0	INSDC	GCA_006496715.1	RefSeq	AalbFP1.0	1793	40481	17033	13638	26843	26843	4108
+Aedes albopictus Foshan	no	Aedes albopictus	7160	Foshan	N/A	0	154782	0	INSDC	GCA_001444175.1	VectorBase	AaloF1.2	1226	18294	12087	759	17535	17535	0
+Anopheles albimanus STECLA	no	Anopheles albimanus	7167	STECLA	N/A	5	196	0	INSDC	GCA_000349125.2	VectorBase	AalbS2.8	653	12616	8568	322	12294	12294	0
+Anopheles albimanus STECLA 2020	yes	Anopheles albimanus	7167	STECLA 2020	N/A	3	4	0	INSDC	GCF_013758885.1	RefSeq	Aug 22, 2020	10	12945	8193	1380	11565	11565	180
+Alternaria alternata SRC1lrK2f	yes	Alternaria alternata	5599	SRC1lrK2f	N/A	0	79	0	INSDC	GCA_001642055.1	GenBank	May 11, 2016	1120	13577	8692	111	13466	13466	5
+Anopheles aquasalis AaquGF1	yes	Anopheles aquasalis	42839	AaquGF1	N/A	4	86	0	INSDC	GCF_943734665.1	RefSeq	Aug 24, 2022	16	12989	7618	1478	11511	11511	112
+Anopheles arabiensis DONGOLA 2021	yes	Anopheles arabiensis	7173	DONGOLA 2021	N/A	3	98	0	INSDC	GCF_016920715.1	RefSeq	Mar 25, 2021	9	15763	8919	3162	12601	12601	474
+Anopheles arabiensis Dongola	no	Anopheles arabiensis	7173	Dongola	N/A	0	1214	0	INSDC	GCA_000349185.1	VectorBase	AaraD1.12	782	13649	9273	378	13271	13271	0
+Aphanomyces astaci strain APO3	yes	Aphanomyces astaci	112090	strain APO3	N/A	0	835	0	GenBank	GCA_000520075.1	GenBank	Jan 14, 2014	1389	19584	10477	465	19119	19119	0
+Acanthamoeba astronyxis Unknown	yes	Acanthamoeba astronyxis	65658	Unknown	N/A	0	98248	0	GenBank	GCA_000826245.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles atroparvus EBRO	yes	Anopheles atroparvus	41427	EBRO	N/A	5	1315	0	INSDC	GCA_000473505.1	VectorBase	AatrE3.2	1342	14041	9308	323	13717	13718	0
+Anopheles bellator AbelBR1	yes	Anopheles bellator	139047	AbelBR1	N/A	3	2982	0	INSDC	GCF_943735745.2	RefSeq	Jul 17, 2023	N/A	11682	7486	456	11226	11226	34
+Acanthamoeba castellanii C3	no	Acanthamoeba castellanii	5755	C3	N/A	0	174	0	INSDC	GCA_021020595.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba castellanii Ma	no	Acanthamoeba castellanii	5755	Ma	N/A	0	221748	0	GenBank	GCA_000826485.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba castellanii str. Neff 2021	no	Acanthamoeba castellanii	5755	str. Neff 2021	N/A	0	111	0	INSDC	GCA_021020605.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Anopheles christyi ACHKN1017	yes	Anopheles christyi	43041	ACHKN1017	N/A	0	30369	0	INSDC	GCA_000349165.1	VectorBase	AchrA1.8	1184	11209	7672	337	10872	10872	0
+Anopheles coluzzii AcolN3	yes	Anopheles coluzzii	1518534	AcolN3	N/A	3	125	0	INSDC	GCF_943734685.1	RefSeq	Jul 26, 2022	12	14616	8910	2193	12410	12423	218
+Anopheles coluzzii MOPTI	no	Anopheles coluzzii	1518534	MOPTI	N/A	3	196	0	INSDC	GCF_016920705.1	RefSeq	Mar 25, 2021	7	14553	8432	1961	12592	12592	206
+Anopheles coluzzii Mali-NIH	no	Anopheles coluzzii	1518534	Mali-NIH	N/A	0	10521	0	INSDC	GCA_000150765.1	VectorBase	AcolM1.8	774	14796	9416	331	14464	14465	0
+Anopheles coluzzii Ngousso	no	Anopheles coluzzii	1518534	Ngousso	N/A	0	205	0	INSDC	GCA_004136515.2	VectorBase	AcolN1.2	790	13235	9880	469	12766	12766	0
+Anopheles coustani AcouGA1	yes	Anopheles coustani	139045	AcouGA1	N/A	3	416	0	INSDC	GCF_943734705.1	RefSeq	Jul 19, 2023	N/A	14493	7917	2461	12032	12032	221
+Aspergillus cristatus GZAAS20.1005	yes	Aspergillus cristatus	573508	GZAAS20.1005	N/A	0	68	0	INSDC	GCA_001717485.1	GenBank	Aug 31, 2016	1034	10344	7180	0	10344	10344	0
+Anopheles cruzii AcruBR1	yes	Anopheles cruzii	68878	AcruBR1	N/A	3	5085	0	INSDC	GCF_943734635.1	RefSeq	Feb 23, 2023	N/A	12401	7824	560	11841	11841	108
+Acanthamoeba sp Galka	yes	Acanthamoeba sp.	5756	Galka	N/A	0	224137	0	GenBank	GCA_000826505.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba sp Incertae sedis	no	Acanthamoeba sp.	5756	Incertae_sedis	N/A	0	24098	0	GenBank	GCA_000826365.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba sp T4b-type	no	Acanthamoeba sp.	5756	T4B-type	N/A	0	224482	0	GenBank	GCA_000826345.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles culicifacies A-37	yes	Anopheles culicifacies	139723	A-37	N/A	0	16162	0	INSDC	GCA_000473375.1	VectorBase	AculA1.7	1415	14729	9584	371	14358	14358	0
+Acanthamoeba culbertsoni A1	yes	Acanthamoeba culbertsoni	43142	A1	N/A	0	72411	0	GenBank	GCA_000826265.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles darlingi AdarGF1	yes	Anopheles darlingi	43151	AdarGF1	N/A	3	62	0	INSDC	GCF_943734745.1	RefSeq	Jul 28, 2022	2	12393	7883	1171	11222	11222	52
+Anopheles darlingi Coari	no	Anopheles darlingi	43151	Coari	N/A	0	2220	0	INSDC	GCA_000211455.3	VectorBase	AdarC3.9	728	11005	8244	449	10556	10556	0
+Angomonas deanei strain Cavalho ATCC PRA-265	yes	Angomonas deanei	59799	strain Cavalho ATCC PRA-265	N/A	29	0	0	INSDC	GCA_903995115.1	GenBank	Aug 18, 2020	609	10512	4131	147	10365	10365	0
+Anopheles dirus WRAIR2	yes	Anopheles dirus	7168	WRAIR2	N/A	0	1266	0	INSDC	GCA_000349145.1	VectorBase	AdirW1.9	1325	13250	8738	325	12924	12925	0
+Anopheles epiroticus Epiroticus2	yes	Anopheles epiroticus	199890	Epiroticus2	N/A	0	2673	0	INSDC	GCA_000349105.1	VectorBase	AepiE1.8	1319	12322	8633	366	11956	11956	0
+Aphanomyces euteiches MF1	yes	Aphanomyces euteiches	100861	MF1	N/A	0	7789	0	INSDC	GCA_021527665.1	GenBank	Jan 19, 2022	2	21894	10989	0	21894	21894	0
+Anopheles farauti FAR1	yes	Anopheles farauti	69004	FAR1	N/A	0	310	0	INSDC	GCA_000473445.2	VectorBase	AfarF2.7	1347	13293	9061	361	12932	12932	0
+Arthrobotrys flagrans CBS H-5679	yes	Arthrobotrys flagrans	97331	CBS H-5679	N/A	0	14	0	INSDC	GCA_004000055.1	GenBank	Jan 08, 2019	915	9927	6195	30	9897	9897	0
+Aspergillus flavus NRRL3357 2020	no	Aspergillus flavus	5059	NRRL3357 2020	N/A	8	0	0	INSDC	GCA_009017415.1	GenBank	Feb 02, 2021	1271	13958	8880	249	13709	13709	3
+Anopheles funestus AfunGA1	yes	Anopheles funestus	62324	AfunGA1	N/A	3	326	0	INSDC	GCF_943734845.2	RefSeq	Jul 14, 2022	14	14819	8245	2727	12092	12092	447
+Anopheles funestus FUMOZ	no	Anopheles funestus	62324	FUMOZ	N/A	3	0	0	INSDC	GCA_003951495.1	VectorBase	AfunF3.3	788	14176	9944	1082	13094	13094	0
+Anopheles gambiae Ifakara	no	Anopheles gambiae	7165	Ifakara	N/A	3	187	0	INSDC	GCF_943734735.2	RefSeq	Dec 19, 2023	N/A	15165	8734	2646	12519	12519	362
+Anopheles gambiae Pimperena	no	Anopheles gambiae	7165	Pimperena	N/A	0	13042	0	INSDC	GCA_000150785.1	VectorBase	AgamS2	N/A	N/A	N/A	0	N/A	0	0
+Aphanomyces invadans NJM9701	yes	Aphanomyces invadans	157072	NJM9701	N/A	0	481	0	GenBank	GCA_000520115.1	GenBank	Jan 15, 2014	1300	15416	9228	168	15248	15248	0
+Aspergillus lentulus strain IFM 54703	yes	Aspergillus lentulus	293939	strain IFM 54703	N/A	0	12	0	INSDC	GCA_001445615.2	GenBank	Nov 13, 2015	1	9916	7182	259	9657	9657	0
+Acanthamoeba lenticulata PD2S	yes	Acanthamoeba lenticulata	29196	PD2S	N/A	0	79048	0	GenBank	GCA_000826285.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Antonospora locustae CLX	yes	Antonospora locustae	278021	CLX	N/A	17	1	0	INSDC	GCA_007674295.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba lugdunensis L3a	yes	Acanthamoeba lugdunensis	61605	L3a	N/A	0	67459	0	GenBank	GCA_000826425.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles maculipalpis AmacGA1	yes	Anopheles maculipalpis	1496333	AmacGA1	N/A	3	167	0	INSDC	GCF_943734695.1	RefSeq	Aug 22, 2022	1	12929	7625	1396	11533	11533	344
+Amblyomma maculatum SK-2019	yes	Amblyomma maculatum	34609	SK-2019	N/A	0	125877	0	INSDC	GCA_023969395.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Anopheles maculatus maculatus3	yes	Anopheles maculatus	74869	maculatus3	N/A	0	47797	0	INSDC	GCA_000473185.1	VectorBase	AmacM1.6	1314	15035	9327	177	14858	14858	0
+Anopheles marshallii AmarGA1	yes	Anopheles marshallii	1521116	AmarGA1	N/A	3	285	0	INSDC	GCF_943734725.1	GenBank	Feb 24, 2023	N/A	13358	7684	1638	11720	11720	437
+Acanthamoeba mauritaniensis 1652	yes	Acanthamoeba mauritaniensis	196912	1652	N/A	0	67233	0	GenBank	GCA_000826465.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles melas CM1001059_A	yes	Anopheles melas	34690	CM1001059_A	N/A	0	20229	0	INSDC	GCA_000473525.2	VectorBase	AmelC2.7	1444	15777	10033	410	15367	15367	0
+Anopheles merus MAF	no	Anopheles merus	30066	MAF	N/A	0	2027	0	INSDC	GCA_000473845.2	VectorBase	AmerM2.10	727	13578	8890	428	13149	13150	0
+Anopheles merus MAF 2021	yes	Anopheles merus	30066	MAF 2021	N/A	5	1322	0	INSDC	GCF_017562075.2	RefSeq	Jun 02, 2021	15	16199	9406	2405	13794	13794	411
+Anopheles minimus MINIMUS1	yes	Anopheles minimus	112268	MINIMUS1	N/A	0	678	0	INSDC	GCA_000349025.1	VectorBase	AminM1.9	1323	13148	8654	328	12820	12820	0
+Apiotrichum montevideense JCM 9937	yes	Apiotrichum montevideense	82521	JCM 9937	N/A	0	61	0	INSDC	GCA_001598995.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Anopheles moucheti AmouCM1	yes	Anopheles moucheti	186751	AmouCM1	N/A	3	342	0	INSDC	GCF_943734755.1	RefSeq	Feb 23, 2023	1	14269	7681	2384	11885	11885	582
+Amauroascus mutatus isolate UAMH 3576	yes	Amauroascus mutatus	113399	isolate UAMH 3576	N/A	0	0	3075	GenBank	GCA_001430935.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Aspergillus niger strain LDM3	no	Aspergillus niger	5061	strain LDM3	N/A	0	14	0	INSDC	GCA_009812365.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Aspergillus niger strain N402 (ATCC64974)	no	Aspergillus niger	5061	strain N402 (ATCC64974)	N/A	0	0	19	GenBank	GCA_900248155.1	GenBank	Jan 26, 2018	1544	11187	8424	0	11187	11187	0
+Amauroascus niger isolate UAMH 3544	yes	Amauroascus niger	89421	isolate UAMH 3544	N/A	0	0	3481	GenBank	GCA_001430945.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles nili AnilCM1	yes	Anopheles nili	185578	AnilCM1	N/A	3	153	0	INSDC	GCF_943737925.1	GenBank	Feb 24, 2023	1	12354	7336	1345	11009	11009	121
+Acanthamoeba palestinensis Reich	yes	Acanthamoeba palestinensis	28015	Reich	N/A	0	26188	0	GenBank	GCA_000826305.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Aspergillus parasiticus CBS 117618	yes	Aspergillus parasiticus	5067	CBS 117618	N/A	0	270	0	INSDC	GCA_009176385.1	GenBank	Oct 23, 2019	1279	14005	9842	253	13752	13752	4
+Anopheles quadriannulatus SANGWE	yes	Anopheles quadriannulatus	34691	SANGWE	N/A	0	2823	0	INSDC	GCA_000349065.1	VectorBase	AquaS1.13	1357	13818	9369	404	13414	13414	0
+Acanthamoeba quina Vil3	yes	Acanthamoeba quina	211522	Vil3	N/A	0	60490	0	GenBank	GCA_000826445.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Acanthamoeba rhysodes Singh	yes	Acanthamoeba rhysodes	32599	Singh	N/A	0	62836	0	GenBank	GCA_000826385.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Anopheles sinensis China	yes	Anopheles sinensis	74873	China	N/A	0	9592	0	INSDC	GCA_000441895.2	VectorBase	AsinC2.2	716	19694	9834	342	19352	19352	0
+Anopheles sinensis SINENSIS	no	Anopheles sinensis	74873	SINENSIS	N/A	0	10448	0	INSDC	GCA_000472065.2	VectorBase	AsinS2.6	686	13206	8461	301	12905	12905	0
+Anopheles stephensi Indian	no	Anopheles stephensi	30069	Indian	N/A	0	23371	0	INSDC	GCA_000300775.2	VectorBase	AsteI2.3	734	12189	8395	400	11789	11789	0
+Anopheles stephensi SDA-500	no	Anopheles stephensi	30069	SDA-500	N/A	0	1110	0	INSDC	GCA_000349045.1	VectorBase	AsteS1.8	743	13611	8677	275	13336	13336	0
+Anopheles stephensi UCISS2018	yes	Anopheles stephensi	30069	UCISS2018	N/A	3	491	0	INSDC	GCF_013141755.1	RefSeq	Sep 08, 2020	13	15431	8484	2726	12705	12705	207
+Aspergillus tanneri NIH1004	yes	Aspergillus tanneri	1220188	NIH1004	N/A	0	1715	0	INSDC	GCA_004798825.1	GenBank	Apr 17, 2019	1015	13590	7887	33	13557	13557	33
+Aspergillus thermomutatus strain HMR AF 39	yes	Aspergillus thermomutatus	41047	strain HMR AF 39	N/A	0	647	0	INSDC	GCA_002237265.2	GenBank	Sep 12, 2018	1374	9702	7042	0	9702	9702	0
+Acanthamoeba triangularis SH621	yes	Acanthamoeba triangularis	146752	SH621	N/A	0	56742	0	GenBank	GCA_000826325.1	GenBank	n/a	N/A	N/A	N/A	0	N/A	0	0
+Apophysomyces variabilis NCCPF 102052	yes	Apophysomyces variabilis	760013	NCCPF 102052	N/A	0	411	0	INSDC	GCA_002749535.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Anopheles ziemanni AzieGA1	yes	Anopheles ziemanni	345580	AzieGA1	N/A	3	416	0	INSDC	GCF_943734765.1	RefSeq	Jul 21, 2023	N/A	14085	7819	2294	11791	11791	211
+Blechomonas ayalai B08-376	yes	Blechomonas ayalai	1463230	B08-376	N/A	0	545	0	GenBank	GCA_020509355.1	YurchenkoLab	Jan 18, 2017	N/A	8126	3589	84	8042	8042	0
+Beauveria bassiana HN6	yes	Beauveria bassiana	176275	HN6	N/A	12	0	0	INSDC	GCA_014607475.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Besnoitia besnoiti strain Bb-Ger1	yes	Besnoitia besnoiti	94643	strain Bb-Ger1	N/A	13	0	172	GenBank	GCA_002563875.1	GenBank	Oct 18, 2017	711	8550	5080	326	8224	8224	0
+Babesia bigemina strain BOND	yes	Babesia bigemina	5866	strain BOND	N/A	5	478	0	GenBank	GCA_000723445.1	GenBank	Jan 22, 2015	371	5090	2937	11	5079	5079	11
+Babesia caballi USDA-D6B2	yes	Babesia caballi	5871	USDA-D6B2	N/A	0	7	0	INSDC	GCA_024862765.1	GenBank	Jul 22, 2022	N/A	5991	1736	81	5910	5910	0
+Byssoonygena ceratinophila isolate UAMH 5669	yes	Byssoonygena ceratinophila	166112	isolate UAMH 5669	N/A	0	0	4851	GenBank	GCA_001430925.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Babesia divergens strain 1802A	yes	Babesia divergens	32595	strain 1802A	N/A	0	79	0	GenBank	GCA_018398725.1	Sanger	Oct 31, 2021	2	4187	1886	58	4129	4129	8
+Babesia divergens strain Rouen 1987	no	Babesia divergens	32595	strain Rouen 1987	N/A	0	141	0	GenBank	GCA_001077455.2	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Babesia duncani strain WA1	no	Babesia duncani	323732	strain WA1	N/A	0	7	0	INSDC	GCA_024586265.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Babesia duncani strain WA1 2023	yes	Babesia duncani	323732	strain WA1 2023	N/A	5	160	0	INSDC	GCA_028658345.1	GenBank	Sep 25, 2023	N/A	4222	1934	52	4170	4170	0
+Biomphalaria glabrata BB02	no	Biomphalaria glabrata	6526	BB02	N/A	0	331400	0	INSDC	GCA_000457365.1	VectorBase	BglaB1.7	1228	31985	16656	6424	25550	25561	174
+Biomphalaria glabrata XG47	yes	Biomphalaria glabrata	6526	XG47	N/A	18	25	0	INSDC	GCF_947242115.1	GenBank	May 10, 2023	2	26406	13132	4400	22006	22006	219
+Blumeria graminis f. sp. triticale THUN-12	no	Blumeria graminis	34373	f. sp. triticale THUN-12	N/A	11	25	0	INSDC	GCA_905067625.1	GenBank	Jun 14, 2021	5	7993	3626	0	7993	7993	0
+Blumeria hordei strain RACE1	yes	Blumeria hordei	2867405	strain RACE1	N/A	0	99	0	INSDC	GCA_900237765.1	GenBank	Sep 14, 2018	619	7150	3428	1833	5317	5317	1830
+Bremia lactucae strain SF5	yes	Bremia lactucae	4779	strain SF5	N/A	19	201	0	INSDC	GCA_004359215.2	GenBank	Aug 20, 2021	735	9767	5785	0	9767	9767	0
+Balamuthia mandrillaris strain 2046	no	Balamuthia mandrillaris	66527	strain 2046	N/A	0	14699	0	INSDC	GCA_001262475.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Balamuthia mandrillaris CDC-V039	yes	Balamuthia mandrillaris	66527	CDC-V039	N/A	0	1604	0	INSDC	GCA_001185145.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Babesia microti strain ATCC 30222	no	Babesia microti	5868	strain ATCC 30222	N/A	0	0	234	INSDC	GCA_001650055.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Babesia microti strain ATCC PRA-99	no	Babesia microti	5868	strain ATCC PRA-99	N/A	0	0	82	GenBank	GCA_001650065.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Babesia microti strain GI	no	Babesia microti	5868	strain GI	N/A	0	0	140	INSDC	GCA_001650105.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Babesia microti strain GreenwichYale_Lab_strain_1	no	Babesia microti	5868	strain GreenwichYale_Lab_strain_1	N/A	0	0	250	INSDC	GCA_001650075.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Babesia microti Nan_Hs_2011_N11-50	no	Babesia microti	5868	Nan_Hs_2011_N11-50	N/A	0	0	131	INSDC	GCA_001650145.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Babesia microti strain Naushon	no	Babesia microti	5868	strain Naushon	N/A	0	0	131	INSDC	GCA_001650135.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Blastocrithidia nonstop P57	yes	Blastocrithidia nonstop	2592485	P57	N/A	0	77	0	INSDC	GCA_028554745.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Babesia ovata strain Miyake	yes	Babesia ovata	189622	strain Miyake	N/A	0	0	91	GenBank	GCA_002897235.1	GenBank	Dec 16, 2017	334	5108	2841	77	5031	5031	0
+Babesia ovis Selcuk	yes	Babesia ovis	5869	Selcuk	N/A	0	78	0	INSDC	GCA_023705535.1	GenBank	May 27, 2022	N/A	3596	1780	70	3526	3526	0
+Blastomyces percursus strain EI222	yes	Blastomyces percursus	1658174	strain EI222	N/A	0	3868	0	INSDC	GCA_001883805.1	GenBank	Nov 18, 2016	873	10384	5746	99	10285	10285	0
+Batrachochytrium salamandrivorans BS	yes	Batrachochytrium salamandrivorans	1357716	BS	N/A	0	5358	0	INSDC	GCA_002006685.1	GenBank	Feb 24, 2017	885	10186	6139	51	10135	10135	2
+Bodo saltans strain Lake Konstanz	yes	Bodo saltans	75058	strain Lake Konstanz	N/A	0	2256	0	GenBank	GCA_001460835.1	GenBank	Nov 19, 2015	658	18222	8960	443	17777	17779	434
+Babesia sp. Xinjiang Xinjiang	yes	Babesia sp. Xinjiang	462227	Xinjiang	N/A	0	215	0	GenBank	GCA_002095265.1	GenBank	Apr. 18, 2017	331	3107	1993	41	3066	3066	0
+Bos taurus breed Hereford	yes	Bos taurus	9913	breed Hereford	N/A	30	2180	0	Ensembl	GCA_002263795.2	Ensembl	ARS-UCD1.2	1344	27607	19974	5727	21861	21880	492
+Candida albicans SC5314_B	no	Candida albicans	5476	SC5314_B	N/A	8	0	0	CGD	A22-s07-m01-r59	CGD	A22-s07-m01-r59	2	6415	3585	215	6191	6200	9
+Cryptosporidium andersoni isolate 30847	yes	Cryptosporidium andersoni	117008	isolate 30847	N/A	0	0	135	GenBank	GCA_001865355.1	GenBank	Nov 03, 2016	379	3904	2567	28	3876	3876	28
+Candida auris strain 6684	no	[Candida] auris	498019	6684	N/A	0	99	0	INSDC	GCA_001189475.1	GenBank	Aug 04, 2017	821	8301	3953	840	7461	7461	8
+Candida auris strain B11220	no	[Candida] auris	498019	B11220	N/A	7	0	0	INSDC	GCA_003013715.2	GenBank	Sep 10, 2019	852	5494	4174	167	5327	5327	0
+Candida auris strain B11221	no	[Candida] auris	498019	B11221	N/A	0	20	0	INSDC	GCA_002775015.1	GenBank	Jul 02, 2019	545	5715	4224	194	5521	5521	3
+Candida auris strain B11243	no	[Candida] auris	498019	B11243	N/A	0	238	0	INSDC	GCA_003014415.1	GenBank	Mar 23, 2018	541	5595	3807	158	5437	5437	3
+Candida auris strain B11245	no	[Candida] auris	498019	B11245	N/A	7	0	0	INSDC	GCA_008275145.1	GenBank	Sep 05, 2019	533	5675	3682	169	5506	5506	0
+Candida auris strain B8441	yes	[Candida] auris	498019	B8441	N/A	0	15	0	GenBank	GCA_002759435.2	GenBank	Nov. 15, 2017	870	5584	4680	167	5417	5417	0
+Cryptosporidium baileyi TAMU-09Q1	yes	Cryptosporidium baileyi	27987	TAMU-09Q1	N/A	0	0	153	GenBank	GCA_001593455.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Cryptosporidium bovis isolate 45015	yes	Cryptosporidium bovis	310047	isolate 45015	N/A	0	55	0	INSDC	GCA_009768925.2	GenBank	Nov 10, 2021	N/A	3723	1899	0	3723	3723	0
+Cladophialophora carrionii KSF	yes	Cladophialophora carrionii	86049	KSF	N/A	0	0	22	GenBank	GCA_001700775.1	GenBank	Aug 08, 2016	1266	11240	7342	59	11181	11181	0
+Cyclospora cayetanensis strain CHN_HEN01	yes	Cyclospora cayetanensis	88456	strain CHN_HEN01	N/A	0	0	2297	GenBank	GCA_000769155.2	GenBank	Sep 22, 2016	362	7455	3528	302	7153	7153	302
+Cyclospora cayetanensis isolate NF1_C8	no	Cyclospora cayetanensis	88456	isolate NF1_C8	N/A	0	0	738	GenBank	GCF_002999335.1	RefSeq	Sep 06, 2018	353	6135	2918	310	5825	5825	103
+Cryptococcus cf. gattii MF34	yes	Cryptococcus cf. gattii	2011032	MF34	N/A	13	2	0	INSDC	GCA_009650685.1	GenBank	Nov 14, 2019	2	6321	3903	114	6207	6207	58
+Coprinopsis cinerea #326	no	Coprinopsis cinerea	5346	#326	N/A	0	31	0	INSDC	GCA_016772295.1	GenBank	Jan 25, 2021	8	15250	6137	238	15012	15012	0
+Curvularia clavata yc1106	yes	Curvularia clavata	95742	yc1106	N/A	8	0	0	INSDC	GCA_023920165.1	GenBank	Jun 27, 2022	16	10292	7247	122	10170	10170	0
+Cucumispora dikerogammari Dv6	yes	Cucumispora dikerogammari	658444	Dv6	N/A	0	7783	0	INSDC	GCA_014805705.1	GenBank	Sep 30, 2020	N/A	4599	1375	0	4599	4599	0
+Candida duobushaemulonis strain B09383	yes	[Candida] duobushaemulonis	1231522	B09383	N/A	0	0	7	GenBank	GCA_002926085.1	GenBank	May 01, 2018	852	5329	4025	156	5173	5173	0
+Cyberlindnera fabianii 65	yes	Cyberlindnera fabianii	36022	65	N/A	0	25	0	INSDC	GCA_001983305.1	GenBank	Feb 02, 2017	724	5509	4380	0	5509	5509	0
+Crithidia fasciculata strain Cf-Cl	yes	Crithidia fasciculata	5656	strain Cf-Cl	N/A	30	427	0	GenBank	GCA_000331325.2	BeverleyLab	Jun 01, 2015	45	9619	4564	564	9055	9055	434
+Cytauxzoon felis strain Winnie	yes	Cytauxzoon felis	27996	strain Winnie	N/A	0	358	0	INSDC	GCA_020283715.1	BirdLab	Dec 13, 2022	N/A	4321	1867	5	4316	4316	5
+Candida haemulonis B11899	yes	[Candida] haemuloni	45357	B11899	N/A	0	0	11	GenBank	GCA_002926055.1	GenBank	May 01, 2018	852	5409	4092	160	5249	5249	0
+Cryptosporidium hominis isolate 30976	no	Cryptosporidium hominis	237895	isolate 30976	N/A	0	0	53	GenBank	GCA_001483515.1	KissingerLab	Nov 16, 2017	198	3994	2267	46	3948	3948	1
+Cryptosporidium hominis 37999	no	Cryptosporidium hominis	237895	37999	N/A	0	0	78	GenBank	GCA_000804495.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Cryptosporidium hominis isolate TU502_2012	no	Cryptosporidium hominis	237895	isolate TU502_2012	N/A	0	0	119	GenBank	GCA_001593465.1	GenBank	Jan 06, 2017	775	3797	2458	52	3745	3745	0
+Cryptosporidium hominis UKH1	no	Cryptosporidium hominis	237895	UKH1	N/A	0	0	156	GenBank	GCA_001593475.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Cryptosporidium hominis UdeA01	no	Cryptosporidium hominis	237895	UdeA01	N/A	8	0	0	GenBank	GCA_002223825.1	GenBank	Dec 3, 2015	361	3863	2427	46	3817	3817	1
+Cladophialophora immunda strain CBS 83496	yes	Cladophialophora immunda	569365	strain CBS 83496	N/A	0	277	0	GenBank	GCA_000835495.1	GenBank	Jun 16, 2016	1354	12879	8577	49	12830	12830	0
+Coccidioides immitis WA_211	no	Coccidioides immitis	5501	WA_211	N/A	0	62	0	INSDC	GCA_004115165.2	GenBank	2019-07-01	882	7936	5516	121	7815	7815	0
+Cimex lectularius Harlan	yes	Cimex lectularius	79782	Harlan	N/A	0	417	1156	INSDC	GCA_000648675.3	Ensembl	Clec2v1.0	6	14647	7948	2698	11949	11949	219
+Canis lupus familiaris isolate SID07034	yes	Canis lupus	9612	familiaris isolate SID07034	N/A	40	336	0	INSDC	GCA_014441545.1	GenBank	ROS_Cfam_1.0	54	31121	17313	10554	20500	20567	610
+Cryptosporidium meleagridis strain UKMEL1	yes	Cryptosporidium meleagridis	93969	strain UKMEL1	N/A	0	0	57	GenBank	GCA_001593445.1	GenBank	Feb 02, 2018	367	3806	2537	53	3753	3753	0
+Candida metapsilosis BP57	yes	Candida metapsilosis	273372	BP57	N/A	0	9	0	INSDC	GCA_017655625.1	GenBank	Apr 01, 2021	N/A	5743	3885	17	5726	5726	17
+Cordyceps militaris ATCC 34164	yes	Cordyceps militaris	73501	ATCC 34164	N/A	7	0	0	INSDC	GCA_008080495.1	GenBank	Nov 30, 2017	927	9362	6754	75	9287	9287	0
+Cryptococcus neoformans var. grubii H99 2018	no	Cryptococcus neoformans	5207	var. grubii H99 2018	N/A	0	14	0	INSDC	GCA_003011985.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Cryptococcus neoformans var. grubii KN99	no	Cryptococcus neoformans	5207	var. grubii KN99	N/A	14	0	0	GenBank	GCA_002216725.1	GenBank	Nov 8, 2018	575	6967	4159	0	6967	6967	0
+Cryptococcus neoformans strain:VNII	no	Cryptococcus neoformans	5207	strain:VNII	N/A	14	0	0	INSDC	GCA_022832995.1	GenBank	Apr 07, 2022	11	6698	4011	113	6585	6585	50
+Cryptosporidium parvum 2022	no	Cryptosporidium parvum	5807	2022	N/A	8	0	0	INSDC	GCA_019844115.2	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Cryptosporidium parvum IOWA-ATCC	no	Cryptosporidium parvum	5807	IOWA-ATCC	N/A	8	0	0	GenBank	GCA_015245375.1	GenBank	Oct 21, 2022	10	4035	2530	143	3892	3892	1
+Cavia porcellus 2N	yes	Cavia porcellus	10141	2N	N/A	0	3143	0	INSDC	GCA_000151735.1	GenBank	Cavpor3.0	176	26855	16579	8760	18095	18095	242
+Coccidioides posadasii strain Silveira 2022	no	Coccidioides posadasii	199306	strain Silveira 2022	N/A	8	0	0	INSDC	GCA_018416015.2	GenBank	Jan 19, 2022	896	8438	5796	139	8299	8299	2
+Candida pseudohaemulonii strain B12108	yes	[Candida] pseudohaemulonis	418784	B12108	N/A	0	36	0	INSDC	GCA_003013735.1	GenBank	Mar 03, 2018	843	5285	4005	151	5134	5134	0
+Chrysosporium queenslandicum isolate CBS 280.77	yes	Chrysosporium queenslandicum	264361	isolate CBS 280.77	N/A	0	0	2724	GenBank	GCA_001430955.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Culex quinquefasciatus JHB 2020	yes	Culex quinquefasciatus	7176	JHB 2020	N/A	3	0	53	INSDC	GCA_015732765.1	GenBank	Jul 17, 2023	N/A	18665	9662	3389	15276	15276	623
+Culex quinquefasciatus Johannesburg	no	Culex quinquefasciatus	7176	Johannesburg	N/A	0	3171	0	INSDC	GCA_000209185.1	VectorBase	CpipJ2.5	1036	19793	13310	828	18965	18965	0
+Cryptosporidium ryanae 45019	yes	Cryptosporidium ryanae	515981	45019	N/A	0	93	0	INSDC	GCA_009792415.2	GenBank	Jan 05, 2022	N/A	3711	1886	0	3711	3711	0
+Culicoides sonorensis PIR-s-3	yes	Culicoides sonorensis	179676	PIR-s-3	N/A	0	7974	0	INSDC	GCA_900258525.1	GenBank	Cson1.2	1833	15612	11757	0	15612	15612	0
+Cryptosporidium sp. chipmunk genotype I strain 37763	yes	Cryptosporidium sp. chipmunk genotype I	1280935	strain 37763	N/A	0	50	0	INSDC	GCA_004936735.2	GenBank	Dec 28, 2021	N/A	3783	1941	0	3783	3783	0
+Cystoisospora suis strain Wien I	yes	Cystoisospora suis	483139	strain Wien I	N/A	0	0	14627	GenBank	GCA_002600585.1	GenBank	Oct 20, 2017	458	11543	5654	0	11543	11543	0
+Candida tropicalis MYA-3404 2020	no	Candida tropicalis	5482	MYA-3404 2020	N/A	7	0	0	INSDC	GCA_013177555.1	GenBank	May 27, 2020	8	6136	4109	0	6136	6136	0
+Cryptosporidium tyzzeri isolate UGA55	yes	Cryptosporidium tyzzeri	756076	isolate UGA55	N/A	8	0	3	GenBank	GCA_007210665.1	KissingerLab	Nov 16, 2017	196	4038	1938	61	3977	3977	0
+Cryptosporidium ubiquitum isolate 39726	yes	Cryptosporidium ubiquitum	857276	isolate 39726	N/A	0	0	39	GenBank	GCA_001865345.1	GenBank	Nov 17, 2016	355	3766	2441	0	3766	3766	0
+Dermacentor andersoni qqDerAnde1.1	no	Dermacentor andersoni	34620	qqDerAnde1.1	N/A	0	8198	0	INSDC	GCA_023375915.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Dermacentor andersoni qqDerAnde1.2	yes	Dermacentor andersoni	34620	qqDerAnde1.2	N/A	0	3118	0	INSDC	GCF_023375885.1	GenBank	Aug 19, 2022	7	32684	11797	12314	20370	20370	2195
+Debaryomyces fabryi CBS 789	yes	Debaryomyces fabryi	58627	CBS 789	N/A	0	534	0	INSDC	GCA_001447935.2	GenBank	Mar 16, 2020	793	6025	4839	0	6025	6025	0
+Drosophila melanogaster iso-1	yes	Drosophila melanogaster	7227	iso-1	N/A	7	1862	0	INSDC	GCA_000001215.4	Ensembl	BDGP6.46	N/A	18380	12993	4394	13986	13986	340
+Dictyocoela muelleri Ou54	yes	Dictyocoela muelleri	279532	Ou54	N/A	0	11522	0	INSDC	GCA_016256075.1	GenBank	Dec 22, 2020	N/A	6442	1846	0	6442	6442	0
+Dictyostelium purpureum QSDP1	yes	Dictyostelium purpureum	5786	QSDP1	N/A	0	799	0	INSDC	GCF_000190715.1	RefSeq	Oct 23, 2023	16	12403	8274	4	12399	12399	4
+Dictyocoela roeselum Ou19	yes	Dictyocoela roeselum	288439	Ou19	N/A	0	1033	0	INSDC	GCA_016255985.1	GenBank	Dec 22, 2020	N/A	1201	732	0	1201	1201	0
+Diutina rugosa CBS 613	yes	Diutina rugosa	5481	CBS 613	N/A	0	169	0	INSDC	GCA_008704595.1	GenBank	Sep 26, 2019	658	5819	4189	4	5815	5815	4
+Dermacentor silvarum Dsil-2018	yes	Dermacentor silvarum	543639	Dsil-2018	N/A	11	1653	0	INSDC	GCA_013339745.2	RefSeq	GCF_013339745.2	2	36124	12972	12705	23419	23419	1856
+Eimeria acervulina Houghton	yes	Eimeria acervulina	5801	Houghton	N/A	0	3415	0	GenBank	GCA_000499425.1	GenBank	Nov 5, 2013	323	6867	3521	0	6867	6867	0
+Emergomyces africanus CBS 136260	yes	Emergomyces africanus	1955775	CBS 136260	N/A	0	4444	0	INSDC	GCA_001660665.1	GenBank	Jun 09, 2016	858	8860	5773	91	8769	8769	2
+Eimeria brunetti Houghton	yes	Eimeria brunetti	51314	Houghton	N/A	0	8575	0	GenBank	GCA_000499725.1	GenBank	Nov 5, 2013	266	8711	3698	0	8711	8711	0
+Enterospora canceri strain GB1	yes	Enterospora canceri	1081671	strain GB1	N/A	0	0	537	GenBank	GCA_002087915.1	GenBank	Apr 12, 2017	168	2178	1119	9	2169	2169	9
+Eimeria falciformis Bayer Haberkorn 1970	yes	Eimeria falciformis	84963	Bayer Haberkorn 1970	N/A	0	0	751	GenBank	GCA_002271815.1	DieterichLab	Feb 10, 2014	8	6037	2880	226	5811	5811	65
+Encephalitozoon hellem Swiss	no	Encephalitozoon hellem	27973	Swiss	N/A	0	32	0	GenBank	GCA_018342045.1	GenBank	May 11, 2021	3	2022	1105	51	1971	1971	0
+Enterocytozoon hepatopenaei EHP-ID16	no	Enterocytozoon hepatopenaei	646526	EHP-ID16	N/A	0	162	0	INSDC	GCA_003709115.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Enterocytozoon hepatopenaei strain TH1	yes	Enterocytozoon hepatopenaei	646526	strain TH1	N/A	0	0	62	GenBank	GCA_002081675.1	GenBank	Apr 06, 2017	182	2536	1375	0	2536	2536	0
+Entamoeba histolytica Rahman	no	Entamoeba histolytica	5759	Rahman	N/A	0	18523	0	INSDC	GCA_917563895.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Eimeria maxima Weybridge	yes	Eimeria maxima	5804	Weybridge	N/A	0	3564	0	GenBank	GCA_000499605.1	GenBank	Nov 5, 2013	249	6057	2934	0	6057	6057	0
+Exophiala mesophila strain CBS 40295	yes	Exophiala mesophila	212818	strain CBS 40295	N/A	0	9	0	GenBank	GCA_000836275.1	GenBank	Jun 16, 2016	1194	9237	6643	56	9181	9181	0
+Eimeria mitis Houghton	yes	Eimeria mitis	44415	Houghton	N/A	0	15978	0	GenBank	GCA_000499745.2	GenBank	Nov 5, 2013	201	10077	3783	0	10077	10077	0
+Endotrypanum monterogeii strain LV88	yes	Endotrypanum monterogeii	5705	strain LV88	N/A	36	1925	0	GenBank	GCA_000333855.2	GeneDB	Jan 16, 2015	53	8414	4141	129	8285	8285	0
+Entamoeba moshkovskii Laredo	yes	Entamoeba moshkovskii	41668	Laredo	N/A	0	1147	3460	GenBank	GCA_002914575.1	liverpool	Jan 19, 2014	2	12449	4777	189	12260	12260	189
+Eimeria necatrix Houghton	yes	Eimeria necatrix	51315	Houghton	N/A	0	3707	0	GenBank	GCA_000499385.1	GenBank	Nov 5, 2013	381	8603	4320	0	8603	8603	0
+Exophiala oligosperma strain CBS 72588	yes	Exophiala oligosperma	215243	strain CBS 72588	N/A	0	143	0	GenBank	GCA_000835515.1	GenBank	Jun 16, 2016	1372	11938	8206	45	11893	11893	0
+Emergomyces orientalis 5z489	yes	Emergomyces orientalis	1972497	5z489	N/A	0	108	0	INSDC	GCA_002110485.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Eimeria praecox Houghton	yes	Eimeria praecox	51316	Houghton	N/A	0	21348	0	GenBank	GCA_000499445.1	GenBank	Nov 5, 2013	164	7635	2691	0	7635	7635	0
+Exophiala spinifera CBS 89968	yes	Exophiala spinifera	91928	CBS 89968	N/A	0	28	0	INSDC	GCA_000836115.1	GenBank	Jun 16, 2016	1035	12110	8545	61	12049	12049	3
+Eimeria tenella Houghton 2021	yes	Eimeria tenella	5802	Houghton 2021	N/A	15	0	0	INSDC	GCA_905310635.1	ReidLab	Mar 05, 2021	69	7825	3603	557	7268	7268	44
+Fusarium circinatum NRRL 25331	yes	Fusarium circinatum	48490	NRRL 25331	N/A	0	1222	0	INSDC	GCA_013396185.1	GenBank	2020-07-10	N/A	13905	7721	0	13905	13905	0
+Fusarium graminearum DAOM 233423	no	Fusarium graminearum	5518	DAOM 233423	N/A	0	869	0	INSDC	GCA_000966635.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Fusarium mangiferae MRC7560	yes	Fusarium mangiferae	192010	MRC7560	N/A	0	254	0	INSDC	GCA_900044065.1	GenBank	Dec 06, 2016	1247	16149	10434	345	15804	15804	0
+Fusarium odoratissimum strain race 4	yes	Fusarium odoratissimum	2502994	strain race 4	N/A	0	840	0	GenBank	GCA_000350365.1	GenBank	Mar 21, 2015	1479	14596	8462	137	14459	14459	137
+Fusarium proliferatum strain NRRL62905	no	Fusarium proliferatum	948311	strain NRRL62905	N/A	0	0	155	GenBank	GCA_900029915.1	GenBank	Dec 06, 2016	1039	15602	8779	348	15254	15254	0
+Fusarium solani FSSC 5 MPI-SDFR-AT-0091	yes	Fusarium solani	169388	FSSC 5 MPI-SDFR-AT-0091	N/A	0	74	0	INSDC	GCF_020744495.1	RefSeq	Feb 02, 2022	7	17940	9116	286	17654	17654	3
+Giardia Assemblage A2 isolate DH	no	Giardia Assemblage A	5741	2 isolate DH	N/A	0	0	239	GenBank	GCA_000498715.1	GenBank	Nov 25, 2013	343	5209	3008	62	5147	5147	1
+Giardia assemblage A isolate AS175	no	Giardia Assemblage A	5741	AS175	N/A	0	0	1139	GenBank	GCA_001493575.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Giardia Assemblage A isolate CIA	no	Giardia Assemblage A	5741	isolate CIA	N/A	0	93	0	INSDC	GCA_022985015.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Giardia Assemblage A isolate WB 2019	yes	Giardia Assemblage A	5741	isolate WB 2019	N/A	5	30	0	INSDC	GCA_000002435.2	GenBank	Nov 06, 2019	393	5391	2346	423	4968	4968	320
+Giardia Assemblage A isolate WB Calgary	no	Giardia Assemblage A	5741	isolate WB Calgary	N/A	0	37	0	INSDC	GCA_011634545.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Giardia Assemblage B isolate BAH15c1	no	Giardia Assemblage B	9100000002	isolate BAH15c1	N/A	0	508	0	GenBank	GCA_001543975.1	GenBank	Feb 01, 2016	N/A	4992	2843	82	4910	4910	0
+Giardia Assemblage B isolate GS Calgary	no	Giardia Assemblage B	9100000002	isolate GS Calgary	N/A	0	19	0	INSDC	GCA_011634595.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Giardia Assemblage B isolate GS_B	no	Giardia Assemblage B	9100000002	isolate GS_B	N/A	0	0	543	GenBank	GCA_000498735.1	GenBank	Nov 25, 2013	196	6166	2321	68	6098	6098	0
+Giardia Assemblage D isolate DID	no	Giardia Assemblage D	9100000004	isolate DID	N/A	0	260	0	INSDC	GCA_022985025.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Glossina austeni TTRI	yes	Glossina austeni	7395	TTRI	N/A	0	2205	0	INSDC	GCA_000688735.1	VectorBase	GausT1.8	1705	20098	11568	378	19720	19720	0
+Glossina brevipalpis IAEA	yes	Glossina brevipalpis	37001	IAEA	N/A	0	1651	0	INSDC	GCA_000671755.1	VectorBase	GbreI1.8	1334	14991	10535	335	14656	14656	0
+Glossina fuscipes IAEA	no	Glossina fuscipes	7396	IAEA	N/A	0	2395	0	INSDC	GCA_000671735.1	VectorBase	GfusI1.8	1026	20502	11860	385	20117	20117	0
+Glossina fuscipes IAEA 2018	yes	Glossina fuscipes	7396	IAEA 2018	N/A	0	7986	0	INSDC	GCA_014805625.1	GenBank	Oct 21, 2022	N/A	15810	6786	72	15738	15738	72
+Gallus gallus isolate bGalGal1	yes	Gallus gallus	9031	isolate bGalGal1	N/A	41	172	0	INSDC	GCF_016699485.2	GenBank	GRCg7b	219	25403	14141	7527	17810	17876	186
+Giardia intestinalis Beaver	no	Giardia Assemblage A	5741	Beaver	N/A	0	8	0	INSDC	GCA_011634555.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Glossina morsitans Yale	yes	Glossina morsitans	7394	Yale	N/A	0	13807	0	INSDC	GCA_001077435.1	VectorBase	GmorY1.11	1018	13149	9089	376	12733	12773	0
+Giardia muris strain Roberts-Thomson	yes	Giardia muris	5742	strain Roberts-Thomson	N/A	5	0	54	GenBank	GCA_006247105.1	GenBank	Jun 11, 2019	332	5237	2798	576	4661	4661	279
+Gregarina niphandrodes Unknown strain	yes	Gregarina niphandrodes	110365	Unknown strain	N/A	0	469	0	GenBank	GCA_000223845.4	GenBank	Apr 9, 2014	693	6606	3062	231	6375	6375	0
+Glossina pallidipes IAEA	yes	Glossina pallidipes	7398	IAEA	N/A	0	1726	0	INSDC	GCA_000688715.1	VectorBase	GpalI1.8	1503	19638	10927	360	19278	19278	0
+Glossina palpalis IAEA	yes	Glossina palpalis	7397	IAEA	N/A	0	3926	0	INSDC	GCA_000818775.1	VectorBase	GpapI1.5	1564	20535	11614	373	20162	20162	0
+Hyalomma asiaticum Hyas-2018	yes	Hyalomma asiaticum	266040	Hyas-2018	N/A	11	6308	0	INSDC	GCA_013339685.2	GenBank	Nov 03, 2021	N/A	29657	10265	13	29644	29644	13
+Histoplasma capsulatum G184AR	no	Histoplasma capsulatum	5037	G184AR	N/A	0	11	0	INSDC	GCA_017607465.1	GenBank	Mar 29, 2021	789	12723	5507	3308	9415	9415	0
+Histoplasma capsulatum WU24	no	Histoplasma capsulatum	5037	WU24	N/A	7	0	0	INSDC	GCA_017310585.1	GenBank	Mar 09, 2021	N/A	9195	5250	115	9080	9080	0
+Hepatospora eriocheir strain GB1	yes	Hepatospora eriocheir	1081669	strain GB1	N/A	0	0	1300	GenBank	GCA_002087885.1	GenBank	Apr 12, 2017	154	2716	1228	25	2691	2691	25
+Hepatospora eriocheir strain canceri	no	Hepatospora eriocheir	1081669	strain canceri	N/A	0	0	2344	GenBank	GCA_002087875.1	GenBank	Apr 12, 2017	168	3058	1356	6	3052	3052	6
+Hanseniaspora guilliermondii strain UTAD222	yes	Hanseniaspora guilliermondii	56406	strain UTAD222	N/A	0	208	0	INSDC	GCA_900119595.1	GenBank	Feb 02, 2017	565	4152	3107	82	4070	4070	0
+Hammondia hammondi strain H.H.34	yes	Hammondia hammondi	99158	strain H.H.34	N/A	0	14860	0	GenBank	GCA_000258005.2	GenBank	May 06, 2019	N/A	8177	3570	174	8003	8003	1
+Haemaphysalis longicornis HaeL-2018	yes	Haemaphysalis longicornis	44386	HaeL-2018	N/A	11	3874	0	INSDC	GCA_013339765.2	GenBank	Jan 26, 2022	N/A	25651	13162	0	25651	25651	0
+Hamiltosporidium magnivora BE-OM-2	yes	Hamiltosporidium magnivora	148818	BE-OM-2	N/A	0	3550	0	INSDC	GCA_004325065.1	GenBank	Mar 05, 2019	242	4658	2160	0	4658	4658	0
+Hamiltosporidium magnivora IL-BN-2	no	Hamiltosporidium magnivora	148818	IL-BN-2	N/A	0	3833	0	INSDC	GCA_004325035.1	GenBank	Mar 05, 2019	227	4180	1966	0	4180	4180	0
+Histomonas meleagridis 2922-C6/04-10x	yes	Histomonas meleagridis	135588	2922-C6/04-10x	N/A	0	187	0	INSDC	GCA_020186115.1	GenBank	Sep 30, 2021	3	11119	6262	0	11119	11119	0
+Histomonas meleagridis 2922-C6/04-290x	no	Histomonas meleagridis	135588	2922-C6/04-290x	N/A	0	281	0	INSDC	GCA_020184695.1	GenBank	Sep 30, 2021	3	11137	6225	0	11137	11137	0
+Hepatocystis sp. ex Piliocolobus tephrosceles 2019	yes	Hepatocystis sp. ex Piliocolobus tephrosceles	2600580	2019	N/A	0	2439	0	INSDC	GCA_902459845.2	GenBank	Dec 12, 2019	928	5471	3383	130	5341	5341	31
+Homo sapiens REF	yes	Homo sapiens	9606	REF	N/A	24	169	0	Ensembl	GCA_000001405.28	Ensembl	GRCh38.p13	1263	60675	19653	40245	19973	20430	13990
+Haemoproteus tartakovskyi strain SISKIN1	yes	Haemoproteus tartakovskyi	707206	strain SISKIN1	N/A	0	2982	0	INSDC	GCA_001625125.1	ValkiunasLab	Mar 01, 2022	1	5425	1672	565	4860	4860	510
+Hamiltosporidium tvaerminnensis FI-OER-3-3	yes	Hamiltosporidium tvaerminnensis	1176355	FI-OER-3-3	N/A	0	2915	0	INSDC	GCA_004325045.1	GenBank	Mar 05, 2019	241	4121	1975	0	4121	4121	0
+Hamiltosporidium tvaerminnensis IL-G-3	no	Hamiltosporidium tvaerminnensis	1176355	IL-G-3	N/A	0	2738	0	INSDC	GCA_004325075.1	GenBank	Mar 05, 2019	309	6203	2800	0	6203	6203	0
+Hanseniaspora uvarum strain AWRI3580	yes	Hanseniaspora uvarum	29833	strain AWRI3580	N/A	0	18	0	INSDC	GCA_001747055.1	GenBank	Sep 27, 2016	653	4061	3027	0	4061	4061	0
+Hemileia vastatrix Race XXXIII	yes	Hemileia vastatrix	203904	Race XXXIII	N/A	0	116756	0	INSDC	GCA_004125335.1	CaixetaLab	Feb 14, 2022	2	12854	6481	284	12570	12570	0
+Ixodes persulcatus Iper-2018	yes	Ixodes persulcatus	34615	Iper-2018	N/A	0	11596	0	INSDC	GCA_013358835.2	GenBank	Dec 22, 2020	N/A	28510	11555	114	28396	28396	114
+Ixodes ricinus Charles River	yes	Ixodes ricinus	34613	Charles River	N/A	0	204516	0	INSDC	GCA_000973045.2	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Ixodes scapularis ISE6	no	Ixodes scapularis	6945	ISE6	N/A	0	6476	0	INSDC	GCA_002892825.2	VectorBase	IscaI1.0	1355	23470	12117	4408	19062	19062	0
+Ixodes scapularis PalLabHiFi	yes	Ixodes scapularis	6945	PalLabHiFi	N/A	0	648	0	INSDC	GCF_016920785.2	GenBank	Jul 07, 2021	871	38656	14694	11997	26659	26659	6237
+Ixodes scapularis Wikel	no	Ixodes scapularis	6945	Wikel	N/A	0	369492	0	INSDC	GCA_000208615.1	VectorBase	IscaW1.7	1496	23342	12972	2854	20488	20488	0
+Leishmania amazonensis MHOM/BR/71973/M2269	yes	Leishmania amazonensis	5659	MHOM/BR/71973/M2269	N/A	0	2627	0	GenBank	GCA_000438535.1	HertzFowlerLab	Dec 6, 2018	27	8127	4640	433	7694	7694	337
+Leishmania amazonensis strain PH8	no	Leishmania amazonensis	5659	strain PH8	N/A	34	42	0	INSDC	GCA_025688915.1	GenBank	Oct 14, 2022	8	8803	3836	322	8481	8481	184
+Leishmania arabica strain LEM1108	yes	Leishmania arabica	40284	strain LEM1108	N/A	36	132	0	GenBank	GCA_000410695.2	GeneDB	Dec 16, 2014	52	8755	3989	109	8646	8646	0
+Leishmania braziliensis MHOM/BR/75/M2904 2019	no	Leishmania braziliensis	5660	MHOM/BR/75/M2904 2019	N/A	35	0	15	Sanger	Jul 30, 2019	Sanger	Jul 30, 2019	N/A	8599	3121	115	7511	8484	973
+Leptotrombidium deliense UoL-UT	yes	Leptotrombidium deliense	299467	UoL-UT	N/A	0	66710	0	INSDC	GCA_003675905.1	VectorBase	LdelU1.1	956	15015	11343	348	14667	14667	0
+Leishmania donovani strain BHU 1220	no	Leishmania donovani	5661	strain BHU 1220	N/A	36	0	0	GenBank	GCA_000470725.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Leishmania donovani CL-SL	no	Leishmania donovani	5661	CL-SL	N/A	36	0	0	GenBank	GCA_003719575.1	GenBank	Nov 09, 2018	1149	9757	5190	1125	8632	8632	0
+Leishmania donovani HU3	no	Leishmania donovani	5661	HU3	N/A	36	0	0	INSDC	GCA_900635355.2	N/A	N/A	734	8594	5033	190	8404	8404	47
+Leishmania donovani strain LV9	no	Leishmania donovani	5661	strain LV9	N/A	36	0	108	Sanger	Feb 27, 2019	Sanger	Feb 27, 2019	N/A	8387	3106	142	7413	8245	832
+Leishmania enriettii strain LEM3045	yes	Leishmania enriettii	5663	strain LEM3045	N/A	36	459	0	GenBank	GCA_000410755.2	GeneDB	Dec 16, 2014	61	8831	3994	100	8731	8731	0
+Leishmania enriettii MCAV/BR/2001/CUR178	no	Leishmania enriettii	5663	MCAV/BR/2001/CUR178	N/A	36	18	0	INSDC	GCA_017916305.1	GenBank	Apr 15, 2021	10	8353	18	0	8353	8353	0
+Leishmania gerbilli strain LEM452	yes	Leishmania gerbilli	40285	strain LEM452	N/A	36	106	0	GenBank	GCA_000443025.1	GeneDB	Dec 16, 2014	46	8700	4019	101	8599	8599	0
+Lutzomyia longipalpis Jacobina	no	Lutzomyia longipalpis	7200	Jacobina	N/A	0	11532	0	INSDC	GCA_000265325.1	VectorBase	LlonJ1.6	683	10765	7499	338	10426	10427	0
+Lutzomyia longipalpis M1	yes	Lutzomyia longipalpis	7200	M1	N/A	4	0	0	INSDC	GCF_024334085.1	GenBank	May 06, 2023	19	12045	7849	807	11238	11238	29
+Leishmania major Friedlin 2021	no	Leishmania major	5664	Friedlin 2021	N/A	36	0	0	INSDC	GCA_916722125.1	GenBank	Oct 03, 2021	40	11242	4057	2734	8508	8508	91
+Leishmania martiniquensis LEM2494	yes	Leishmania martiniquensis	1580590	LEM2494	N/A	36	215	0	GenBank	GCA_000409445.2	GeneDB	Dec 16, 2014	41	8581	3998	98	8483	8483	0
+Leishmania martiniquensis MHOM/TH/2012/LSCM1	no	Leishmania martiniquensis	1580590	MHOM/TH/2012/LSCM1	N/A	36	6	0	INSDC	GCA_017916325.1	GenBank	Jun 02, 2021	2	7967	8	0	7967	7967	0
+Leishmania orientalis MHOM/TH/2014/LSCM4	yes	Leishmania orientalis	2249476	MHOM/TH/2014/LSCM4	N/A	36	62	0	INSDC	GCA_017916335.1	GenBank	Apr 15, 2021	1	8158	23	0	8158	8158	0
+Leishmania panamensis strain MHOM/PA/94/PSC-1	no	Leishmania panamensis	5679	strain MHOM/PA/94/PSC-1	N/A	35	0	0	GenBank	GCA_000755165.1	GenBank	Mar 05, 2015	1234	8048	4629	337	7711	7711	185
+Lomentospora prolificans JHH-5317	yes	Lomentospora prolificans	41688	JHH-5317	N/A	0	0	1624	GenBank	GCA_002276285.1	GenBank	Dec 19, 2017	1266	8768	6373	208	8560	8560	0
+Leptomonas pyrrhocoris H10	yes	Leptomonas pyrrhocoris	157538	H10	N/A	35	25	0	GenBank	GCA_001293395.1	LukesLab	May 05, 2015	5	10148	5819	270	9878	9878	0
+Lichtheimia ramosa KPH11	yes	Lichtheimia ramosa	688394	KPH11	N/A	10	0	0	INSDC	GCA_008728235.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Leptomonas seymouri ATCC 30220	yes	Leptomonas seymouri	5684	ATCC 30220	N/A	0	0	1222	GenBank	GCA_001299535.1	YurchenkoLab	May 06, 2015	1	8595	4814	107	8488	8488	0
+Leishmania sp. Ghana MHOM/GH/2012/GH5	yes	Leishmania sp. Ghana	2803181	MHOM/GH/2012/GH5	N/A	36	80	0	INSDC	GCA_017918215.1	GenBank	Apr 15, 2021	N/A	8119	23	0	8119	8119	0
+Leishmania sp. Namibia MPRO/NA/1975/252/LV425	yes	Leishmania sp. Namibia	2802991	MPRO/NA/1975/252/LV425	N/A	36	31	0	INSDC	GCA_017918225.1	GenBank	Apr 15, 2021	N/A	8266	20	0	8266	8266	0
+Leishmania tarentolae Parrot-TarII	yes	Leishmania tarentolae	5689	Parrot-TarII	N/A	36	4	1311	CorbeilLab	Jun 22, 2011	CorbeilLab	Jun 22, 2011	N/A	8530	3337	78	8452	8452	0
+Leishmania tarentolae Parrot Tar II 2019	no	Leishmania tarentolae	5689	Parrot Tar II 2019	N/A	0	179	0	INSDC	GCA_009731335.1	N/A	N/A	531	8703	5048	0	8703	8703	0
+Leishmania turanica strain LEM423	yes	Leishmania turanica	62297	strain LEM423	N/A	36	183	0	GenBank	GCA_000441995.1	GeneDB	Dec 16, 2014	42	8717	3997	109	8608	8608	0
+Mitosporidium daphniae UGP3	yes	Mitosporidium daphniae	1485682	UGP3	N/A	0	610	0	GenBank	GCA_000760515.2	GenBank	Sep 30, 2014	337	3330	2231	0	3330	3330	0
+Musca domestica aabys	yes	Musca domestica	7370	aabys	N/A	0	20487	0	INSDC	GCA_000371365.1	VectorBase	MdomA1.4	1200	16135	10390	1733	14402	14402	126
+Musca domestica aabys 2023	no	Musca domestica	7370	aabys 2023	N/A	0	339	0	INSDC	GCF_030504385.1	RefSeq	Aug 24, 2023	13	21281	11694	3800	17481	17481	525
+Monocercomonoides exilis PA203	yes	Monocercomonoides exilis	2049356	PA203	N/A	0	101	0	GenBank	GCA_001643675.2	GenBank	Nov 22, 2021	12	18152	6098	0	18152	18152	0
+Macaca fascicularis REF	yes	Macaca fascicularis	9541	REF	N/A	21	7579	0	INSDC	GCF_000364345.1	GenBank	Jun 12, 2013	1547	29324	18564	7740	21404	21584	302
+Monilinia fructicola CPMC6	yes	Monilinia fructicola	38448	CPMC6	N/A	0	99	0	INSDC	GCA_016906325.1	GenBank	Feb 18, 2021	6	10085	5872	0	10085	10085	0
+Macaca mulatta isolate AG07107	yes	Macaca mulatta	9544	isolate AG07107	N/A	22	2916	0	INSDC	GCA_003339765.3	GenBank	2019-02-13	1301	35432	18004	13671	21591	21761	767
+Mus musculus C57BL6J	yes	Mus musculus	10090	C57BL6J	N/A	21	44	0	Ensembl	GCA_000001635.8	Ensembl	GRCm38.p6	1260	55487	21887	32968	21936	22519	13220
+Madurella mycetomatis mm55	yes	Madurella mycetomatis	100816	mm55	N/A	0	804	0	INSDC	GCA_001275765.2	GenBank	Mar 09, 2016	28	10707	7427	0	10707	10707	0
+Myotis myotis mMyoMyo1	yes	Myotis myotis	51298	mMyoMyo1	N/A	0	92	0	INSDC	GCF_014108235.1	RefSeq	Sep 30, 2020	N/A	30786	16949	10554	20157	20232	5403
+Malassezia pachydermatis CBS 1879	yes	Malassezia pachydermatis	77020	CBS 1879	N/A	0	91	0	INSDC	GCA_001278385.1	GenBank	Sep 02, 2015	607	4202	3452	0	4202	4202	0
+Malassezia restricta KCTC 27527	yes	Malassezia restricta	76775	KCTC 27527	N/A	9	0	0	GenBank	GCA_003290485.1	GenBank	Jul 09, 2018	448	4544	3013	138	4406	4406	0
+Naganishia albida JCM2334	no	Naganishia albida	100951	JCM2334	N/A	0	0	74	GenBank	GCA_001599735.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Naganishia albida NRRL Y-1402	yes	Naganishia albida	100951	NRRL Y-1402	N/A	0	0	834	GenBank	GCA_001444555.1	GenBank	Jul 26, 2016	N/A	N/A	N/A	0	N/A	0	0
+Nematocida ausubeli ERTm2	yes	Nematocida ausubeli	1913371	ERTm2	N/A	0	202	0	GenBank	GCA_000250695.1	GenBank	Mar 18, 2015	108	2831	1030	61	2770	2770	0
+Nematocida ausubeli ERTm6	no	Nematocida ausubeli	1913371	ERTm6	N/A	0	22	0	GenBank	GCA_000738915.1	GenBank	Aug 11, 2014	107	2493	1034	60	2433	2433	0
+Neospora caninum Liverpool 2019	no	Neospora caninum	29176	Liverpool 2019	N/A	13	0	31	INSDC	GCA_016097395.1	FranciaLab	May 18, 2021	2	7798	3522	434	7364	7364	258
+Nosema ceranae BRL	no	Nosema ceranae	40302	BRL	N/A	0	110	0	INSDC	GCA_004919615.1	GenBank	Jun 10, 2020	3	2294	1380	6	2288	2288	6
+Nosema ceranae strain PA08_1199	no	Nosema ceranae	40302	strain PA08_1199	N/A	0	0	536	GenBank	GCA_000988165.1	GenBank	May 5, 2015	229	3265	1565	56	3209	3209	19
+Nematocida displodere strain JUm2807	yes	Nematocida displodere	1805483	strain JUm2807	N/A	0	0	40	GenBank	GCA_001642395.1	GenBank	May 11, 2016	224	2278	1418	0	2278	2278	0
+Naegleria fowleri ATCC 30863	no	Naegleria fowleri	5763	ATCC 30863	N/A	0	1124	0	GenBank	GCA_000499105.1	Wittwer	Nov 05, 2014	568	13252	6056	17	13235	13235	17
+Naegleria fowleri strain ATCC 30894	no	Naegleria fowleri	5763	strain ATCC 30894	N/A	0	81	0	INSDC	GCA_008403515.1	INSDC	Jan 15, 2020	1008	13788	6657	23	13765	13765	23
+Naegleria fowleri strain Ty	yes	Naegleria fowleri	5763	strain Ty	N/A	37	0	0	INSDC	GCA_014843625.1	AliLab	Sep 21, 2021	9	9405	5845	11	9394	9394	11
+Nakaseomyces glabratus BG2	no	Nakaseomyces glabratus	5478	BG2	N/A	13	0	0	INSDC	GCA_014217725.1	GenBank	Aug 17, 2020	3	5481	4172	261	5220	5220	14
+Nakaseomyces glabratus BG3993	no	Nakaseomyces glabratus	5478	BG3993	N/A	13	0	0	INSDC	GCA_020450195.1	GenBank	Oct 13, 2021	N/A	5487	3953	254	5233	5233	19
+Nakaseomyces glabratus CBS138 2020	no	Nakaseomyces glabratus	5478	CBS138 2020	N/A	13	0	0	INSDC	GCA_010111755.1	GenBank	Jul 07, 2020	3	5508	4037	250	5258	5258	11
+Nakaseomyces glabratus DSY562	no	Nakaseomyces glabratus	5478	DSY562	N/A	13	5	0	INSDC	GCA_002219185.1	GenBank	Jul 14, 2017	2	5543	4008	253	5290	5290	0
+Nosema granulosis Ou3-Ou53	yes	Nosema granulosis	83296	Ou3-Ou53	N/A	0	1754	0	INSDC	GCA_015832245.1	GenBank	Dec 08, 2020	N/A	3639	1442	0	3639	3639	0
+Naegleria lovaniensis strain ATCC 30569	yes	Naegleria lovaniensis	51637	strain ATCC 30569	N/A	0	109	0	INSDC	GCA_003324165.2	GenBank	Feb 04, 2021	N/A	14764	7183	0	14764	14764	0
+Naegleria lovaniensis NL_76_15_250	no	Naegleria lovaniensis	51637	NL_76_15_250	N/A	0	199	0	INSDC	GCA_022530875.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Nematocida major JUm2507	yes	Nematocida major	1912982	JUm2507	N/A	0	111	0	INSDC	GCA_021653875.1	GenBank	Jan 27, 2022	N/A	2417	1038	0	2417	2417	0
+Ordospora colligata FI-SK-17-1	no	Ordospora colligata	174685	FI-SK-17-1	N/A	0	26	0	INSDC	GCA_004325055.1	GenBank	Mar 05, 2019	N/A	1849	1048	49	1800	1800	0
+Ordospora colligata GB-EP-1	no	Ordospora colligata	174685	GB-EP-1	N/A	0	18	0	INSDC	GCA_004324935.1	GenBank	Mar 05, 2019	N/A	1857	1049	49	1808	1808	0
+Ordospora colligata NO-V-7	no	Ordospora colligata	174685	NO-V-7	N/A	0	21	0	INSDC	GCA_004324945.1	GenBank	Mar 05, 2019	N/A	1862	1049	49	1813	1813	0
+Plasmodium adleri G01	yes	Plasmodium adleri	880535	G01	N/A	14	0	68	GenBank	GCA_900097015.1	Sanger	Nov 29, 2017	480	5566	3620	241	5325	5325	89
+Podosphaera aphanis DRCT72020	yes	Podosphaera aphanis	79252	DRCT72020	N/A	0	12702	0	INSDC	GCA_022627015.2	GenBank	Mar 18, 2022	N/A	17469	7075	31	17438	17438	31
+Phlebotomus argentipes India	yes	Phlebotomus argentipes	94469	India	N/A	0	64	0	INSDC	GCF_947086385.1	GenBank	Sep 28, 2023	N/A	10843	7245	303	10540	10540	8
+Phialophora attinorum CBS 131958	yes	Phialophora attinorum	1664694	CBS 131958	N/A	0	131	0	INSDC	GCF_001299255.1	RefSeq	Aug 28, 2017	23	11848	7844	0	11848	11848	0
+Plasmodium billcollinsi G01	yes	Plasmodium billcollinsi	720590	G01	N/A	14	0	0	GenBank	GCA_900257145.2	GenBank	Jun 10, 2020	349	5199	3475	229	4970	4970	100
+Plasmodium blacklocki G01	yes	Plasmodium blacklocki	880536	G01	N/A	14	0	83	GenBank	GCA_900097035.1	Sanger	Nov 29, 2017	470	5382	3507	282	5100	5100	131
+Plasmodium brasilianum strain Bolivian I	yes	Plasmodium brasilianum	5824	strain Bolivian I	N/A	14	29	0	INSDC	GCA_023973825.1	GenBank	Jun 29, 2022	1	5911	2264	144	5767	5767	144
+Phytophthora cactorum 10300	yes	Phytophthora cactorum	29920	10300	N/A	0	4623	0	INSDC	GCA_003287315.1	GenBank	Jul 03, 2018	14	23884	11307	15	23869	23869	15
+Pneumocystis canis CanA	yes	Pneumocystis canis	2698477	CanA	N/A	0	33	0	INSDC	GCA_017788925.1	GenBank	Apr 05, 2021	N/A	3113	2317	38	3075	3075	0
+Phytophthora cinnamomi GKB4	yes	Phytophthora cinnamomi	4785	GKB4	N/A	0	133	0	INSDC	GCA_018691715.1	GenBank	Jun 03, 2021	N/A	19981	9504	0	19981	19981	0
+Plasmodium coatneyi Hackeri	yes	Plasmodium coatneyi	208452	Hackeri	N/A	14	0	0	GenBank	GCA_001680005.1	GenBank	Sep 16, 2016	487	5575	3435	59	5516	5516	0
+Podospora comata strain T mat+	yes	Podospora comata	48703	strain T mat+	N/A	7	0	0	INSDC	GCA_900290415.1	GenBank	Oct 22, 2018	998	13100	7103	2652	10448	10448	2178
+Paratrypanosoma confusum CUL13	yes	Paratrypanosoma confusum	1470209	CUL13	N/A	0	266	1922	GenBank	GCA_002921335.1	FlegontovLab	Mar 02, 2018	51	8659	3745	0	8659	8659	0
+Peronospora effusa R13	yes	Peronospora effusa	542832	R13	N/A	0	784	0	INSDC	GCA_003843895.1	GenBank	2018-11-27	692	8603	5447	0	8603	8603	0
+Penicillium expansum d1	yes	Penicillium expansum	27334	d1	N/A	0	270	0	INSDC	GCA_000769735.1	GenBank	Oct 28, 2014	N/A	11023	7676	0	11023	11023	0
+Plasmodium falciparum 7G8 2019	no	Plasmodium falciparum	5833	7G8 2019	N/A	0	20	0	INSDC	GCA_009761555.1	N/A	N/A	60	5482	2528	356	5126	5126	251
+Plasmodium falciparum CD01	no	Plasmodium falciparum	5833	CD01	N/A	14	0	5	GenBank	GCA_900617135.1	Sanger	Apr 20, 2018	1054	5483	2455	325	5158	5158	228
+Plasmodium falciparum GA01	no	Plasmodium falciparum	5833	GA01	N/A	14	0	4	GenBank	GCA_900632005.1	Sanger	Apr 20, 2018	1069	5551	2498	327	5224	5224	163
+Plasmodium falciparum GB4	no	Plasmodium falciparum	5833	GB4	N/A	14	0	10	GenBank	GCA_900632035.1	Sanger	Apr 20, 2018	1077	5637	2528	302	5335	5335	138
+Plasmodium falciparum GN01	no	Plasmodium falciparum	5833	GN01	N/A	14	0	3	GenBank	GCA_900631995.1	Sanger	Apr 20, 2018	1068	5600	2524	302	5298	5298	169
+Plasmodium falciparum IT	no	Plasmodium falciparum	5833	IT	N/A	14	0	11	GenBank	GCA_900632055.1	Sanger	Apr 20, 2018	1074	5577	2525	327	5250	5250	133
+Plasmodium falciparum KE01	no	Plasmodium falciparum	5833	KE01	N/A	14	0	5	GenBank	GCA_900631975.1	Sanger	Apr 20, 2018	1078	5479	2517	245	5234	5234	97
+Plasmodium falciparum KH01	no	Plasmodium falciparum	5833	KH01	N/A	14	0	6	GenBank	GCA_900632025.1	Sanger	Apr 20, 2018	1064	5570	2489	306	5264	5264	169
+Plasmodium falciparum KH02	no	Plasmodium falciparum	5833	KH02	N/A	14	0	5	GenBank	GCA_900632015.1	Sanger	Apr 20, 2018	1075	5554	2519	286	5268	5268	118
+Plasmodium falciparum ML01	no	Plasmodium falciparum	5833	ML01	N/A	14	0	101	GenBank	GCA_900632085.1	Sanger	Apr 20, 2018	1013	6067	2402	785	5282	5282	629
+Plasmodium falciparum NF135.C10	no	Plasmodium falciparum	5833	NF135.C10	N/A	0	21	0	INSDC	GCA_009761425.1	N/A	N/A	59	5615	2454	587	5028	5028	462
+Plasmodium falciparum NF166	no	Plasmodium falciparum	5833	NF166	N/A	0	30	0	INSDC	GCA_009761515.1	N/A	N/A	60	5584	2519	431	5153	5153	313
+Plasmodium falciparum SD01	no	Plasmodium falciparum	5833	SD01	N/A	13	0	4	GenBank	GCA_900632095.1	Sanger	Apr 20, 2018	1058	5444	2476	315	5129	5129	181
+Plasmodium falciparum SN01	no	Plasmodium falciparum	5833	SN01	N/A	14	0	20	GenBank	GCA_900632075.1	Sanger	Apr 20, 2018	1081	5592	2545	241	5351	5351	103
+Plasmodium falciparum TG01	no	Plasmodium falciparum	5833	TG01	N/A	14	0	63	GenBank	GCA_900632065.1	Sanger	Apr 20, 2018	1072	6060	2579	377	5683	5683	243
+Plasmodium fragile strain nilgiri	yes	Plasmodium fragile	5857	strain nilgiri	N/A	0	247	0	GenBank	GCA_000956335.1	GenBank	Jul 26, 2016	487	5744	3454	72	5672	5672	15
+Plasmodium gaboni strain G01	no	Plasmodium gaboni	647221	strain G01	N/A	14	0	82	GenBank	GCA_900097045.1	Sanger	Nov 29, 2017	473	5368	3408	234	5134	5134	88
+Plasmodium gaboni strain SY75	yes	Plasmodium gaboni	647221	strain SY75	N/A	14	0	818	GenBank	GCA_001602025.1	GenBank	Jun 16, 2016	473	5431	3461	233	5198	5198	88
+Plasmodium gallinaceum 8A	yes	Plasmodium gallinaceum	5849	8A	N/A	0	0	152	GenBank	GCA_900005855.1	GeneDB	Sep 01, 2020	842	5447	3779	161	5286	5286	29
+Porcisia hertigi MCOE/PA/1965/C119	yes	Porcisia hertigi	2761500	MCOE/PA/1965/C119	N/A	36	38	0	INSDC	GCA_017918235.1	GenBank	Apr 15, 2021	N/A	7891	15	0	7891	7891	0
+Pediculus humanus USDA	yes	Pediculus humanus	121225	USDA	N/A	0	1882	0	INSDC	GCA_000006295.1	VectorBase	PhumU2.5	716	11712	7934	927	10785	10785	0
+Pythium insidiosum Pi-s	yes	Pythium insidiosum	114742	Pi-s	N/A	0	1192	0	INSDC	GCA_001029375.1	GenBank	Oct 03, 2017	1016	14850	9510	0	14850	14850	0
+Plasmodium knowlesi strain A1H1	no	Plasmodium knowlesi	5850	strain A1H1	N/A	14	0	0	INSDC	GCA_900162085.1	ClarkLab	Mar 15, 2021	3	5465	3025	515	4950	4950	421
+Plasmodium knowlesi strain Malayan Strain Pk1 A	no	Plasmodium knowlesi	5850	strain Malayan Strain Pk1 A	N/A	0	28	0	GenBank	GCA_002140095.1	GenBank	May 15, 2017	481	5343	3304	84	5259	5259	22
+Pichia kudriavzevii strain CBS5147	no	Pichia kudriavzevii	4909	strain CBS5147	N/A	5	0	0	INSDC	GCA_003054405.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Pichia kudriavzevii strain CBS573	yes	Pichia kudriavzevii	4909	strain CBS573	N/A	5	0	0	INSDC	GCA_003054445.1	GenBank	May 31, 2019	715	5367	4134	212	5155	5155	0
+Pneumocystis sp. macacae isolate P2C	yes	Pneumocystis sp. 'macacae'	2698480	P2C	N/A	16	3	0	INSDC	GCA_018127085.1	GenBank	Apr 23, 2021	N/A	3427	2310	37	3390	3390	0
+Plasmodium malariae UG01	yes	Plasmodium malariae	5858	UG01	N/A	14	0	47	GenBank	GCA_900090045.1	GeneDB	Sep 01, 2020	832	6715	4432	773	5942	5942	637
+Pseudoloma neurophilia strain MK1	yes	Pseudoloma neurophilia	146866	strain MK1	N/A	0	0	1603	GenBank	GCA_001432165.1	GenBank	Nov 05, 2015	283	3645	1775	0	3645	3645	0
+Pyricularia oryzae BR32	no	Pyricularia oryzae	318829	BR32	N/A	0	111	0	GEMO	Nov 02, 2011	GEMO	Nov 02, 2011	821	14781	6645	432	14349	14349	0
+Pneumocystis oryctolagi CS1	yes	Pneumocystis oryctolagi	42067	CS1	N/A	0	38	0	INSDC	GCA_017311285.1	GenBank	Mar 09, 2021	1	2856	2141	0	2856	2856	0
+Plasmodium ovale curtisi GH01	yes	Plasmodium ovale	36330	curtisi GH01	N/A	14	0	638	GenBank	GCA_900090035.2	GeneDB	Sep 01, 2020	746	7311	3324	640	6671	6671	500
+Plasmodium ovale wallikeri PowCR01	no	Plasmodium ovale	36330	wallikeri PowCR01	N/A	14	763	0	INSDC	GCA_900090025.2	GenBank	Jun 15, 2018	19	7047	3966	819	6228	6228	715
+Phytophthora palmivora var. palmivora strain sbr112.9	yes	Phytophthora palmivora	4796	var. palmivora strain sbr112.9	N/A	0	0	24809	GenBank	GCA_002911725.1	GenBank	Feb 02, 2018	1616	28185	8972	3511	24674	24674	3511
+Phlebotomus papatasi Israel	no	Phlebotomus papatasi	29031	Israel	N/A	0	106826	0	INSDC	GCA_000262795.1	VectorBase	PpapI1.6	687	11835	7967	444	11391	11391	0
+Phlebotomus papatasi M1	yes	Phlebotomus papatasi	29031	M1	N/A	5	640	0	INSDC	GCF_024763615.1	GenBank	May 07, 2023	18	12663	7861	1053	11610	11610	58
+Pyricularia pennisetigena Br36	yes	Pyricularia pennisetigena	1578925	Br36	N/A	5	103	0	INSDC	GCA_004337985.1	GenBank	Mar 19, 2019	1	11428	5737	0	11428	11428	0
+Phytophthora plurivora AV1007	yes	Phytophthora plurivora	639000	AV1007	N/A	0	0	1897	GenBank	GCA_002247145.1	GenBank	Aug 11, 2017	N/A	N/A	N/A	0	N/A	0	0
+Plasmodium praefalciparum strain G01	yes	Plasmodium praefalciparum	880534	strain G01	N/A	14	39	0	INSDC	GCA_900095595.1	GenBank	Mar 25, 2018	366	6202	4270	315	5887	5887	148
+Phytophthora ramorum 14567	no	Phytophthora ramorum	164328	14567	N/A	0	27	0	INSDC	GCA_020800235.1	GenBank	Nov 08, 2021	8	15350	8403	0	15350	15350	0
+Phytophthora ramorum strain Pr102	yes	Phytophthora ramorum	164328	strain Pr102	N/A	0	28	0	GenBank	GCA_020800215.1	GenBank	Nov 23, 2022	8	15268	8461	1	15267	15267	1
+Plasmodium reichenowi CDC	yes	Plasmodium reichenowi	5854	CDC	N/A	14	0	356	GenBank	GCA_000723685.1	GeneDB	Sep 01, 2020	1060	5995	4279	357	5638	5638	141
+Plasmodium reichenowi G01	no	Plasmodium reichenowi	5854	G01	N/A	14	0	34	GenBank	GCA_900097025.1	Sanger	Nov 29, 2017	597	5909	3990	265	5644	5644	97
+Plasmodium relictum SGS1-like	yes	Plasmodium relictum	85471	SGS1-like	N/A	14	0	460	GenBank	GCA_900005765.1	GeneDB	Sep 01, 2020	891	5312	3741	168	5144	5144	40
+Puccinia sorghi strain RO10H11247	yes	Puccinia sorghi	27349	strain RO10H11247	N/A	0	15715	0	INSDC	GCA_001263375.1	GenBank	Aug 19, 2015	755	21769	7991	691	21078	21078	157
+Puccinia striiformis strain 93-210	yes	Puccinia striiformis	27350	strain 93-210	N/A	0	492	0	INSDC	GCA_002920065.1	GenBank	Feb 06, 2018	9	15090	6198	0	15090	15090	0
+Puccinia striiformis 93TX-2	no	Puccinia striiformis	27350	93TX-2	N/A	0	561	0	INSDC	GCA_002920205.1	GenBank	2018-02-06	13	14629	5793	0	14629	14629	0
+Paecilomyces variotii CBS 101075	yes	Paecilomyces variotii	264951	CBS 101075	N/A	0	86	0	INSDC	GCF_004022145.1	RefSeq	Apr 05, 2019	20	9415	6787	145	9270	9270	3
+Plasmodium vinckei Cameroon EL	no	Plasmodium vinckei	5860	Cameroon EL	N/A	14	0	0	INSDC	GCA_903994265.1	GenBank	Aug 06, 2020	465	5386	3368	104	5282	5282	36
+Plasmodium vinckei brucechwatti DA	no	Plasmodium vinckei	5860	brucechwatti DA	N/A	14	0	0	INSDC	GCA_903994205.1	GenBank	Aug 06, 2020	463	5332	3320	107	5225	5225	40
+Plasmodium vinckei lentum DE	no	Plasmodium vinckei	5860	lentum DE	N/A	14	0	0	INSDC	GCA_903994225.1	GenBank	Aug 06, 2020	464	5351	3342	104	5247	5247	29
+Plasmodium vinckei petteri strain CR	no	Plasmodium vinckei	5860	petteri strain CR	N/A	0	66	0	GenBank	GCA_000524515.1	GenBank	Jan 31, 2014	491	5213	2343	53	5160	5160	0
+Plasmodium vinckei petteri CR 2020	no	Plasmodium vinckei	5860	petteri CR 2020	N/A	14	0	0	INSDC	GCA_903994235.1	GenBank	Aug 06, 2020	469	5388	3367	108	5280	5280	36
+Plasmodium vinckei vinckei CY	yes	Plasmodium vinckei	5860	vinckei CY	N/A	14	0	0	INSDC	GCA_900681995.1	GenBank	Jan 30, 2019	471	5151	3296	100	5051	5051	19
+Plasmodium vinckei vinckei strain vinckei	no	Plasmodium vinckei	5860	vinckei strain vinckei	N/A	0	49	0	GenBank	GCA_000709005.1	GenBank	Jun 17, 2014	333	5009	2321	55	4954	4954	0
+Plasmodium vivax P01	yes	Plasmodium vivax	5855	P01	N/A	14	0	226	GenBank	GCA_900093555.2	GeneDB	Sep 01, 2020	852	6861	4516	338	6523	6523	185
+Plasmodium vivax PAM	no	Plasmodium vivax	5855	PAM	N/A	0	28	0	INSDC	GCA_949152365.1	GenBank	Mar 11, 2023	1	6819	2984	407	6412	6412	322
+Plasmodium vivax PvSY56	no	Plasmodium vivax	5855	PvSY56	N/A	0	14	0	INSDC	GCA_003402215.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Plasmodium vivax PvW1	no	Plasmodium vivax	5855	PvW1	N/A	0	19	0	INSDC	GCA_914969965.1	GenBank	Jun 27, 2022	5	6175	3027	100	6075	6075	0
+Plasmodium vivax-like Pvl01	yes	Plasmodium vivax-like sp.	27990	Pvl01	N/A	14	0	1176	Sanger	Jun 21, 2018	Sanger	Jun 21, 2018	516	5604	2013	73	5275	5531	256
+Pneumocystis wakefieldiae 2A	yes	Pneumocystis wakefieldiae	38082	2A	N/A	17	0	0	INSDC	GCA_017301755.1	GenBank	Mar 09, 2021	N/A	3223	2359	41	3182	3182	0
+Plasmodium yoelii yoelii 17X	yes	Plasmodium yoelii	5861	yoelii 17X	N/A	14	0	0	GenBank	GCA_900002385.2	GeneDB	Sep 01, 2020	801	6263	4605	223	6040	6040	57
+Plasmodium yoelii yoelii 17XNL 2023	no	Plasmodium yoelii	5861	yoelii 17XNL 2023	N/A	14	0	0	INSDC	GCA_020844765.3	GenBank	Feb 17, 2023	2	6054	2721	83	5971	5971	0
+Plasmodium yoelii yoelii YM	no	Plasmodium yoelii	5861	yoelii YM	N/A	14	181	0	INSDC	GCA_900002395.1	GenBank	Nov 19, 2015	656	5832	3953	178	5654	5654	54
+Rhipicephalus annulatus KleinGrass	yes	Rhipicephalus annulatus	34611	KleinGrass	N/A	0	16339	0	INSDC	GCA_013436015.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Rhizophagus irregularis A1 (DAOM-664342)	no	Rhizophagus irregularis	588596	A1 (DAOM-664342)	N/A	0	0	11196	GenBank	GCA_001593125.1	GenBank	Dec 11, 2017	1358	26582	11482	106	26476	26476	0
+Rhizophagus irregularis C2	no	Rhizophagus irregularis	588596	C2	N/A	33	0	0	INSDC	GCA_020716745.1	GenBank	Dec 07, 2021	2	25634	9779	90	25544	25544	0
+Raffaelea lauricola RL4	yes	Raffaelea lauricola	483707	RL4	N/A	0	169	0	INSDC	GCA_014183025.1	RollinsLab	Feb 11, 2022	N/A	10461	5935	146	10315	10315	0
+Rickenella mellea Ricmel1	yes	Rickenella mellea	50990	Ricmel1	N/A	0	848	0	INSDC	GCA_004355085.1	GenBank	Mar 20, 2019	1079	17193	9635	59	17134	17134	1
+Rhipicephalus microplus Rmic-2018	yes	Rhipicephalus microplus	6941	Rmic-2018	N/A	11	0	7036	INSDC	GCA_013339725.1	RefSeq	GCF_013339725.1	5	28997	11986	10399	18598	18598	1114
+Rhizopus microsporus var. microsporus ATCC 52814	yes	Rhizopus microsporus	58291	var. microsporus ATCC 52814	N/A	0	560	0	INSDC	GCA_002083745.1	GenBank	Apr 12, 2017	1034	11554	7373	58	11496	11496	0
+Rattus norvegicus BN/NHsdMcwi	yes	Rattus norvegicus	10116	BN/NHsdMcwi	N/A	22	153	0	INSDC	GCA_015227675.2	GenBank	Dec 02, 2020	50	30560	20735	7421	23096	23139	918
+Rhodnius prolixus CDC	yes	Rhodnius prolixus	13249	CDC	N/A	0	16537	0	INSDC	GCA_000181055.3	VectorBase	RproC3.5	1437	15738	9832	670	15061	15068	47
+Rhipicephalus sanguineus Rsan-2018	yes	Rhipicephalus sanguineus	34632	Rsan-2018	N/A	11	2316	0	INSDC	GCF_013339695.2	GenBank	GCF_013339695.2	N/A	32718	13151	10208	22510	22510	1263
+Scedosporium apiospermum IHEM 14462	yes	Scedosporium apiospermum	563466	IHEM 14462	N/A	0	0	176	GenBank	GCA_000732125.1	GenBank	Mar 30, 2018	1489	10920	6276	2544	8376	8376	2544
+Stomoxys calcitrans USDA	yes	Stomoxys calcitrans	35570	USDA	N/A	0	12042	0	INSDC	GCA_001015335.1	VectorBase	ScalU1.6	895	16970	10169	2892	14078	14078	117
+Sabethes cyaneus ScyaPA1	yes	Sabethes cyaneus	53552	ScyaPA1	N/A	3	5	0	INSDC	GCF_943734655.1	GenBank	Feb 28, 2023	2	14156	8736	1062	13094	13094	257
+Synchytrium endobioticum MB42	yes	Synchytrium endobioticum	286115	MB42	N/A	0	786	0	INSDC	GCA_006535955.1	GenBank	Jul 01, 2019	709	8031	5002	0	8031	8031	0
+Saccharomycodes ludwigii UTAD17	yes	Saccharomycodes ludwigii	36035	UTAD17	N/A	0	1360	0	INSDC	GCA_900491785.1	GenBank	Sep 05, 2018	615	4017	3466	2	4015	4015	0
+Sarcocystis neurona SN3	yes	Sarcocystis neurona	42890	SN3	N/A	0	171	701	GenBank	GCA_000727475.1	KissingerLab	Apr 13, 2015	1	7089	2838	124	6965	6965	0
+Sarcocystis neurona SO SN1	no	Sarcocystis neurona	42890	SO SN1	N/A	0	3066	0	GenBank	GCA_000875885.1	ParkinsonLab	July 23, 2015	N/A	7077	2819	0	7077	7077	0
+Saccharomyces paradoxus CBS432	yes	Saccharomyces paradoxus	27291	CBS432	N/A	16	0	0	INSDC	GCA_002079055.1	GenBank	Feb 03, 2020	845	5803	4596	275	5528	5528	0
+Spironucleus salmonicida ATCC50377	yes	Spironucleus salmonicida	348837	ATCC50377	N/A	9	33	0	GenBank	GCA_000497125.2	GenBank	Oct 05, 2021	N/A	9066	3260	399	8667	8667	194
+Sarcoptes scabiei Arlian	yes	Sarcoptes scabiei	52283	Arlian	N/A	0	18859	0	INSDC	GCA_000828355.1	VectorBase	SscaA1.2	629	10797	6701	326	10471	10471	186
+Trichoderma atroviride strain JCM 9410	yes	Trichoderma atroviride	63577	strain JCM 9410	N/A	0	23	0	INSDC	GCA_001599035.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma brucei EATRO1125	no	Trypanosoma brucei	5691	EATRO1125	N/A	11	0	685	INSDC	GCA_019096175.1	RoditiLab	Aug 27, 2021	34	10890	3956	2680	8210	8210	2138
+Trypanosoma brucei Lister strain 427	no	Trypanosoma brucei	5691	Lister strain 427	N/A	11	0	21	GeneDB	Jan 16, 2013	GeneDB	Jan 16, 2013	829	9313	3554	469	8314	8844	530
+Trypanosoma brucei Lister strain 427 2018	no	Trypanosoma brucei	5691	Lister strain 427 2018	N/A	44	0	272	GenBank	GCA_900497135.1	SiegelLab	Dec 17, 2018	34	17243	4830	5855	11388	11388	5481
+Trichomonascus ciferrii CBS 4856	yes	Trichomonascus ciferrii	44093	CBS 4856	N/A	0	583	0	INSDC	GCA_008704605.1	GenBank	Sep 26, 2019	828	6909	4842	6	6903	6903	6
+Trypanosoma congolense IL3000 2019	no	Trypanosoma congolense	5692	IL3000 2019	N/A	11	0	364	GenBank	GCA_003013265.1	Liverpool	Sep 10, 2019	749	10315	3200	2293	8022	8022	2028
+Thelohania contejeani T1	yes	Thelohania contejeani	164912	T1	N/A	0	1391	0	INSDC	GCA_014805555.1	GenBank	Sep 30, 2020	N/A	2865	1297	0	2865	2865	0
+Trypanosoma congolense Tc1/148	no	Trypanosoma congolense	5692	Tc1/148	N/A	0	536	0	INSDC	GCA_002287245.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain 231	no	Trypanosoma cruzi	5693	strain 231	N/A	0	0	8469	GenBank	GCA_900252365.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi Berenice	no	Trypanosoma cruzi	5693	Berenice	N/A	0	923	0	INSDC	GCA_013358655.1	GenBank	Jun 18, 2020	921	14352	6996	1045	13307	13307	599
+Trypanosoma cruzi Brazil A4	no	Trypanosoma cruzi	5693	Brazil A4	N/A	43	0	359	GenBank	GCA_015033625.1	TarletonLab	Aug 26, 2019	57	18708	5628	4475	14233	14233	4475
+Trypanosoma cruzi Bug2148	no	Trypanosoma cruzi	5693	Bug2148	N/A	0	0	929	GenBank	GCA_002749415.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain CL	no	Trypanosoma cruzi	5693	strain CL	N/A	0	7764	0	INSDC	GCA_003719155.1	GenBank	Nov 05, 2018	74	34344	10216	2066	32278	32278	1962
+Trypanosoma cruzi CL Brener Esmeraldo-like	yes	Trypanosoma cruzi	5693	CL Brener Esmeraldo-like	N/A	41	0	0	GenBank	GCA_000209065.1	GeneDB	Dec 07, 2015	529	10596	6631	1557	9039	9039	1299
+Trypanosoma cruzi CL Brener Non-Esmeraldo-like	no	Trypanosoma cruzi	5693	CL Brener Non-Esmeraldo-like	N/A	41	0	0	GenBank	GCA_000209065.1	GeneDB	Dec 07, 2015	591	11106	6697	1721	9385	9385	1446
+Trypanosoma cruzi Dm28c 2017	no	Trypanosoma cruzi	5693	Dm28c 2017	N/A	0	1029	0	GenBank	GCA_002219105.2	GenBank	Sep 15, 2017	60	22870	6413	9227	13643	13643	6614
+Trypanosoma cruzi Dm28c 2018	no	Trypanosoma cruzi	5693	Dm28c 2018	N/A	0	0	636	GenBank	GCA_003177105.1	GenBank	May 30, 2018	2145	19112	8567	3793	15319	15319	1878
+Trypanosoma cruzi strain G	no	Trypanosoma cruzi	5693	strain G	N/A	0	1450	0	INSDC	GCA_003719455.1	GenBank	Nov 08, 2018	57	13503	4546	795	12708	12708	740
+Trypanosoma cruzi strain S11	no	Trypanosoma cruzi	5693	strain S11	N/A	0	7855	0	INSDC	GCA_003594385.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain S15	no	Trypanosoma cruzi	5693	strain S15	N/A	0	9197	0	INSDC	GCA_003594585.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain S154a	no	Trypanosoma cruzi	5693	strain S154a	N/A	0	6946	0	INSDC	GCA_003594715.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain S162a	no	Trypanosoma cruzi	5693	strain S162a	N/A	0	8588	0	INSDC	GCA_003594605.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain S23b	no	Trypanosoma cruzi	5693	strain S23b	N/A	0	7145	0	INSDC	GCA_003594425.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain S44a	no	Trypanosoma cruzi	5693	strain S44a	N/A	0	4971	0	INSDC	GCA_003594705.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain S92a	no	Trypanosoma cruzi	5693	strain S92a	N/A	0	7134	0	INSDC	GCA_003594445.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi Sylvio X10/1	no	Trypanosoma cruzi	5693	Sylvio X10/1	N/A	47	0	0	AnderssonLab	Mar 18, 2017	AnderssonLab	Mar 18, 2017	N/A	20684	3019	65	18643	20619	1976
+Trypanosoma cruzi Sylvio X10/1-2012	no	Trypanosoma cruzi	5693	Sylvio X10/1-2012	N/A	0	0	27019	GenBank	GCA_000188675.2	GenBank	Oct 2, 2012	59	10876	4355	29	10847	10847	29
+Trypanosoma cruzi TCC	no	Trypanosoma cruzi	5693	TCC	N/A	0	0	1236	GenBank	GCA_003177095.1	GenBank	May 30, 2018	2320	29302	13367	5111	24191	24191	2964
+Trypanosoma cruzi strain Y	no	Trypanosoma cruzi	5693	strain Y	N/A	0	0	9821	GenBank	GCA_002749425.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi Y C6	no	Trypanosoma cruzi	5693	Y C6	N/A	40	0	226	GenBank	GCA_015033655.1	TarletonLab	Aug 26, 2019	43	17650	5498	3382	14268	14268	3382
+Trypanosoma cruzi strain Ycl2	no	Trypanosoma cruzi	5693	strain Ycl2	N/A	0	6884	0	INSDC	GCA_003594485.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain Ycl4	no	Trypanosoma cruzi	5693	strain Ycl4	N/A	0	6664	0	INSDC	GCA_003594405.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi strain Ycl6	no	Trypanosoma cruzi	5693	strain Ycl6	N/A	0	6967	0	INSDC	GCA_003594465.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma cruzi marinkellei strain B7	no	Trypanosoma cruzi	5693	marinkellei strain B7	N/A	0	16783	0	GenBank	GCA_000300495.1	SchnauferLab	Jun 03, 2014	55	10228	4112	0	10228	10228	0
+Trypanosoma equiperdum OVI	yes	Trypanosoma equiperdum	5694	OVI	N/A	0	2026	0	INSDC	GCA_001457755.2	GenBank	Oct 05, 2016	874	9135	4667	1467	7668	7668	1396
+Trypanosoma evansi strain STIB 805	yes	Trypanosoma evansi	5697	strain STIB 805	N/A	13	0	0	GenBank	GCA_917563935.1	SchnauferLab	Jun 03, 2014	3	10104	3656	1457	8647	8647	1457
+Tritrichomonas foetus strain K	yes	Tritrichomonas foetus	1144522	strain K	N/A	0	1480	0	INSDC	GCA_001839685.1	GenBank	Oct 25, 2016	1240	25336	14127	306	25030	25030	0
+Toxoplasma gondii strain ME49xCTG F1 S27	no	Toxoplasma gondii	5811	strain ME49xCTG F1 S27	N/A	0	48	0	INSDC	GCA_014898695.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Toxoplasma gondii RH 2016	no	Toxoplasma gondii	5811	RH 2016	N/A	0	0	441	GenBank	GCA_001593265.1	n/a	n/a	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma grayi ANR4	yes	Trypanosoma grayi	71804	ANR4	N/A	0	0	2871	GenBank	GCA_000691245.1	GenBank	Jun 17, 2014	1	10676	4444	91	10585	10585	2
+Trachipleistophora hominis Unknown strain	yes	Trachipleistophora hominis	72359	Unknown strain	N/A	0	310	0	GenBank	GCA_000316135.1	GenBank	Mar 19, 2015	577	3253	1606	41	3212	3212	0
+Triatoma infestans isolate FIOC_28	yes	Triatoma infestans	30076	isolate FIOC_28	N/A	0	14951	0	INSDC	GCA_011037195.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Talaromyces marneffei TM4	no	Talaromyces marneffei	37727	TM4	N/A	8	0	0	INSDC	GCA_003971505.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma melophagium St. Kilda	yes	Trypanosoma melophagium	715481	St. Kilda	N/A	0	64	0	INSDC	GCA_022059095.1	GenBank	Feb 08, 2022	N/A	9768	4378	0	9768	9768	0
+Trichophyton mentagrophytes TIMM 2789	yes	Trichophyton mentagrophytes	523103	TIMM 2789	N/A	0	16543	0	INSDC	GCA_003118255.1	GenBank	Mar 07, 2018	N/A	7958	4858	98	7860	7860	0
+Theileria orientalis Fish Creek	no	Theileria orientalis	68886	Fish Creek	N/A	4	0	0	INSDC	GCA_003072545.3	GenBank	Feb 07, 2022	N/A	3379	1713	57	3322	3322	0
+Theileria orientalis Goon Nure	no	Theileria orientalis	68886	Goon Nure	N/A	4	0	0	INSDC	GCA_003072535.3	GenBank	Feb 07, 2022	N/A	3215	1628	63	3152	3152	0
+Tubulinosema ratisbonensis Franzen	yes	Tubulinosema ratisbonensis	291195	Franzen	N/A	0	952	0	INSDC	GCA_004000155.1	GenBank	Jan 08, 2019	192	3082	1731	69	3013	3013	0
+Trichoderma reesei QM6a 2017	no	Trichoderma reesei	51453	QM6a 2017	N/A	7	0	0	INSDC	GCA_002006585.1	WangLab	May 18, 2021	3	10238	5691	159	10079	10079	0
+Trichomonas tenax strain NIH4 ATCC 30207	yes	Trichomonas tenax	43075	strain NIH4 ATCC 30207	N/A	0	4161	0	INSDC	GCA_900231805.1	N/A	N/A	N/A	N/A	N/A	0	N/A	0	0
+Trypanosoma theileri isolate Edinburgh	yes	Trypanosoma theileri	67003	isolate Edinburgh	N/A	0	0	253	GenBank	GCA_002087225.1	GenBank	Apr 12, 2017	817	11312	5808	0	11312	11312	0
+Trichomonas vaginalis G3 2022	yes	Trichomonas vaginalis	5722	G3 2022	N/A	6	212	0	INSDC	GCA_026262505.1	GenBank	Dec 07, 2022	3	88188	19801	51878	72290	36310	15274
+Verruconis gallopava strain CBS 43764	yes	Verruconis gallopava	253628	strain CBS 43764	N/A	0	367	0	INSDC	GCA_000836295.1	GenBank	Jun 16, 2016	925	9871	6714	53	9818	9818	5
+Xylaria arbuscula CBS 124340	yes	Xylaria arbuscula	114810	CBS 124340	N/A	0	89	0	INSDC	GCA_022385695.1	GenBank	Mar 18, 2022	1	13122	6773	177	12945	12945	7
+Yarrowia lipolytica CLIB89 (W29)	no	Yarrowia lipolytica	4952	CLIB89 (W29)	N/A	6	0	0	GenBank	GCA_001761485.1	GenBank	Oct 25, 2016	991	8746	5008	797	7949	7949	115
