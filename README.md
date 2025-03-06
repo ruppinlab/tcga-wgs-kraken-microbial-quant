@@ -27,11 +27,12 @@ See README_details.md.
 
 ## Installation
 
-Install and set up a minimal conda enviroment using
-[Miniforge3](https://github.com/conda-forge/miniforge#download)
-
 The `conda` program will be used to install all required software.  Installation
 was tested using conda 25.1.1, though any later version is expected to work.
+
+If you do not already have `conda`, install and set up a minimal conda environment using
+[Miniforge3](https://github.com/conda-forge/miniforge#download)
+If necessary, this installation will take around 5 minutes.
 
 Obtain the project source and create a conda environment with the tools
 needed to run the project:
@@ -94,7 +95,7 @@ appropriate versions of the software.   The dependent software is
 Additionally, we customized a few files in the open-source Kraken 2 (v2.13),
 Krakentools (v1.2), and Bracken (v3.0) projects.   The modified source, with
 an explanation of what was changed, can be found in the `external/` directory
-see `external/README_external.md`.  Note that MAIT has been licenced under
+see `external/README_external.md`.  Note that MAIT has been licensed under
 the GPL version 3.0.
 
 ## References
