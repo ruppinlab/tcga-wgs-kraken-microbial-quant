@@ -6,7 +6,7 @@ printshellcmds: true
 nolock: true
 notemp: true
 scheduler: greedy
-max-status-checks-per-second: 1/60
+max-status-checks-per-second: 0.01666
 latency-wait: 120
 jobs: unlimited
 cores: all
