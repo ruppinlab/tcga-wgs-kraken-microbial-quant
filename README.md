@@ -56,7 +56,8 @@ Run the workflow on a cluster:
 ```bash
 ./scripts/run_snakemake_slurm.sh \
 --workflow-profile workflow/profiles/biowulf \
---sbatch-opts="--time=3-00:00:00 --cpus-per-task=28 --mem=10248"
+--sbatch-opts="--time=3-00:00:00 --cpus-per-task=28 --mem=10248" \
+ --conda-frontend conda
 ```
 
 We've provided a SLURM cluster configuration for the NIH HPC cluster,
