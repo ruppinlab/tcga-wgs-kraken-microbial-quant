@@ -96,11 +96,22 @@ an explanation of what was changed, can be found in the `external/` directory
 see `external/README_external.md`.  Note that MAIT has been licensed under
 the GPL version 3.0.
 
+## EuPathDB protein sequences
+
+The MAIT pipeline requires the protein sequences from EuPathDB.  These freely
+available sequences are not conveniently accessible by script, and so we
+have provided a version from August 11, 2024 as 
+
+    resources/eupathdb/prot/eupathdb_prot.tar.gz
+
 ## References
 
-1. Lu et al. [Metagenome analysis using the Kraken software suite](
+1. Alvarez-Jarreta et al., VEuPathDB: the eukaryotic pathogen, vector and host
+   bioinformatics resource center in 2023, Nucleic Acids Research, 
+   Nucleic Acids Research, Volume 52, Issue D1, 5 January 2024, Pages D808–D816
+2. Lu et al. [Metagenome analysis using the Kraken software suite](
    https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9725748/).
    Nat Protoc. 2022 Dec;17(12):2815-2839. doi: 10.1038/s41596-022-00738-y
-2. Ge et al. [Comprehensive analysis of microbial content in whole-genome
+3. Ge et al. [Comprehensive analysis of microbial content in whole-genome
    sequencing samples from The Cancer Genome Atlas project](
    https://doi.org/10.1101/2024.05.24.595788). bioRxiv 2024.05.24.595788
