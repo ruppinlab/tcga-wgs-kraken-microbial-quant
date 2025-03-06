@@ -1,7 +1,7 @@
 # External Tools
 
 This directory contains external open-source tools that were modified
-and are used in this project.  We modified parts of Bracken, kraken2
+and are used in this project.  We modified parts of Bracken, Kraken2
 and KrakenTools.
 
 Each subdirectory contains an archive of the unmodified source of the
@@ -31,7 +31,7 @@ https://github.com/DerrickWood/kraken2.git        tag: v2.1.3
 https://github.com/jenniferlu717/Bracken.git      tag: v3.0
 https://github.com/jenniferlu717/KrakenTools.git  tag: v2.0
 
-We make the following changes.
+We make the following changes as of January 1, 2025.
 
 Kraken2
 =======
