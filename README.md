@@ -3,9 +3,6 @@
 A Kraken2 + Bracken based pipeline for classifying and quantifying
 microbial reads from GDC TCGA WGS data.
 
-## Details
-
-See README_details.md.
 
 ## Prerequistes
 
